@@ -1,0 +1,7 @@
+__pycache__/
+encryption_test/
+.vscode/
+secret.key
+*.pyc
+.idea
+test.txt*
