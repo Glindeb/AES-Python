@@ -1,4 +1,17 @@
-# Imported libraries
+"""
+This is a AES-128, AES-192, AES-256 bit encryption algorithm implementation in 
+Python 3.10 (no external libraries needed) that can be used as an external library 
+for AES encryption. 
+
+
+OBS! 
+Please note that this is a purely educational project designed to be used as a 
+testing, evaluating and learning platform but should still probably provide 
+a resonable security to encrypted data when used for encryption and decryption.
+
+"""
+
+# Imports
 from dataclasses import dataclass
 
 
@@ -6,12 +19,17 @@ from dataclasses import dataclass
 #      Program information m.m
 #------------------------------------
 __author__ = 'Gabriel Lindeblad'
-# ...
-# ...
+__copyright__ = 'Copyright 2022, Circut Labs'
+__credits__ = []
+__license__ = ''
+__version__ = '1.0'
+__maintainer__ = 'Gabriel Lindeblad'
+__email__ = 'Gabriel.lindeblad@icloud.com'
+__status__ = 'Development'
 
 
 #------------------------------------
-#          Core data class
+#         Core data class
 #------------------------------------
 @dataclass(order=True)
 class Core_data:
