@@ -1,3 +1,4 @@
+.Ds_store
 __pycache__/
 encryption_test/
 .vscode/
@@ -5,3 +6,10 @@ secret.key
 *.pyc
 .idea
 test.txt*
+.cspell
+.DS_Store
+*_cache
+.tox
+htmlcov
+.coverage
+build

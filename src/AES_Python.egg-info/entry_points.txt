@@ -1,0 +1,2 @@
+[console_scripts]
+PyAES = PyAES.__main__:main

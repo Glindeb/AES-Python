@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=63.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "AES-Python"
+dynamic = ["version"]
+description = "AES (Advanced Encryption Standard) implementation in Python-3"
+readme = "README.md"
+authors = [{name = "Gabriel Lindeblad", email = "Gabriel.Lindeblad@icloud.com"}]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Environment :: Console",
+    "Topic :: Education",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+keywords = ["AES", "AES_Python", "PyAES", "AES-Python", "Advanced Encryption Standard", "encryption", "cryptography"]
+requires-python = ">=3.7"
+
+[tools.setuptools.dynamic]
+version = {attr = "PyAES.__version__"}
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-cov", "mypy", "flake8", "tox"]
+
+[project.urls]
+Homepage = "https://github.com/Glindeb/AES-Python"
+Repository = "https://github.com/Glindeb/AES-Python"
+Documentation = "https://github.com/Glindeb/AES-Python"
+
+[project.scripts]
+PyAES = "PyAES.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "--cov=src/PyAES"
+testpaths = [
+    "tests",
+]
+
+[tool.mypy]
+mypy_path = "src"
+check_untyped_defs = true
+disallow_any_generics = true
+ignore_missing_imports = true
+no_implicit_optional = true
+show_error_codes = true
+strict_equality = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+no_implicit_reexport = true

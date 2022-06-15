@@ -1,17 +1,38 @@
-# AES-test-Python
+# AES-Python
 
-- [AES-test-Python](#aes-test-python)
+[![Core Build & Publish](https://github.com/Glindeb/AES-Python/actions/workflows/core.yml/badge.svg)](https://github.com/Glindeb/AES-Python/actions/workflows/core.yml) [![CodeQL](https://github.com/Glindeb/AES-Python/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Glindeb/AES-Python/actions/workflows/codeql-analysis.yml) [![Test](https://github.com/Glindeb/AES-Python/actions/workflows/test.yml/badge.svg)](https://github.com/Glindeb/AES-Python/actions/workflows/test.yml)
+
+- [AES-Python](#aes-python)
   - [About](#about)
-  - [Flow chart of the program structure and logic](#flow-chart-of-the-program-structure-and-logic)
-
+  - [Implemented running modes](#implemented-running-modes)
+  - [More information](#more-information)
+  - [Installation](#installation)
+  - [How to use](#how-to-use)
 
 About
 ---
-In this projekt I try to implement the rijndael algorithm in python with the help from varius differnt resurces in the sole purpuse to understand how AES and other encryption algorithms work. Hoefully I will after this understand enough to try and write a somewhat strong encryption algorithm implementation in pythoin by my self. 
+This project is a way for me to structure and work on my gymnasium project where i implement the AES encryption algorithm in python to the evaluate it and write a report about it. This project is written in pure python and do not use any external libraries for the core file "AES.py". The project and the code is not intended for any use outside of educational and no security can be guaranteed for any encryption and/or decryption that uses this implementation. Do also not that this is not going to be the most efficient implementation due to my limited coding skills and knowledge, but i have tried to do my best to make it as efficient as possible so it´s not to slow to work with.
 
+This implementation of AES (Advanced Encryption Algorithm) algorithm is implemented with a number of different running modes such as ECB and CBC with more coming soon (see list below for updated information)...
 
-Flow chart of the program structure and logic
+Implemented running modes
 ---
-Here is a flow chart representation of the of the encryption program as well as a explanation of both the logical structure and the individual functions that the porgram is building on.
+- [x] **ECB** - Electronic Code Book mode (For more information see ...)
+- [x] **CBC** - Cipher Block Chaining mode (For more information see ...)
+- [x] **PCBC** - Propagating Cipher Block Chaining mode (For more information see ...)
+- [ ] **CFB** - Cipher Feedback mode (For more information see ...)
+- [ ] **OFB** - Output FeedBack mode (For more information see ...)
+- [ ] **CTR** - Counter mode (For more information see ...)
+- [ ] **GCM** - Galois/Counter mode (For more information see ...)
 
-![Diagram](AES-Flowchart.drawio)
+More information
+---
+...
+
+Installation
+---
+...
+
+How to use
+---
+...
