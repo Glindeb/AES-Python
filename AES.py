@@ -1,8 +1,7 @@
 """
-This is a AES-128, AES-192, AES-256 bit encryption algorithm implementation in 
-Python 3.10 (no external libraries needed) that can be used as an external library 
-for AES encryption. 
-
+This is a AES-128, AES-192, AES-256 bit encryption algorithm (Rijndael cipher) 
+implementation in Python 3.10 (no external libraries needed) that can be used 
+as an external library for AES encryption in python. 
 
 OBS! 
 Please note that this is a purely educational project designed to be used as a 
@@ -99,5 +98,38 @@ class Core_data:
         )
 
 
-class AES:
+#------------------------------------
+#           Actions class
+#------------------------------------
+class Actions:
+    # Progress bar display and update
+    def progress_bar(progress, total_progress):
+        percent = 100 * (float(progress) / float(total_progress))
+        bar = '#' * int(percent) + '-' * (100 - int(percent))
+        print(f"\r[{bar}] {percent:.2f}%", end="\r")
+        return progress + 16
+
+    
+    # Counts and dsiplays error messages
+    def error_message(message, errors):
+        print('[Error ' + message + ']')
+        return errors + 1
+    
+    # Converts a 16-byte array into a 4x4 matrix
+    def bytes_to_matrix(data):
+        return [list(data[i:i+4]) for i in range(0, len(data), 4)]
+
+
+    # Converts a 4x4 matrix into a 16-byte array
+    def matrix_to_bytes(matrix):
+        return bytes(sum(matrix, []))
+
+
+#------------------------------------
+#          AES main class
+#------------------------------------
+class AES(Actions):
+    def __init__(self):
+        super().__init__()
+    
     pass
