@@ -1,3 +1,4 @@
+.Ds_store
 __pycache__/
 encryption_test/
 .vscode/
