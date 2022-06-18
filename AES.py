@@ -12,6 +12,9 @@ a resonable security when used for encryption and decryption.
 
 # Imports
 from dataclasses import dataclass
+from old_implentation.core import Core
+
+from test_files.test import bytes_to_matrix
 
 
 #------------------------------------
@@ -43,6 +46,7 @@ class Core_data:
     key: str = ''
     keysize: int = 0
     key_storage_path: str = ''
+    key_storage_mode: str = 'False'
 
     # Round info
     number_of_rounds: int = 0
@@ -124,6 +128,39 @@ class Actions:
     def matrix_to_bytes(matrix):
         return bytes(sum(matrix, []))
 
+    
+    # Add round key function
+    def add_round_key(self, data, round_key):
+        key_matrix = bytes_to_matrix(round_key)
+        for r in range(4):
+            for c in range(4):
+                data[r][c] ^= key_matrix[r][c]
+        return data
+
+
+    # Performs the byte substitution layer
+    def sub_bytes(data, bytesTable):
+        for r in range(4):
+            for c in range(4):
+                data[r][c] = bytesTable(data[r][c])
+        return data
+
+    
+    # Shift rows function
+    def shift_rows(data):
+        data[0][1], data[1][1], data[2][1], data[3][1] = data[1][1], data[2][1], data[3][1], data[0][1]
+        data[0][2], data[1][2], data[2][2], data[3][2] = data[2][2], data[3][2], data[0][2], data[1][2]
+        data[0][3], data[1][3], data[2][3], data[3][3] = data[3][3], data[0][3], data[1][3], data[2][3]
+        return data
+
+
+    # Inverse shift rows function
+    def inv_shift_rows(data):
+        data[0][1], data[1][1], data[2][1], data[3][1] = data[3][1], data[0][1], data[1][1], data[2][1]
+        data[0][2], data[1][2], data[2][2], data[3][2] = data[2][2], data[3][2], data[0][2], data[1][2]
+        data[0][3], data[1][3], data[2][3], data[3][3] = data[1][3], data[2][3], data[3][3], data[0][3]
+        return data
+
 
 #------------------------------------
 #          AES main class
@@ -132,4 +169,7 @@ class AES(Actions):
     def __init__(self):
         super().__init__()
     
-    pass
+    # Loading Core data
+    core_data = Core_data
+    print(core_data)
+

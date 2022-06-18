@@ -1,0 +1,11 @@
+{
+    "key": "8d2e60365f17c7df1040d7501b4a7b5a",
+    "keysize": 128,
+    "key_storage_path": "C:\\Users\\Gabriel\\Documents\\GitHub\\AES-Python",
+    "key_storage_mode": "True",
+
+    "number_of_rounds": "10",
+    "round_keys": 10,
+    
+    "running_mode": "ECB"
+}
