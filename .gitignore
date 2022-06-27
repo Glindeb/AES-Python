@@ -6,3 +6,5 @@ secret.key
 *.pyc
 .idea
 test.txt*
+.cspell
+.DS_Store
