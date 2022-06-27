@@ -9,9 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: add badges
         uses: rocktimsaikia/badge-it@master
         with:
-          GITHUB_TOKEN: ${{ secrets.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 }}
+          GITHUB_TOKEN: ${{ secrets.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 }}
           badges: 'gh_license,gh_version'
           badge-style: 'flat'
