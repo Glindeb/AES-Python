@@ -128,7 +128,7 @@ class Actions:
     
     # Add round key function
     def add_round_key(self, data, round_key):
-        key_matrix = bytes_to_matrix(round_key)
+        key_matrix = self.bytes_to_matrix(round_key)
         for r in range(4):
             for c in range(4):
                 data[r][c] ^= key_matrix[r][c]
