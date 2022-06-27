@@ -1,6 +1,6 @@
 # AES-test-Python
 
-![Tests](https://github.com/Circut-labs/AES-Python/actions/workflows/test.yml/badge.svg) ![Stars](https://github.com/stars/glindeb/:repo?style=social)
+![Tests](https://github.com/Circut-labs/AES-Python/actions/workflows/test.yml/badge.svg) ![license](LICENSE)
 
 
 

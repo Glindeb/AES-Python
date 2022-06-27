@@ -1,4 +1,5 @@
 name: Tests
+author: Gabriel Lindeblad
 
 on:
   - push
