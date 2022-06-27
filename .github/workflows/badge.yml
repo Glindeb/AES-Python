@@ -13,7 +13,7 @@ jobs:
       - name: Dynamic Badges
         uses: Schneegans/dynamic-badges-action@v1.4.0
         with:
-          auth: ${{ secrets.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 }}
+          auth: ${{ secrets.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 }}
           gistID: c00a854f1d43e9f347339b3f39105021
           filename: badge.json
           label: version
