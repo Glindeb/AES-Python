@@ -1,6 +1,6 @@
 # AES-test-Python
 
-![Tests](https://github.com/Circut-labs/AES-Python/actions/workflows/tests.yml/badge.svg)
+![Tests](https://github.com/Circut-labs/AES-Python/actions/workflows/test.yml/badge.svg)
 
 - [AES-test-Python](#aes-test-python)
   - [About](#about)
