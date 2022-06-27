@@ -10,9 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: add badges
-        uses: rocktimsaikia/badge-it@master
+     - name: Create Badge
+        uses: schneegans/dynamic-badges-action@v1.4.0
         with:
-          GITHUB_TOKEN: ${{ secrets.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 }}
-          badges: 'gh_license,gh_version'
-          badge-style: 'flat'
+          auth: ${{ secrets.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 }}
+          gistID: c00a854f1d43e9f347339b3f39105021
+          filename: badge.json
+          label: version
+          message: 1.0
+          color: blue
