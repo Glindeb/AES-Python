@@ -126,15 +126,15 @@ class Actions:
         return bytes(sum(matrix, []))
 
     # Converts a list to a matrix of 4x4
-    def list_to_matrix(self, data: list[int]):
+    def list_to_matrix(self, data: list[int]) -> list[list[int]]:
         return [list(data[i:i+4]) for i in range(0, len(data), 4)]
 
     # Add round key function
     def add_round_key(self, data: list[list[int]], round_key: list[int]):
-        round_key = self.list_to_matrix(round_key)
+        key = self.list_to_matrix(round_key)
         for i in range(4):
             for j in range(4):
-                self.galois_multiplication(data[i][j], round_key[i][j])
+                self.galois_multiplication(data[i][j], key[i][j])
         return data
 
     # Performs the byte substitution layer
