@@ -10,8 +10,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-     - name: Create Badge
-        uses: schneegans/dynamic-badges-action@v1.4.0
+      - name: Dynamic Badges
+        uses: Schneegans/dynamic-badges-action@v1.4.0
         with:
           auth: ${{ secrets.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 }}
           gistID: c00a854f1d43e9f347339b3f39105021
