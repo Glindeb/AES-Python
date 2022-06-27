@@ -15,5 +15,3 @@ In this projekt I try to implement the rijndael algorithm in python with the hel
 Flow chart of the program structure and logic
 ---
 Here is a flow chart representation of the of the encryption program as well as a explanation of both the logical structure and the individual functions that the porgram is building on.
-
-![Diagram](AES-Flowchart.drawio)
