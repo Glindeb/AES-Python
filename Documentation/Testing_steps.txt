@@ -1,0 +1,9 @@
+To execute full test (command):
+- tox
+
+To execute individual tests (command):
+- flake8
+- mypy
+- pytest
+
+The tox command is then also run in multiple environments using github actions.

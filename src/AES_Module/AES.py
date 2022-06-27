@@ -131,10 +131,10 @@ class Actions:
 
     # Add round key function
     def add_round_key(self, data: list[list[int]], round_key: list[int]):
-        key_matrix = self.list_to_matrix(round_key)
-        for r in range(4):
-            for c in range(4):
-                data[r][c] ^= key_matrix[r][c]
+        round_key = self.list_to_matrix(round_key)
+        for i in range(4):
+            for j in range(4):
+                self.galois_multiplication(data[i][j], round_key[i][j])
         return data
 
     # Performs the byte substitution layer
@@ -157,6 +157,32 @@ class Actions:
         data[0][2], data[1][2], data[2][2], data[3][2] = data[2][2], data[3][2], data[0][2], data[1][2]
         data[0][3], data[1][3], data[2][3], data[3][3] = data[1][3], data[2][3], data[3][3], data[0][3]
         return data
+
+    # Performs the mix columns layer
+    def mix_columns(self, data: list[list[int]]):
+        for c in range(4):
+            a = data[0][c]
+            b = data[1][c]
+            c = data[2][c]
+            d = data[3][c]
+            data[0][c] = self.galois_multiplication(a, 2) ^ self.galois_multiplication(b, 3) ^ c ^ d
+            data[1][c] = a ^ self.galois_multiplication(b, 2) ^ self.galois_multiplication(c, 3) ^ d
+            data[2][c] = a ^ b ^ self.galois_multiplication(c, 2) ^ self.galois_multiplication(d, 3)
+            data[3][c] = self.galois_multiplication(a, 3) ^ b ^ c ^ self.galois_multiplication(d, 2)
+        return data
+
+    # Galois multiplication function (preforms multiplication in the Galois field)
+    def galois_multiplication(self, a: int, b: int):
+        p = 0
+        for i in range(8):
+            if b & 1 == 1:
+                p ^= a
+            hi_bit_set = a & 0x80
+            a <<= 1
+            if hi_bit_set == 0x80:
+                a ^= 0x1b
+            b >>= 1
+        return p & 0xff
 
 
 # ---------------
