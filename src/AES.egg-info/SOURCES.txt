@@ -1,5 +1,6 @@
 LICENSE
 README.md
+pyproject.toml
 setup.cfg
 setup.py
 src/AES.egg-info/PKG-INFO
@@ -9,3 +10,4 @@ src/AES.egg-info/requires.txt
 src/AES.egg-info/top_level.txt
 src/AES_Module/AES.py
 src/AES_Module/__init__.py
+src/AES_Module/py.typed

@@ -1,9 +1,9 @@
 [build-system]
 requires = ["setuptools>=42.0", "wheel"]
-build-backend = "setuptools.buildmeta"
+build-backend = "setuptools.build_meta"
 
 [tool.pytest.ini_options]
-addopts = "--cov=AES_Module"
+addopts = "--cov=src/AES_Module"
 testpaths = [
     "tests",
 ]
@@ -13,11 +13,11 @@ mypy_path = "src"
 check_untyped_defs = true
 disallow_any_generics = true
 ignore_missing_imports = true
-no_implict_optional = true
+no_implicit_optional = true
 show_error_codes = true
 strict_equality = true
 warn_redundant_casts = true
 warn_return_any = true
 warn_unreachable = true
 warn_unused_configs = true
-no_implict_reexport = true
+no_implicit_reexport = true

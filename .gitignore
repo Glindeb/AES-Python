@@ -8,3 +8,7 @@ secret.key
 test.txt*
 .cspell
 .DS_Store
+*_cache
+.tox
+htmlcov
+.coverage
