@@ -12,9 +12,6 @@ a resonable security when used for encryption and decryption.
 
 # Imports
 from dataclasses import dataclass
-from old_implentation.core import Core
-
-from test_files.test import bytes_to_matrix
 
 
 #------------------------------------
@@ -171,5 +168,4 @@ class AES(Actions):
     
     # Loading Core data
     core_data = Core_data
-    print(core_data)
 
