@@ -1,7 +1,6 @@
 # AES-test-Python
 
-![Tests](https://github.com/Circut-labs/AES-Python/actions/workflows/test.yml/badge.svg) ![license](LICENSE)
-
+![Tests](https://github.com/Circut-labs/AES-Python/actions/workflows/test.yml/badge.svg) ![](gh_license) ![](gh_version)
 
 
 - [AES-test-Python](#aes-test-python)
