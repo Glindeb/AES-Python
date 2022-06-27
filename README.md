@@ -1,6 +1,8 @@
 # AES-test-Python
 
-![Tests](https://github.com/Circut-labs/AES-Python/actions/workflows/test.yml/badge.svg)
+![Tests](https://github.com/Circut-labs/AES-Python/actions/workflows/test.yml/badge.svg) ![Stars](https://github.com/stars/glindeb/:repo?style=social)
+
+
 
 - [AES-test-Python](#aes-test-python)
   - [About](#about)
