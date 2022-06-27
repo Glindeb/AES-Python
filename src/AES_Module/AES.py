@@ -1,25 +1,26 @@
 """
-This is a AES-128, AES-192, AES-256 bit encryption algorithm (Rijndael cipher) 
-implementation in Python 3.10 (no external libraries needed) that can be used 
-as an external library for AES encryption in python. 
+This is a AES-128, AES-192, AES-256 bit encryption algorithm (Rijndael cipher)
+implementation in Python 3.10 (no external libraries needed) that can be used
+as an external library for AES encryption in python.
 
-OBS! 
-Please note that this is a purely educational project designed to be used as a 
-testing, evaluation and learning platform but should still probably provide 
-a resonable security when used for encryption and decryption.
+OBS!
+Please note that this is a purely educational project designed to be used as a
+testing, evaluation and learning platform but should still probably provide
+a reasonable security when used for encryption and decryption.
 
 """
-
+# ---------------
 # Imports
+# ---------------
 from dataclasses import dataclass
 
 
-#------------------------------------
-#      Program information m.m
-#------------------------------------
+# ---------------
+# Program information m.m
+# ---------------
 __author__ = 'Gabriel Lindeblad'
 __copyright__ = 'Copyright 2022, Circut Labs'
-__credits__ = []
+__credits__ = [""]
 __license__ = ''
 __version__ = '1.0'
 __maintainer__ = 'Gabriel Lindeblad'
@@ -27,14 +28,14 @@ __email__ = 'Gabriel.lindeblad@icloud.com'
 __status__ = 'Development'
 
 
-#------------------------------------
-#         Core data class
-#------------------------------------
+# ---------------
+# Core data class
+# ---------------
 @dataclass(order=True)
 class Core_data:
     # For progress bar
     progress: int = 0
-    total_progress: int = ''
+    total_progress: int = 0
 
     # Error count
     errors: int = 0
@@ -99,9 +100,9 @@ class Core_data:
         )
 
 
-#------------------------------------
-#           Actions class
-#------------------------------------
+# ---------------
+# Actions class
+# ---------------
 class Actions:
     # Progress bar display and update
     def progress_bar(progress, total_progress):
@@ -110,22 +111,19 @@ class Actions:
         print(f"\r[{bar}] {percent:.2f}%", end="\r")
         return progress + 16
 
-    
-    # Counts and dsiplays error messages
+    # Counts and displays error messages
     def error_message(message, errors):
         print('[Error ' + message + ']')
         return errors + 1
-    
+
     # Converts a 16-byte array into a 4x4 matrix
     def bytes_to_matrix(data):
         return [list(data[i:i+4]) for i in range(0, len(data), 4)]
-
 
     # Converts a 4x4 matrix into a 16-byte array
     def matrix_to_bytes(matrix):
         return bytes(sum(matrix, []))
 
-    
     # Add round key function
     def add_round_key(self, data, round_key):
         key_matrix = self.bytes_to_matrix(round_key)
@@ -134,7 +132,6 @@ class Actions:
                 data[r][c] ^= key_matrix[r][c]
         return data
 
-
     # Performs the byte substitution layer
     def sub_bytes(data, bytesTable):
         for r in range(4):
@@ -142,14 +139,12 @@ class Actions:
                 data[r][c] = bytesTable(data[r][c])
         return data
 
-    
     # Shift rows function
     def shift_rows(data):
         data[0][1], data[1][1], data[2][1], data[3][1] = data[1][1], data[2][1], data[3][1], data[0][1]
         data[0][2], data[1][2], data[2][2], data[3][2] = data[2][2], data[3][2], data[0][2], data[1][2]
         data[0][3], data[1][3], data[2][3], data[3][3] = data[3][3], data[0][3], data[1][3], data[2][3]
         return data
-
 
     # Inverse shift rows function
     def inv_shift_rows(data):
@@ -159,13 +154,12 @@ class Actions:
         return data
 
 
-#------------------------------------
-#          AES main class
-#------------------------------------
+# ---------------
+# AES main class
+# ---------------
 class AES(Actions):
     def __init__(self):
         super().__init__()
-    
+
     # Loading Core data
     core_data = Core_data
-
