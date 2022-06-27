@@ -1,5 +1,7 @@
 # AES-test-Python
 
+![Tests](https://github.com/Circut-labs/AES-Python/actions/workflows/tests.yml/badge.svg)
+
 - [AES-test-Python](#aes-test-python)
   - [About](#about)
   - [Flow chart of the program structure and logic](#flow-chart-of-the-program-structure-and-logic)
