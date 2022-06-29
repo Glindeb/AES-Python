@@ -1,0 +1,184 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.28)  29 JUN 2022 11:55
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**c:/Users/Gabriel/Documents/GitHub/AES-Python/documentation/Rapport/Main.tex
+(c:/Users/Gabriel/Documents/GitHub/AES-Python/documentation/Rapport/Main.tex
+LaTeX2e <2022-06-01> patch level 3
+L3 programming layer <2022-06-16> (c:/texlive/2022/texmf-dist/tex/latex/base/report.cls
+Document Class: report 2021/10/04 v1.4n Standard LaTeX document class
+(c:/texlive/2022/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count185
+\c@chapter=\count186
+\c@section=\count187
+\c@subsection=\count188
+\c@subsubsection=\count189
+\c@paragraph=\count190
+\c@subparagraph=\count191
+\c@figure=\count192
+\c@table=\count193
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+) (c:/texlive/2022/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2021/02/14 v1.3d Input encoding file
+\inpenc@prehook=\toks16
+\inpenc@posthook=\toks17
+) (c:/texlive/2022/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+ (c:/texlive/2022/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks18
+) (c:/texlive/2022/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+ (c:/texlive/2022/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+) (c:/texlive/2022/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+ (c:/texlive/2022/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen139
+\Gin@req@width=\dimen140
+) (c:/texlive/2022/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2022-04-20 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count194
+\l__pdf_internal_box=\box51
+) (./Main.aux (./Sections/Introduction.aux) (./Sections/Bakgrund.aux) (./Sections/Teori.aux) (./Sections/Material_utförande.aux) (./Sections/Resultat.aux) (./Sections/Diskussion.aux) (./Sections/Referenser.aux))
+\openout1 = `Main.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+ (c:/texlive/2022/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count195
+\scratchdimen=\dimen141
+\scratchbox=\box52
+\nofMPsegments=\count196
+\nofMParguments=\count197
+\everyMPshowfont=\toks19
+\MPscratchCnt=\count198
+\MPscratchDim=\dimen142
+\MPnumerator=\count199
+\makeMPintoPDFobject=\count266
+\everyMPtoPDFconversion=\toks20
+) (c:/texlive/2022/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+ (c:/texlive/2022/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+))
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 13.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 13.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 13.
+ [1
+
+{c:/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [1
+
+] [2
+
+]
+\openout2 = `Sections/Introduction.aux'.
+
+ (./Sections/Introduction.tex
+Chapter 1.
+) [3
+
+
+]
+\openout2 = `Sections/Bakgrund.aux'.
+
+ (./Sections/Bakgrund.tex
+Chapter 2.
+) [4
+
+
+
+
+]
+\openout2 = `Sections/Teori.aux'.
+
+ (./Sections/Teori.tex
+Chapter 3.
+) [5
+
+
+
+
+]
+\openout2 = `Sections/Material_utförande.aux'.
+
+ (./Sections/Material_utförande.tex
+Chapter 4.
+) [6
+
+
+
+
+]
+\openout2 = `Sections/Resultat.aux'.
+
+ (./Sections/Resultat.tex
+Chapter 5.
+) [7
+
+
+
+
+]
+\openout2 = `Sections/Diskussion.aux'.
+
+ (./Sections/Diskussion.tex
+Chapter 6.
+) [8
+
+
+
+
+]
+\openout2 = `Sections/Referenser.aux'.
+
+ (./Sections/Referenser.tex
+Chapter 7.
+) [9
+
+
+
+
+] (./Main.aux (./Sections/Introduction.aux) (./Sections/Bakgrund.aux) (./Sections/Teori.aux) (./Sections/Material_utförande.aux) (./Sections/Resultat.aux) (./Sections/Diskussion.aux) (./Sections/Referenser.aux)) ) 
+Here is how much of TeX's memory you used:
+ 1552 strings out of 478037
+ 29775 string characters out of 5843053
+ 321095 words of memory out of 5000000
+ 19976 multiletter control sequences out of 15000+600000
+ 474111 words of font info for 44 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 55i,6n,62p,252b,183s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
+Output written on Main.pdf (10 pages, 56641 bytes).
+PDF statistics:
+ 57 PDF objects out of 1000 (max. 8388607)
+ 36 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

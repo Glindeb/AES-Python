@@ -1,14 +1,35 @@
+\documentclass{report}
 
-\documentclass[12pt]{report}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 
+\title{Gymnasiearbete \\
+{\Large Fridagymnasiet Vänersborg}}
+\author{Gabriel Lindeblad}
+
 
 \begin{document}
-\section{Introduction}
-\section{Methodology}
-\section{Results}
-\section{Discussion}
-\section{Conclusion}
-\section{Acknowledgements}
+
+\maketitle
+
+\chapter*{Abstract}
+A abstract page
+
+\chapter*{Dedikering}
+Ett kapitel för Dedikering
+
+\include{Sections/Introduction.tex}
+
+\include{Sections/Bakgrund.tex}
+
+\include{Sections/Teori.tex}
+
+\include{Sections/Material_utförande.tex}
+
+\include{Sections/Resultat.tex}
+
+\include{Sections/Diskussion.tex}
+
+\include{Sections/Referenser.tex}
+
 \end{document}
