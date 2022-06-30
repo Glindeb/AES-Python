@@ -12,3 +12,4 @@ test.txt*
 .tox
 htmlcov
 .coverage
+build
