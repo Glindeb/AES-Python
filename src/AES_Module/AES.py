@@ -134,7 +134,7 @@ class Actions(Core_data):
     # Converts a list to a matrix of 4x4
     def list_to_matrix(self, data: list[int]) -> list[list[int]]:
         return [list(data[i:i+4]) for i in range(0, len(data), 4)]
-    
+
     # Converts a matrix of 4x4 to a list
     def matrix_to_list(self, matrix: list[list[int]]) -> list[int]:
         return sum(matrix, [])
@@ -208,16 +208,6 @@ class Key_expansion(Actions):
         super().__init__()
 
     # Generates the key schedule
-    def key_schedule(self, key: list[int], nb: int, nk: int, nr: int):
-        w = [0] * (nb * (nr + 1))
-        for i in range(nk):
-            w[i] = key[i]
-        for i in range(nk, nb * (nr + 1)):
-            w[i] = self.word_rotate(w[i - 1]) ^ w[i - nk]
-            w[i] = self.word_substitute(w[i])
-            w[i] = self.word_shift(w[i])
-        return w
-
     # Rotates a word
     def word_rotate(self, word: list[int]):
         word[0], word[1], word[2], word[3] = word[1], word[2], word[3], word[0]
@@ -229,17 +219,12 @@ class Key_expansion(Actions):
             word[i] = self.subBytesTable[word[i]]
         return word
 
-    # Shifts a word
-    def word_shift(self, word: bytearray):
-        return self.shift_rows(self.bytes_to_matrix(word))
-
     # Generates the round keys (nr = number of rounds) (nk = number of key words) (nb = number of columns in the state)
-    def round_keys(self, key: list[int], nb: int, nk: int, nr: int):
-        w = self.key_schedule(key, nb, nk, nr)
-        round_keys = []
+    def round_keys_gen(self, key: list[int], nb: int, nk: int, nr: int):
+        round_ks = []
         for i in range(nr + 1):
-            round_keys.append(w[i * nb: (i + 1) * nb])
-        return round_keys
+            round_ks.append(nb)
+        return round_ks
 
 
 # ---------------
