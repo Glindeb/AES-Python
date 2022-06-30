@@ -54,6 +54,9 @@ class Core_data:
         # Running mode
         self.running_mode = ''
 
+        # Xtime
+        self.xtime = lambda a: (((a << 1) ^ 0x1B) & 0xFF) if (a & 0x80) else (a << 1)
+
         # Sbox & inverse Sbox
         self.subBytesTable = (
             0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76,
@@ -104,7 +107,10 @@ class Core_data:
 # ---------------
 # Actions class
 # ---------------
-class Actions:
+class Actions(Core_data):
+    def __init__(self):
+        super().__init__()
+
     # Progress bar display and update
     def progress_bar(self, progress: int, total_progress: int):
         percent = 100 * (float(progress) / float(total_progress))
@@ -128,13 +134,17 @@ class Actions:
     # Converts a list to a matrix of 4x4
     def list_to_matrix(self, data: list[int]) -> list[list[int]]:
         return [list(data[i:i+4]) for i in range(0, len(data), 4)]
+    
+    # Converts a matrix of 4x4 to a list
+    def matrix_to_list(self, matrix: list[list[int]]) -> list[int]:
+        return sum(matrix, [])
 
     # Add round key function
     def add_round_key(self, data: list[list[int]], round_key: list[int]):
         key = self.list_to_matrix(round_key)
         for i in range(4):
             for j in range(4):
-                self.galois_multiplication(data[i][j], key[i][j])
+                data[i][j] ^= key[i][j]
         return data
 
     # Performs the byte substitution layer
@@ -160,37 +170,84 @@ class Actions:
 
     # Performs the mix columns layer
     def mix_columns(self, data: list[list[int]]):
-        for c in range(4):
-            a = data[0][c]
-            b = data[1][c]
-            c = data[2][c]
-            d = data[3][c]
-            data[0][c] = self.galois_multiplication(a, 2) ^ self.galois_multiplication(b, 3) ^ c ^ d
-            data[1][c] = a ^ self.galois_multiplication(b, 2) ^ self.galois_multiplication(c, 3) ^ d
-            data[2][c] = a ^ b ^ self.galois_multiplication(c, 2) ^ self.galois_multiplication(d, 3)
-            data[3][c] = self.galois_multiplication(a, 3) ^ b ^ c ^ self.galois_multiplication(d, 2)
+
+        def mix_single_column(data):
+            # see Sec 4.1.2 in The Design of Rijndael
+            t = data[0] ^ data[1] ^ data[2] ^ data[3]
+            u = data[0]
+            data[0] ^= t ^ self.xtime(data[0] ^ data[1])
+            data[1] ^= t ^ self.xtime(data[1] ^ data[2])
+            data[2] ^= t ^ self.xtime(data[2] ^ data[3])
+            data[3] ^= t ^ self.xtime(data[3] ^ u)
+
+        def mix(data):
+            for i in range(4):
+                mix_single_column(data[i])
+            return data
+
+        data = mix(data)
         return data
 
-    # Galois multiplication function (preforms multiplication in the Galois field)
-    def galois_multiplication(self, a: int, b: int):
-        p = 0
-        for i in range(8):
-            if b & 1 == 1:
-                p ^= a
-            hi_bit_set = a & 0x80
-            a <<= 1
-            if hi_bit_set == 0x80:
-                a ^= 0x1b
-            b >>= 1
-        return p & 0xff
+    # Preforms the inverse mix columns layer
+    def inv_mix_columns(self, data: list[list[int]]):
+        # see Sec 4.1.3 in The Design of Rijndael
+        for i in range(4):
+            u = self.xtime(self.xtime(data[i][0] ^ data[i][2]))
+            v = self.xtime(self.xtime(data[i][1] ^ data[i][3]))
+            data[i][0] ^= u
+            data[i][1] ^= v
+            data[i][2] ^= u
+            data[i][3] ^= v
+
+        self.mix_columns(data)
+        return data
+
+
+class Key_expansion(Actions):
+    def __init__(self):
+        super().__init__()
+
+    # Generates the key schedule
+    def key_schedule(self, key: list[int], nb: int, nk: int, nr: int):
+        w = [0] * (nb * (nr + 1))
+        for i in range(nk):
+            w[i] = key[i]
+        for i in range(nk, nb * (nr + 1)):
+            w[i] = self.word_rotate(w[i - 1]) ^ w[i - nk]
+            w[i] = self.word_substitute(w[i])
+            w[i] = self.word_shift(w[i])
+        return w
+
+    # Rotates a word
+    def word_rotate(self, word: list[int]):
+        word[0], word[1], word[2], word[3] = word[1], word[2], word[3], word[0]
+        return word
+
+    # Substitutes a word
+    def word_substitute(self, word: list[int]):
+        for i in range(4):
+            word[i] = self.subBytesTable[word[i]]
+        return word
+
+    # Shifts a word
+    def word_shift(self, word: bytearray):
+        return self.shift_rows(self.bytes_to_matrix(word))
+
+    # Generates the round keys (nr = number of rounds) (nk = number of key words) (nb = number of columns in the state)
+    def round_keys(self, key: list[int], nb: int, nk: int, nr: int):
+        w = self.key_schedule(key, nb, nk, nr)
+        round_keys = []
+        for i in range(nr + 1):
+            round_keys.append(w[i * nb: (i + 1) * nb])
+        return round_keys
 
 
 # ---------------
 # AES main class
 # ---------------
-class AES(Actions, Core_data):
+class AES(Key_expansion):
     def __init__(self):
         super().__init__()
 
     # Loading Core data
-    core_data = Core_data
+    core_data = Core_data()

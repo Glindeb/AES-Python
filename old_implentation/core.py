@@ -188,7 +188,7 @@ class Core:
             for i in range(4):
                 mix_single_column(data[i])
             return data
-        
+
         data = mix(data)
         return data
 
@@ -381,7 +381,7 @@ class KeyExpantion(Core):
     def __init__(self):
         super().__init__()
 
-    
+
     #Key expantion core function
     def Key_expand(self):
         key_words = []
@@ -400,7 +400,7 @@ class KeyExpantion(Core):
             self.num_rounds = 12
         if self.keysize == 256:
             self.num_rounds = 14
-        
+
         self.round_keys = [None for i in range(self.num_rounds + 1)]
         for i in range(self.num_rounds + 1):
 
