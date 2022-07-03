@@ -1,22 +1,115 @@
-\documentclass{report}
-
+\documentclass[a4paper, 12pt]{report}
+\usepackage{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage[pdftex,bookmarks,colorlinks,breaklinks]{hyperref}
+\usepackage{titlesec}
+\usepackage{float}
+\usepackage{fancyhdr}
 
-\title{Gymnasiearbete \\
-{\Large Fridagymnasiet Vänersborg}}
-\author{Gabriel Lindeblad}
+% Background image of title page
+\usepackage{eso-pic}
+\newcommand\BackgroundIm{
+\put(0,0){
+\parbox[b][\paperheight]{\paperwidth}{
+\vfill
+\centering
+\includegraphics[height=\paperheight,width=\paperwidth,
+keepaspectratio]{background-1.png}
+\vfill
+}}}
+
+
+\geometry{a4paper}
+\graphicspath{{Images/}}
+\hypersetup{linkcolor=black,citecolor=black,filecolor=black,urlcolor=black}
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+
+\pagestyle{fancy}
+\lhead{\thechapter}
+
+\renewcommand*\contentsname{Inehållsförteckning}
+\renewcommand*\thesection{Del}
+\renewcommand*\thechapter{Kapitel}
+
+
+\titleformat{\chapter}[block]
+  {\normalfont\huge\bfseries}{\thechapter.}{0.25em}{\Huge}
+\titlespacing*{\chapter}{0pt}{-25pt}{0pt}
+
+\titleformat{\section}[block]
+  {\normalfont\Large\bfseries}{\thesection}{0.5em}{\Large}
+\titlespacing*{\chapter}{0pt}{-25pt}{0pt}
+
+\titleformat{\subsection}[block]
+  {\normalfont\large\bfseries}{\thesubsection}{0.5em}{\large}
+\titlespacing*{\chapter}{0pt}{-25pt}{0pt}
+
+\titleformat{\subsubsection}[block]
+  {\normalfont\normalsize\bfseries}{\thesubsubsection}{0.6em}{\normalsize}
+\titlespacing*{\chapter}{0pt}{-25pt}{0pt}
 
 
 \begin{document}
 
-\maketitle
+\newgeometry{top=0cm, bottom=2cm, left = 1.5cm, right = 1.5cm}
+
+\begin{titlepage}
+    \AddToShipoutPicture*{\BackgroundIm}
+
+    \begin{figure}[H]
+    \includegraphics[width=0.3\textwidth]{skola_logga.png}
+    \end{figure}
+
+    \raggedleft
+
+    \vspace{-3.5cm}
+    {\large \textbf{2022/2023}}
+
+    \raggedright
+
+    \vspace{3.5cm}
+	{\huge\bfseries The AES encryption algorithm\par}
+    \vspace{0.1cm}
+    ~{\large En undersökning av The Advanced Encryption Standard (AES) \par
+    ~ur ett struktur och användnings perspektiv}
+
+% Bottom of the page
+    \vfill
+
+    Av:\par
+    ~\textbf{Gabriel Lindeblad}
+
+    \vspace{0.2cm}
+
+	{Handledare:}\par
+	~\textbf{Rickard Janveden}
+
+    \vspace{0.2cm}
+
+    Program:\par
+    ~\textbf{Naturvetenskapsprogrammet}
+
+    \vspace{1cm}
+	{\large \today\par}
+    \vspace{-1cm}
+\end{titlepage}
+
+\newgeometry{top=5cm, bottom=2cm, left = 2cm, right = 2cm}
 
 \chapter*{Abstract}
-A abstract page
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lacinia ex eget sagittis congue.
+Nullam cursus egestas dolor, suscipit gravida magna ultrices sit amet. Nullam placerat dui eu
+arcu pharetra, sit amet tempor dolor convallis. Aenean sodales condimentum turpis, commodo maximus
+augue. Aenean vel nibh dui. Pellentesque ex libero, lacinia nec mauris vel, convallis consectetur
+felis. Maecenas ut nibh sed magna maximus imperdiet at id purus. In vel consequat metus. Donec non
+tincidunt nunc. Sed pulvinar odio ut sapien vestibulum, quis mollis arcu tempor. Maecenas ut sem leo.
+Sed leo risus, mollis eu ex vitae, feugiat consequat metus. Aenean interdum volutpat urna, nec
+tempor mi accumsan quis. Morbi blandit maximus urna non aliquet.
 
-\chapter*{Dedikering}
-Ett kapitel för Dedikering
+\newgeometry{top=2.5cm, bottom=2cm, left = 2cm, right = 2cm}
 
 \tableofcontents
 
