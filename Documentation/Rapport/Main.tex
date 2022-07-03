@@ -1,3 +1,4 @@
+% Document class and packages
 \documentclass[a4paper, 12pt]{report}
 \usepackage{geometry}
 \usepackage[utf8]{inputenc}
@@ -19,24 +20,24 @@ keepaspectratio]{background-1.png}
 \vfill
 }}}
 
-
+% Global options
 \geometry{a4paper}
 \graphicspath{{Images/}}
 \hypersetup{linkcolor=black,citecolor=black,filecolor=black,urlcolor=black}
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
-
-
 \pagestyle{fancy}
 \rhead{\currentchapter ~ \thechapter}
 
 
+% New commands and changed commands
 \renewcommand*\contentsname{Inehållsförteckning}
 \newcommand{\currentchapter}{}
 \newcommand{\mychapter}[1]{\chapter{#1}
 \renewcommand{\currentchapter}{#1}}
 
 
+% Titel reformating
 \titleformat{\chapter}[block]
   {\normalfont\huge\bfseries}{\thechapter.}{0.25em}{\Huge}
 \titlespacing*{\chapter}{0pt}{-25pt}{0pt}
@@ -54,24 +55,32 @@ keepaspectratio]{background-1.png}
 \titlespacing*{\chapter}{0pt}{-25pt}{0pt}
 
 
+% Start document
 \begin{document}
 
 \newgeometry{top=0cm, bottom=2cm, left = 1.5cm, right = 1.5cm}
 
+% Beginging title page
 \begin{titlepage}
+    % Inserting background images
     \AddToShipoutPicture*{\BackgroundIm}
 
+    % School logo
     \begin{figure}[H]
     \includegraphics[width=0.3\textwidth]{skola_logga.png}
     \end{figure}
 
+    % Aligning year to the right
     \raggedleft
 
+    % Year
     \vspace{-3.5cm}
     {\large \textbf{2022/2023}}
 
+    % Aligning to the left
     \raggedright
 
+    % Title and sub title
     \vspace{3.5cm}
 	{\huge\bfseries The AES encryption algorithm\par}
     \vspace{0.1cm}
@@ -97,11 +106,15 @@ keepaspectratio]{background-1.png}
     \vspace{1cm}
 	{\large \today\par}
     \vspace{-1cm}
+
+% End of title page
 \end{titlepage}
 
+% Geometry of page borders for abstract
 \newgeometry{top=5cm, bottom=2cm, left = 2cm, right = 2cm}
 
-\mychapter*{Abstract}
+% Abstract
+\chapter*{Abstract}
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lacinia ex eget sagittis congue.
 Nullam cursus egestas dolor, suscipit gravida magna ultrices sit amet. Nullam placerat dui eu
 arcu pharetra, sit amet tempor dolor convallis. Aenean sodales condimentum turpis, commodo maximus
@@ -111,8 +124,10 @@ tincidunt nunc. Sed pulvinar odio ut sapien vestibulum, quis mollis arcu tempor.
 Sed leo risus, mollis eu ex vitae, feugiat consequat metus. Aenean interdum volutpat urna, nec
 tempor mi accumsan quis. Morbi blandit maximus urna non aliquet.
 
+% New page borders for bulk of the report
 \newgeometry{top=2.5cm, bottom=2cm, left = 2cm, right = 2cm}
 
+% Inehållsförteckning
 \tableofcontents
 
 \include{Introduction}
@@ -129,4 +144,8 @@ tempor mi accumsan quis. Morbi blandit maximus urna non aliquet.
 
 \include{Referenser}
 
+\bibliographystyle{plain}
+\bibliography{ref}
+
+% End document
 \end{document}
