@@ -28,11 +28,13 @@ keepaspectratio]{background-1.png}
 
 
 \pagestyle{fancy}
-\lhead{\thechapter}
+\rhead{\currentchapter ~ \thechapter}
+
 
 \renewcommand*\contentsname{Inehållsförteckning}
-\renewcommand*\thesection{Del}
-\renewcommand*\thechapter{Kapitel}
+\newcommand{\currentchapter}{}
+\newcommand{\mychapter}[1]{\chapter{#1}
+\renewcommand{\currentchapter}{#1}}
 
 
 \titleformat{\chapter}[block]
@@ -99,7 +101,7 @@ keepaspectratio]{background-1.png}
 
 \newgeometry{top=5cm, bottom=2cm, left = 2cm, right = 2cm}
 
-\chapter*{Abstract}
+\mychapter*{Abstract}
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lacinia ex eget sagittis congue.
 Nullam cursus egestas dolor, suscipit gravida magna ultrices sit amet. Nullam placerat dui eu
 arcu pharetra, sit amet tempor dolor convallis. Aenean sodales condimentum turpis, commodo maximus
