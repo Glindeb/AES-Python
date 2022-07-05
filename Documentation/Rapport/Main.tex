@@ -3,12 +3,24 @@
 \usepackage{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
-\usepackage[pdftex,bookmarks,colorlinks,breaklinks]{hyperref}
 \usepackage{titlesec}
+\usepackage{fontenc}
 \usepackage{float}
-\usepackage{fancyhdr}
+% For headers and footers
+\usepackage{fancyhdr, lastpage}
+\usepackage{fancyvrb}
+% Math spesific packages
 \usepackage{amsfonts}
 \usepackage{amsmath}
+% For reffereces displaying and coloring as well as for some document settings
+\usepackage[pagebackref]{hyperref}
+% For math symbols and figures
+\usepackage{tikz}
+% For color boxes
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+% For unit displaying
+\usepackage{siunitx}
 
 % Background image of title page
 \usepackage{eso-pic}
@@ -25,24 +37,39 @@ keepaspectratio]{background-1.png}
 % Global options
 \geometry{a4paper}
 \graphicspath{{Images/}}
-\hypersetup{linkcolor=black,citecolor=black,filecolor=black,urlcolor=black}
+\hypersetup{
+  linkcolor=black,
+  citecolor={blue!50!black},
+  filecolor={blue!50!black},
+  urlcolor={blue!80!black},
+  pdftitle={The AES encryption algorithm},
+  pdfauthor={Gabriel Lindeblad},
+  pdfcreator={Gabriel Lindeblad},
+  pdfsubject={Advanced Encryption Standard},
+  pdfstartpage=1,
+  pdffitwindow=true,
+  colorlinks=true,
+  pdfpagemode=UseNone,
+  }
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
 \pagestyle{fancy}
-\rhead{\currentchapter ~ \thechapter}
+\rhead{\currentchapter}
+\cfoot{Sida \thepage\ av \pageref{LastPage}}
 \fancyheadoffset[L, RO]{0cm}
 
 
 % New commands and changed commands
-\renewcommand*\contentsname{Inehållsförteckning}
 \newcommand{\currentchapter}{}
 \newcommand{\mychapter}[1]{\chapter{#1}
 \renewcommand{\currentchapter}{#1}}
+\renewcommand{\bibname}{Källförteckning}
+\renewcommand{\contentsname}{Inehållsförteckning}
 
 
 % Titel reformating
 \titleformat{\chapter}[block]
-  {\normalfont\huge\bfseries}{\thechapter.}{0.25em}{\Huge}
+  {\normalfont\huge\bfseries}{\thechapter}{0.5em}{\Huge}
 \titlespacing*{\chapter}{0pt}{-25pt}{0pt}
 
 \titleformat{\section}[block]
@@ -54,7 +81,7 @@ keepaspectratio]{background-1.png}
 \titlespacing*{\chapter}{0pt}{-25pt}{0pt}
 
 \titleformat{\subsubsection}[block]
-  {\normalfont\normalsize\bfseries}{\thesubsubsection}{0.6em}{\normalsize}
+  {\normalfont\normalsize\bfseries}{\thesubsubsection}{0.5em}{\normalsize}
 \titlespacing*{\chapter}{0pt}{-25pt}{0pt}
 
 
@@ -130,7 +157,7 @@ augue. Aenean vel nibh dui. Pellentesque ex libero, lacinia nec mauris vel, conv
 felis. Maecenas ut nibh sed magna maximus imperdiet at id purus. In vel consequat metus. Donec non
 tincidunt nunc. Sed pulvinar odio ut sapien vestibulum, quis mollis arcu tempor. Maecenas ut sem leo.
 Sed leo risus, mollis eu ex vitae, feugiat consequat metus. Aenean interdum volutpat urna, nec
-tempor mi accumsan quis. Morbi blandit maximus urna non aliquet.
+tempor mi accumsan quis. Morbi blandit maximus urna non aliquet aes.
 
 % New page borders for bulk of the report
 \newgeometry{top=2.5cm, bottom=2cm, left = 2cm, right = 2cm}
@@ -150,8 +177,7 @@ tempor mi accumsan quis. Morbi blandit maximus urna non aliquet.
 
 \include{Diskussion}
 
-\include{Referenser}
-
+\addcontentsline{toc}{chapter}{Källförteckning}
 \bibliographystyle{plain}
 \bibliography{ref}
 
