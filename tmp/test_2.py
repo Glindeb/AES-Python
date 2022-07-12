@@ -23,18 +23,29 @@ Rcon = (
             )
 
 def keyExpansion(key):
+
+    if len(key) == 16:
+        words = Keyschedule_128bit(key)
+    elif len(key) == 24:
+        words = Keyschedule_192bit(key)
+    elif len(key) == 32:
+        words = Keyschedule_256bit(key)
+
+    return words
+
+def Keyschedule_128bit(key, keysize):
     # prep w list to hold 44 tuples
-    w = [()]*44
+    words = [()]*44
 
     # fill out first 4 words based on the key
     for i in range(4):
-        w[i] = (key[4*i], key[4*i+1], key[4*i+2], key[4*i+3])
+        words[i] = (key[4*i], key[4*i+1], key[4*i+2], key[4*i+3])
 
     # fill out the rest based on previews words, rotword, subword and rcon values
     for i in range(4, 44):
         # get required previous keywords
-        temp = w[i-1]
-        word = w[i-4]
+        temp = words[i-1]
+        word = words[i-4]
 
         # if multiple of 4 use rot, sub, rcon etc
         if i % 4 == 0:
@@ -50,9 +61,15 @@ def keyExpansion(key):
 
         # xor the two hex values
         xord = hexor(word, temp)
-        w[i] = (xord[:2], xord[2:4], xord[4:6], xord[6:8])
+        words[i] = (xord[:2], xord[2:4], xord[4:6], xord[6:8])
+    return words
 
-    return w
+
+def Keyschedule_192bit(key, keysize):
+    pass
+
+def Keyschedule_256bit(key, keysize):
+    pass
 
 # takes two hex values and calculates hex1 xor hex2
 def hexor(hex1, hex2):

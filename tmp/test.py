@@ -125,6 +125,8 @@ def main():
     # expand key
     w = keyExpansion(key)
 
+    print(w)
+
     round_keys = [None for i in range(11)]
 
     for i in range(11):
