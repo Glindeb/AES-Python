@@ -30,8 +30,6 @@ __status__ = 'Development'
 # ---------------
 # Core data class
 # ---------------
-
-
 class Core_data:
     def __init__(self):
         # For progress bar
@@ -97,142 +95,116 @@ class Core_data:
 
         # Round constant
         self.round_constant = (
-            0x00, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40,
-            0x80, 0x1B, 0x36, 0x6C, 0xD8, 0xAB, 0x4D, 0x9A,
-            0x2F, 0x5E, 0xBC, 0x63, 0xC6, 0x97, 0x35, 0x6A,
-            0xD4, 0xB3, 0x7D, 0xFA, 0xEF, 0xC5, 0x91, 0x39
+            0x00000000, 0x01000000, 0x02000000, 0x04000000, 0x08000000, 0x10000000, 0x20000000, 0x40000000,
+            0x80000000, 0x1B000000, 0x36000000, 0x6C000000, 0xD8000000, 0xAB000000, 0x4D000000, 0x9A000000,
+            0x2F000000, 0x5E000000, 0xBC000000, 0x63000000, 0xC6000000, 0x97000000, 0x35000000, 0x6A000000,
+            0xD4000000, 0xB3000000, 0x7D000000, 0xFA000000, 0xEF000000, 0xC5000000, 0x91000000, 0x39000000
             )
 
 
-# ---------------
-# Actions class
-# ---------------
-class Actions(Core_data):
-    def __init__(self):
+# Progress bar display and update
+def progress_bar(progress: int, total_progress: int):
+    percent = 100 * (float(progress) / float(total_progress))
+    bar = '#' * int(percent) + '-' * (100 - int(percent))
+    print(f"\r[{bar}] {percent:.2f}%", end="\r")
+    return progress + 16
+
+# Counts and displays error messages
+def error_message(message: str, errors: int):
+    print('[Error ' + message + ']')
+    return errors + 1
+
+# Converts a 16-byte array into a 4x4 matrix
+def bytes_to_matrix(data: bytearray):
+    return [list(data[i:i+4]) for i in range(0, len(data), 4)]
+
+# Converts a 4x4 matrix into a 16-byte array
+def matrix_to_bytes(matrix: list[list[int]]):
+    return bytes(sum(matrix, []))
+
+# Converts a list to a matrix of 4x4
+def list_to_matrix(data: list[int]) -> list[list[int]]:
+    return [list(data[i:i+4]) for i in range(0, len(data), 4)]
+
+# Converts a matrix of 4x4 to a list
+def matrix_to_list(matrix: list[list[int]]) -> list[int]:
+    return sum(matrix, [])
+
+# Add round key function
+def add_round_key(data: list[list[int]], round_key: list[int]):
+    key = list_to_matrix(round_key)
+    for i in range(4):
+        for j in range(4):
+            data[i][j] ^= key[i][j]
+    return data
+
+# Performs the byte substitution layer
+def sub_bytes(data: list[list[int]], bytesTable: tuple[int]):
+    for r in range(4):
+        for c in range(4):
+            data[r][c] = bytesTable[data[r][c]]
+    return data
+
+# Shift rows function
+def shift_rows(data: list[list[int]]):
+    data[0][1], data[1][1], data[2][1], data[3][1] = data[1][1], data[2][1], data[3][1], data[0][1]
+    data[0][2], data[1][2], data[2][2], data[3][2] = data[2][2], data[3][2], data[0][2], data[1][2]
+    data[0][3], data[1][3], data[2][3], data[3][3] = data[3][3], data[0][3], data[1][3], data[2][3]
+    return data
+
+# Inverse shift rows function
+def inv_shift_rows(data: list[list[int]]):
+    data[0][1], data[1][1], data[2][1], data[3][1] = data[3][1], data[0][1], data[1][1], data[2][1]
+    data[0][2], data[1][2], data[2][2], data[3][2] = data[2][2], data[3][2], data[0][2], data[1][2]
+    data[0][3], data[1][3], data[2][3], data[3][3] = data[1][3], data[2][3], data[3][3], data[0][3]
+    return data
+
+# Performs the mix columns layer
+def mix_columns(data: list[list[int]], xtime):
+    def mix_single_column(data):
+        # see Sec 4.1.2 in The Design of Rijndael
+        t = data[0] ^ data[1] ^ data[2] ^ data[3]
+        u = data[0]
+        data[0] ^= t ^ xtime(data[0] ^ data[1])
+        data[1] ^= t ^ xtime(data[1] ^ data[2])
+        data[2] ^= t ^ xtime(data[2] ^ data[3])
+        data[3] ^= t ^ xtime(data[3] ^ u)
+    def mix(data):
+        for i in range(4):
+            mix_single_column(data[i])
+        return data
+    data = mix(data)
+    return data
+
+# Preforms the inverse mix columns layer
+def inv_mix_columns(data: list[list[int]], xtime):
+    # see Sec 4.1.3 in The Design of Rijndael
+    for i in range(4):
+        u = xtime(xtime(data[i][0] ^ data[i][2]))
+        v = xtime(xtime(data[i][1] ^ data[i][3]))
+        data[i][0] ^= u
+        data[i][1] ^= v
+        data[i][2] ^= u
+        data[i][3] ^= v
+    mix_columns(data, xtime)
+    return data
+
+
+class Key_expansion():
+    def __init__(self, key):
         super().__init__()
+        self.key = key
 
-    # Progress bar display and update
-    def progress_bar(self, progress: int, total_progress: int):
-        percent = 100 * (float(progress) / float(total_progress))
-        bar = '#' * int(percent) + '-' * (100 - int(percent))
-        print(f"\r[{bar}] {percent:.2f}%", end="\r")
-        return progress + 16
-
-    # Counts and displays error messages
-    def error_message(self, message: str, errors: int):
-        print('[Error ' + message + ']')
-        return errors + 1
-
-    # Converts a 16-byte array into a 4x4 matrix
-    def bytes_to_matrix(self, data: bytearray):
-        return [list(data[i:i+4]) for i in range(0, len(data), 4)]
-
-    # Converts a 4x4 matrix into a 16-byte array
-    def matrix_to_bytes(self, matrix: list[list[int]]):
-        return bytes(sum(matrix, []))
-
-    # Converts a list to a matrix of 4x4
-    def list_to_matrix(self, data: list[int]) -> list[list[int]]:
-        return [list(data[i:i+4]) for i in range(0, len(data), 4)]
-
-    # Converts a matrix of 4x4 to a list
-    def matrix_to_list(self, matrix: list[list[int]]) -> list[int]:
-        return sum(matrix, [])
-
-    # Add round key function
-    def add_round_key(self, data: list[list[int]], round_key: list[int]):
-        key = self.list_to_matrix(round_key)
-        for i in range(4):
-            for j in range(4):
-                data[i][j] ^= key[i][j]
-        return data
-
-    # Performs the byte substitution layer
-    def sub_bytes(self, data: list[list[int]], bytesTable: tuple[int]):
-        for r in range(4):
-            for c in range(4):
-                data[r][c] = bytesTable[data[r][c]]
-        return data
-
-    # Shift rows function
-    def shift_rows(self, data: list[list[int]]):
-        data[0][1], data[1][1], data[2][1], data[3][1] = data[1][1], data[2][1], data[3][1], data[0][1]
-        data[0][2], data[1][2], data[2][2], data[3][2] = data[2][2], data[3][2], data[0][2], data[1][2]
-        data[0][3], data[1][3], data[2][3], data[3][3] = data[3][3], data[0][3], data[1][3], data[2][3]
-        return data
-
-    # Inverse shift rows function
-    def inv_shift_rows(self, data: list[list[int]]):
-        data[0][1], data[1][1], data[2][1], data[3][1] = data[3][1], data[0][1], data[1][1], data[2][1]
-        data[0][2], data[1][2], data[2][2], data[3][2] = data[2][2], data[3][2], data[0][2], data[1][2]
-        data[0][3], data[1][3], data[2][3], data[3][3] = data[1][3], data[2][3], data[3][3], data[0][3]
-        return data
-
-    # Performs the mix columns layer
-    def mix_columns(self, data: list[list[int]]):
-
-        def mix_single_column(data):
-            # see Sec 4.1.2 in The Design of Rijndael
-            t = data[0] ^ data[1] ^ data[2] ^ data[3]
-            u = data[0]
-            data[0] ^= t ^ self.xtime(data[0] ^ data[1])
-            data[1] ^= t ^ self.xtime(data[1] ^ data[2])
-            data[2] ^= t ^ self.xtime(data[2] ^ data[3])
-            data[3] ^= t ^ self.xtime(data[3] ^ u)
-
-        def mix(data):
-            for i in range(4):
-                mix_single_column(data[i])
-            return data
-
-        data = mix(data)
-        return data
-
-    # Preforms the inverse mix columns layer
-    def inv_mix_columns(self, data: list[list[int]]):
-        # see Sec 4.1.3 in The Design of Rijndael
-        for i in range(4):
-            u = self.xtime(self.xtime(data[i][0] ^ data[i][2]))
-            v = self.xtime(self.xtime(data[i][1] ^ data[i][3]))
-            data[i][0] ^= u
-            data[i][1] ^= v
-            data[i][2] ^= u
-            data[i][3] ^= v
-
-        self.mix_columns(data)
-        return data
-
-
-class Key_expansion(Actions):
-    def __init__(self):
-        super().__init__()
-
-    # Generates the key schedule
-    # Rotates a word
-    def word_rotate(self, word: list[int]):
-        word[0], word[1], word[2], word[3] = word[1], word[2], word[3], word[0]
-        return word
-
-    # Substitutes a word
-    def word_substitute(self, word: list[int]):
-        for i in range(4):
-            word[i] = self.subBytesTable[word[i]]
-        return word
-
-    # Generates the round keys (nr = number of rounds) (nk = number of key words) (nb = number of columns in the state)
-    def round_keys_gen(self, key: list[int], nb: int, nk: int, nr: int):
-        round_ks = []
-        for i in range(nr + 1):
-            round_ks.append(nb)
-        return round_ks
+    # Main key schedule function
 
 
 # ---------------
 # AES main class
 # ---------------
-class AES(Key_expansion):
+class AES(Core_data):
     def __init__(self):
         super().__init__()
 
-    # Loading Core data
-    core_data = Core_data()
+        # Loading Core data
+        self.core_data = Core_data()
+
