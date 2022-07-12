@@ -15,10 +15,126 @@ sbox = (0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 
         0xe1, 0xf8, 0x98, 0x11, 0x69, 0xd9, 0x8e, 0x94, 0x9b, 0x1e, 0x87, 0xe9, 0xce, 0x55, 0x28, 0xdf,
         0x8c, 0xa1, 0x89, 0x0d, 0xbf, 0xe6, 0x42, 0x68, 0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16)
 
-round_constant = (
+Rcon = (
             0x00000000, 0x01000000, 0x02000000, 0x04000000, 0x08000000, 0x10000000, 0x20000000, 0x40000000,
             0x80000000, 0x1B000000, 0x36000000, 0x6C000000, 0xD8000000, 0xAB000000, 0x4D000000, 0x9A000000,
             0x2F000000, 0x5E000000, 0xBC000000, 0x63000000, 0xC6000000, 0x97000000, 0x35000000, 0x6A000000,
             0xD4000000, 0xB3000000, 0x7D000000, 0xFA000000, 0xEF000000, 0xC5000000, 0x91000000, 0x39000000
             )
 
+def keyExpansion(key):
+    # prep w list to hold 44 tuples
+    w = [()]*44
+
+    # fill out first 4 words based on the key
+    for i in range(4):
+        w[i] = (key[4*i], key[4*i+1], key[4*i+2], key[4*i+3])
+
+    # fill out the rest based on previews words, rotword, subword and rcon values
+    for i in range(4, 44):
+        # get required previous keywords
+        temp = w[i-1]
+        word = w[i-4]
+
+        # if multiple of 4 use rot, sub, rcon etc
+        if i % 4 == 0:
+            x = RotWord(temp)
+            y = SubWord(x)
+            rcon = Rcon[int(i/4)]
+
+            temp = hexor(y, hex(rcon)[2:])
+
+        # creating strings of hex rather than tuple
+        word = ''.join(word)
+        temp = ''.join(temp)
+
+        # xor the two hex values
+        xord = hexor(word, temp)
+        w[i] = (xord[:2], xord[2:4], xord[4:6], xord[6:8])
+
+    return w
+
+# takes two hex values and calculates hex1 xor hex2
+def hexor(hex1, hex2):
+    # convert to binary
+    bin1 = hex2binary(hex1)
+    bin2 = hex2binary(hex2)
+
+    # calculate
+    xord = int(bin1, 2) ^ int(bin2, 2)
+
+    # cut prefix
+    hexed = hex(xord)[2:]
+
+    # leading 0s get cut above, if not length 8 add a leading 0
+    if len(hexed) != 8:
+        hexed = '0' + hexed
+
+    return hexed
+
+# takes a hex value and returns binary
+def hex2binary(hex):
+    return bin(int(str(hex), 16))
+
+
+# takes from 1 to the end, adds on from the start to 1
+def RotWord(word):
+    return word[1:] + word[:1]
+
+
+# selects correct value from sbox based on the current word
+def SubWord(word):
+    sWord = ()
+
+    # loop throug the current word
+    for i in range(4):
+
+        # check first char, if its a letter(a-f) get corresponding decimal
+        # otherwise just take the value and add 1
+        if word[i][0].isdigit() == False:
+            row = ord(word[i][0]) - 86
+        else:
+            row = int(word[i][0])+1
+
+        # repeat above for the seoncd char
+        if word[i][1].isdigit() == False:
+            col = ord(word[i][1]) - 86
+        else:
+            col = int(word[i][1])+1
+
+        # get the index base on row and col (16x16 grid)
+        sBoxIndex = (row*16) - (17-col)
+
+        # get the value from sbox without prefix
+        piece = hex(sbox[sBoxIndex])[2:]
+
+        # check length to ensure leading 0s are not forgotton
+        if len(piece) != 2:
+            piece = '0' + piece
+
+        # form tuple
+        sWord = (*sWord, piece)
+
+    # return string
+    return ''.join(sWord)
+
+
+def main():
+    # hardcoding input key for demonstration purposes, could be read in from user/program via cmd/gui etc.
+    key = ["00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00"]
+
+    # expand key
+    w = keyExpansion(key)
+
+    round_keys = [None for i in range(11)]
+
+    for i in range(11):
+        round_keys[i] = (w[i * 4] + w[i * 4 + 1] + w[i * 4 + 2] + w[i * 4 + 3])
+
+    # display nicely
+    print("Key provided: " + "".join(key))
+    print(round_keys)
+
+
+if __name__ == '__main__':
+    main()

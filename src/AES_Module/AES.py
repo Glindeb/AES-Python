@@ -109,26 +109,32 @@ def progress_bar(progress: int, total_progress: int):
     print(f"\r[{bar}] {percent:.2f}%", end="\r")
     return progress + 16
 
+
 # Counts and displays error messages
 def error_message(message: str, errors: int):
     print('[Error ' + message + ']')
     return errors + 1
 
+
 # Converts a 16-byte array into a 4x4 matrix
 def bytes_to_matrix(data: bytearray):
     return [list(data[i:i+4]) for i in range(0, len(data), 4)]
+
 
 # Converts a 4x4 matrix into a 16-byte array
 def matrix_to_bytes(matrix: list[list[int]]):
     return bytes(sum(matrix, []))
 
+
 # Converts a list to a matrix of 4x4
 def list_to_matrix(data: list[int]) -> list[list[int]]:
     return [list(data[i:i+4]) for i in range(0, len(data), 4)]
 
+
 # Converts a matrix of 4x4 to a list
 def matrix_to_list(matrix: list[list[int]]) -> list[int]:
     return sum(matrix, [])
+
 
 # Add round key function
 def add_round_key(data: list[list[int]], round_key: list[int]):
@@ -138,12 +144,14 @@ def add_round_key(data: list[list[int]], round_key: list[int]):
             data[i][j] ^= key[i][j]
     return data
 
+
 # Performs the byte substitution layer
 def sub_bytes(data: list[list[int]], bytesTable: tuple[int]):
     for r in range(4):
         for c in range(4):
             data[r][c] = bytesTable[data[r][c]]
     return data
+
 
 # Shift rows function
 def shift_rows(data: list[list[int]]):
@@ -152,12 +160,14 @@ def shift_rows(data: list[list[int]]):
     data[0][3], data[1][3], data[2][3], data[3][3] = data[3][3], data[0][3], data[1][3], data[2][3]
     return data
 
+
 # Inverse shift rows function
 def inv_shift_rows(data: list[list[int]]):
     data[0][1], data[1][1], data[2][1], data[3][1] = data[3][1], data[0][1], data[1][1], data[2][1]
     data[0][2], data[1][2], data[2][2], data[3][2] = data[2][2], data[3][2], data[0][2], data[1][2]
     data[0][3], data[1][3], data[2][3], data[3][3] = data[1][3], data[2][3], data[3][3], data[0][3]
     return data
+
 
 # Performs the mix columns layer
 def mix_columns(data: list[list[int]], xtime):
@@ -169,12 +179,14 @@ def mix_columns(data: list[list[int]], xtime):
         data[1] ^= t ^ xtime(data[1] ^ data[2])
         data[2] ^= t ^ xtime(data[2] ^ data[3])
         data[3] ^= t ^ xtime(data[3] ^ u)
+
     def mix(data):
         for i in range(4):
             mix_single_column(data[i])
         return data
     data = mix(data)
     return data
+
 
 # Preforms the inverse mix columns layer
 def inv_mix_columns(data: list[list[int]], xtime):
@@ -207,4 +219,3 @@ class AES(Core_data):
 
         # Loading Core data
         self.core_data = Core_data()
-
