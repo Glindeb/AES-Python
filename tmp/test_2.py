@@ -7,7 +7,7 @@ def Key_schedule(key, nk, nr):
     limit = False
     for i in range(nk, (nr * nk)):
         # get required previous keywords
-        temp, word = words[i-1], words[i-4]
+        temp, word = words[i-1], words[i-nk]
 
         # if multiple of nk use rot, sub, rcon etc
         if i % nk == 0:
@@ -18,7 +18,7 @@ def Key_schedule(key, nk, nr):
         elif i % 4 == 0:
             limit = True
 
-        if i % 4 == 0 and limit and nk > 8:
+        if i % 4 == 0 and limit and nk >= 8:
             temp = SubWord(temp)
 
         # creating strings of hex rather than tuple

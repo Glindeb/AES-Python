@@ -191,129 +191,51 @@ def inv_mix_columns(data: list[list[int]]):
 # ---------------
 # Key expansion function
 def keyExpansion(key):
-
+    # Key expansion setup
     if len(key) == 16:
-        words = Keyschedule_128bit(key)
-        n = 11
-    elif len(key) == 24:
-        words = Keyschedule_192bit(key)
-        n = 13
-    elif len(key) == 32:
-        words = Keyschedule_256bit(key)
-        n = 15
-    else:
-        raise Exception('Invalid key length')
+        words = key_schedule(key, 4, 11)
+        nr = 11
+    if len(key) == 24:
+        words = key_schedule(key, 6, 13)
+        nr = 13
+    if len(key) == 32:
+        words = key_schedule(key, 8, 15)
+        nr = 15
 
-    round_keys = [None for i in range(n)]
+    round_keys = [None for i in range(nr)]
 
-    for i in range(n):
+    for i in range(nr):
         round_keys[i] = (words[i * 4] + words[i * 4 + 1] + words[i * 4 + 2] + words[i * 4 + 3])
 
     return round_keys
 
 
-# Key schedule for 128-bit keys
-def Keyschedule_128bit(key):
-    # prep word list to hold 44 tuples
-    words = []
-
-    # fill out first 4 words based on the key
-    for i in range(4):
-        words.append((key[4*i], key[4*i+1], key[4*i+2], key[4*i+3]))
-
-    # fill out the rest based on previews words, rotword, subword and rcon values
-    for i in range(4, 44):
-        # get required previous keywords
-        temp = words[i-1]
-        word = words[i-4]
-
-        # if multiple of 4 use rot, sub, rcon etc
-        if i % 4 == 0:
-            x = RotWord(temp)
-            y = SubWord(x)
-            rcon = round_constant[int(i/4)]
-            temp = hexor(y, hex(rcon)[2:])
-
-        # creating strings of hex rather than tuple
-        word = ''.join(word)
-        temp = ''.join(temp)
-
-        # xor the two hex values
-        xord = hexor(word, temp)
-        words.append((xord[:2], xord[2:4], xord[4:6], xord[6:8]))
-    return words
-
-
-# Key schedule for 192-bit keys
-def Keyschedule_192bit(key):
-    # prep word list to hold 52 tuples
-    words = [()]*52
-
-    # fill out first 6 words based on the key
-    for i in range(6):
-        words[i] = (key[4*i], key[4*i+1], key[4*i+2], key[4*i+3])
-
-    # fill out the rest based on previews words, rotword, subword and rcon values
-    for i in range(6, 52):
-        # get required previous keywords
-        temp = words[i-1]
-        word = words[i-6]
-
-        # if multiple of 6 use rot, sub, rcon etc
-        if i % 6 == 0:
-            x = RotWord(temp)
-            y = SubWord(x)
-            rcon = round_constant[int(i/6)]
-            temp = hexor(y, hex(rcon)[2:])
-
-        # creating strings of hex rather than tuple
-        word = ''.join(word)
-        temp = ''.join(temp)
-
-        # xor the two hex values
-        xord = hexor(word, temp)
-        words[i] = (xord[:2], xord[2:4], xord[4:6], xord[6:8])
-    return words
-
-
-# Key schedule for 256-bit keys
-def Keyschedule_256bit(key):
-    # prep word list to hold 60 tuples
-    words = [()]*60
-
-    # fill out first 8 words based on the key
-    for i in range(8):
-        words[i] = (key[4*i], key[4*i+1], key[4*i+2], key[4*i+3])
+# Key schedule (nk = number of colums, nr = number of rounds)
+def key_schedule(key, nk, nr):
+    # Create list and populates first nk words with key
+    words = [(key[4*i], key[4*i+1], key[4*i+2], key[4*i+3]) for i in range(nk)]
 
     # fill out the rest based on previews words, rotword, subword and rcon values
     limit = False
-    for i in range(8, 60):
+    for i in range(nk, (nr * nk)):
         # get required previous keywords
-        temp = words[i-1]
-        word = words[i-8]
+        temp, word = words[i-1], words[i-nk]
 
-        # if multiple of 4 use rot, sub, rcon etc
-        if i % 8 == 0:
-            print("f")
-            x = RotWord(temp)
-            y = SubWord(x)
-            rcon = round_constant[int(i/8)]
-            temp = hexor(y, hex(rcon)[2:])
+        # if multiple of nk use rot, sub, rcon etc
+        if i % nk == 0:
+            x = SubWord(RotWord(temp))
+            rcon = round_constant[int(i/nk)]
+            temp = hexor(x, hex(rcon)[2:])
             limit = False
-        elif i % 4:
+        elif i % 4 == 0:
             limit = True
 
-        if i % 4 == 0 and limit:
-            print("g")
+        if i % 4 == 0 and limit and nk >= 8:
             temp = SubWord(temp)
 
-        # creating strings of hex rather than tuple
-        word = ''.join(word)
-        temp = ''.join(temp)
-
         # xor the two hex values
-        xord = hexor(word, temp)
-        words[i] = (xord[:2], xord[2:4], xord[4:6], xord[6:8])
+        xord = hexor(''.join(word), ''.join(temp))
+        words.append((xord[:2], xord[2:4], xord[4:6], xord[6:8]))
     return words
 
 
@@ -348,7 +270,7 @@ def RotWord(word):
 
 # selects correct value from sbox based on the current word
 def SubWord(word):
-    sWord = ()
+    sWord = []
 
     # loop throug the current word
     for i in range(4):
@@ -376,8 +298,7 @@ def SubWord(word):
         if len(piece) != 2:
             piece = '0' + piece
 
-        # form tuple
-        sWord = (*sWord, piece)
+        sWord.append(piece)
 
     # return string
     return ''.join(sWord)
