@@ -194,14 +194,19 @@ def keyExpansion(key):
 
     if len(key) == 16:
         words = Keyschedule_128bit(key)
+        n = 11
     elif len(key) == 24:
         words = Keyschedule_192bit(key)
+        n = 13
     elif len(key) == 32:
         words = Keyschedule_256bit(key)
+        n = 15
+    else:
+        raise Exception('Invalid key length')
 
-    round_keys = [None for i in range(11)]
+    round_keys = [None for i in range(n)]
 
-    for i in range(11):
+    for i in range(n):
         round_keys[i] = (words[i * 4] + words[i * 4 + 1] + words[i * 4 + 2] + words[i * 4 + 3])
 
     return round_keys
@@ -209,12 +214,12 @@ def keyExpansion(key):
 
 # Key schedule for 128-bit keys
 def Keyschedule_128bit(key):
-    # prep w list to hold 44 tuples
-    words = [()]*44
+    # prep word list to hold 44 tuples
+    words = []
 
     # fill out first 4 words based on the key
     for i in range(4):
-        words[i] = (key[4*i], key[4*i+1], key[4*i+2], key[4*i+3])
+        words.append((key[4*i], key[4*i+1], key[4*i+2], key[4*i+3]))
 
     # fill out the rest based on previews words, rotword, subword and rcon values
     for i in range(4, 44):
@@ -227,7 +232,38 @@ def Keyschedule_128bit(key):
             x = RotWord(temp)
             y = SubWord(x)
             rcon = round_constant[int(i/4)]
+            temp = hexor(y, hex(rcon)[2:])
 
+        # creating strings of hex rather than tuple
+        word = ''.join(word)
+        temp = ''.join(temp)
+
+        # xor the two hex values
+        xord = hexor(word, temp)
+        words.append((xord[:2], xord[2:4], xord[4:6], xord[6:8]))
+    return words
+
+
+# Key schedule for 192-bit keys
+def Keyschedule_192bit(key):
+    # prep word list to hold 52 tuples
+    words = [()]*52
+
+    # fill out first 6 words based on the key
+    for i in range(6):
+        words[i] = (key[4*i], key[4*i+1], key[4*i+2], key[4*i+3])
+
+    # fill out the rest based on previews words, rotword, subword and rcon values
+    for i in range(6, 52):
+        # get required previous keywords
+        temp = words[i-1]
+        word = words[i-6]
+
+        # if multiple of 6 use rot, sub, rcon etc
+        if i % 6 == 0:
+            x = RotWord(temp)
+            y = SubWord(x)
+            rcon = round_constant[int(i/6)]
             temp = hexor(y, hex(rcon)[2:])
 
         # creating strings of hex rather than tuple
@@ -240,14 +276,45 @@ def Keyschedule_128bit(key):
     return words
 
 
-# Key schedule for 192-bit keys
-def Keyschedule_192bit(key):
-    pass
-
-
 # Key schedule for 256-bit keys
 def Keyschedule_256bit(key):
-    pass
+    # prep word list to hold 60 tuples
+    words = [()]*60
+
+    # fill out first 8 words based on the key
+    for i in range(8):
+        words[i] = (key[4*i], key[4*i+1], key[4*i+2], key[4*i+3])
+
+    # fill out the rest based on previews words, rotword, subword and rcon values
+    limit = False
+    for i in range(8, 60):
+        # get required previous keywords
+        temp = words[i-1]
+        word = words[i-8]
+
+        # if multiple of 4 use rot, sub, rcon etc
+        if i % 8 == 0:
+            print("f")
+            x = RotWord(temp)
+            y = SubWord(x)
+            rcon = round_constant[int(i/8)]
+            temp = hexor(y, hex(rcon)[2:])
+            limit = False
+        elif i % 4:
+            limit = True
+
+        if i % 4 == 0 and limit:
+            print("g")
+            temp = SubWord(temp)
+
+        # creating strings of hex rather than tuple
+        word = ''.join(word)
+        temp = ''.join(temp)
+
+        # xor the two hex values
+        xord = hexor(word, temp)
+        words[i] = (xord[:2], xord[2:4], xord[4:6], xord[6:8])
+    return words
 
 
 # takes two hex values and calculates hex1 xor hex2
