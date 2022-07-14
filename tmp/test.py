@@ -21,37 +21,65 @@ Rcon = [0x00000000, 0x01000000, 0x02000000,
         0x1b000000, 0x36000000]
 
 
+# ---------------
+# Key expantion setup
+# ---------------
+# Key expansion function
 def keyExpansion(key):
-    # prep w list to hold 44 tuples
-    w = [()]*44
+    # Key expansion setup
+    if len(key) == 16:
+        words = key_schedule(key, 4, 11)
+        nr = 11
+    if len(key) == 24:
+        words = key_schedule(key, 6, 13)
+        nr = 13
+    if len(key) == 32:
+        words = key_schedule(key, 8, 15)
+        nr = 15
 
-    # fill out first 4 words based on the key
-    for i in range(4):
-        w[i] = (key[4*i], key[4*i+1], key[4*i+2], key[4*i+3])
+    round_keys = [None for i in range(nr)]
+
+    #words = [[t for t in range(4)] for i in range(nr * 4)]
+    tmp = [None for i in range(4)]
+    for i in range(nr * 4):
+        for t in range(4):
+            tmp[t] = int(words[i][t], 16)
+        words[i] = tuple(tmp)
+
+    for i in range(nr):
+        round_keys[i] = (words[i * 4] + words[i * 4 + 1] + words[i * 4 + 2] + words[i * 4 + 3])
+
+    return round_keys
+
+
+# Key schedule (nk = number of colums, nr = number of rounds)
+def key_schedule(key, nk, nr):
+    # Create list and populates first nk words with key
+    words = [(key[4*i], key[4*i+1], key[4*i+2], key[4*i+3]) for i in range(nk)]
 
     # fill out the rest based on previews words, rotword, subword and rcon values
-    for i in range(4, 44):
+    limit = False
+    for i in range(nk, (nr * nk)):
         # get required previous keywords
-        temp = w[i-1]
-        word = w[i-4]
+        temp, word = words[i-1], words[i-nk]
 
-        # if multiple of 4 use rot, sub, rcon etc
-        if i % 4 == 0:
-            x = RotWord(temp)
-            y = SubWord(x)
-            rcon = Rcon[int(i/4)]
+        # if multiple of nk use rot, sub, rcon etc
+        if i % nk == 0:
+            x = SubWord(RotWord(temp))
+            rcon = Rcon[int(i/nk)]
+            temp = hexor(x, hex(rcon)[2:])
+            limit = False
+        elif i % 4 == 0:
+            limit = True
 
-            temp = hexor(y, hex(rcon)[2:])
-
-        # creating strings of hex rather than tuple
-        word = ''.join(word)
-        temp = ''.join(temp)
+        if i % 4 == 0 and limit and nk >= 8:
+            temp = SubWord(temp)
 
         # xor the two hex values
-        xord = hexor(word, temp)
-        w[i] = (xord[:2], xord[2:4], xord[4:6], xord[6:8])
+        xord = hexor(''.join(word), ''.join(temp))
+        words.append((xord[:2], xord[2:4], xord[4:6], xord[6:8]))
+    return words
 
-    return w
 
 # takes two hex values and calculates hex1 xor hex2
 def hexor(hex1, hex2):
@@ -71,6 +99,7 @@ def hexor(hex1, hex2):
 
     return hexed
 
+
 # takes a hex value and returns binary
 def hex2binary(hex):
     return bin(int(str(hex), 16))
@@ -83,20 +112,20 @@ def RotWord(word):
 
 # selects correct value from sbox based on the current word
 def SubWord(word):
-    sWord = ()
+    sWord = []
 
     # loop throug the current word
     for i in range(4):
 
         # check first char, if its a letter(a-f) get corresponding decimal
         # otherwise just take the value and add 1
-        if word[i][0].isdigit() == False:
+        if word[i][0].isdigit() is False:
             row = ord(word[i][0]) - 86
         else:
             row = int(word[i][0])+1
 
         # repeat above for the seoncd char
-        if word[i][1].isdigit() == False:
+        if word[i][1].isdigit() is False:
             col = ord(word[i][1]) - 86
         else:
             col = int(word[i][1])+1
@@ -111,8 +140,7 @@ def SubWord(word):
         if len(piece) != 2:
             piece = '0' + piece
 
-        # form tuple
-        sWord = (*sWord, piece)
+        sWord.append(piece)
 
     # return string
     return ''.join(sWord)
@@ -120,25 +148,15 @@ def SubWord(word):
 
 def main():
     # hardcoding input key for demonstration purposes, could be read in from user/program via cmd/gui etc.
-    key = ["00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00"]
+    key = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "0a", "0b", "0c", "0d", "0e", "0f"]
 
     # expand key
     w = keyExpansion(key)
 
-    print(w)
-
-    round_keys = [None for i in range(11)]
-
-    for i in range(11):
-        round_keys[i] = (w[i * 4] + w[i * 4 + 1] + w[i * 4 + 2] + w[i * 4 + 3])
-
     # display nicely
     print("Key provided: " + "".join(key))
-    print(round_keys)
+    print(w)
 
 
 if __name__ == '__main__':
     main()
-
-
-("WORKING KEY EXPANSION, IMPLEMENT THIS IN TO THE SCRIPT GABRIEL!!!!!!!!!!!!!!!!!!")

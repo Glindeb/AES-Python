@@ -71,10 +71,11 @@ invSubBytesTable = (
 
 # Round constant
 round_constant = (
-    0x00000000, 0x01000000, 0x02000000, 0x04000000, 0x08000000, 0x10000000, 0x20000000, 0x40000000,
-    0x80000000, 0x1B000000, 0x36000000, 0x6C000000, 0xD8000000, 0xAB000000, 0x4D000000, 0x9A000000,
-    0x2F000000, 0x5E000000, 0xBC000000, 0x63000000, 0xC6000000, 0x97000000, 0x35000000, 0x6A000000,
-    0xD4000000, 0xB3000000, 0x7D000000, 0xFA000000, 0xEF000000, 0xC5000000, 0x91000000, 0x39000000
+    0x00000000, 0x01000000, 0x02000000,
+    0x04000000, 0x08000000, 0x10000000,
+    0x20000000, 0x40000000, 0x80000000,
+    0x1B000000, 0x36000000, 0x6C000000,
+    0xD8000000, 0xAB000000, 0x4D000000,
     )
 
 
@@ -111,7 +112,7 @@ def matrix_to_bytes(matrix: list[list[int]]):
 
 
 # Converts a list to a matrix of 4x4
-def list_to_matrix(data: list[int]) -> list[list[int]]:
+def list_to_matrix(data: tuple[int]) -> list[list[int]]:
     return [list(data[i:i+4]) for i in range(0, len(data), 4)]
 
 
@@ -121,7 +122,7 @@ def matrix_to_list(matrix: list[list[int]]) -> list[int]:
 
 
 # Add round key function
-def add_round_key(data: list[list[int]], round_key: list[int]):
+def add_round_key(data: list[list[int]], round_key: tuple[int]):
     key = list_to_matrix(round_key)
     for i in range(4):
         for j in range(4):
@@ -186,10 +187,33 @@ def inv_mix_columns(data: list[list[int]]):
     return data
 
 
+# Performs the encryption round
+# def encryption_rounds(data: list[int], round_keys: list[tuple[int]], nr: int):
+#    # Creates a 4x4 matrix from the 16-byte array
+#    data = list_to_matrix(data)
+#
+#    # Inizial add round key
+#    data = add_round_key(data, round_keys[0])
+#
+#    # Rounds 1 to 9 or 1 to 11 or 1 to 13
+#    for i in range(1, (nr - 1)):
+#        data = sub_bytes(data, subBytesTable)
+#        data = shift_rows(data)
+#        data = mix_columns(data)
+#        data = add_round_key(data, round_keys[i])
+#
+#    # Final round
+#    data = sub_bytes(data, subBytesTable)
+#    data = shift_rows(data)
+#    data = add_round_key(data, round_keys[nr - 1])
+#
+#    return matrix_to_list(data)
+
+
 # ---------------
 # Key expantion setup
 # ---------------
-# Key expansion function
+# Key expansion function (returns a list of round keys)
 def keyExpansion(key):
     # Key expansion setup
     if len(key) == 16:
