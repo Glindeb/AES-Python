@@ -187,8 +187,11 @@ def inv_mix_columns(data):
     return data
 
 
-# Performs the encryption round
-def encryption_rounds(data, round_keys, nr):
+# Performs the encryption rounds
+def encryption_rounds(data, key, nr):
+    # generates round keys
+    round_keys = keyExpansion(key)
+
     # Creates a 4x4 matrix from the 16-byte array
     data = list_to_matrix(data)
 
@@ -206,6 +209,32 @@ def encryption_rounds(data, round_keys, nr):
     data = sub_bytes(data, subBytesTable)
     data = shift_rows(data)
     data = add_round_key(data, round_keys[nr - 1])
+
+    return matrix_to_list(data)
+
+
+# Performs the decryption rounds
+def decryption_rounds(data, key, nr):
+    # generates round keys
+    round_keys = keyExpansion(key)
+
+    # Creates a 4x4 matrix from the 16-byte array
+    data = list_to_matrix(data)
+
+    # Inizial add round key
+    data = add_round_key(data, round_keys[-1])
+
+    # Rounds 1 to 9 or 1 to 11 or 1 to 13
+    for i in range(1, (nr - 1)):
+        data = inv_shift_rows(data)
+        data = sub_bytes(data, invSubBytesTable)
+        data = add_round_key(data, round_keys[-(i+1)])
+        data = inv_mix_columns(data)
+
+    # Final round
+    data = inv_shift_rows(data)
+    data = sub_bytes(data, invSubBytesTable)
+    data = add_round_key(data, round_keys[0])
 
     return matrix_to_list(data)
 
@@ -362,22 +391,24 @@ class Core_data:
     # Running mode
     running_mode: str = ''
 
+    # File variables
+    file_path: str = ''
+
 
 # ---------------
 # AES main class
 # ---------------
-class AES(Core_data):
-    def __init__(self, key, keysize, key_storage_path, key_storage_mode, running_mode):
-        super().__init__()
-
+class AES():
+    def __init__(self, key, file_path, key_storage_path, key_storage_mode, running_mode):
         # Loading Core data module
-        self.core_data = Core_data(
-                                key=key,
-                                keysize=keysize,
-                                key_storage_path=key_storage_path,
-                                key_storage_mode=key_storage_mode,
-                                running_mode=running_mode
-                                )
+        self.core_data = Core_data()
+
+        # Loads running settings in to core data
+        self.core_data.key = key
+        self.core_data.key_storage_mode = key_storage_mode
+        if key_storage_mode is True:
+            self.core_data.key_storage_path = key_storage_path
+        self.core_data.running_mode = running_mode
 
     def encrypt():  # type: ignore
         pass
