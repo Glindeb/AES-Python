@@ -1,8 +1,6 @@
 import pytest
 import AES_Module.AES as AES
 
-aes = AES.Core_data()
-
 xtime = lambda a: (((a << 1) ^ 0x1B) & 0xFF) if (a & 0x80) else (a << 1)
 
 subBytesTable = (
@@ -100,7 +98,9 @@ def test_aes_actions_inv_mix_columns():
     assert AES.inv_mix_columns([[0x8e, 0x4d, 0xa1, 0xbc], [0x9f, 0xdc, 0x58, 0x9d], [0x01, 0x01, 0x01, 0x01], [0xc6, 0xc6, 0xc6, 0xc6]]) == [[0xdb, 0x13, 0x53, 0x45], [0xf2, 0x0a, 0x22, 0x5c], [0x01, 0x01, 0x01, 0x01], [0xc6, 0xc6, 0xc6, 0xc6]]
 
 def test_aes_key_expantion_128bit():
-    assert AES.keyExpansion("00000000000000000000000000000000") == [
+    round_keys, nr = AES.keyExpansion("00000000000000000000000000000000")
+
+    assert round_keys == [
         (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
         (98, 99, 99, 99, 98, 99, 99, 99, 98, 99, 99, 99, 98, 99, 99, 99),
         (155, 152, 152, 201, 249, 251, 251, 170, 155, 152, 152, 201, 249, 251, 251, 170),
@@ -113,9 +113,12 @@ def test_aes_key_expantion_128bit():
         (177, 212, 216, 226, 138, 125, 185, 218, 29, 123, 179, 222, 76, 102, 73, 65),
         (180, 239, 91, 203, 62, 146, 226, 17, 35, 233, 81, 207, 111, 143, 24, 142)
         ]
+    assert nr == 11
 
 def test_aes_key_expantion_192bit():
-    assert AES.keyExpansion("000000000000000000000000000000000000000000000000") == [
+    round_keys, nr = AES.keyExpansion("000000000000000000000000000000000000000000000000")
+
+    assert round_keys == [
         (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
         (0, 0, 0, 0, 0, 0, 0, 0, 98, 99, 99, 99, 98, 99, 99, 99),
         (98, 99, 99, 99, 98, 99, 99, 99, 98, 99, 99, 99, 98, 99, 99, 99),
@@ -130,9 +133,12 @@ def test_aes_key_expantion_192bit():
         (10, 243, 31, 167, 74, 139, 134, 97, 19, 123, 136, 95, 242, 114, 199, 202),
         (67, 42, 200, 134, 216, 52, 192, 182, 210, 199, 223, 17, 152, 76, 89, 112)
         ]
+    assert nr == 13
 
 def test_aes_key_expansion_256bit():
-    assert AES.keyExpansion("0000000000000000000000000000000000000000000000000000000000000000") == [
+    round_keys, nr = AES.keyExpansion("0000000000000000000000000000000000000000000000000000000000000000")
+
+    assert round_keys == [
         (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
         (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
         (98, 99, 99, 99, 98, 99, 99, 99, 98, 99, 99, 99, 98, 99, 99, 99),
@@ -149,25 +155,26 @@ def test_aes_key_expansion_256bit():
         (116, 237, 11, 161, 115, 155, 126, 37, 34, 81, 173, 20, 206, 32, 212, 59),
         (16, 248, 10, 23, 83, 191, 114, 156, 69, 201, 121, 231, 203, 112, 99, 133)
         ]
+    assert nr == 15
 
-@pytest.mark.parametrize("data,key,nr,expected", [
+@pytest.mark.parametrize("data,key,expected", [
     # 128 bit
-    ("6bc1bee22e409f96e93d7e117393172a", "2b7e151628aed2a6abf7158809cf4f3c", 11, "3ad77bb40d7a3660a89ecaf32466ef97"),
-    ("ae2d8a571e03ac9c9eb76fac45af8e51", "2b7e151628aed2a6abf7158809cf4f3c", 11, "f5d3d58503b9699de785895a96fdbaaf"),
-    ("30c81c46a35ce411e5fbc1191a0a52ef", "2b7e151628aed2a6abf7158809cf4f3c", 11, "43b1cd7f598ece23881b00e3ed030688"),
-    ("f69f2445df4f9b17ad2b417be66c3710", "2b7e151628aed2a6abf7158809cf4f3c", 11, "7b0c785e27e8ad3f8223207104725dd4"),
+    ("6bc1bee22e409f96e93d7e117393172a", "2b7e151628aed2a6abf7158809cf4f3c", "3ad77bb40d7a3660a89ecaf32466ef97"),
+    ("ae2d8a571e03ac9c9eb76fac45af8e51", "2b7e151628aed2a6abf7158809cf4f3c", "f5d3d58503b9699de785895a96fdbaaf"),
+    ("30c81c46a35ce411e5fbc1191a0a52ef", "2b7e151628aed2a6abf7158809cf4f3c", "43b1cd7f598ece23881b00e3ed030688"),
+    ("f69f2445df4f9b17ad2b417be66c3710", "2b7e151628aed2a6abf7158809cf4f3c", "7b0c785e27e8ad3f8223207104725dd4"),
     # 192 bit
-    ("6bc1bee22e409f96e93d7e117393172a", "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", 13, "bd334f1d6e45f25ff712a214571fa5cc"),
-    ("ae2d8a571e03ac9c9eb76fac45af8e51", "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", 13, "974104846d0ad3ad7734ecb3ecee4eef"),
-    ("30c81c46a35ce411e5fbc1191a0a52ef", "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", 13, "ef7afd2270e2e60adce0ba2face6444e"),
-    ("f69f2445df4f9b17ad2b417be66c3710", "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", 13, "9a4b41ba738d6c72fb16691603c18e0e"),
+    ("6bc1bee22e409f96e93d7e117393172a", "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", "bd334f1d6e45f25ff712a214571fa5cc"),
+    ("ae2d8a571e03ac9c9eb76fac45af8e51", "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", "974104846d0ad3ad7734ecb3ecee4eef"),
+    ("30c81c46a35ce411e5fbc1191a0a52ef", "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", "ef7afd2270e2e60adce0ba2face6444e"),
+    ("f69f2445df4f9b17ad2b417be66c3710", "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", "9a4b41ba738d6c72fb16691603c18e0e"),
     # 256 bit
-    ("6bc1bee22e409f96e93d7e117393172a", "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", 15, "f3eed1bdb5d2a03c064b5a7e3db181f8"),
-    ("ae2d8a571e03ac9c9eb76fac45af8e51", "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", 15, "591ccb10d410ed26dc5ba74a31362870"),
-    ("30c81c46a35ce411e5fbc1191a0a52ef", "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", 15, "b6ed21b99ca6f4f9f153e7b1beafed1d"),
-    ("f69f2445df4f9b17ad2b417be66c3710", "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", 15, "23304b7a39f9f3ff067d8d8f9e24ecc7"),
+    ("6bc1bee22e409f96e93d7e117393172a", "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", "f3eed1bdb5d2a03c064b5a7e3db181f8"),
+    ("ae2d8a571e03ac9c9eb76fac45af8e51", "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", "591ccb10d410ed26dc5ba74a31362870"),
+    ("30c81c46a35ce411e5fbc1191a0a52ef", "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", "b6ed21b99ca6f4f9f153e7b1beafed1d"),
+    ("f69f2445df4f9b17ad2b417be66c3710", "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", "23304b7a39f9f3ff067d8d8f9e24ecc7"),
 ])
-def test_aes_encryption_rounds(data, key, nr, expected):
+def test_aes_encryption_rounds(data, key, expected):
 
 
     data = [data[i:i+2] for i in range(0, len(data), 2)]
@@ -175,7 +182,7 @@ def test_aes_encryption_rounds(data, key, nr, expected):
     for i, t in enumerate(data):
         data[i] = int(t, 16)
 
-    result = AES.encryption_rounds(data, key, nr)
+    result = AES.encryption_rounds(data, key)
 
     for i, t in enumerate(result):
         result[i] = hex(t)[2:]
@@ -186,24 +193,24 @@ def test_aes_encryption_rounds(data, key, nr, expected):
 
     assert result == expected
 
-@pytest.mark.parametrize("data,key,nr,expected", [
+@pytest.mark.parametrize("data,key,expected", [
     # 128 bit
-    ("3ad77bb40d7a3660a89ecaf32466ef97", "2b7e151628aed2a6abf7158809cf4f3c", 11, "6bc1bee22e409f96e93d7e117393172a"),
-    ("f5d3d58503b9699de785895a96fdbaaf", "2b7e151628aed2a6abf7158809cf4f3c", 11, "ae2d8a571e03ac9c9eb76fac45af8e51"),
-    ("43b1cd7f598ece23881b00e3ed030688", "2b7e151628aed2a6abf7158809cf4f3c", 11, "30c81c46a35ce411e5fbc1191a0a52ef"),
-    ("7b0c785e27e8ad3f8223207104725dd4", "2b7e151628aed2a6abf7158809cf4f3c", 11, "f69f2445df4f9b17ad2b417be66c3710"),
+    ("3ad77bb40d7a3660a89ecaf32466ef97", "2b7e151628aed2a6abf7158809cf4f3c", "6bc1bee22e409f96e93d7e117393172a"),
+    ("f5d3d58503b9699de785895a96fdbaaf", "2b7e151628aed2a6abf7158809cf4f3c", "ae2d8a571e03ac9c9eb76fac45af8e51"),
+    ("43b1cd7f598ece23881b00e3ed030688", "2b7e151628aed2a6abf7158809cf4f3c", "30c81c46a35ce411e5fbc1191a0a52ef"),
+    ("7b0c785e27e8ad3f8223207104725dd4", "2b7e151628aed2a6abf7158809cf4f3c", "f69f2445df4f9b17ad2b417be66c3710"),
     # 192 bit
-    ("bd334f1d6e45f25ff712a214571fa5cc", "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", 13, "6bc1bee22e409f96e93d7e117393172a"),
-    ("974104846d0ad3ad7734ecb3ecee4eef", "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", 13, "ae2d8a571e03ac9c9eb76fac45af8e51"),
-    ("ef7afd2270e2e60adce0ba2face6444e", "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", 13, "30c81c46a35ce411e5fbc1191a0a52ef"),
-    ("9a4b41ba738d6c72fb16691603c18e0e", "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", 13, "f69f2445df4f9b17ad2b417be66c3710"),
+    ("bd334f1d6e45f25ff712a214571fa5cc", "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", "6bc1bee22e409f96e93d7e117393172a"),
+    ("974104846d0ad3ad7734ecb3ecee4eef", "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", "ae2d8a571e03ac9c9eb76fac45af8e51"),
+    ("ef7afd2270e2e60adce0ba2face6444e", "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", "30c81c46a35ce411e5fbc1191a0a52ef"),
+    ("9a4b41ba738d6c72fb16691603c18e0e", "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", "f69f2445df4f9b17ad2b417be66c3710"),
     # 256 bit
-    ("f3eed1bdb5d2a03c064b5a7e3db181f8", "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", 15, "6bc1bee22e409f96e93d7e117393172a"),
-    ("591ccb10d410ed26dc5ba74a31362870", "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", 15, "ae2d8a571e03ac9c9eb76fac45af8e51"),
-    ("b6ed21b99ca6f4f9f153e7b1beafed1d", "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", 15, "30c81c46a35ce411e5fbc1191a0a52ef"),
-    ("23304b7a39f9f3ff067d8d8f9e24ecc7", "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", 15, "f69f2445df4f9b17ad2b417be66c3710"),
+    ("f3eed1bdb5d2a03c064b5a7e3db181f8", "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", "6bc1bee22e409f96e93d7e117393172a"),
+    ("591ccb10d410ed26dc5ba74a31362870", "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", "ae2d8a571e03ac9c9eb76fac45af8e51"),
+    ("b6ed21b99ca6f4f9f153e7b1beafed1d", "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", "30c81c46a35ce411e5fbc1191a0a52ef"),
+    ("23304b7a39f9f3ff067d8d8f9e24ecc7", "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", "f69f2445df4f9b17ad2b417be66c3710"),
 ])
-def test_aes_decryption_rounds(data, key, nr, expected):
+def test_aes_decryption_rounds(data, key, expected):
 
 
     data = [data[i:i+2] for i in range(0, len(data), 2)]
@@ -211,7 +218,7 @@ def test_aes_decryption_rounds(data, key, nr, expected):
     for i, t in enumerate(data):
         data[i] = int(t, 16)
 
-    result = AES.decryption_rounds(data, key, nr)
+    result = AES.decryption_rounds(data, key)
 
     for i, t in enumerate(result):
         result[i] = hex(t)[2:]

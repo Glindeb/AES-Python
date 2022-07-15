@@ -12,7 +12,8 @@ a reasonable security when used for encryption and decryption.
 # ---------------
 # Imports
 # ---------------
-from dataclasses import dataclass, field
+from os.path import getsize
+from re import sub, search
 
 # ---------------
 # Program information m.m
@@ -188,9 +189,9 @@ def inv_mix_columns(data):
 
 
 # Performs the encryption rounds
-def encryption_rounds(data, key, nr):
+def encryption_rounds(data, key):
     # generates round keys
-    round_keys = keyExpansion(key)
+    round_keys, nr = keyExpansion(key)
 
     # Creates a 4x4 matrix from the 16-byte array
     data = list_to_matrix(data)
@@ -214,9 +215,9 @@ def encryption_rounds(data, key, nr):
 
 
 # Performs the decryption rounds
-def decryption_rounds(data, key, nr):
+def decryption_rounds(data, key):
     # generates round keys
-    round_keys = keyExpansion(key)
+    round_keys, nr = keyExpansion(key)
 
     # Creates a 4x4 matrix from the 16-byte array
     data = list_to_matrix(data)
@@ -270,7 +271,7 @@ def keyExpansion(key):
     for i in range(nr):
         round_keys[i] = (words[i * 4] + words[i * 4 + 1] + words[i * 4 + 2] + words[i * 4 + 3])
 
-    return round_keys
+    return round_keys, nr
 
 
 # Key schedule (nk = number of colums, nr = number of rounds)
@@ -368,47 +369,86 @@ def SubWord(word):
 
 
 # ---------------
-# Core data class
+# Running modes setup
 # ---------------
-@dataclass
-class Core_data:
-    # Round info
-    round_keys: list[tuple[int]] = field(default_factory=lambda: [])
+# NOT COMPLETED
+# ECB encryption function
+def ecb_enc(key, file_path):
+    file_size = getsize(file_path)
 
-    # For progress bar
-    progress: int = 0
-    total_progress: int = 0
+    with open(f"{file_path}.enc", 'wb') as output:
+        with open(file_path, 'rb') as data:
 
-    # Error count
-    errors: int = 0
+            for i in range(int(file_size/16)):
+                data_pice = data.read(16)
 
-    # Key variables
-    key: str = ''
-    keysize: int = 0
-    key_storage_path: str = ''
-    key_storage_mode: bool = False
+                raw = [i for i in data_pice]
 
-    # Running mode
-    running_mode: str = ''
+                result = bytes(encryption_rounds(raw, key))
 
-    # File variables
-    file_path: str = ''
+                output.write(result)
+
+            if file_size % 16 != 0:
+                data_pice = data.read()
+
+                raw = [i for i in data_pice]
+
+                for i in range(16 - len(data_pice)):
+                    raw.append(0)
+
+                result = bytes(encryption_rounds(raw, key))
+
+                output.write(result)
+
+
+# NOT COMPLETED
+# ECB decryption function
+def ecb_dec(key, file_path):
+    if search('.enc', file_path) is None:
+        raise Exception('File is not encrypted in known format')
+
+    file_size = getsize(file_path)
+    file_name = sub('.enc', '', file_path)
+
+    with open(f"{file_name}", 'wb') as output:
+        with open(file_path, 'rb') as data:
+
+            for i in range(int(file_size/16)):
+                data_pice = data.read(16)
+
+                raw = [i for i in data_pice]
+
+                result = bytes(decryption_rounds(raw, key))
+
+                output.write(result)
+
+            if file_size % 16 != 0:
+                data_pice = data.read()
+
+                raw = [i for i in data_pice]
+
+                for i in range(16 - len(data_pice)):
+                    raw.append(0)
+
+                result = bytes(decryption_rounds(raw, key))
+
+                output.write(result)
 
 
 # ---------------
-# AES main class
+# AES main setup
 # ---------------
-class AES():
-    def __init__(self, key, file_path, key_storage_path, key_storage_mode, running_mode):
-        # Loading Core data module
-        self.core_data = Core_data()
+# Encryption function
+def encrypt(key, file_path, running_mode):
+    if running_mode == "ECB":
+        ecb_enc(key, file_path)
+    else:
+        raise Exception("Running mode not supported")
 
-        # Loads running settings in to core data
-        self.core_data.key = key
-        self.core_data.key_storage_mode = key_storage_mode
-        if key_storage_mode is True:
-            self.core_data.key_storage_path = key_storage_path
-        self.core_data.running_mode = running_mode
 
-    def encrypt():  # type: ignore
-        pass
+# Decryption function
+def decrypt(key, file_path, running_mode):
+    if running_mode == "ECB":
+        ecb_dec(key, file_path)
+    else:
+        raise Exception("Decryption mode not supported")
