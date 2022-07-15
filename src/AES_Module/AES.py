@@ -6,7 +6,8 @@ that can be used as an external library for AES encryption in python.
 OBS!
 Please note that this is a purely educational project designed to be used as a
 testing, evaluation and learning platform and by that no security can be guaranteed
-for the data encrypted and decrypted with the project.
+for the data encrypted and decrypted with the project. The project is not intended
+to be used for any type of security purposes.
 
 """
 # ---------------
