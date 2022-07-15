@@ -1,12 +1,12 @@
 """
 This is a AES-128, AES-192, AES-256 bit encryption algorithm (Rijndael cipher)
-implementation in Python 3.10 (no external libraries needed) that can be used
-as an external library for AES encryption in python.
+implementation in Python 3.10 (also working in 3.9) (no external libraries needed)
+that can be used as an external library for AES encryption in python.
 
 OBS!
 Please note that this is a purely educational project designed to be used as a
-testing, evaluation and learning platform but should still probably provide
-a reasonable security when used for encryption and decryption.
+testing, evaluation and learning platform and by that no security can be guaranteed
+for the data encrypted and decrypted with the project.
 
 """
 # ---------------
