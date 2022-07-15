@@ -12,7 +12,7 @@ a reasonable security when used for encryption and decryption.
 # ---------------
 # Imports
 # ---------------
-
+from dataclasses import dataclass, field
 
 # ---------------
 # Program information m.m
@@ -83,7 +83,7 @@ round_constant = (
 # Main action functions
 # ---------------
 # Progress bar display and update
-def progress_bar(progress: int, total_progress: int):
+def progress_bar(progress, total_progress):
     percent = 100 * (float(progress) / float(total_progress))
     bar = '#' * int(percent) + '-' * (100 - int(percent))
     print(f"\r[{bar}] {percent:.2f}%", end="\r")
@@ -91,7 +91,7 @@ def progress_bar(progress: int, total_progress: int):
 
 
 # Counts and displays error messages
-def error_message(message: str, errors: int):
+def error_message(message, errors):
     print('[Error ' + message + ']')
     return errors + 1
 
@@ -102,27 +102,27 @@ def xtime(a):
 
 
 # Converts a 16-byte array into a 4x4 matrix
-def bytes_to_matrix(data: bytearray):
+def bytes_to_matrix(data):
     return [list(data[i:i+4]) for i in range(0, len(data), 4)]
 
 
 # Converts a 4x4 matrix into a 16-byte array
-def matrix_to_bytes(matrix: list[list[int]]):
+def matrix_to_bytes(matrix):
     return bytes(sum(matrix, []))
 
 
 # Converts a list to a matrix of 4x4
-def list_to_matrix(data: tuple[int]) -> list[list[int]]:
+def list_to_matrix(data):
     return [list(data[i:i+4]) for i in range(0, len(data), 4)]
 
 
 # Converts a matrix of 4x4 to a list
-def matrix_to_list(matrix: list[list[int]]) -> list[int]:
+def matrix_to_list(matrix):
     return sum(matrix, [])
 
 
 # Add round key function
-def add_round_key(data: list[list[int]], round_key: tuple[int]):
+def add_round_key(data, round_key):
     key = list_to_matrix(round_key)
     for i in range(4):
         for j in range(4):
@@ -131,7 +131,7 @@ def add_round_key(data: list[list[int]], round_key: tuple[int]):
 
 
 # Performs the byte substitution layer
-def sub_bytes(data: list[list[int]], bytesTable: tuple[int]):
+def sub_bytes(data, bytesTable):
     for r in range(4):
         for c in range(4):
             data[r][c] = bytesTable[data[r][c]]
@@ -139,7 +139,7 @@ def sub_bytes(data: list[list[int]], bytesTable: tuple[int]):
 
 
 # Shift rows function
-def shift_rows(data: list[list[int]]):
+def shift_rows(data):
     data[0][1], data[1][1], data[2][1], data[3][1] = data[1][1], data[2][1], data[3][1], data[0][1]
     data[0][2], data[1][2], data[2][2], data[3][2] = data[2][2], data[3][2], data[0][2], data[1][2]
     data[0][3], data[1][3], data[2][3], data[3][3] = data[3][3], data[0][3], data[1][3], data[2][3]
@@ -147,7 +147,7 @@ def shift_rows(data: list[list[int]]):
 
 
 # Inverse shift rows function
-def inv_shift_rows(data: list[list[int]]):
+def inv_shift_rows(data):
     data[0][1], data[1][1], data[2][1], data[3][1] = data[3][1], data[0][1], data[1][1], data[2][1]
     data[0][2], data[1][2], data[2][2], data[3][2] = data[2][2], data[3][2], data[0][2], data[1][2]
     data[0][3], data[1][3], data[2][3], data[3][3] = data[1][3], data[2][3], data[3][3], data[0][3]
@@ -155,7 +155,7 @@ def inv_shift_rows(data: list[list[int]]):
 
 
 # Performs the mix columns layer
-def mix_columns(data: list[list[int]]):
+def mix_columns(data):
     def mix_single_column(data):
         # see Sec 4.1.2 in The Design of Rijndael
         t = data[0] ^ data[1] ^ data[2] ^ data[3]
@@ -174,7 +174,7 @@ def mix_columns(data: list[list[int]]):
 
 
 # Preforms the inverse mix columns layer
-def inv_mix_columns(data: list[list[int]]):
+def inv_mix_columns(data):
     # see Sec 4.1.3 in The Design of Rijndael
     for i in range(4):
         u = xtime(xtime(data[i][0] ^ data[i][2]))
@@ -188,26 +188,26 @@ def inv_mix_columns(data: list[list[int]]):
 
 
 # Performs the encryption round
-# def encryption_rounds(data: list[int], round_keys: list[tuple[int]], nr: int):
-#    # Creates a 4x4 matrix from the 16-byte array
-#    data = list_to_matrix(data)
-#
-#    # Inizial add round key
-#    data = add_round_key(data, round_keys[0])
-#
-#    # Rounds 1 to 9 or 1 to 11 or 1 to 13
-#    for i in range(1, (nr - 1)):
-#        data = sub_bytes(data, subBytesTable)
-#        data = shift_rows(data)
-#        data = mix_columns(data)
-#        data = add_round_key(data, round_keys[i])
-#
-#    # Final round
-#    data = sub_bytes(data, subBytesTable)
-#    data = shift_rows(data)
-#    data = add_round_key(data, round_keys[nr - 1])
-#
-#    return matrix_to_list(data)
+def encryption_rounds(data, round_keys, nr):
+    # Creates a 4x4 matrix from the 16-byte array
+    data = list_to_matrix(data)
+
+    # Inizial add round key
+    data = add_round_key(data, round_keys[0])
+
+    # Rounds 1 to 9 or 1 to 11 or 1 to 13
+    for i in range(1, (nr - 1)):
+        data = sub_bytes(data, subBytesTable)
+        data = shift_rows(data)
+        data = mix_columns(data)
+        data = add_round_key(data, round_keys[i])
+
+    # Final round
+    data = sub_bytes(data, subBytesTable)
+    data = shift_rows(data)
+    data = add_round_key(data, round_keys[nr - 1])
+
+    return matrix_to_list(data)
 
 
 # ---------------
@@ -215,6 +215,9 @@ def inv_mix_columns(data: list[list[int]]):
 # ---------------
 # Key expansion function (returns a list of round keys)
 def keyExpansion(key):
+    # Format key correctly for the key expansion
+    key = [key[i:i+2] for i in range(0, len(key), 2)]
+
     # Key expansion setup
     if len(key) == 16:
         words = key_schedule(key, 4, 11)
@@ -227,6 +230,13 @@ def keyExpansion(key):
         nr = 15
 
     round_keys = [None for i in range(nr)]
+
+    tmp = [None for i in range(4)]
+
+    for i in range(nr * 4):
+        for index, t in enumerate(words[i]):
+            tmp[index] = int(t, 16)  # type: ignore
+        words[i] = tuple(tmp)
 
     for i in range(nr):
         round_keys[i] = (words[i * 4] + words[i * 4 + 1] + words[i * 4 + 2] + words[i * 4 + 3])
@@ -331,35 +341,43 @@ def SubWord(word):
 # ---------------
 # Core data class
 # ---------------
+@dataclass
 class Core_data:
-    def __init__(self):
-        # For progress bar
-        self.progress = 0
-        self.total_progress = 0
+    # Round info
+    round_keys: list[tuple[int]] = field(default_factory=lambda: [])
 
-        # Error count
-        self.errors = 0
+    # For progress bar
+    progress: int = 0
+    total_progress: int = 0
 
-        # Key variables
-        self.key = ''
-        self.keysize = 0
-        self.key_storage_path = ''
-        self.key_storage_mode = 'False'
+    # Error count
+    errors: int = 0
 
-        # Round info
-        self.number_of_rounds = 0
-        self.round_keys = ''
+    # Key variables
+    key: str = ''
+    keysize: int = 0
+    key_storage_path: str = ''
+    key_storage_mode: bool = False
 
-        # Running mode
-        self.running_mode = ''
+    # Running mode
+    running_mode: str = ''
 
 
 # ---------------
 # AES main class
 # ---------------
 class AES(Core_data):
-    def __init__(self):
+    def __init__(self, key, keysize, key_storage_path, key_storage_mode, running_mode):
         super().__init__()
 
-        # Loading Core data
-        self.core_data = Core_data()
+        # Loading Core data module
+        self.core_data = Core_data(
+                                key=key,
+                                keysize=keysize,
+                                key_storage_path=key_storage_path,
+                                key_storage_mode=key_storage_mode,
+                                running_mode=running_mode
+                                )
+
+    def encrypt():  # type: ignore
+        pass
