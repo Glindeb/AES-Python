@@ -1,4 +1,5 @@
 import pytest
+import os
 import AES_Module.AES as AES
 
 xtime = lambda a: (((a << 1) ^ 0x1B) & 0xFF) if (a & 0x80) else (a << 1)
@@ -153,8 +154,6 @@ def test_aes_key_expansion_256bit():
     ("f69f2445df4f9b17ad2b417be66c3710", "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", "23304b7a39f9f3ff067d8d8f9e24ecc7"),
 ])
 def test_aes_encryption_rounds(data, key, expected):
-
-
     data = [data[i:i+2] for i in range(0, len(data), 2)]
 
     for i, t in enumerate(data):
@@ -189,8 +188,6 @@ def test_aes_encryption_rounds(data, key, expected):
     ("23304b7a39f9f3ff067d8d8f9e24ecc7", "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", "f69f2445df4f9b17ad2b417be66c3710"),
 ])
 def test_aes_decryption_rounds(data, key, expected):
-
-
     data = [data[i:i+2] for i in range(0, len(data), 2)]
 
     for i, t in enumerate(data):
@@ -206,3 +203,75 @@ def test_aes_decryption_rounds(data, key, expected):
     result = "".join(result)
 
     assert result == expected
+
+@pytest.mark.parametrize("data,key,file_name,expected", [
+    # 128 bit
+    (b'1234567890', "2b7e151628aed2a6abf7158809cf4f3c", "tmp.txt", b'|\x94\x18\xcf\x1c\xf0\xef\xa0\xff\xa4\xbb\xe9\xd8\x8am\xa40f\xe4\x1eg\x9d\x88\xb8\xef\xeb{=J\xf3\xf6\xc1'),
+    (b'1234567890123456', "2b7e151628aed2a6abf7158809cf4f3c", "tmp1.txt", b'(>\xa4JH\xd7\x18\xa2\xc1\xf7\xb7\xe3\xbbKJ\xf8}\xf7k\x0c\x1a\xb8\x99\xb3>B\xf0G\xb9\x1bTo'),
+    # 192 bit
+    (b'1234567890', "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", "tmp2.txt", b'K\x9d\xe5\xe9l8&\xdalO\xbb\xc3\xf2\xc3*\xf2\xfe\x9a\xbd!U\x9d\xf3\xaa\x8a\xb2\xac\x96@jyU'),
+    (b'1234567890123456', "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", "tmp3.txt", b'\xf9\x01\xd7\xe8\xdc\xf7\\\xc0\xc8\xa1*>t\xabA\xd8"E-\x8eI\xa8\xa5\x93\x9fs!\xce\xeamQK'),
+    # 256 bit
+    (b'1234567890', "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", "tmp4.txt", b'2 ?\xebm\xf5o\xc2\x8b\x90\x80\x84 D\xc4\x95\x89\x18\n\xeb\xac\xde\xa7P>Ei\xbc|\x9c\xfa\xf2'),
+    (b'1234567890123456', "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", "tmp5.txt", b"\x8cc'\xc8d\x82\xb3\x8cj\xd2\\\xaa\x96\xf1\xffi\xe5h\xf6\x81\x94\xcfv\xd6\x17ML\xc0C\x10\xa8T")
+])
+def test_aes_encrypt_ECB(data, key, file_name, expected):
+    with open(file_name, "wb") as file:
+        file.write(data)
+
+    AES.encrypt(key, file_name, "ECB")
+
+    with open(f"{file_name}.enc", "rb") as file:
+        result = file.read()
+
+    os.remove(f"{file_name}.enc")
+
+    assert result == expected
+
+@pytest.mark.parametrize("data,key,file_name,expected", [
+    # 128 bit
+    (b'|\x94\x18\xcf\x1c\xf0\xef\xa0\xff\xa4\xbb\xe9\xd8\x8am\xa40f\xe4\x1eg\x9d\x88\xb8\xef\xeb{=J\xf3\xf6\xc1', "2b7e151628aed2a6abf7158809cf4f3c", "tmp1.txt", b'1234567890'),
+    (b'(>\xa4JH\xd7\x18\xa2\xc1\xf7\xb7\xe3\xbbKJ\xf8}\xf7k\x0c\x1a\xb8\x99\xb3>B\xf0G\xb9\x1bTo', "2b7e151628aed2a6abf7158809cf4f3c", "tmp2.txt", b'1234567890123456'),
+    (b'(>\xa4JH\xd7\x18\xa2\xc1\xf7\xb7\xe3\xbbKJ\xf8\x93\xb1N\xa8\x13I\xd8\xae\xdaw\xee\xef\xdc\xac\xc2\xdb\xf2\x01\xfa.\x10P\x87\xf27Q\xf7\xf5\x86\xb40\xd3', "2b7e151628aed2a6abf7158809cf4f3c", "tmp7.txt", b'12345678901234567890'),
+    # 192 bit
+    (b'K\x9d\xe5\xe9l8&\xdalO\xbb\xc3\xf2\xc3*\xf2\xfe\x9a\xbd!U\x9d\xf3\xaa\x8a\xb2\xac\x96@jyU', "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", "tmp3.txt", b'1234567890'),
+    (b'\xf9\x01\xd7\xe8\xdc\xf7\\\xc0\xc8\xa1*>t\xabA\xd8"E-\x8eI\xa8\xa5\x93\x9fs!\xce\xeamQK', "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", "tmp4.txt", b'1234567890123456'),
+    # 256 bit
+    (b'2 ?\xebm\xf5o\xc2\x8b\x90\x80\x84 D\xc4\x95\x89\x18\n\xeb\xac\xde\xa7P>Ei\xbc|\x9c\xfa\xf2', "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", "tmp5.txt", b'1234567890'),
+    (b"\x8cc'\xc8d\x82\xb3\x8cj\xd2\\\xaa\x96\xf1\xffi\xe5h\xf6\x81\x94\xcfv\xd6\x17ML\xc0C\x10\xa8T", "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", "tmp6.txt", b'1234567890123456')
+])
+def test_aes_decryption_ECB(data, key, file_name, expected):
+    with open(f"{file_name}.enc", "wb") as file:
+        file.write(data)
+
+    AES.decrypt(key, f"{file_name}.enc", "ECB")
+
+    with open(file_name, "rb") as file:
+        result = file.read()
+
+    os.remove(file_name)
+
+    assert result == expected
+
+def test_aes_decryption_exeption():
+    with pytest.raises(Exception) as e:
+        AES.decrypt("1234567890123456", "tmp.txt", "ECB")
+    assert str(e.value) == 'File is not encrypted in known format'
+    assert e.type == Exception
+
+def test_aes_running_mode_exeption():
+    with pytest.raises(Exception) as e:
+        AES.encrypt("1234567890123456", "tmp.txt", "a<wertygraewtg")
+    assert str(e.value) == 'Running mode not supported'
+    assert e.type == Exception
+
+    with pytest.raises(Exception) as p:
+        AES.decrypt("1234567890123456", "tmp.txt", "wrseyhstehy")
+    assert str(p.value) == 'Running mode not supported'
+    assert p.type == Exception
+
+def test_aes_remove_padding_exeption():
+    with pytest.raises(Exception) as e:
+        AES.remove_padding("2", [17])
+    assert str(e.value) == 'Invalid padding'
+    assert e.type == ValueError

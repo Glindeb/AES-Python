@@ -177,7 +177,7 @@ def add_padding(data):
 def remove_padding(data, identifier):
     if identifier[-1] == 0:
         return data
-    elif identifier[-1] > 0:
+    elif identifier[-1] > 0 and identifier[-1] < 16:
         return data[:-identifier[-1]]
     else:
         raise ValueError('Invalid padding')
@@ -438,4 +438,4 @@ def decrypt(key, file_path, running_mode):
     if running_mode == "ECB":
         ecb_dec(key, file_path)
     else:
-        raise Exception("Decryption mode not supported")
+        raise Exception("Running mode not supported")
