@@ -8,5 +8,5 @@ To execute individual tests (command):
 
 The tox command is then also run in multiple environments using github actions.
 
-to install package (command): pip install -e .
+to install package (command): pip install -e ./
 when you are located in its directory.
