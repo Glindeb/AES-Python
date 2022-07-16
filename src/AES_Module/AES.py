@@ -7,6 +7,7 @@ OBS!
 Please note that this is a purely educational project designed to be used as a
 testing, evaluation and learning platform and by that no security can be guaranteed
 for the data encrypted and decrypted with the project. The project is not intended
+
 to be used for any type of security purposes.
 
 """
@@ -14,6 +15,7 @@ to be used for any type of security purposes.
 # Imports
 # ---------------
 from os.path import getsize
+from os import remove
 from re import sub, search
 
 # ---------------
@@ -187,6 +189,24 @@ def inv_mix_columns(data):
         data[i][3] ^= v
     mix_columns(data)
     return data
+
+
+# Adds a padding to ensure a bloke size of 16 bytes
+def add_padding(data):
+    length = 16 - len(data)
+    for i in range(length):
+        data.append(0)
+    return data, length
+
+
+# Removes the padding
+def remove_padding(data, identifier):
+    if identifier[-1] == 0:
+        return data
+    elif identifier[-1] > 0:
+        return data[:-identifier[-1]]
+    else:
+        raise ValueError('Invalid padding')
 
 
 # Performs the encryption rounds
@@ -372,7 +392,6 @@ def SubWord(word):
 # ---------------
 # Running modes setup
 # ---------------
-# NOT COMPLETED
 # ECB encryption function
 def ecb_enc(key, file_path):
     file_size = getsize(file_path)
@@ -381,28 +400,25 @@ def ecb_enc(key, file_path):
         with open(file_path, 'rb') as data:
 
             for i in range(int(file_size/16)):
-                data_pice = data.read(16)
-
-                raw = [i for i in data_pice]
-
+                raw = [i for i in data.read(16)]
                 result = bytes(encryption_rounds(raw, key))
 
                 output.write(result)
 
             if file_size % 16 != 0:
-                data_pice = data.read()
-
-                raw = [i for i in data_pice]
-
-                for i in range(16 - len(data_pice)):
-                    raw.append(0)
+                raw = [i for i in data.read()]
+                raw, length = add_padding(raw)
 
                 result = bytes(encryption_rounds(raw, key))
+                identifier = bytes(encryption_rounds([0 for i in range(15)] + [length], key))
 
-                output.write(result)
+                output.write(result + identifier)
+            else:
+                identifier = bytes(encryption_rounds([0 for i in range(16)], key))
+                output.write(identifier)
+    remove(file_path)
 
 
-# NOT COMPLETED
 # ECB decryption function
 def ecb_dec(key, file_path):
     if search('.enc', file_path) is None:
@@ -414,26 +430,22 @@ def ecb_dec(key, file_path):
     with open(f"{file_name}", 'wb') as output:
         with open(file_path, 'rb') as data:
 
-            for i in range(int(file_size/16)):
-                data_pice = data.read(16)
-
-                raw = [i for i in data_pice]
-
+            for i in range(int(file_size/16) - 2):
+                raw = [i for i in data.read(16)]
                 result = bytes(decryption_rounds(raw, key))
 
                 output.write(result)
 
-            if file_size % 16 != 0:
-                data_pice = data.read()
+            data_pice = [i for i in data.read(16)]
+            identifier = [i for i in data.read()]
 
-                raw = [i for i in data_pice]
+            result = decryption_rounds(data_pice, key)
+            identifier = decryption_rounds(identifier, key)
 
-                for i in range(16 - len(data_pice)):
-                    raw.append(0)
+            result = bytes(remove_padding(result, identifier))
 
-                result = bytes(decryption_rounds(raw, key))
-
-                output.write(result)
+            output.write(result)
+    remove(file_path)
 
 
 # ---------------
