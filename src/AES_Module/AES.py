@@ -7,7 +7,6 @@ OBS!
 Please note that this is a purely educational project designed to be used as a
 testing, evaluation and learning platform and by that no security can be guaranteed
 for the data encrypted and decrypted with the project. The project is not intended
-
 to be used for any type of security purposes.
 
 """
@@ -29,7 +28,6 @@ __version__ = '1.0'
 __maintainer__ = 'Gabriel Lindeblad'
 __email__ = 'Gabriel.lindeblad@icloud.com'
 __status__ = 'Development'
-
 
 # ---------------
 # Fixed variables
@@ -86,33 +84,9 @@ round_constant = (
 # ---------------
 # Main action functions
 # ---------------
-# Progress bar display and update
-def progress_bar(progress, total_progress):
-    percent = 100 * (float(progress) / float(total_progress))
-    bar = '#' * int(percent) + '-' * (100 - int(percent))
-    print(f"\r[{bar}] {percent:.2f}%", end="\r")
-    return progress + 16
-
-
-# Counts and displays error messages
-def error_message(message, errors):
-    print('[Error ' + message + ']')
-    return errors + 1
-
-
 # Xtime
 def xtime(a):
     return (((a << 1) ^ 0x1B) & 0xFF) if (a & 0x80) else (a << 1)
-
-
-# Converts a 16-byte array into a 4x4 matrix
-def bytes_to_matrix(data):
-    return [list(data[i:i+4]) for i in range(0, len(data), 4)]
-
-
-# Converts a 4x4 matrix into a 16-byte array
-def matrix_to_bytes(matrix):
-    return bytes(sum(matrix, []))
 
 
 # Converts a list to a matrix of 4x4

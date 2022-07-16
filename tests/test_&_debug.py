@@ -51,28 +51,6 @@ def test_exist():
     assert AES.__email__ is not None
     assert AES.__status__ is not None
 
-@pytest.mark.parametrize("test_input,test_input_2,expected", [
-    (0, 16, 16),
-    (16, 32, 32),
-    (32, 48, 48),
-    (48, 64 , 64),
-    (64, 80 , 80),
-    (80, 96 , 96),
-    (96, 112, 112),
-
-])
-def test_aes_actions_progress_bar(test_input, test_input_2, expected):
-    assert AES.progress_bar(test_input, test_input_2) is expected
-
-def test_aes_actions_error_message():
-    assert AES.error_message('under testing', 0) is 1
-
-def test_aes_actions_bytes_to_matrix():
-    assert AES.bytes_to_matrix(b'\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f') == [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15]]
-
-def test_aes_actions_matrix_to_bytes():
-    assert AES.matrix_to_bytes([[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15]]) == b'\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'
-
 def test_aes_actions_list_to_matrix():
     assert AES.list_to_matrix([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]) == [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15]]
 
