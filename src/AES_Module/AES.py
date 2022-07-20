@@ -15,7 +15,6 @@ to be used for any type of security purposes.
 # ---------------
 from os.path import getsize
 from os import remove
-from re import search
 
 # ---------------
 # Program information m.m
