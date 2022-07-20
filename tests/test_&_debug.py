@@ -240,12 +240,12 @@ def test_aes_decryption_exeption():
 
 def test_aes_running_mode_exeption():
     with pytest.raises(Exception) as e:
-        AES.encrypt("1234567890123456", "tmp.txt", "a<wertygraewtg")
+        AES.encrypt("12345678901234567890123456789012", "tmp.txt", "a<wertygraewtg")
     assert str(e.value) == 'Running mode not supported'
     assert e.type == Exception
 
     with pytest.raises(Exception) as p:
-        AES.decrypt("1234567890123456", "tmp.txt", "wrseyhstehy")
+        AES.decrypt("12345678901234567890123456789012", "tmp.txt.enc", "wrseyhstehy")
     assert str(p.value) == 'Running mode not supported'
     assert p.type == Exception
 
