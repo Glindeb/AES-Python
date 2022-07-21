@@ -458,17 +458,20 @@ def cbc_dec(key, file_path, iv):
     file_name = file_path[:-4]
 
     with open(f"{file_name}", 'wb') as output, open(file_path, 'rb') as data:
-        vector = [i for i in data.read(16)]
-        raw = decryption_rounds(vector, key)
-        result = xor(raw, iv)
-        output.write(bytes(result))
-
-        for i in range(int(file_size/16) - 3):
-            raw = [i for i in data.read(16)]
-            result = decryption_rounds(raw, key)
-            result = xor(result, vector)
-            vector = raw
+        if int(file_size/16) - 3 >= 0:
+            vector = [i for i in data.read(16)]
+            raw = decryption_rounds(vector, key)
+            result = xor(raw, iv)
             output.write(bytes(result))
+
+            for i in range(int(file_size/16) - 3):
+                raw = [i for i in data.read(16)]
+                result = decryption_rounds(raw, key)
+                result = xor(result, vector)
+                vector = raw
+                output.write(bytes(result))
+        else:
+            vector = iv
 
         data_pice = [i for i in data.read(16)]
         vector_1, identifier = data_pice, [i for i in data.read()]
