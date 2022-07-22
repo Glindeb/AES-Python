@@ -1,4 +1,4 @@
-with open(r"C:\Users\Gabriel\Documents\GitHub\AES-Python\tmp\test_files\data.txt.enc", "rb") as p:
+with open(r"/Users/gabriellindeblad/Documents/GitHub/AES-Python/tmp/test_files/data.txt.enc", "rb") as p:
     t = p.read()
     print(t)
 

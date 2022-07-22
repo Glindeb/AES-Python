@@ -15,7 +15,6 @@ to be used for any type of security purposes.
 # ---------------
 from os.path import getsize
 from os import remove
-from re import sub, search
 
 # ---------------
 # Program information m.m
@@ -106,6 +105,15 @@ def add_round_key(data, round_key):
         for j in range(4):
             data[i][j] ^= key[i][j]
     return data
+
+
+# XOR function
+def xor(data1, data2):
+    data1, data2 = list_to_matrix(data1), list_to_matrix(data2)
+    for i in range(4):
+        for j in range(4):
+            data1[i][j] ^= data2[i][j]
+    return matrix_to_list(data1)
 
 
 # Performs the byte substitution layer
@@ -370,55 +378,113 @@ def SubWord(word):
 def ecb_enc(key, file_path):
     file_size = getsize(file_path)
 
-    with open(f"{file_path}.enc", 'wb') as output:
-        with open(file_path, 'rb') as data:
+    with open(f"{file_path}.enc", 'wb') as output, open(file_path, 'rb') as data:
+        for i in range(int(file_size/16)):
+            raw = [i for i in data.read(16)]
+            result = bytes(encryption_rounds(raw, key))
+            output.write(result)
 
-            for i in range(int(file_size/16)):
-                raw = [i for i in data.read(16)]
-                result = bytes(encryption_rounds(raw, key))
+        if file_size % 16 != 0:
+            raw = [i for i in data.read()]
+            raw, length = add_padding(raw)
 
-                output.write(result)
+            result = bytes(encryption_rounds(raw, key))
+            identifier = bytes(encryption_rounds([0 for i in range(15)] + [length], key))
 
-            if file_size % 16 != 0:
-                raw = [i for i in data.read()]
-                raw, length = add_padding(raw)
-
-                result = bytes(encryption_rounds(raw, key))
-                identifier = bytes(encryption_rounds([0 for i in range(15)] + [length], key))
-
-                output.write(result + identifier)
-            else:
-                identifier = bytes(encryption_rounds([0 for i in range(16)], key))
-                output.write(identifier)
+            output.write(result + identifier)
+        else:
+            identifier = bytes(encryption_rounds([0 for i in range(16)], key))
+            output.write(identifier)
     remove(file_path)
 
 
 # ECB decryption function
 def ecb_dec(key, file_path):
-    if search('.enc', file_path) is None:
-        raise Exception('File is not encrypted in known format')
-
     file_size = getsize(file_path)
-    file_name = sub('.enc', '', file_path)
+    file_name = file_path[:-4]
 
-    with open(f"{file_name}", 'wb') as output:
-        with open(file_path, 'rb') as data:
-
-            for i in range(int(file_size/16) - 2):
-                raw = [i for i in data.read(16)]
-                result = bytes(decryption_rounds(raw, key))
-
-                output.write(result)
-
-            data_pice = [i for i in data.read(16)]
-            identifier = [i for i in data.read()]
-
-            result = decryption_rounds(data_pice, key)
-            identifier = decryption_rounds(identifier, key)
-
-            result = bytes(remove_padding(result, identifier))
-
+    with open(f"{file_name}", 'wb') as output, open(file_path, 'rb') as data:
+        for i in range(int(file_size/16) - 2):
+            raw = [i for i in data.read(16)]
+            result = bytes(decryption_rounds(raw, key))
             output.write(result)
+
+        data_pice = [i for i in data.read(16)]
+        identifier = [i for i in data.read()]
+
+        result = decryption_rounds(data_pice, key)
+        identifier = decryption_rounds(identifier, key)
+
+        result = bytes(remove_padding(result, identifier))
+
+        output.write(result)
+    remove(file_path)
+
+
+# CBC encryption function
+def cbc_enc(key, file_path, iv):
+    file_size = getsize(file_path)
+    vector = [int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]
+
+    with open(f"{file_path}.enc", 'wb') as output, open(file_path, 'rb') as data:
+        for i in range(int(file_size/16)):
+            raw = [i for i in data.read(16)]
+            raw = xor(raw, vector)
+            vector = encryption_rounds(raw, key)
+            output.write(bytes(vector))
+
+        if file_size % 16 != 0:
+            raw = [i for i in data.read()]
+            raw, length = add_padding(raw)
+
+            raw = xor(raw, vector)
+            vector = encryption_rounds(raw, key)
+
+            identifier = xor(([0 for i in range(15)] + [length]), vector)
+            identifier = encryption_rounds(identifier, key)
+
+            output.write(bytes(vector + identifier))
+        else:
+            identifier = xor([0 for i in range(16)], vector)
+            identifier = bytes(encryption_rounds(identifier, key))
+            output.write(identifier)
+    remove(file_path)
+
+
+# CBC decryption function
+def cbc_dec(key, file_path, iv):
+    iv = [int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]
+    file_size = getsize(file_path)
+    file_name = file_path[:-4]
+
+    with open(f"{file_name}", 'wb') as output, open(file_path, 'rb') as data:
+        if int(file_size/16) - 3 >= 0:
+            vector = [i for i in data.read(16)]
+            raw = decryption_rounds(vector, key)
+            result = xor(raw, iv)
+            output.write(bytes(result))
+
+            for i in range(int(file_size/16) - 3):
+                raw = [i for i in data.read(16)]
+                result = decryption_rounds(raw, key)
+                result = xor(result, vector)
+                vector = raw
+                output.write(bytes(result))
+        else:
+            vector = iv
+
+        data_pice = [i for i in data.read(16)]
+        vector_1, identifier = data_pice, [i for i in data.read()]
+
+        result = decryption_rounds(data_pice, key)
+        identifier = decryption_rounds(identifier, key)
+
+        identifier = xor(identifier, vector_1)
+        data_pice = xor(result, vector)
+
+        result = bytes(remove_padding(data_pice, identifier))
+
+        output.write(result)
     remove(file_path)
 
 
@@ -426,16 +492,34 @@ def ecb_dec(key, file_path):
 # AES main setup
 # ---------------
 # Encryption function
-def encrypt(key, file_path, running_mode):
+def encrypt(key, file_path, running_mode, iv=None):
+
+    # Input validation
+    if (len(key) / 2) not in [16, 24, 32]:
+        raise Exception('Key length is not valid')
+
+    # Running mode selection
     if running_mode == "ECB":
         ecb_enc(key, file_path)
+    elif running_mode == "CBC" and iv is not None:
+        cbc_enc(key, file_path, iv)
     else:
         raise Exception("Running mode not supported")
 
 
 # Decryption function
-def decrypt(key, file_path, running_mode):
+def decrypt(key, file_path, running_mode, iv=None):
+
+    # Input validation
+    if file_path[-4:] != ".enc":
+        raise Exception('File is not encrypted in known format')
+    if (len(key) / 2) not in [16, 24, 32]:
+        raise Exception('Key length is not valid')
+
+    # Running mode selection
     if running_mode == "ECB":
         ecb_dec(key, file_path)
+    elif running_mode == "CBC" and iv is not None:
+        cbc_dec(key, file_path, iv)
     else:
         raise Exception("Running mode not supported")
