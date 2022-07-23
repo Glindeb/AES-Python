@@ -1,32 +1,8 @@
-"""
-This is a AES-128, AES-192, AES-256 bit encryption algorithm (Rijndael cipher)
-implementation in Python 3.10 (also working in 3.9) (no external libraries needed)
-that can be used as an external library for AES encryption in python.
-
-OBS!
-Please note that this is a purely educational project designed to be used as a
-testing, evaluation and learning platform and by that no security can be guaranteed
-for the data encrypted and decrypted with the project. The project is not intended
-to be used for any type of security purposes.
-
-"""
 # ---------------
 # Imports
 # ---------------
 from os.path import getsize
 from os import remove
-
-# ---------------
-# Program information m.m
-# ---------------
-__author__ = 'Gabriel Lindeblad'
-__copyright__ = 'Copyright 2022, Circut Labs'
-__credits__ = [""]
-__license__ = ''
-__version__ = '1.0'
-__maintainer__ = 'Gabriel Lindeblad'
-__email__ = 'Gabriel.lindeblad@icloud.com'
-__status__ = 'Development'
 
 # ---------------
 # Fixed variables
@@ -486,40 +462,3 @@ def cbc_dec(key, file_path, iv):
 
         output.write(result)
     remove(file_path)
-
-
-# ---------------
-# AES main setup
-# ---------------
-# Encryption function
-def encrypt(key, file_path, running_mode, iv=None):
-
-    # Input validation
-    if (len(key) / 2) not in [16, 24, 32]:
-        raise Exception('Key length is not valid')
-
-    # Running mode selection
-    if running_mode == "ECB":
-        ecb_enc(key, file_path)
-    elif running_mode == "CBC" and iv is not None:
-        cbc_enc(key, file_path, iv)
-    else:
-        raise Exception("Running mode not supported")
-
-
-# Decryption function
-def decrypt(key, file_path, running_mode, iv=None):
-
-    # Input validation
-    if file_path[-4:] != ".enc":
-        raise Exception('File is not encrypted in known format')
-    if (len(key) / 2) not in [16, 24, 32]:
-        raise Exception('Key length is not valid')
-
-    # Running mode selection
-    if running_mode == "ECB":
-        ecb_dec(key, file_path)
-    elif running_mode == "CBC" and iv is not None:
-        cbc_dec(key, file_path, iv)
-    else:
-        raise Exception("Running mode not supported")
