@@ -14,7 +14,7 @@ def main():
                                       __/ |
                                      |___/                       """)
     print("-"*66)
-    print(f"Version: {AES_Python.__version__}                           {AES_Python.__copyright__}")
+    print(f"Version: {AES_Python.__version__}                         {AES_Python.__copyright__}")
     print("-"*66)
     print("""This is a simple AES (Advanced Encryption Standard) implementation
 in Python-3. It is a pure Python implementation of AES that is
