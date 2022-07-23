@@ -10,6 +10,7 @@ name: Build & Upload Python Package
 
 on:
   release:
+    branches: [core]
     types: [published]
 
 permissions:
