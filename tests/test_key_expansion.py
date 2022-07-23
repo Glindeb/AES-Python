@@ -1,4 +1,4 @@
-import AES_Module.AES as AES
+import AES_Python.AES as AES
 
 def test_aes_key_expantion_128bit():
     round_keys, nr = AES.keyExpansion("00000000000000000000000000000000")

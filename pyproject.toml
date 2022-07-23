@@ -2,8 +2,37 @@
 requires = ["setuptools>=42.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "AES-Python"
+version = "1.0.0"
+description = "AES (Advanced Encryption Standard) implementation in Python-3"
+readme = "README.md"
+authors = [{ name = "Gabriel Lindeblad", email = "Gabriel.Lindeblad@icloud.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+keywords = ["AES", "AES_Python", "AES-Python", "Advanced Encryption Standard", "encryption", "cryptography"]
+requires-python = ">=3.7"
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-cov", "mypy", "flake8", "tox"]
+
+[project.urls]
+Homepage = "https://github.com/Circut-labs/AES-Python"
+
+[project.scripts]
+AES_Python = "AES_Python.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
 [tool.pytest.ini_options]
-addopts = "--cov=src/AES_Module"
+addopts = "--cov=src/AES_Python"
 testpaths = [
     "tests",
 ]

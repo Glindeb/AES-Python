@@ -1,6 +1,6 @@
 import pytest
 import os
-import AES_Module.AES as AES
+from AES_Python.encrypt import encrypt
 
 @pytest.mark.parametrize("data,key,file_name,expected", [
     # 128 bit
@@ -17,7 +17,7 @@ def test_aes_encrypt_ECB(data, key, file_name, expected):
     with open(file_name, "wb") as file:
         file.write(data)
 
-    AES.encrypt(key, file_name, "ECB")
+    encrypt(key, file_name, "ECB")
 
     with open(f"{file_name}.enc", "rb") as file:
         result = file.read()
@@ -41,7 +41,7 @@ def test_aes_encrypt_CBC(data, key, file_name, iv, expected):
     with open(file_name, "wb") as file:
         file.write(data)
 
-    AES.encrypt(key, file_name, "CBC", iv)
+    encrypt(key, file_name, "CBC", iv)
 
     with open(f"{file_name}.enc", "rb") as file:
         result = file.read()
