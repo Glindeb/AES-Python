@@ -1,6 +1,6 @@
 # AES-Python
 
-![Tests](https://github.com/Circut-labs/AES-Python/actions/workflows/test.yml/badge.svg)
+![Tests](https://github.com/Circut-labs/AES-Python/actions/workflows/test.yml/badge.svg) [![Build & Publish](https://github.com/Circut-labs/AES-Python/actions/workflows/python-publish.yml/badge.svg?branch=core)](https://github.com/Circut-labs/AES-Python/actions/workflows/python-publish.yml)
 
 - [AES-Python](#aes-python)
   - [About](#about)
