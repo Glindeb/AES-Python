@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: AES-Python
-Version: 1.0.2
+Version: 1.1.0
 Summary: AES (Advanced Encryption Standard) implementation in Python-3
 Author: Gabriel Lindeblad <Gabriel.Lindeblad@icloud.com>
 License: MIT License (MIT)
@@ -23,38 +23,20 @@ License-File: LICENSE
 
 # AES-Python
 
-![Tests](https://github.com/Circut-labs/AES-Python/actions/workflows/test.yml/badge.svg) [![Build & Upload Python Package](https://github.com/Circut-labs/AES-Python/actions/workflows/python-publish.yml/badge.svg)](https://github.com/Circut-labs/AES-Python/actions/workflows/python-publish.yml)
+![Tests](https://github.com/Circut-labs/AES-Python/actions/workflows/test.yml/badge.svg) [![CodeQL](https://github.com/Circut-labs/AES-Python/actions/workflows/codeql-analysis.yml/badge.svg?branch=core)](https://github.com/Circut-labs/AES-Python/actions/workflows/codeql-analysis.yml) [![Build & Upload Python Package](https://github.com/Circut-labs/AES-Python/actions/workflows/python-publish.yml/badge.svg)](https://github.com/Circut-labs/AES-Python/actions/workflows/python-publish.yml)
 
 - [AES-Python](#aes-python)
-  - [About](#about)
-  - [Implemented running modes](#implemented-running-modes)
-  - [More information](#more-information)
   - [Installation](#installation)
-  - [How to use](#how-to-use)
-
-About
----
-This project is a way for me to structure and work on my gymnasium project where i implement the AES encryption algorithm in python to the evaluate it and write a report about it. This project is written in pure python and do not use any external libraries for the core module "AES_Module". The project and the code is not intended for any use outside of educational and no security can be guaranteed for any encryption and/or decryption that uses this implementation. Do also not that this is not going to be the most efficient implementation due to my limited coding skills and knowledge, but i have tried to do my best to make it as efficient as possible so it´s not to slow to work with.
-
-This implementation of AES (Advanced Encryption Algorithm) algorithm is implemented with a number of different running modes such as ECB and CBC with more coming soon (see list below for updated information)...
-
-Implemented running modes
----
-- [x] **ECB** - Electronic Code Book mode (For more information see ...)
-- [x] **CBC** - Cipher Block Chaining mode (For more information see ...)
-- [ ] **CFB** - Cipher Feedback mode (For more information see ...)
-- [ ] **OFB** - Output FeedBack mode (For more information see ...)
-- [ ] **CTR** - Counter mode (For more information see ...)
-- [ ] **GCM** - Galois/Counter mode (For more information see ...)
-
-More information
----
-...
+  - [Usage](#usage)
 
 Installation
 ---
-...
+```
+pip install aes-python
+```
 
-How to use
+Usage
 ---
-...
+```
+AES_Python
+```
