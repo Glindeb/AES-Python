@@ -220,7 +220,7 @@ def decryption_rounds(data, key):
 
 
 # ---------------
-# Key expantion setup
+# Key expansion setup
 # ---------------
 # Key expansion function (returns a list of round keys)
 def keyExpansion(key):

@@ -54,7 +54,7 @@ def run():
             confirmation = input("Are you sure you want to encrypt this file? (y/n): ")
 
             if confirmation == "y":
-                decrypt(key, file_path, running_mode, iv)
+                encrypt(key, file_path, running_mode, iv)
                 print("Encryption complete!")
 
             elif confirmation == "n":
@@ -70,14 +70,53 @@ def run():
             run()
 
     elif action == "d":
-        pass
+        running_mode = input("Please select cipher running mode (ECB/CBC/CFB/OFB/CTR/GCM): ")
+
+        if running_mode == "ECB":
+            key = input("Please enter your key: ")
+            file_path = input("Please enter path to file: ")
+            confirmation = input("Are you sure you want to decrypt this file? (y/n): ")
+
+            if confirmation == "y":
+                encrypt(key, file_path, running_mode)
+                print("Decryption complete!")
+
+            elif confirmation == "n":
+                print("Decryption aborted!")
+                exit()
+
+            else:
+                print("Invalid input!")
+                exit()
+
+        elif running_mode in ["CBC", "CFB", "OFB", "CTR", "GCM"]:
+            key = input("Please enter your key: ")
+            iv = input("Please enter your iv: ")
+            file_path = input("Please enter path to file: ")
+            confirmation = input("Are you sure you want to decrypt this file? (y/n): ")
+
+            if confirmation == "y":
+                decrypt(key, file_path, running_mode, iv)
+                print("Decryption complete!")
+
+            elif confirmation == "n":
+                print("Decryption aborted!")
+                exit()
+
+            else:
+                print("Invalid input!")
+                exit()
+
+        else:
+            print("Invalid cipher running mode")
+            run()
 
     elif action == "q":
         print("Exiting...")
         exit()
 
     else:
-        print("Invalid action (to cancel enter 'q')")
+        print("Invalid action (to quit enter 'q')")
         run()
 
 

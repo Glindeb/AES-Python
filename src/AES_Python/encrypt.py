@@ -24,4 +24,4 @@ def encrypt(key, file_path, running_mode, iv=None):
 
 
 if __name__ == "__main__":
-    encrypt(key=argv[0], file_path=argv[1], running_mode=argv[2], iv=argv[3])
+    encrypt(key=argv[1], file_path=argv[2], running_mode=argv[3], iv=argv[4])

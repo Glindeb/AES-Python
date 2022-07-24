@@ -1,16 +1,19 @@
 [build-system]
-requires = ["setuptools>=42.0", "wheel"]
+requires = ["setuptools>=63.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "AES-Python"
-version = "1.0.2"
+dynamic = ["version"]
 description = "AES (Advanced Encryption Standard) implementation in Python-3"
 readme = "README.md"
-authors = [{ name = "Gabriel Lindeblad", email = "Gabriel.Lindeblad@icloud.com" }]
-license = { file = "LICENSE" }
+authors = [{name = "Gabriel Lindeblad <Gabriel.Lindeblad@icloud.com>"}]
+license = {text = "MIT License (MIT)"}
 classifiers = [
+    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
+    "Environment :: Console",
+    "Topic :: Education",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.9",
@@ -19,11 +22,16 @@ classifiers = [
 keywords = ["AES", "AES_Python", "AES-Python", "Advanced Encryption Standard", "encryption", "cryptography"]
 requires-python = ">=3.7"
 
+[tools.setuptools.dynamic]
+version = {attr = "AES_Python.__version__"}
+
 [project.optional-dependencies]
 dev = ["pytest", "pytest-cov", "mypy", "flake8", "tox"]
 
 [project.urls]
 Homepage = "https://github.com/Circut-labs/AES-Python"
+Repository = "https://github.com/Circut-labs/AES-Python"
+Documentation = "https://github.com/Circut-labs/AES-Python"
 
 [project.scripts]
 AES_Python = "AES_Python.__main__:main"

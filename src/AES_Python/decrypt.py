@@ -27,4 +27,4 @@ def decrypt(key, file_path, running_mode, iv=None):
 
 
 if __name__ == "__main__":
-    decrypt(key=argv[0], file_path=argv[1], running_mode=argv[2], iv=argv[3])
+    decrypt(key=argv[1], file_path=argv[2], running_mode=argv[3], iv=argv[4])
