@@ -10,7 +10,7 @@ def encrypt(key, file_path, running_mode, iv=None):
     # Input validation
     if (len(key) / 2) not in [16, 24, 32]:
         raise Exception('Key length is not valid')
-    elif running_mode in ["CBC", "CFB", "OFB", "CTR", "GCM"]:
+    elif running_mode in ["CBC", "PCBC", "CFB", "OFB", "CTR", "GCM"]:
         if (len(iv) / 2) != 16 or iv is None:
             raise Exception('IV length is not valid')
 
@@ -19,6 +19,8 @@ def encrypt(key, file_path, running_mode, iv=None):
         AES.ecb_enc(key, file_path)
     elif running_mode == "CBC" and iv is not None:
         AES.cbc_enc(key, file_path, iv)
+    elif running_mode == "PCBC" and iv is not None:
+        AES.pcbc_enc(key, file_path, iv)
     else:
         raise Exception("Running mode not supported")
 

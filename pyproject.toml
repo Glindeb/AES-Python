@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "AES-Python"
 dynamic = ["version"]
 description = "AES (Advanced Encryption Standard) implementation in Python-3"
-readme = "README.md"
+readme = "index.md"
 authors = [{name = "Gabriel Lindeblad <Gabriel.Lindeblad@icloud.com>"}]
 license = {text = "MIT License (MIT)"}
 classifiers = [

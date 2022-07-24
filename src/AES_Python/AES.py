@@ -462,3 +462,80 @@ def cbc_dec(key, file_path, iv):
 
         output.write(result)
     remove(file_path)
+
+
+# PCBC encryption function
+def pcbc_enc(key, file_path, iv):
+    file_size = getsize(file_path)
+    vector = [int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]
+
+    with open(f"{file_path}.enc", 'wb') as output, open(file_path, 'rb') as data:
+        for i in range(int(file_size/16)):
+            raw = [i for i in data.read(16)]
+            tmp = xor(raw, vector)
+            vector = encryption_rounds(tmp, key)
+            output.write(bytes(vector))
+            vector = xor(vector, tmp)
+
+        if file_size % 16 != 0:
+            raw = [i for i in data.read()]
+            raw, length = add_padding(raw)
+
+            tmp = xor(raw, vector)
+            vector1 = encryption_rounds(tmp, key)
+            vector = xor(vector1, tmp)
+
+            identifier = xor(([0 for i in range(15)] + [length]), vector1)
+            identifier = encryption_rounds(identifier, key)
+
+            output.write(bytes(vector + identifier))
+        else:
+            identifier = xor([0 for i in range(16)], vector)
+            identifier = bytes(encryption_rounds(identifier, key))
+            output.write(identifier)
+    remove(file_path)
+
+
+# PCBC decryption function
+def pcbc_dec(key, file_path, iv):
+    iv = [int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]
+    file_size = getsize(file_path)
+    file_name = file_path[:-4]
+
+    with open(f"{file_name}", 'wb') as output, open(file_path, 'rb') as data:
+        if int(file_size/16) - 3 >= 0:
+            vector = [i for i in data.read(16)]
+            raw = decryption_rounds(vector, key)
+            result = xor(raw, iv)
+            vector = xor(vector, result)
+            output.write(bytes(result))
+
+            for i in range(int(file_size/16) - 3):
+                raw = [i for i in data.read(16)]
+                result = decryption_rounds(raw, key)
+                result = xor(result, vector)
+                vector = xor(raw, result)
+                output.write(bytes(result))
+        else:
+            vector = iv
+
+        data_pice = [i for i in data.read(16)]
+        vector_1, identifier = data_pice, [i for i in data.read()]
+
+        print(identifier)
+        print(data_pice)
+
+        result = decryption_rounds(data_pice, key)
+        data_pice = xor(result, vector)
+
+        vector_1 = xor(vector_1, data_pice)
+        identifier = decryption_rounds(identifier, key)
+        identifier = xor(identifier, vector_1)
+
+        print(data_pice)
+        print(identifier)
+
+        result = bytes(remove_padding(data_pice, identifier))
+
+        output.write(result)
+    remove(file_path)

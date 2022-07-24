@@ -28,7 +28,7 @@ is guaranteed for data encrypted or decrypted using this tool.""")
 def run():
     action = input("Do you want to encrypt, decrypt or quit? (e/d/q): ")
     if action == "e":
-        running_mode = input("Please select cipher running mode (ECB/CBC/CFB/OFB/CTR/GCM): ")
+        running_mode = input("Please select cipher running mode (ECB/CBC/PCBC/CFB/OFB/CTR/GCM): ")
 
         if running_mode == "ECB":
             key = input("Please enter your key: ")
@@ -47,7 +47,7 @@ def run():
                 print("Invalid input!")
                 exit()
 
-        elif running_mode in ["CBC", "CFB", "OFB", "CTR", "GCM"]:
+        elif running_mode in ["CBC", "PCBC", "CFB", "OFB", "CTR", "GCM"]:
             key = input("Please enter your key: ")
             iv = input("Please enter your iv: ")
             file_path = input("Please enter path to file: ")
@@ -70,7 +70,7 @@ def run():
             run()
 
     elif action == "d":
-        running_mode = input("Please select cipher running mode (ECB/CBC/CFB/OFB/CTR/GCM): ")
+        running_mode = input("Please select cipher running mode (ECB/CBC/PCBC/CFB/OFB/CTR/GCM): ")
 
         if running_mode == "ECB":
             key = input("Please enter your key: ")
@@ -89,7 +89,7 @@ def run():
                 print("Invalid input!")
                 exit()
 
-        elif running_mode in ["CBC", "CFB", "OFB", "CTR", "GCM"]:
+        elif running_mode in ["CBC", "PCBC", "CFB", "OFB", "CTR", "GCM"]:
             key = input("Please enter your key: ")
             iv = input("Please enter your iv: ")
             file_path = input("Please enter path to file: ")
