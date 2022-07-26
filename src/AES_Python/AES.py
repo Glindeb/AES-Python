@@ -59,6 +59,13 @@ round_constant = (
 # ---------------
 # Main action functions
 # ---------------
+# Progress bar display and update
+def progress_bar(progress, total_progress):
+    percent = 100 * (float(progress) / float(total_progress))
+    bar = '#' * int(percent) + '-' * (100 - int(percent))
+    print(f"\r[{bar}] {percent:.2f}%", end="\r")
+    return progress + 16
+
 # Xtime
 def xtime(a):
     return (((a << 1) ^ 0x1B) & 0xFF) if (a & 0x80) else (a << 1)
@@ -475,7 +482,7 @@ def pcbc_enc(key, file_path, iv):
             tmp = xor(raw, vector)
             vector = encryption_rounds(tmp, key)
             output.write(bytes(vector))
-            vector = xor(vector, tmp)
+            vector = xor(vector, raw)
 
         if file_size % 16 != 0:
             raw = [i for i in data.read()]
@@ -483,12 +490,12 @@ def pcbc_enc(key, file_path, iv):
 
             tmp = xor(raw, vector)
             vector1 = encryption_rounds(tmp, key)
-            vector = xor(vector1, tmp)
+            vector = xor(vector1, raw)
 
-            identifier = xor(([0 for i in range(15)] + [length]), vector1)
+            identifier = xor(([0 for i in range(15)] + [length]), vector)
             identifier = encryption_rounds(identifier, key)
 
-            output.write(bytes(vector + identifier))
+            output.write(bytes(vector1 + identifier))
         else:
             identifier = xor([0 for i in range(16)], vector)
             identifier = bytes(encryption_rounds(identifier, key))
@@ -522,18 +529,12 @@ def pcbc_dec(key, file_path, iv):
         data_pice = [i for i in data.read(16)]
         vector_1, identifier = data_pice, [i for i in data.read()]
 
-        print(identifier)
-        print(data_pice)
-
         result = decryption_rounds(data_pice, key)
         data_pice = xor(result, vector)
 
         vector_1 = xor(vector_1, data_pice)
         identifier = decryption_rounds(identifier, key)
         identifier = xor(identifier, vector_1)
-
-        print(data_pice)
-        print(identifier)
 
         result = bytes(remove_padding(data_pice, identifier))
 

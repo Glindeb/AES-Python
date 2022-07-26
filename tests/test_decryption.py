@@ -52,3 +52,29 @@ def test_aes_decryption_CBC(data, key, file_name, iv, expected):
     os.remove(file_name)
 
     assert result == expected
+
+@pytest.mark.parametrize("data,key,file_name,iv,expected", [
+    # 128 bit
+    (b'\xe4\xa7\x0e\xbd\x84\xfa\xf5\xd8`\xb8\xa1\x10\x0b~\xadhJ\xa98\x9f\xceZ\xd4\x9f"\xde\x00\xf6w\xa9\x1b\x05', "2b7e151628aed2a6abf7158809cf4f3c", "tmp1.txt", "000102030405060708090a0b0c0d0e0f", b'1234567890'),
+    (b'\x1b\x16\x86:\xb9*w\xc5)"\xe4\xe9D\\\xf1\xeeD\xc2\x1d\x19\x93\xd4\x7f\xed\xc8\xb8\xa1\xb60ow\xdd', "2b7e151628aed2a6abf7158809cf4f3c", "tmp2.txt", "000102030405060708090a0b0c0d0e0f", b'1234567890123456'),
+    (b'\x1b\x16\x86:\xb9*w\xc5)"\xe4\xe9D\\\xf1\xee\x0e\xcez\xe5\xcde\x91Q7\xc3|\x8bB\xe6\x96\xc0\x0e%0).\x8006\xf7V\xa1P\xf4\xec\xc0\x05', "2b7e151628aed2a6abf7158809cf4f3c", "tmp7.txt", "000102030405060708090a0b0c0d0e0f", b'12345678901234567890'),
+    (b'\x1b\x16\x86:\xb9*w\xc5)"\xe4\xe9D\\\xf1\xeeg\x19\xcc\xa3\x86K\xfax\xae\n\xee!k\xcc\xcb\xf2:\xfe\xa7,9jJo\xf6/q\xce\xec\x8b\xfd\xee\xc6\xee]\x9f\xbf\xcb~\x84\x8b\xd6\xe6\xed\xba\xbe\xbb.', "2b7e151628aed2a6abf7158809cf4f3c", "tmp8.txt", "000102030405060708090a0b0c0d0e0f", b'1234567890123456789012345678901234567890'),
+    # 192 bit
+    (b"\x89\x8fwWh\xaf\xfb@\xc9\xc3\xc0w\x81\xf7\x0e\xd3s\xee\xdf\xa7\xaf\x9f\xddV\x92\x18\x11\r'\xc1\x8d\xfa", "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", "tmp3.txt", "000102030405060708090a0b0c0d0e0f", b'1234567890'),
+    (b'5\xb9\x19\x1dd\xf3e\xd7EP\x01^8\xb0\xf6\xfb\xe6\xc0\x12\xd1\xfa\x0fr\xde\xc5\xc4\xb9\x9a\xcc\xcd\x9d\xea', "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", "tmp4.txt", "000102030405060708090a0b0c0d0e0f", b'1234567890123456'),
+    # 256 bit
+    (b'\x9dT\xb7B\x19e\xb8q\xc95\xfa\x80L\x88.9\x97]D\xd8L\xf7\x7f\xc4D\xb3\xbe\xb7\xe1\x81\xe5/', "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", "tmp5.txt", "000102030405060708090a0b0c0d0e0f", b'1234567890'),
+    (b'a\xfdIRQ\xf8\xf1D\xcc\xbf\x89\xc8\xd6\xec\x01;\xe3\xba\xba{-\xbdz\xa0r\x9c\xd6\xed\x86\xa0\xe2\xee', "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", "tmp6.txt", "000102030405060708090a0b0c0d0e0f", b'1234567890123456')
+])
+def test_aes_decryption_PCBC(data, key, file_name, iv, expected):
+    with open(f"{file_name}.enc", "wb") as file:
+        file.write(data)
+
+    decrypt(key, f"{file_name}.enc", "PCBC", iv)
+
+    with open(file_name, "rb") as file:
+        result = file.read()
+
+    os.remove(file_name)
+
+    assert result == expected

@@ -16,4 +16,4 @@ def main(i):
 
 
 if __name__ == '__main__':
-    main("dec")
+    main("enc")
