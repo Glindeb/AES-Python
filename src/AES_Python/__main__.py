@@ -1,5 +1,6 @@
 from AES_Python.encrypt import encrypt
 from AES_Python.decrypt import decrypt
+from getpass import getpass
 import AES_Python
 
 
@@ -31,13 +32,13 @@ def run():
         running_mode = input("Please select cipher running mode (ECB/CBC/PCBC/CFB/OFB/CTR/GCM): ")
 
         if running_mode == "ECB":
-            key = input("Please enter your key: ")
+            key = getpass(prompt="Please enter your key: ")
             file_path = input("Please enter path to file: ")
             confirmation = input("Are you sure you want to encrypt this file? (y/n): ")
 
             if confirmation == "y":
                 encrypt(key, file_path, running_mode)
-                print("Encryption complete!")
+                print("\nEncryption complete!")
 
             elif confirmation == "n":
                 print("Encryption aborted!")
@@ -48,14 +49,14 @@ def run():
                 exit()
 
         elif running_mode in ["CBC", "PCBC", "CFB", "OFB", "CTR", "GCM"]:
-            key = input("Please enter your key: ")
-            iv = input("Please enter your iv: ")
+            key = getpass(prompt="Please enter your key: ")
+            iv = getpass(prompt="Please enter your iv: ")
             file_path = input("Please enter path to file: ")
             confirmation = input("Are you sure you want to encrypt this file? (y/n): ")
 
             if confirmation == "y":
                 encrypt(key, file_path, running_mode, iv)
-                print("Encryption complete!")
+                print("\nEncryption complete!")
 
             elif confirmation == "n":
                 print("Encryption aborted!")
@@ -73,13 +74,13 @@ def run():
         running_mode = input("Please select cipher running mode (ECB/CBC/PCBC/CFB/OFB/CTR/GCM): ")
 
         if running_mode == "ECB":
-            key = input("Please enter your key: ")
+            key = getpass(prompt="Please enter your key: ")
             file_path = input("Please enter path to file: ")
             confirmation = input("Are you sure you want to decrypt this file? (y/n): ")
 
             if confirmation == "y":
                 encrypt(key, file_path, running_mode)
-                print("Decryption complete!")
+                print("\nDecryption complete!")
 
             elif confirmation == "n":
                 print("Decryption aborted!")
@@ -90,14 +91,14 @@ def run():
                 exit()
 
         elif running_mode in ["CBC", "PCBC", "CFB", "OFB", "CTR", "GCM"]:
-            key = input("Please enter your key: ")
-            iv = input("Please enter your iv: ")
+            key = getpass(prompt="Please enter your key: ")
+            iv = getpass(prompt="Please enter your iv: ")
             file_path = input("Please enter path to file: ")
             confirmation = input("Are you sure you want to decrypt this file? (y/n): ")
 
             if confirmation == "y":
                 decrypt(key, file_path, running_mode, iv)
-                print("Decryption complete!")
+                print("\nDecryption complete!")
 
             elif confirmation == "n":
                 print("Decryption aborted!")
