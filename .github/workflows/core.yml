@@ -3,10 +3,9 @@
 name: Core Build & Publish
 
 on:
-  merge:
-    branches: [core]
   push:
-    branches: [core]
+    branches:
+      - core
 
 permissions:
   contents: read
