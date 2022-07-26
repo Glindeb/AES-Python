@@ -1,6 +1,7 @@
 from AES_Python.encrypt import encrypt
 from AES_Python.decrypt import decrypt
 from getpass import getpass
+from os import get_terminal_size
 import AES_Python
 
 
@@ -37,7 +38,7 @@ def run():
             confirmation = input("Are you sure you want to encrypt this file? (y/n): ")
 
             if confirmation == "y":
-                encrypt(key, file_path, running_mode)
+                encrypt(key, file_path, running_mode, terminal_size=get_terminal_size()[0])
                 print("\nEncryption complete!")
 
             elif confirmation == "n":
@@ -55,7 +56,7 @@ def run():
             confirmation = input("Are you sure you want to encrypt this file? (y/n): ")
 
             if confirmation == "y":
-                encrypt(key, file_path, running_mode, iv)
+                encrypt(key, file_path, running_mode, iv, get_terminal_size()[0])
                 print("\nEncryption complete!")
 
             elif confirmation == "n":
@@ -79,7 +80,7 @@ def run():
             confirmation = input("Are you sure you want to decrypt this file? (y/n): ")
 
             if confirmation == "y":
-                encrypt(key, file_path, running_mode)
+                decrypt(key, file_path, running_mode, terminal_size=get_terminal_size()[0])
                 print("\nDecryption complete!")
 
             elif confirmation == "n":
@@ -97,7 +98,7 @@ def run():
             confirmation = input("Are you sure you want to decrypt this file? (y/n): ")
 
             if confirmation == "y":
-                decrypt(key, file_path, running_mode, iv)
+                decrypt(key, file_path, running_mode, iv, get_terminal_size()[0])
                 print("\nDecryption complete!")
 
             elif confirmation == "n":
