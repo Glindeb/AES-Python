@@ -49,3 +49,27 @@ def test_aes_encrypt_CBC(data, key, file_name, iv, expected):
     os.remove(f"{file_name}.enc")
 
     assert result == expected
+
+@pytest.mark.parametrize("data,key,file_name,iv,expected", [
+    # 128 bit
+    (b'1234567890', "2b7e151628aed2a6abf7158809cf4f3c", "tmp.txt", "000102030405060708090a0b0c0d0e0f", b'\xe4\xa7\x0e\xbd\x84\xfa\xf5\xd8`\xb8\xa1\x10\x0b~\xadhJ\xa98\x9f\xceZ\xd4\x9f"\xde\x00\xf6w\xa9\x1b\x05'),
+    (b'1234567890123456', "2b7e151628aed2a6abf7158809cf4f3c", "tmp1.txt", "000102030405060708090a0b0c0d0e0f", b'\x1b\x16\x86:\xb9*w\xc5)"\xe4\xe9D\\\xf1\xeeD\xc2\x1d\x19\x93\xd4\x7f\xed\xc8\xb8\xa1\xb60ow\xdd'),
+    # 192 bit
+    (b'1234567890', "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", "tmp2.txt", "000102030405060708090a0b0c0d0e0f", b"\x89\x8fwWh\xaf\xfb@\xc9\xc3\xc0w\x81\xf7\x0e\xd3s\xee\xdf\xa7\xaf\x9f\xddV\x92\x18\x11\r'\xc1\x8d\xfa"),
+    (b'1234567890123456', "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", "tmp3.txt", "000102030405060708090a0b0c0d0e0f", b'5\xb9\x19\x1dd\xf3e\xd7EP\x01^8\xb0\xf6\xfb\xe6\xc0\x12\xd1\xfa\x0fr\xde\xc5\xc4\xb9\x9a\xcc\xcd\x9d\xea'),
+    # 256 bit
+    (b'1234567890', "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", "tmp4.txt", "000102030405060708090a0b0c0d0e0f", b'\x9dT\xb7B\x19e\xb8q\xc95\xfa\x80L\x88.9\x97]D\xd8L\xf7\x7f\xc4D\xb3\xbe\xb7\xe1\x81\xe5/'),
+    (b'1234567890123456', "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", "tmp5.txt", "000102030405060708090a0b0c0d0e0f", b'a\xfdIRQ\xf8\xf1D\xcc\xbf\x89\xc8\xd6\xec\x01;\xe3\xba\xba{-\xbdz\xa0r\x9c\xd6\xed\x86\xa0\xe2\xee')
+])
+def test_aes_encrypt_PCBC(data, key, file_name, iv, expected):
+    with open(file_name, "wb") as file:
+        file.write(data)
+
+    encrypt(key, file_name, "PCBC", iv)
+
+    with open(f"{file_name}.enc", "rb") as file:
+        result = file.read()
+
+    os.remove(f"{file_name}.enc")
+
+    assert result == expected
