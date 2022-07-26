@@ -6,9 +6,8 @@ build-backend = "setuptools.build_meta"
 name = "AES-Python"
 dynamic = ["version"]
 description = "AES (Advanced Encryption Standard) implementation in Python-3"
-readme = "index.md"
-authors = [{name = "Gabriel Lindeblad <Gabriel.Lindeblad@icloud.com>"}]
-license = {text = "MIT License (MIT)"}
+readme = "README.md"
+authors = [{name = "Gabriel Lindeblad", email = "Gabriel.Lindeblad@icloud.com"}]
 classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
