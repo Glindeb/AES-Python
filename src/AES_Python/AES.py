@@ -2,7 +2,7 @@
 # Imports
 # ---------------
 from os.path import getsize
-from os import remove
+from os import remove, get_terminal_size
 
 # ---------------
 # Fixed variables
@@ -62,9 +62,17 @@ round_constant = (
 # Progress bar display and update
 def progress_bar(progress, total_progress):
     percent = 100 * (float(progress) / float(total_progress))
-    if percent > 100:
+
+    terminal_width = get_terminal_size()[0]
+    bar_width = terminal_width - 10
+    bar_progress = int(bar_width * (float(progress) / float(total_progress)))
+
+    if bar_progress > bar_width or percent > 100:
+        bar_progress = bar_width
         percent = 100
-    bar = '#' * int(percent) + '-' * (100 - int(percent))
+
+    bar_remaining = bar_width - bar_progress
+    bar = '#' * bar_progress + '-' * bar_remaining
     print(f"\r[{bar}] {percent:.2f}%", end="\r")
     return progress + 16
 
