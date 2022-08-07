@@ -1,4 +1,4 @@
-from AES_Python import AES
+from PyAES import AES
 from sys import argv
 
 

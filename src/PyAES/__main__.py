@@ -1,22 +1,21 @@
-from AES_Python.encrypt import encrypt
-from AES_Python.decrypt import decrypt
+from PyAES.encrypt import encrypt
+from PyAES.decrypt import decrypt
 from getpass import getpass
 from os import get_terminal_size
-import AES_Python
+import PyAES
 
 
 def main():
     print("-"*66)
-    print(r"""           ______  _____       _____       _   _
-     /\   |  ____|/ ____|     |  __ \     | | | |
-    /  \  | |__  | (___ ______| |__) |   _| |_| |__   ___  _ __
-   / /\ \ |  __|  \___ \______|  ___/ | | | __| '_ \ / _ \| '_ \
-  / ____ \| |____ ____) |     | |   | |_| | |_| | | | (_) | | | |
- /_/    \_\______|_____/      |_|    \__, |\__|_| |_|\___/|_| |_|
-                                      __/ |
-                                     |___/                       """)
+    print(r"""         _______               _       ________   ______
+        |_   __ \             / \     |_   __  |.' ____ \
+          | |__) | _   __    / _ \      | |_ \_|| (___ \_|
+          |  ___/ [ \ [  ]  / ___ \     |  _| _  _.____`.
+         _| |_     \ '/ / _/ /   \ \_  _| |__/ || \____) |
+        |_____|  [\_:  / |____| |____||________| \______.'
+                  \__.'                                   """)
     print("-"*66)
-    print(f"Version: {AES_Python.__version__}                         {AES_Python.__copyright__}")
+    print(f"Version: {PyAES.__version__}                   {PyAES.__copyright__}")
     print("-"*66)
     print("""This is a simple AES (Advanced Encryption Standard) implementation
 in Python-3. It is a pure Python implementation of AES that is
@@ -28,6 +27,7 @@ is guaranteed for data encrypted or decrypted using this tool.""")
 
 
 def run():
+    terminal_size = get_terminal_size()[0]
     action = input("Do you want to encrypt, decrypt or quit? (e/d/q): ")
     if action == "e":
         running_mode = input("Please select cipher running mode (ECB/CBC/PCBC/CFB/OFB/CTR/GCM): ")
@@ -38,7 +38,7 @@ def run():
             confirmation = input("Are you sure you want to encrypt this file? (y/n): ")
 
             if confirmation == "y":
-                encrypt(key, file_path, running_mode, terminal_size=get_terminal_size()[0])
+                encrypt(key, file_path, running_mode, terminal_size=terminal_size)
                 print("\nEncryption complete!")
 
             elif confirmation == "n":
@@ -56,7 +56,7 @@ def run():
             confirmation = input("Are you sure you want to encrypt this file? (y/n): ")
 
             if confirmation == "y":
-                encrypt(key, file_path, running_mode, iv, get_terminal_size()[0])
+                encrypt(key, file_path, running_mode, iv, terminal_size)
                 print("\nEncryption complete!")
 
             elif confirmation == "n":
@@ -80,7 +80,7 @@ def run():
             confirmation = input("Are you sure you want to decrypt this file? (y/n): ")
 
             if confirmation == "y":
-                decrypt(key, file_path, running_mode, terminal_size=get_terminal_size()[0])
+                decrypt(key, file_path, running_mode, terminal_size=terminal_size)
                 print("\nDecryption complete!")
 
             elif confirmation == "n":
@@ -98,7 +98,7 @@ def run():
             confirmation = input("Are you sure you want to decrypt this file? (y/n): ")
 
             if confirmation == "y":
-                decrypt(key, file_path, running_mode, iv, get_terminal_size()[0])
+                decrypt(key, file_path, running_mode, iv, terminal_size)
                 print("\nDecryption complete!")
 
             elif confirmation == "n":

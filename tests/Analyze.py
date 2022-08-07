@@ -1,5 +1,5 @@
-from AES_Python.encrypt import encrypt
-from AES_Python.decrypt import decrypt
+from PyAES.encrypt import encrypt
+from PyAES.decrypt import decrypt
 
 
 def main(i):

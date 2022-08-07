@@ -1,7 +1,7 @@
 import pytest
-from AES_Python.encrypt import encrypt
-from AES_Python.decrypt import decrypt
-from AES_Python.AES import remove_padding
+from PyAES.encrypt import encrypt
+from PyAES.decrypt import decrypt
+from PyAES.AES import remove_padding
 
 def test_aes_decryption_exeption():
     with pytest.raises(Exception) as e:

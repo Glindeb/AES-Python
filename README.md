@@ -1,8 +1,8 @@
-# AES-Python
+# PyAES
 
-[![Core Build & Publish](https://github.com/Circut-labs/AES-Python/actions/workflows/core.yml/badge.svg?branch=core)](https://github.com/Circut-labs/AES-Python/actions/workflows/core.yml) [![CodeQL](https://github.com/Circut-labs/AES-Python/actions/workflows/codeql-analysis.yml/badge.svg?branch=core)](https://github.com/Circut-labs/AES-Python/actions/workflows/codeql-analysis.yml) [![Test](https://github.com/Circut-labs/AES-Python/actions/workflows/test.yml/badge.svg?branch=dev)](https://github.com/Circut-labs/AES-Python/actions/workflows/test.yml)
+[![Core Build & Publish](https://github.com/Glindeb/PyAES/actions/workflows/core.yml/badge.svg)](https://github.com/Glindeb/PyAES/actions/workflows/core.yml) [![CodeQL](https://github.com/Glindeb/PyAES/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Glindeb/PyAES/actions/workflows/codeql-analysis.yml) [![Test](https://github.com/Glindeb/PyAES/actions/workflows/test.yml/badge.svg)](https://github.com/Glindeb/PyAES/actions/workflows/test.yml)
 
-- [AES-Python](#aes-python)
+- [PyAES](#pyaes)
   - [About](#about)
   - [Implemented running modes](#implemented-running-modes)
   - [More information](#more-information)
@@ -11,7 +11,7 @@
 
 About
 ---
-This project is a way for me to structure and work on my gymnasium project where i implement the AES encryption algorithm in python to the evaluate it and write a report about it. This project is written in pure python and do not use any external libraries for the core module "AES_Module". The project and the code is not intended for any use outside of educational and no security can be guaranteed for any encryption and/or decryption that uses this implementation. Do also not that this is not going to be the most efficient implementation due to my limited coding skills and knowledge, but i have tried to do my best to make it as efficient as possible so it´s not to slow to work with.
+This project is a way for me to structure and work on my gymnasium project where i implement the AES encryption algorithm in python to the evaluate it and write a report about it. This project is written in pure python and do not use any external libraries for the core file "AES.py". The project and the code is not intended for any use outside of educational and no security can be guaranteed for any encryption and/or decryption that uses this implementation. Do also not that this is not going to be the most efficient implementation due to my limited coding skills and knowledge, but i have tried to do my best to make it as efficient as possible so it´s not to slow to work with.
 
 This implementation of AES (Advanced Encryption Algorithm) algorithm is implemented with a number of different running modes such as ECB and CBC with more coming soon (see list below for updated information)...
 
