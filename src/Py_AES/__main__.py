@@ -1,22 +1,20 @@
-from AES_Python.encrypt import encrypt
-from AES_Python.decrypt import decrypt
+from Py_AES.encrypt import encrypt
+from Py_AES.decrypt import decrypt
 from getpass import getpass
 from os import get_terminal_size
-import AES_Python
+import Py_AES
 
 
 def main():
     print("-"*66)
-    print(r"""           ______  _____       _____       _   _
-     /\   |  ____|/ ____|     |  __ \     | | | |
-    /  \  | |__  | (___ ______| |__) |   _| |_| |__   ___  _ __
-   / /\ \ |  __|  \___ \______|  ___/ | | | __| '_ \ / _ \| '_ \
-  / ____ \| |____ ____) |     | |   | |_| | |_| | | | (_) | | | |
- /_/    \_\______|_____/      |_|    \__, |\__|_| |_|\___/|_| |_|
-                                      __/ |
-                                     |___/                       """)
+    print(r"""  ____               _    _____ ____
+ |  _ \ _   _       / \  | ____/ ___|
+ | |_) | | | |     / _ \ |  _| \___ \
+ |  __/| |_| |    / ___ \| |___ ___) |
+ |_|    \__, |___/_/   \_\_____|____/
+        |___/_____|                   """)
     print("-"*66)
-    print(f"Version: {AES_Python.__version__}                         {AES_Python.__copyright__}")
+    print(f"Version: {Py_AES.__version__}                         {Py_AES.__copyright__}")
     print("-"*66)
     print("""This is a simple AES (Advanced Encryption Standard) implementation
 in Python-3. It is a pure Python implementation of AES that is

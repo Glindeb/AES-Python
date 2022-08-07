@@ -14,9 +14,9 @@ to be used for any type of security purposes.
 # ---------------
 # Program information m.m
 # ---------------
-__name__ = "AES_Python"
+__name__ = "Py_AES"
 __author__ = 'Gabriel Lindeblad'
-__copyright__ = 'Copyright 2022, Circut Labs'
+__copyright__ = 'Copyright 2022, Gabriel Lindeblad'
 __credits__ = [""]
 __license__ = 'MIT'
 __version__ = '1.1.2'

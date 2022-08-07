@@ -3,7 +3,7 @@ requires = ["setuptools>=63.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "AES-Python"
+name = "Py_AES"
 dynamic = ["version"]
 description = "AES (Advanced Encryption Standard) implementation in Python-3"
 readme = "README.md"
@@ -18,28 +18,28 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
 ]
-keywords = ["AES", "AES_Python", "AES-Python", "Advanced Encryption Standard", "encryption", "cryptography"]
+keywords = ["AES", "AES_Python", "Py_AES", "Advanced Encryption Standard", "encryption", "cryptography"]
 requires-python = ">=3.7"
 
 [tools.setuptools.dynamic]
-version = {attr = "AES_Python.__version__"}
+version = {attr = "Py_AES.__version__"}
 
 [project.optional-dependencies]
 dev = ["pytest", "pytest-cov", "mypy", "flake8", "tox"]
 
 [project.urls]
-Homepage = "https://github.com/Circut-labs/AES-Python"
-Repository = "https://github.com/Circut-labs/AES-Python"
-Documentation = "https://github.com/Circut-labs/AES-Python"
+Homepage = "https://github.com/Glindeb/Py_AES"
+Repository = "https://github.com/Glindeb/Py_AES"
+Documentation = "https://github.com/Glindeb/Py_AES"
 
 [project.scripts]
-AES_Python = "AES_Python.__main__:main"
+Py_AES = "PyAES.__main__:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.pytest.ini_options]
-addopts = "--cov=src/AES_Python"
+addopts = "--cov=src/Py_AES"
 testpaths = [
     "tests",
 ]

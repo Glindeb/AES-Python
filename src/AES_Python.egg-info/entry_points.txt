@@ -1,2 +1,0 @@
-[console_scripts]
-AES_Python = AES_Python.__main__:main

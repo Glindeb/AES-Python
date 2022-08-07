@@ -1,6 +1,6 @@
 import pytest
-import AES_Python.AES as AES
-import AES_Python
+import Py_AES.AES as AES
+import Py_AES
 
 subBytesTable = (
     0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76,
@@ -22,18 +22,18 @@ subBytesTable = (
     )
 
 def test_exist():
-    assert AES_Python.__author__ is not None
-    assert AES_Python.__copyright__ is not None
-    assert AES_Python.__credits__  is not None
-    assert AES_Python.__license__ is not None
-    assert AES_Python.__version__ is not None
-    assert AES_Python.__maintainer__ is not None
-    assert AES_Python.__email__ is not None
-    assert AES_Python.__status__ is not None
-    assert AES_Python.__status__ is not None
-    assert AES_Python.__date__ is not None
-    assert AES_Python.__description__ is not None
-    assert AES_Python.__platforms__ is not None
+    assert Py_AES.__author__ is not None
+    assert Py_AES.__copyright__ is not None
+    assert Py_AES.__credits__  is not None
+    assert Py_AES.__license__ is not None
+    assert Py_AES.__version__ is not None
+    assert Py_AES.__maintainer__ is not None
+    assert Py_AES.__email__ is not None
+    assert Py_AES.__status__ is not None
+    assert Py_AES.__status__ is not None
+    assert Py_AES.__date__ is not None
+    assert Py_AES.__description__ is not None
+    assert Py_AES.__platforms__ is not None
 
 def test_aes_actions_list_to_matrix():
     assert AES.list_to_matrix([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]) == [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15]]
