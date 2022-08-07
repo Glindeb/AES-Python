@@ -25,6 +25,7 @@ is guaranteed for data encrypted or decrypted using this tool.""")
     print("-"*66)
     run()
 
+
 def run():
     terminal_size = get_terminal_size()[0]
     action = input("Do you want to encrypt, decrypt or quit? (e/d/q): ")
