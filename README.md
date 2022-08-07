@@ -1,8 +1,8 @@
-# Py_AES
+# PyAES
 
-[![Core Build & Publish](https://github.com/Glindeb/Py_AES/actions/workflows/core.yml/badge.svg)](https://github.com/Glindeb/Py_AES/actions/workflows/core.yml) [![CodeQL](https://github.com/Glindeb/Py_AES/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Glindeb/Py_AES/actions/workflows/codeql-analysis.yml) [![Test](https://github.com/Glindeb/Py_AES/actions/workflows/test.yml/badge.svg)](https://github.com/Glindeb/Py_AES/actions/workflows/test.yml)
+[![Core Build & Publish](https://github.com/Glindeb/PyAES/actions/workflows/core.yml/badge.svg)](https://github.com/Glindeb/PyAES/actions/workflows/core.yml) [![CodeQL](https://github.com/Glindeb/PyAES/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Glindeb/PyAES/actions/workflows/codeql-analysis.yml) [![Test](https://github.com/Glindeb/PyAES/actions/workflows/test.yml/badge.svg)](https://github.com/Glindeb/PyAES/actions/workflows/test.yml)
 
-- [Py_AES](#py_aes)
+- [PyAES](#pyaes)
   - [About](#about)
   - [Implemented running modes](#implemented-running-modes)
   - [More information](#more-information)

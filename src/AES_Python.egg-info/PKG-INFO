@@ -1,12 +1,12 @@
 Metadata-Version: 2.1
-Name: Py-AES
-Version: 1.1.3
+Name: AES-Python
+Version: 1.1.4
 Summary: AES (Advanced Encryption Standard) implementation in Python-3
 Author-email: Gabriel Lindeblad <Gabriel.Lindeblad@icloud.com>
-Project-URL: Homepage, https://github.com/Glindeb/Py_AES
-Project-URL: Repository, https://github.com/Glindeb/Py_AES
-Project-URL: Documentation, https://github.com/Glindeb/Py_AES
-Keywords: AES,AES_Python,Py_AES,Advanced Encryption Standard,encryption,cryptography
+Project-URL: Homepage, https://github.com/Glindeb/PyAES
+Project-URL: Repository, https://github.com/Glindeb/PyAES
+Project-URL: Documentation, https://github.com/Glindeb/PyAES
+Keywords: AES,AES_Python,PyAES,Advanced Encryption Standard,encryption,cryptography
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
 Classifier: Environment :: Console
@@ -20,11 +20,11 @@ Description-Content-Type: text/markdown
 Provides-Extra: dev
 License-File: LICENSE
 
-# Py_AES
+# PyAES
 
-[![Core Build & Publish](https://github.com/Glindeb/Py_AES/actions/workflows/core.yml/badge.svg)](https://github.com/Glindeb/Py_AES/actions/workflows/core.yml) [![CodeQL](https://github.com/Glindeb/Py_AES/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Glindeb/Py_AES/actions/workflows/codeql-analysis.yml) [![Test](https://github.com/Glindeb/Py_AES/actions/workflows/test.yml/badge.svg)](https://github.com/Glindeb/Py_AES/actions/workflows/test.yml)
+[![Core Build & Publish](https://github.com/Glindeb/PyAES/actions/workflows/core.yml/badge.svg)](https://github.com/Glindeb/PyAES/actions/workflows/core.yml) [![CodeQL](https://github.com/Glindeb/PyAES/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Glindeb/PyAES/actions/workflows/codeql-analysis.yml) [![Test](https://github.com/Glindeb/PyAES/actions/workflows/test.yml/badge.svg)](https://github.com/Glindeb/PyAES/actions/workflows/test.yml)
 
-- [Py_AES](#py_aes)
+- [PyAES](#pyaes)
   - [About](#about)
   - [Implemented running modes](#implemented-running-modes)
   - [More information](#more-information)

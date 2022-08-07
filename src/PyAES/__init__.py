@@ -14,12 +14,12 @@ to be used for any type of security purposes.
 # ---------------
 # Program information m.m
 # ---------------
-__name__ = "Py_AES"
+__name__ = "PyAES"
 __author__ = 'Gabriel Lindeblad'
 __copyright__ = 'Copyright 2022, Gabriel Lindeblad'
 __credits__ = [""]
 __license__ = 'MIT'
-__version__ = '1.1.3'
+__version__ = '1.1.4'
 __maintainer__ = 'Gabriel Lindeblad'
 __email__ = 'Gabriel.lindeblad@icloud.com'
 __status__ = 'Development'

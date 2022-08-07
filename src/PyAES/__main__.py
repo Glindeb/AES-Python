@@ -1,20 +1,21 @@
-from Py_AES.encrypt import encrypt
-from Py_AES.decrypt import decrypt
+from PyAES.encrypt import encrypt
+from PyAES.decrypt import decrypt
 from getpass import getpass
 from os import get_terminal_size
-import Py_AES
+import PyAES
 
 
 def main():
     print("-"*66)
-    print(r"""  ____               _    _____ ____
- |  _ \ _   _       / \  | ____/ ___|
- | |_) | | | |     / _ \ |  _| \___ \
- |  __/| |_| |    / ___ \| |___ ___) |
- |_|    \__, |___/_/   \_\_____|____/
-        |___/_____|                   """)
+    print(r"""         _______               _       ________   ______
+        |_   __ \             / \     |_   __  |.' ____ \
+          | |__) | _   __    / _ \      | |_ \_|| (___ \_|
+          |  ___/ [ \ [  ]  / ___ \     |  _| _  _.____`.
+         _| |_     \ '/ / _/ /   \ \_  _| |__/ || \____) |
+        |_____|  [\_:  / |____| |____||________| \______.'
+                  \__.'                                   """)
     print("-"*66)
-    print(f"Version: {Py_AES.__version__}                         {Py_AES.__copyright__}")
+    print(f"Version: {PyAES.__version__}                   {PyAES.__copyright__}")
     print("-"*66)
     print("""This is a simple AES (Advanced Encryption Standard) implementation
 in Python-3. It is a pure Python implementation of AES that is
@@ -23,7 +24,6 @@ to be used in any other use case than educational and no security
 is guaranteed for data encrypted or decrypted using this tool.""")
     print("-"*66)
     run()
-
 
 def run():
     terminal_size = get_terminal_size()[0]

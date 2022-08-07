@@ -1,6 +1,6 @@
 import pytest
 import os
-from Py_AES.encrypt import encrypt
+from PyAES.encrypt import encrypt
 
 @pytest.mark.parametrize("data,key,file_name,expected", [
     # 128 bit
