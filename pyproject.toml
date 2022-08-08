@@ -18,7 +18,7 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
 ]
-keywords = ["AES", "AES_Python", "PyAES", "Advanced Encryption Standard", "encryption", "cryptography"]
+keywords = ["AES", "AES_Python", "PyAES", "AES-Python", "Advanced Encryption Standard", "encryption", "cryptography"]
 requires-python = ">=3.7"
 
 [tools.setuptools.dynamic]
@@ -28,9 +28,9 @@ version = {attr = "PyAES.__version__"}
 dev = ["pytest", "pytest-cov", "mypy", "flake8", "tox"]
 
 [project.urls]
-Homepage = "https://github.com/Glindeb/PyAES"
-Repository = "https://github.com/Glindeb/PyAES"
-Documentation = "https://github.com/Glindeb/PyAES"
+Homepage = "https://github.com/Glindeb/AES-Python"
+Repository = "https://github.com/Glindeb/AES-Python"
+Documentation = "https://github.com/Glindeb/AES-Python"
 
 [project.scripts]
 PyAES = "PyAES.__main__:main"
