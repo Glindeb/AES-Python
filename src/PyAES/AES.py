@@ -1,5 +1,5 @@
 # ---------------
-# Imports
+# Imported libraries
 # ---------------
 from os.path import getsize
 from os import remove
