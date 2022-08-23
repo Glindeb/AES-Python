@@ -1,6 +1,15 @@
-with open(r".\tmp\test_files\data.txt.enc", "rb") as p:
-    t = p.read()
-    print(t)
+from PyAES.AES import ofb_dec, ofb_enc
 
-#with open(r"C:\Users\Gabriel\Documents\GitHub\AES-Python\tmp\test_files\data.txt.enc", "wb") as p:
-#    p.write(b'2 ?\xebm\xf5o\xc2\x8b\x90\x80\x84 D\xc4\x95\x89\x18\n\xeb\xac\xde\xa7P>Ei\xbc|\x9c\xfa\xf2')
+def run(val):
+    key = "2b7e151628aed2a6abf7158809cf4f3c"
+    iv = "000102030405060708090a0b0c0d0e0f"
+    file_path = r"/Users/gabriellindeblad/Documents/GitHub/AES-Python/tmp/test_files/data.txt"
+
+    if val == 1:
+        ofb_enc(key, file_path, iv)
+    elif val == 2:
+        ofb_dec(key, f"{file_path}.enc", iv)
+
+if __name__ == "__main__":
+    run(2)
+    print("Done!")
