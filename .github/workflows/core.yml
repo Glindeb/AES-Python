@@ -65,9 +65,9 @@ jobs:
         uses: 'marvinpinto/action-automatic-releases@latest'
         with:
           repo_token: ${{ secrets.RELEASE_TOKEN }}
-          automatic_release_tag: v1.1.6
+          automatic_release_tag: v1.2.0
           prerelease: false
-          title: v1.1.6
+          title: v1.2.0
           files: |
             dist/*
 

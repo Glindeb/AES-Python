@@ -1,7 +1,7 @@
 from PyAES.AES import ofb_dec, ofb_enc
 
 def run(val):
-    key = "2b7e151628aed2a6abf7158809cf4f3c"
+    key = "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4"
     iv = "000102030405060708090a0b0c0d0e0f"
     file_path = r"/Users/gabriellindeblad/Documents/GitHub/AES-Python/tmp/test_files/data.txt"
 
@@ -12,4 +12,3 @@ def run(val):
 
 if __name__ == "__main__":
     run(2)
-    print("Done!")

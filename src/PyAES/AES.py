@@ -592,12 +592,13 @@ def ofb_enc(key, file_path, iv, terminal_width=80):
     file_size = getsize(file_path)
     progress = 0
     progress = progress_bar(progress, file_size, terminal_width)
-    iv = [int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]
+    mix = [int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]
+    iv = mix
 
     with open(f"{file_path}.enc", 'wb') as output, open(file_path, 'rb') as data:
         for i in range(int(file_size/16)):
             raw = [i for i in data.read(16)]
-            mix = encryption_rounds(iv, key)
+            mix = encryption_rounds(mix, key)
             result = xor(raw, mix)
             output.write(bytes(result))
             progress = progress_bar(progress, file_size, terminal_width)
@@ -618,9 +619,9 @@ def ofb_enc(key, file_path, iv, terminal_width=80):
             output.write(bytes(result + identifier))
             progress = progress_bar(progress, file_size, terminal_width)
         else:
-            mix = bytes(encryption_rounds(mix, key))
+            mix = encryption_rounds(mix, key)
             identifier = xor([0 for i in range(16)], mix)
-            output.write(identifier)
+            output.write(bytes(identifier))
             progress = progress_bar(progress, file_size, terminal_width)
     progress = progress_bar(progress, file_size, terminal_width)
     remove(file_path)
