@@ -585,3 +585,85 @@ def pcbc_dec(key, file_path, iv, terminal_width=80):
         progress = progress_bar(progress, file_size, terminal_width)
     progress = progress_bar(progress, file_size, terminal_width)
     remove(file_path)
+
+
+# OFB encryption function (Tested but no automated test implemented and no test with different file sizes)
+def ofb_enc(key, file_path, iv, terminal_width=80):
+    file_size = getsize(file_path)
+    progress = 0
+    progress = progress_bar(progress, file_size, terminal_width)
+    mix = [int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]
+    iv = mix
+
+    with open(f"{file_path}.enc", 'wb') as output, open(file_path, 'rb') as data:
+        for i in range(int(file_size/16)):
+            raw = [i for i in data.read(16)]
+            mix = encryption_rounds(mix, key)
+            result = xor(raw, mix)
+            output.write(bytes(result))
+            progress = progress_bar(progress, file_size, terminal_width)
+
+        if file_size % 16 != 0:
+            raw = [i for i in data.read()]
+            raw, length = add_padding(raw)
+
+            if file_size < 16:
+                mix = encryption_rounds(iv, key)
+            else:
+                mix = encryption_rounds(mix, key)
+            result = xor(mix, raw)
+
+            mix = encryption_rounds(mix, key)
+            identifier = xor(([0 for i in range(15)] + [length]), mix)
+
+            output.write(bytes(result + identifier))
+            progress = progress_bar(progress, file_size, terminal_width)
+        else:
+            mix = encryption_rounds(mix, key)
+            identifier = xor([0 for i in range(16)], mix)
+            output.write(bytes(identifier))
+            progress = progress_bar(progress, file_size, terminal_width)
+    progress = progress_bar(progress, file_size, terminal_width)
+    remove(file_path)
+
+
+# OFB decryption function (Tested but no automated test implemented and no test with different file sizes)
+def ofb_dec(key, file_path, iv, terminal_width=80):
+    iv = [int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]
+    file_size = getsize(file_path)
+    progress = 0
+    progress = progress_bar(progress, file_size, terminal_width)
+    file_name = file_path[:-4]
+
+    with open(f"{file_name}", 'wb') as output, open(file_path, 'rb') as data:
+        if int(file_size/16) - 3 >= 0:
+            raw = [i for i in data.read(16)]
+            mix = encryption_rounds(iv, key)
+            result = xor(raw, mix)
+            output.write(bytes(result))
+            progress = progress_bar(progress, file_size, terminal_width)
+
+            for i in range(int(file_size/16) - 3):
+                raw = [i for i in data.read(16)]
+                mix = encryption_rounds(mix, key)
+                result = xor(raw, mix)
+                output.write(bytes(result))
+                progress = progress_bar(progress, file_size, terminal_width)
+        else:
+            mix = iv
+
+        data_pice = [i for i in data.read(16)]
+        identifier = [i for i in data.read()]
+
+        mix = encryption_rounds(mix, key)
+        data_pice = xor(data_pice, mix)
+
+        mix = encryption_rounds(mix, key)
+        identifier = xor(identifier, mix)
+
+        result = bytes(remove_padding(data_pice, identifier))
+
+        output.write(result)
+        progress = progress_bar(progress, file_size, terminal_width)
+    progress = progress_bar(progress, file_size, terminal_width)
+    remove(file_path)

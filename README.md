@@ -21,7 +21,7 @@ Implemented running modes
 - [x] **CBC** - Cipher Block Chaining mode (For more information see ...)
 - [x] **PCBC** - Propagating Cipher Block Chaining mode (For more information see ...)
 - [ ] **CFB** - Cipher Feedback mode (For more information see ...)
-- [ ] **OFB** - Output FeedBack mode (For more information see ...)
+- [x] **OFB** - Output FeedBack mode (For more information see ...)
 - [ ] **CTR** - Counter mode (For more information see ...)
 - [ ] **GCM** - Galois/Counter mode (For more information see ...)
 

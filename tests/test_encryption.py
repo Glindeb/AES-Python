@@ -26,6 +26,7 @@ def test_aes_encrypt_ECB(data, key, file_name, expected):
 
     assert result == expected
 
+
 @pytest.mark.parametrize("data,key,file_name,iv,expected", [
     # 128 bit
     (b'1234567890', "2b7e151628aed2a6abf7158809cf4f3c", "tmp.txt", "000102030405060708090a0b0c0d0e0f", b'\xe4\xa7\x0e\xbd\x84\xfa\xf5\xd8`\xb8\xa1\x10\x0b~\xadh\x89Feso\xc5~_|\xe9\x1bG\xd9*\\\x81'),
@@ -50,6 +51,7 @@ def test_aes_encrypt_CBC(data, key, file_name, iv, expected):
 
     assert result == expected
 
+
 @pytest.mark.parametrize("data,key,file_name,iv,expected", [
     # 128 bit
     (b'1234567890', "2b7e151628aed2a6abf7158809cf4f3c", "tmp.txt", "000102030405060708090a0b0c0d0e0f", b'\xe4\xa7\x0e\xbd\x84\xfa\xf5\xd8`\xb8\xa1\x10\x0b~\xadhJ\xa98\x9f\xceZ\xd4\x9f"\xde\x00\xf6w\xa9\x1b\x05'),
@@ -66,6 +68,31 @@ def test_aes_encrypt_PCBC(data, key, file_name, iv, expected):
         file.write(data)
 
     encrypt(key, file_name, "PCBC", iv)
+
+    with open(f"{file_name}.enc", "rb") as file:
+        result = file.read()
+
+    os.remove(f"{file_name}.enc")
+
+    assert result == expected
+
+
+@pytest.mark.parametrize("data,key,file_name,iv,expected", [
+    # 128 bit
+    (b'1234567890', "2b7e151628aed2a6abf7158809cf4f3c", "tmp.txt", "000102030405060708090a0b0c0d0e0f", b'a\xccT\xf8\xac[\x05\x8e\xe397\xe9\x9b\xaf\xec`\xd9\xa4\xda\xda\x08\x92#\x9fk\x8b=v\x80\xe1Vr'),
+    (b'1234567890123456', "2b7e151628aed2a6abf7158809cf4f3c", "tmp1.txt", "000102030405060708090a0b0c0d0e0f", b'a\xccT\xf8\xac[\x05\x8e\xe39\x06\xdb\xa8\x9b\xd9V\xd9\xa4\xda\xda\x08\x92#\x9fk\x8b=v\x80\xe1Vt'),
+    # 192 bit
+    (b'1234567890', "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", "tmp2.txt", "000102030405060708090a0b0c0d0e0f", b"\x97;\x80\xb9\xc6\x87$\x05\xe4\xcf'\x18\xba\tV^R\xef\x01\xdaR`/\xe0\x97_x\xac\x84\xbf\x8aV"),
+    (b'1234567890123456', "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b", "tmp3.txt", "000102030405060708090a0b0c0d0e0f", b'\x97;\x80\xb9\xc6\x87$\x05\xe4\xcf\x16*\x89=chR\xef\x01\xdaR`/\xe0\x97_x\xac\x84\xbf\x8aP'),
+    # 256 bit
+    (b'1234567890', "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", "tmp4.txt", "000102030405060708090a0b0c0d0e0f", b'\x86\x8d\ti\xc1\x0f\xbe\xe5\xae\xc0\xfa\x97\xeb\xce/J\xe1\xc6V0^\xd1\xa7\xa6V8\x05to\xe0>\xda'),
+    (b'1234567890123456', "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4", "tmp5.txt", "000102030405060708090a0b0c0d0e0f", b'\x86\x8d\ti\xc1\x0f\xbe\xe5\xae\xc0\xcb\xa5\xd8\xfa\x1a|\xe1\xc6V0^\xd1\xa7\xa6V8\x05to\xe0>\xdc')
+])
+def test_aes_encrypt_OFB(data, key, file_name, iv, expected):
+    with open(file_name, "wb") as file:
+        file.write(data)
+
+    encrypt(key, file_name, "OFB", iv)
 
     with open(f"{file_name}.enc", "rb") as file:
         result = file.read()

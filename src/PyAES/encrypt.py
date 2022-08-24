@@ -21,6 +21,8 @@ def encrypt(key, file_path, running_mode, iv=None, terminal_size=80):
         AES.cbc_enc(key, file_path, iv, terminal_size)
     elif running_mode == "PCBC" and iv is not None:
         AES.pcbc_enc(key, file_path, iv, terminal_size)
+    elif running_mode == "OFB" and iv is not None:
+        AES.ofb_enc(key, file_path, iv, terminal_size)
     else:
         raise Exception("Running mode not supported")
 
