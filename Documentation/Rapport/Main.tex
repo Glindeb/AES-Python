@@ -70,6 +70,7 @@ keepaspectratio]{background-1.png}
 \renewcommand{\currentchapter}{#1}}
 \renewcommand{\bibname}{Källförteckning}
 \renewcommand{\contentsname}{Inehållsförteckning}
+\renewcommand{\listfigurename}{Figurer}
 
 
 % Titel reformating
@@ -140,7 +141,7 @@ keepaspectratio]{background-1.png}
     % Title and sub title
     \vspace{3.5cm}
 	{\huge\bfseries The AES encryption algorithm\par}
-   ~{\large En undersökning av The Advanced Encryption Standard (AES)}
+   ~{\large En undersökning av The \acrfull{aes}}
 
 % Bottom of the page
     \vfill
@@ -203,6 +204,9 @@ tempor mi accumsan quis. Morbi blandit maximus urna non aliquet aes.
 \addcontentsline{toc}{chapter}{Källförteckning}
 \bibliographystyle{plain}
 \bibliography{ref}
+
+\addcontentsline{toc}{chapter}{Figurer}
+\listoffigures
 
 % End document
 \end{document}
