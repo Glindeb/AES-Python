@@ -1,4 +1,4 @@
-\mychapter{Introduktion}
+\mychapter{Introduktion} %  Need to be worked on!!!
 
 Dator, mobiltelefon och till och med bil är några uta av dom saker som idag alla är uppkopplade
 till internet. Information om allt från position och uppdateringar till kockslag och väder skickas
@@ -24,14 +24,18 @@ hastighet.
 
     \item Hur påverkas algoritmen av de olika körlägen och vilken betydelse får de för den resultatet?
 
-    \item Hur förändras tiden de tar att kryptera något beroende på ifall algoritmen körs i ECB, CBC
-          [och något mer], samt vilken betydelse ur ett användnings perspektiv får de?
+    \item Hur förändras tiden de tar att kryptera något beroende på ifall algoritmen körs i
+          \acrshort{ecb}, \acrshort{cbc} eller \acrshort{ofb} samt vilken betydelse ur ett
+          användnings perspektiv de får?
 \end{itemize}
 
-\section{Avgränsning} % Not completed
+\section{Avgränsning} % Mostly clear but might need some refinement and reformulating
 
 Denna rapport är inte en komplett utvärdering av \acrshort{aes} och dess användning. Utan fokuserar
 enbart på hur nyckellängd och körläge påverkar krypteringstiden. Detta samt hur den resulterande
-cipher texten påverkas av vissa körlägen och hur detta då i sin tur kan påverka säkerheten. Den
-analys av algoritmens säkerhet är alltså inte en komplett utvärdering av \acrshort{aes} och tar
-inte hänsyn till faktorer så som möjliga attacker som exempelvis PLACEHOLDER \& PLACEHOLDER.
+cipher texten påverkas av vissa körlägen och hur detta då i sin tur kan påverka säkerheten. \par
+
+Denna analys av algoritmens säkerhet är alltså inte en komplett säkerhets utvärdering och tar inte
+hänsyn till faktorer så som möjliga attacker där ibland exempelvis PLACEHOLDER \& PLACEHOLDER
+attacker. Undersökningen är även begränsad till en mjukvaruimplementering och tar inte hänsyn
+till möjliga skillnader som kan uppstå när algoritmen implementeras på en hårdvarunivå.
