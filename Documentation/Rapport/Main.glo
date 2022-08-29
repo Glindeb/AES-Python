@@ -1,3 +1,1 @@
-(indexentry :tkey (("pi" "\\glossentry{xor}") ) :locref "{}{1}" :attr "pageglsnumberformat" ) 
-(indexentry :tkey (("AES" "\\glossentry{aes}") ) :locref "{}{10}" :attr "pageglsnumberformat" ) 
-(indexentry :tkey (("pi" "\\glossentry{xor}") ) :locref "{}{10}" :attr "pageglsnumberformat" ) 
+\glossaryentry{glossary?\glossentry{glsy}|setentrycounter[]{page}"\glsnumberformat}{3}

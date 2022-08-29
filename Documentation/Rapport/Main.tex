@@ -22,7 +22,10 @@
 % For unit displaying
 \usepackage{siunitx}
 % For correct paragraph phrasing
-\usepackage[]{parskip}
+\usepackage{parskip}
+
+% For correct fotnotes and citation structure
+
 
 % Background image of title page
 \usepackage{eso-pic}
@@ -87,12 +90,31 @@ keepaspectratio]{background-1.png}
 \titlespacing*{\chapter}{0pt}{-25pt}{0pt}
 
 
+% Glossaries setup
+\usepackage[nopostdot,nonumberlist,style=super,acronym,toc]{glossaries}
+
+\makenoidxglossaries
+
+\renewcommand*{\glossaryname}{Ordlista}
+\renewcommand*{\acronymname}{Acronymer}
+\renewcommand{\glsnamefont}[1]{\textbf{#1}}
+
+%%%
+\newglossaryentry{glsy}
+{
+    name=glossary,
+    description={Acronyms and terms which are generally unknown or new to common readers.}
+}
+
+\newacronym{aes}{AES}{Advanced Encryption Standard}
+%%%
+
 % Start document
 \begin{document}
 
 \newgeometry{top=0cm, bottom=2cm, left = 1.5cm, right = 1.5cm}
 
-% Beginging title page
+% Beginning title page
 \begin{titlepage}
     % Inserting background images
     \AddToShipoutPicture*{\BackgroundIm}
@@ -115,7 +137,7 @@ keepaspectratio]{background-1.png}
     % Title and sub title
     \vspace{3.5cm}
 	{\huge\bfseries The AES encryption algorithm\par}
-    ~{\large En undersökning av The Advanced Encryption Standard (AES)}
+   ~{\large En undersökning av The Advanced Encryption Standard (AES)}
 
 % Bottom of the page
     \vfill
@@ -158,6 +180,10 @@ tempor mi accumsan quis. Morbi blandit maximus urna non aliquet aes.
 
 % Inehållsförteckning
 \tableofcontents
+
+\clearpage
+
+\printnoidxglossaries
 
 \include{Introduction}
 

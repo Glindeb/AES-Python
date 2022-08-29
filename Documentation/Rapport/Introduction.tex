@@ -1,27 +1,37 @@
 \mychapter{Introduktion}
 
-Kryptering, något vi möter varje dag i dagens samhälle men...
+Dator, mobiltelefon och till och med bil är några uta av dom saker som idag alla är uppkopplade
+till internet. Information om allt från position och uppdateringar till kockslag och väder skickas
+från enhet till enhet runt om oss. Utav detta så är mycket vad vi kallar privat information som
+vi helst inte vill att vem som helst ska kunna se. På grund av just denna anledning så används
+något som kallas kryptering för att dölja informationen från nyfikna mellanhänder.
 
-När de vi idag kallar internet uppkom och öppnades för allmänheten så var tankarna på hur
-våran data och information
+I mordentid så är det absolut vanligast att \acrfull{aes} används för att kryptera våran information.
 
-Hela tiden runt om oss skickas information digitalt från enhet till enhet. Information från
-höger till väster bara flödar ...
-
-Information, en grundsten i dagens samhälle ...
 
 \section{Syfte} % Mostly clear but might need some refinement
-Syftet med denna undersökning är att undersöka krypterings algoritmen AES
-(Advanced Encryption Standard), för att utveckla en förståelse för mer
-avancerad krypterings algoritmer. Samt att bygga en uppfattning om hur
-man på olika sätt kan implementera krypterings algoritmer och vad de får
-för betydelse för deras säkerhet och hastighet.
+Syftet med denna undersökning är att undersöka krypterings algoritmen \acrshort{aes},
+för att utveckla en förståelse för mer avancerad krypterings algoritmer.
+Samt att bygga en uppfattning om hur man på olika sätt kan implementera
+krypterings algoritmer och vad de får för betydelse för deras säkerhet och
+hastighet.
 
 \section{Frågeställningar} % Mostly clear but might need some refinement and reformulating
-Hur påverkas tiden de tar att kryptera något mellan de olika nyckel längderna 128-bit,
-192-bit och 256-bit nyckel?
+\begin{itemize}
+    \setlength{\itemindent}{-1em}
+    \item Hur påverkas tiden de tar att kryptera något mellan de olika nyckel längderna 128-bit,
+          192-bit och 256-bit nyckel?
 
-Hur påverkas algoritmen av de olika körlägen och vilken betydelse får de för den resultatet?
+    \item Hur påverkas algoritmen av de olika körlägen och vilken betydelse får de för den resultatet?
 
-Hur förändras tiden de tar att kryptera något beroende på ifall algoritmen körs i ECB, CBC
-[och något mer], samt vilken betydelse ur ett användnings perspektiv får de?
+    \item Hur förändras tiden de tar att kryptera något beroende på ifall algoritmen körs i ECB, CBC
+          [och något mer], samt vilken betydelse ur ett användnings perspektiv får de?
+\end{itemize}
+
+\section{Avgränsning} % Not completed
+
+Denna rapport är inte en komplett utvärdering av \acrshort{aes} och dess användning. Utan fokuserar
+enbart på hur nyckellängd och körläge påverkar krypteringstiden. Detta samt hur den resulterande
+cipher texten påverkas av vissa körlägen och hur detta då i sin tur kan påverka säkerheten. Den
+analys av algoritmens säkerhet är alltså inte en komplett utvärdering av \acrshort{aes} och tar
+inte hänsyn till faktorer så som möjliga attacker som exempelvis PLACEHOLDER \& PLACEHOLDER.
