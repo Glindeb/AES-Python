@@ -13,7 +13,7 @@
 \usepackage{amsfonts}
 \usepackage{amsmath}
 % For reffereces displaying and coloring as well as for some document settings
-\usepackage[pagebackref]{hyperref}
+\usepackage[]{hyperref}
 % For math symbols and figures
 \usepackage{tikz}
 % For color boxes
@@ -25,7 +25,8 @@
 \usepackage{parskip}
 
 % For correct fotnotes and citation structure
-
+\usepackage[style=verbose]{biblatex}
+\addbibresource{ref.bib}
 
 % Background image of title page
 \usepackage{eso-pic}
@@ -202,8 +203,7 @@ tempor mi accumsan quis. Morbi blandit maximus urna non aliquet aes.
 \include{Diskussion}
 
 \addcontentsline{toc}{chapter}{Källförteckning}
-\bibliographystyle{plain}
-\bibliography{ref}
+\printbibliography[title=Källförteckning]
 
 \addcontentsline{toc}{chapter}{Figurer}
 \listoffigures
