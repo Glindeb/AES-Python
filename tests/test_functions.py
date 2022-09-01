@@ -82,11 +82,12 @@ def test_aes_actions_inv_mix_columns():
 ])
 def test_aes_encryption_rounds(data, key, expected):
     data = [data[i:i+2] for i in range(0, len(data), 2)]
+    round_keys, nr = AES.keyExpansion(key)
 
     for i, t in enumerate(data):
         data[i] = int(t, 16)
 
-    result = AES.encryption_rounds(data, key)
+    result = AES.encryption_rounds(data, round_keys, nr)
 
     for i, t in enumerate(result):
         result[i] = hex(t)[2:]
@@ -116,11 +117,12 @@ def test_aes_encryption_rounds(data, key, expected):
 ])
 def test_aes_decryption_rounds(data, key, expected):
     data = [data[i:i+2] for i in range(0, len(data), 2)]
+    round_keys, nr = AES.keyExpansion(key)
 
     for i, t in enumerate(data):
         data[i] = int(t, 16)
 
-    result = AES.decryption_rounds(data, key)
+    result = AES.decryption_rounds(data, round_keys, nr)
 
     for i, t in enumerate(result):
         result[i] = hex(t)[2:]

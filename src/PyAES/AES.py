@@ -185,10 +185,7 @@ def remove_padding(data, identifier):
 
 
 # Performs the encryption rounds
-def encryption_rounds(data, key):
-    # Generates round keys
-    round_keys, nr = keyExpansion(key)
-
+def encryption_rounds(data, round_keys, nr):
     # Creates a 4x4 matrix from the 16-byte array
     data = list_to_matrix(data)
 
@@ -211,10 +208,7 @@ def encryption_rounds(data, key):
 
 
 # Performs the decryption rounds
-def decryption_rounds(data, key):
-    # generates round keys
-    round_keys, nr = keyExpansion(key)
-
+def decryption_rounds(data, round_keys, nr):
     # Creates a 4x4 matrix from the 16-byte array
     data = list_to_matrix(data)
 
@@ -372,11 +366,12 @@ def ecb_enc(key, file_path, terminal_width=80):
     file_size = getsize(file_path)
     progress = 0
     progress = progress_bar(progress, file_size, terminal_width)
+    round_keys, nr = keyExpansion(key)
 
     with open(f"{file_path}.enc", 'wb') as output, open(file_path, 'rb') as data:
         for i in range(int(file_size/16)):
             raw = [i for i in data.read(16)]
-            result = bytes(encryption_rounds(raw, key))
+            result = bytes(encryption_rounds(raw, round_keys, nr))
             output.write(result)
             progress = progress_bar(progress, file_size, terminal_width)
 
@@ -384,13 +379,13 @@ def ecb_enc(key, file_path, terminal_width=80):
             raw = [i for i in data.read()]
             raw, length = add_padding(raw)
 
-            result = bytes(encryption_rounds(raw, key))
-            identifier = bytes(encryption_rounds([0 for i in range(15)] + [length], key))
+            result = bytes(encryption_rounds(raw, round_keys, nr))
+            identifier = bytes(encryption_rounds([0 for i in range(15)] + [length], round_keys, nr))
 
             output.write(result + identifier)
             progress = progress_bar(progress, file_size, terminal_width)
         else:
-            identifier = bytes(encryption_rounds([0 for i in range(16)], key))
+            identifier = bytes(encryption_rounds([0 for i in range(16)], round_keys, nr))
             output.write(identifier)
             progress = progress_bar(progress, file_size, terminal_width)
     progress = progress_bar(progress, file_size, terminal_width)
@@ -403,19 +398,20 @@ def ecb_dec(key, file_path, terminal_width=80):
     progress = 0
     progress = progress_bar(progress, file_size, terminal_width)
     file_name = file_path[:-4]
+    round_keys, nr = keyExpansion(key)
 
     with open(f"{file_name}", 'wb') as output, open(file_path, 'rb') as data:
         for i in range(int(file_size/16) - 2):
             raw = [i for i in data.read(16)]
-            result = bytes(decryption_rounds(raw, key))
+            result = bytes(decryption_rounds(raw, round_keys, nr))
             output.write(result)
             progress = progress_bar(progress, file_size, terminal_width)
 
         data_pice = [i for i in data.read(16)]
         identifier = [i for i in data.read()]
 
-        result = decryption_rounds(data_pice, key)
-        identifier = decryption_rounds(identifier, key)
+        result = decryption_rounds(data_pice, round_keys, nr)
+        identifier = decryption_rounds(identifier, round_keys, nr)
 
         result = bytes(remove_padding(result, identifier))
 
@@ -431,12 +427,13 @@ def cbc_enc(key, file_path, iv, terminal_width=80):
     progress = 0
     progress = progress_bar(progress, file_size, terminal_width)
     vector = [int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]
+    round_keys, nr = keyExpansion(key)
 
     with open(f"{file_path}.enc", 'wb') as output, open(file_path, 'rb') as data:
         for i in range(int(file_size/16)):
             raw = [i for i in data.read(16)]
             raw = xor(raw, vector)
-            vector = encryption_rounds(raw, key)
+            vector = encryption_rounds(raw, round_keys, nr)
             output.write(bytes(vector))
             progress = progress_bar(progress, file_size, terminal_width)
 
@@ -445,16 +442,16 @@ def cbc_enc(key, file_path, iv, terminal_width=80):
             raw, length = add_padding(raw)
 
             raw = xor(raw, vector)
-            vector = encryption_rounds(raw, key)
+            vector = encryption_rounds(raw, round_keys, nr)
 
             identifier = xor(([0 for i in range(15)] + [length]), vector)
-            identifier = encryption_rounds(identifier, key)
+            identifier = encryption_rounds(identifier, round_keys, nr)
 
             output.write(bytes(vector + identifier))
             progress = progress_bar(progress, file_size, terminal_width)
         else:
             identifier = xor([0 for i in range(16)], vector)
-            identifier = bytes(encryption_rounds(identifier, key))
+            identifier = bytes(encryption_rounds(identifier, round_keys, nr))
             output.write(identifier)
             progress = progress_bar(progress, file_size, terminal_width)
     progress = progress_bar(progress, file_size, terminal_width)
@@ -468,18 +465,19 @@ def cbc_dec(key, file_path, iv, terminal_width=80):
     progress = 0
     progress = progress_bar(progress, file_size, terminal_width)
     file_name = file_path[:-4]
+    round_keys, nr = keyExpansion(key)
 
     with open(f"{file_name}", 'wb') as output, open(file_path, 'rb') as data:
         if int(file_size/16) - 3 >= 0:
             vector = [i for i in data.read(16)]
-            raw = decryption_rounds(vector, key)
+            raw = decryption_rounds(vector, round_keys, nr)
             result = xor(raw, iv)
             output.write(bytes(result))
             progress = progress_bar(progress, file_size, terminal_width)
 
             for i in range(int(file_size/16) - 3):
                 raw = [i for i in data.read(16)]
-                result = decryption_rounds(raw, key)
+                result = decryption_rounds(raw, round_keys, nr)
                 result = xor(result, vector)
                 vector = raw
                 output.write(bytes(result))
@@ -490,8 +488,8 @@ def cbc_dec(key, file_path, iv, terminal_width=80):
         data_pice = [i for i in data.read(16)]
         vector_1, identifier = data_pice, [i for i in data.read()]
 
-        result = decryption_rounds(data_pice, key)
-        identifier = decryption_rounds(identifier, key)
+        result = decryption_rounds(data_pice, round_keys, nr)
+        identifier = decryption_rounds(identifier, round_keys, nr)
 
         identifier = xor(identifier, vector_1)
         data_pice = xor(result, vector)
@@ -510,12 +508,13 @@ def pcbc_enc(key, file_path, iv, terminal_width=80):
     progress = 0
     progress = progress_bar(progress, file_size, terminal_width)
     vector = [int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]
+    round_keys, nr = keyExpansion(key)
 
     with open(f"{file_path}.enc", 'wb') as output, open(file_path, 'rb') as data:
         for i in range(int(file_size/16)):
             raw = [i for i in data.read(16)]
             tmp = xor(raw, vector)
-            vector = encryption_rounds(tmp, key)
+            vector = encryption_rounds(tmp, round_keys, nr)
             output.write(bytes(vector))
             vector = xor(vector, raw)
             progress = progress_bar(progress, file_size, terminal_width)
@@ -525,17 +524,17 @@ def pcbc_enc(key, file_path, iv, terminal_width=80):
             raw, length = add_padding(raw)
 
             tmp = xor(raw, vector)
-            vector1 = encryption_rounds(tmp, key)
+            vector1 = encryption_rounds(tmp, round_keys, nr)
             vector = xor(vector1, raw)
 
             identifier = xor(([0 for i in range(15)] + [length]), vector)
-            identifier = encryption_rounds(identifier, key)
+            identifier = encryption_rounds(identifier, round_keys, nr)
 
             output.write(bytes(vector1 + identifier))
             progress = progress_bar(progress, file_size, terminal_width)
         else:
             identifier = xor([0 for i in range(16)], vector)
-            identifier = bytes(encryption_rounds(identifier, key))
+            identifier = bytes(encryption_rounds(identifier, round_keys, nr))
             output.write(identifier)
             progress = progress_bar(progress, file_size, terminal_width)
     progress = progress_bar(progress, file_size, terminal_width)
@@ -549,11 +548,12 @@ def pcbc_dec(key, file_path, iv, terminal_width=80):
     progress = 0
     progress = progress_bar(progress, file_size, terminal_width)
     file_name = file_path[:-4]
+    round_keys, nr = keyExpansion(key)
 
     with open(f"{file_name}", 'wb') as output, open(file_path, 'rb') as data:
         if int(file_size/16) - 3 >= 0:
             vector = [i for i in data.read(16)]
-            raw = decryption_rounds(vector, key)
+            raw = decryption_rounds(vector, round_keys, nr)
             result = xor(raw, iv)
             vector = xor(vector, result)
             output.write(bytes(result))
@@ -561,7 +561,7 @@ def pcbc_dec(key, file_path, iv, terminal_width=80):
 
             for i in range(int(file_size/16) - 3):
                 raw = [i for i in data.read(16)]
-                result = decryption_rounds(raw, key)
+                result = decryption_rounds(raw, round_keys, nr)
                 result = xor(result, vector)
                 vector = xor(raw, result)
                 output.write(bytes(result))
@@ -572,11 +572,11 @@ def pcbc_dec(key, file_path, iv, terminal_width=80):
         data_pice = [i for i in data.read(16)]
         vector_1, identifier = data_pice, [i for i in data.read()]
 
-        result = decryption_rounds(data_pice, key)
+        result = decryption_rounds(data_pice, round_keys, nr)
         data_pice = xor(result, vector)
 
         vector_1 = xor(vector_1, data_pice)
-        identifier = decryption_rounds(identifier, key)
+        identifier = decryption_rounds(identifier, round_keys, nr)
         identifier = xor(identifier, vector_1)
 
         result = bytes(remove_padding(data_pice, identifier))
@@ -587,18 +587,19 @@ def pcbc_dec(key, file_path, iv, terminal_width=80):
     remove(file_path)
 
 
-# OFB encryption function (Tested but no automated test implemented and no test with different file sizes)
+# OFB encryption function
 def ofb_enc(key, file_path, iv, terminal_width=80):
     file_size = getsize(file_path)
     progress = 0
     progress = progress_bar(progress, file_size, terminal_width)
+    round_keys, nr = keyExpansion(key)
     mix = [int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]
     iv = mix
 
     with open(f"{file_path}.enc", 'wb') as output, open(file_path, 'rb') as data:
         for i in range(int(file_size/16)):
             raw = [i for i in data.read(16)]
-            mix = encryption_rounds(mix, key)
+            mix = encryption_rounds(mix, round_keys, nr)
             result = xor(raw, mix)
             output.write(bytes(result))
             progress = progress_bar(progress, file_size, terminal_width)
@@ -608,18 +609,18 @@ def ofb_enc(key, file_path, iv, terminal_width=80):
             raw, length = add_padding(raw)
 
             if file_size < 16:
-                mix = encryption_rounds(iv, key)
+                mix = encryption_rounds(iv, round_keys, nr)
             else:
-                mix = encryption_rounds(mix, key)
+                mix = encryption_rounds(mix, round_keys, nr)
             result = xor(mix, raw)
 
-            mix = encryption_rounds(mix, key)
+            mix = encryption_rounds(mix, round_keys, nr)
             identifier = xor(([0 for i in range(15)] + [length]), mix)
 
             output.write(bytes(result + identifier))
             progress = progress_bar(progress, file_size, terminal_width)
         else:
-            mix = encryption_rounds(mix, key)
+            mix = encryption_rounds(mix, round_keys, nr)
             identifier = xor([0 for i in range(16)], mix)
             output.write(bytes(identifier))
             progress = progress_bar(progress, file_size, terminal_width)
@@ -627,25 +628,26 @@ def ofb_enc(key, file_path, iv, terminal_width=80):
     remove(file_path)
 
 
-# OFB decryption function (Tested but no automated test implemented and no test with different file sizes)
+# OFB decryption function
 def ofb_dec(key, file_path, iv, terminal_width=80):
     iv = [int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]
     file_size = getsize(file_path)
     progress = 0
     progress = progress_bar(progress, file_size, terminal_width)
     file_name = file_path[:-4]
+    round_keys, nr = keyExpansion(key)
 
     with open(f"{file_name}", 'wb') as output, open(file_path, 'rb') as data:
         if int(file_size/16) - 3 >= 0:
             raw = [i for i in data.read(16)]
-            mix = encryption_rounds(iv, key)
+            mix = encryption_rounds(iv, round_keys, nr)
             result = xor(raw, mix)
             output.write(bytes(result))
             progress = progress_bar(progress, file_size, terminal_width)
 
             for i in range(int(file_size/16) - 3):
                 raw = [i for i in data.read(16)]
-                mix = encryption_rounds(mix, key)
+                mix = encryption_rounds(mix, round_keys, nr)
                 result = xor(raw, mix)
                 output.write(bytes(result))
                 progress = progress_bar(progress, file_size, terminal_width)
@@ -655,10 +657,10 @@ def ofb_dec(key, file_path, iv, terminal_width=80):
         data_pice = [i for i in data.read(16)]
         identifier = [i for i in data.read()]
 
-        mix = encryption_rounds(mix, key)
+        mix = encryption_rounds(mix, round_keys, nr)
         data_pice = xor(data_pice, mix)
 
-        mix = encryption_rounds(mix, key)
+        mix = encryption_rounds(mix, round_keys, nr)
         identifier = xor(identifier, mix)
 
         result = bytes(remove_padding(data_pice, identifier))

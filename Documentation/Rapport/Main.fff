@@ -1,0 +1,85 @@
+\begin{figure}[H]
+    \includegraphics[width=0.3\textwidth]{skola_logga.png}
+    \end{figure}
+
+    % Aligning year to the right
+    \raggedleft
+
+    % Year
+    \vspace{-3.5cm}
+    {\large \textbf{2022/2023}}
+
+    % Aligning to the left
+    \raggedright
+
+    % Title and sub title
+    \vspace{3.5cm}
+{\huge\bfseries The AES encryption algorithm\par}
+   ~{\large En undersökning av The \acrfull{aes}}
+
+% Bottom of the page
+    \vfill
+
+  {Klass:} \\
+    ~\textbf{NA20}
+
+  {Författare:} \\
+    ~\textbf{Gabriel Lindeblad}
+
+{Handledare:} \\
+~\textbf{Rickard Janveden}
+
+  {Program:} \\
+    ~\textbf{Naturvetenskapsprogrammet}
+
+    \vspace{1cm}
+{\large \today\par}
+    \vspace{-1cm}
+
+% End of title page
+\end{titlepage}
+
+% Geometry of page borders for abstract
+\newgeometry{top=5cm, bottom=2cm, left = 2cm, right = 2cm}
+
+% Abstract
+\chapter*{Abstract}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lacinia ex eget sagittis congue.
+Nullam cursus egestas dolor, suscipit gravida magna ultrices sit amet. Nullam placerat dui eu
+arcu pharetra, sit amet tempor dolor convallis. Aenean sodales condimentum turpis, commodo maximus
+augue. Aenean vel nibh dui. Pellentesque ex libero, lacinia nec mauris vel, convallis consectetur
+felis. Maecenas ut nibh sed magna maximus imperdiet at id purus. In vel consequat metus. Donec non
+tincidunt nunc. Sed pulvinar odio ut sapien vestibulum, quis mollis arcu tempor. Maecenas ut sem leo.
+Sed leo risus, mollis eu ex vitae, feugiat consequat metus. Aenean interdum volutpat urna, nec
+tempor mi accumsan quis. Morbi blandit maximus urna non aliquet aes.
+
+% New page borders for bulk of the report
+\newgeometry{top=2.5cm, bottom=2cm, left = 2cm, right = 2cm}
+
+% Inehållsförteckning
+\tableofcontents
+
+\clearpage
+
+\printnoidxglossaries
+
+\include{Introduction}
+
+\include{Bakgrund}
+
+\include{Teori}
+
+\include{Material_utförande}
+
+\include{Resultat}
+
+\include{Diskussion}
+
+\addcontentsline{toc}{chapter}{Källförteckning}
+\bibliographystyle{plain}
+\bibliography{ref}
+
+\listoffigures
+
+% End document
+\end{document}

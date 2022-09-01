@@ -6,6 +6,7 @@
 \usepackage{titlesec}
 \usepackage{fontenc}
 \usepackage{float}
+\usepackage[swedish]{babel}
 % For headers and footers
 \usepackage{fancyhdr, lastpage}
 \usepackage{fancyvrb}
@@ -13,7 +14,7 @@
 \usepackage{amsfonts}
 \usepackage{amsmath}
 % For reffereces displaying and coloring as well as for some document settings
-\usepackage[pagebackref]{hyperref}
+\usepackage[]{hyperref}
 % For math symbols and figures
 \usepackage{tikz}
 % For color boxes
@@ -21,6 +22,12 @@
 \usepackage[most]{tcolorbox}
 % For unit displaying
 \usepackage{siunitx}
+% For correct paragraph phrasing
+\usepackage{parskip}
+
+% For correct fotnotes and citation structure
+\usepackage[backend=biber,style=verbose,citestyle=numeric,bibstyle=alphabetic]{biblatex}
+\addbibresource{ref.bib}
 
 % Background image of title page
 \usepackage{eso-pic}
@@ -65,6 +72,7 @@ keepaspectratio]{background-1.png}
 \renewcommand{\currentchapter}{#1}}
 \renewcommand{\bibname}{Källförteckning}
 \renewcommand{\contentsname}{Inehållsförteckning}
+\renewcommand{\listfigurename}{Figurer}
 
 
 % Titel reformating
@@ -85,12 +93,48 @@ keepaspectratio]{background-1.png}
 \titlespacing*{\chapter}{0pt}{-25pt}{0pt}
 
 
+% Glossaries setup
+\usepackage[nopostdot,nonumberlist,style=super,acronym,toc]{glossaries}
+\setlength{\glsdescwidth}{\textwidth}
+\makeglossaries
+
+\renewcommand*{\glossaryname}{Ordlista}
+\renewcommand*{\acronymname}{Akronymer}
+\renewcommand{\glsnamefont}[1]{\textbf{#1}}
+
+%%%
+\newglossaryentry{rsa}
+{
+    name=RSA,
+    description={RSA is a public key cryptosystem.} % Needs to get a sucre and be refined
+ }
+
+\newglossaryentry{xor}
+{
+    name=XOR,
+    description={...} % Needs to get a sucre and be refined
+ }
+
+\newglossaryentry{python}
+{
+    name=Python,
+    description={Python är ett högnivå programmerings språk byggt på programmerings språket C.
+    De är skapat av Guido van Rossum och släpptes i Februari 1991.\cite{python}}
+ }
+
+\newacronym{aes}{AES}{Advanced Encryption Standard}
+\newacronym{ecb}{ECB}{Electronic Code Book mode}
+\newacronym{cbc}{CBC}{Cipher Block Chaining mode}
+\newacronym{ofb}{OFB}{Output Feedback mode}
+\newacronym{des}{DES}{Data Encryption Standard}
+%%%
+
 % Start document
 \begin{document}
 
 \newgeometry{top=0cm, bottom=2cm, left = 1.5cm, right = 1.5cm}
 
-% Beginging title page
+% Beginning title page
 \begin{titlepage}
     % Inserting background images
     \AddToShipoutPicture*{\BackgroundIm}
@@ -113,28 +157,21 @@ keepaspectratio]{background-1.png}
     % Title and sub title
     \vspace{3.5cm}
 	{\huge\bfseries The AES encryption algorithm\par}
-    \vspace{0.1cm}
-    ~{\large En undersökning av The Advanced Encryption Standard (AES)}
+   ~{\large En undersökning av The \acrfull{aes}}
 
 % Bottom of the page
     \vfill
 
-    Klass:\par
+  {Klass:} \\
     ~\textbf{NA20}
 
-    \vspace{0.2cm}
+  {Handledare:} \\
+    ~\textbf{Jimmy Nylén}
 
-    Författare:\par
+  {Författare:} \\
     ~\textbf{Gabriel Lindeblad}
 
-    \vspace{0.2cm}
-
-	{Handledare:}\par
-	~\textbf{Rickard Janveden}
-
-    \vspace{0.2cm}
-
-    Program:\par
+  {Program:} \\
     ~\textbf{Naturvetenskapsprogrammet}
 
     \vspace{1cm}
@@ -159,10 +196,18 @@ Sed leo risus, mollis eu ex vitae, feugiat consequat metus. Aenean interdum volu
 tempor mi accumsan quis. Morbi blandit maximus urna non aliquet aes.
 
 % New page borders for bulk of the report
-\newgeometry{top=2.5cm, bottom=2cm, left = 2cm, right = 2cm}
+\newgeometry{top=2.25cm, bottom=2cm, left = 2cm, right = 2cm} % 2.25cm is the height of the header (is a checky solution that might need to bee removed if more headings are added)
 
 % Inehållsförteckning
 \tableofcontents
+
+\newgeometry{top=2.5cm, bottom=2cm, left = 2cm, right = 2cm}
+
+\clearpage
+
+\printglossary
+
+\printglossary[type=\acronymtype]
 
 \include{Introduction}
 
@@ -177,8 +222,12 @@ tempor mi accumsan quis. Morbi blandit maximus urna non aliquet aes.
 \include{Diskussion}
 
 \addcontentsline{toc}{chapter}{Källförteckning}
-\bibliographystyle{plain}
-\bibliography{ref}
+\printbibliography[title=Källförteckning]
+
+\clearpage
+
+\addcontentsline{toc}{chapter}{Figurer}
+\listoffigures
 
 % End document
 \end{document}
