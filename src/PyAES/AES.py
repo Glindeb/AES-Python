@@ -587,7 +587,7 @@ def pcbc_dec(key, file_path, iv, terminal_width=80):
     remove(file_path)
 
 
-# OFB encryption function (Tested but no automated test implemented and no test with different file sizes)
+# OFB encryption function
 def ofb_enc(key, file_path, iv, terminal_width=80):
     file_size = getsize(file_path)
     progress = 0
@@ -628,7 +628,7 @@ def ofb_enc(key, file_path, iv, terminal_width=80):
     remove(file_path)
 
 
-# OFB decryption function (Tested but no automated test implemented and no test with different file sizes)
+# OFB decryption function
 def ofb_dec(key, file_path, iv, terminal_width=80):
     iv = [int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]
     file_size = getsize(file_path)
