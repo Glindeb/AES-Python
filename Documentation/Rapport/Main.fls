@@ -1061,9 +1061,9 @@ INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/biblatex/bbx/alphabetic.bbx
 INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
 INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
 INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
-INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/biblatex/cbx/numeric.cbx
-INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/biblatex/cbx/numeric.cbx
-INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/biblatex/cbx/numeric.cbx
+INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/biblatex/cbx/alphabetic.cbx
+INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/biblatex/cbx/alphabetic.cbx
+INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/biblatex/cbx/alphabetic.cbx
 INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/biblatex/biblatex.cfg
 INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/biblatex/biblatex.cfg
 INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/biblatex/biblatex.cfg
