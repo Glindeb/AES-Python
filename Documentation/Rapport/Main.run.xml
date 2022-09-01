@@ -58,7 +58,7 @@
       <file>verbose.bbx</file>
       <file>verbose.cbx</file>
       <file>biblatex.cfg</file>
-      <file>english.lbx</file>
+      <file>swedish.lbx</file>
     </requires>
   </internal>
   <external package="biblatex" priority="5" active="0">

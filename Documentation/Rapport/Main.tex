@@ -6,6 +6,7 @@
 \usepackage{titlesec}
 \usepackage{fontenc}
 \usepackage{float}
+\usepackage[swedish]{babel}
 % For headers and footers
 \usepackage{fancyhdr, lastpage}
 \usepackage{fancyvrb}
@@ -102,16 +103,23 @@ keepaspectratio]{background-1.png}
 \renewcommand{\glsnamefont}[1]{\textbf{#1}}
 
 %%%
-\newglossaryentry{glsy}
+\newglossaryentry{rsa}
 {
-    name=glossary,
-    description={Acronyms and terms which are generally unknown or new to common readers.}
-}
+    name=RSA,
+    description={RSA is a public key cryptosystem.} % Needs to get a sucre and be refined
+ }
+
+ \newglossaryentry{xor}
+ {
+     name=XOR,
+     description={...} % Needs to get a sucre and be refined
+  }
 
 \newacronym{aes}{AES}{Advanced Encryption Standard}
 \newacronym{ecb}{ECB}{Electronic Code Book mode}
 \newacronym{cbc}{CBC}{Cipher Block Chaining mode}
 \newacronym{ofb}{OFB}{Output Feedback mode}
+\newacronym{des}{DES}{Data Encryption Standard}
 %%%
 
 % Start document
@@ -181,10 +189,12 @@ Sed leo risus, mollis eu ex vitae, feugiat consequat metus. Aenean interdum volu
 tempor mi accumsan quis. Morbi blandit maximus urna non aliquet aes.
 
 % New page borders for bulk of the report
-\newgeometry{top=2.5cm, bottom=2cm, left = 2cm, right = 2cm}
+\newgeometry{top=2.25cm, bottom=2cm, left = 2cm, right = 2cm} % 2.25cm is the height of the header (is a checky solution that might need to bee removed if more headings are added)
 
 % Inehållsförteckning
 \tableofcontents
+
+\newgeometry{top=2.5cm, bottom=2cm, left = 2cm, right = 2cm}
 
 \clearpage
 
@@ -204,6 +214,8 @@ tempor mi accumsan quis. Morbi blandit maximus urna non aliquet aes.
 
 \addcontentsline{toc}{chapter}{Källförteckning}
 \printbibliography[title=Källförteckning]
+
+\clearpage
 
 \addcontentsline{toc}{chapter}{Figurer}
 \listoffigures
