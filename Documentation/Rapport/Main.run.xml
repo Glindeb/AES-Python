@@ -54,9 +54,8 @@
       <file>blx-compat.def</file>
       <file>biblatex.def</file>
       <file>standard.bbx</file>
-      <file>authortitle.bbx</file>
-      <file>verbose.bbx</file>
-      <file>verbose.cbx</file>
+      <file>alphabetic.bbx</file>
+      <file>numeric.cbx</file>
       <file>biblatex.cfg</file>
       <file>swedish.lbx</file>
     </requires>

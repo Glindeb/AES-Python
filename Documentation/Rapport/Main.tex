@@ -26,7 +26,7 @@
 \usepackage{parskip}
 
 % For correct fotnotes and citation structure
-\usepackage[style=verbose]{biblatex}
+\usepackage[backend=biber,style=verbose,citestyle=numeric,bibstyle=alphabetic]{biblatex}
 \addbibresource{ref.bib}
 
 % Background image of title page
@@ -95,11 +95,11 @@ keepaspectratio]{background-1.png}
 
 % Glossaries setup
 \usepackage[nopostdot,nonumberlist,style=super,acronym,toc]{glossaries}
-
-\makenoidxglossaries
+\setlength{\glsdescwidth}{\textwidth}
+\makeglossaries
 
 \renewcommand*{\glossaryname}{Ordlista}
-\renewcommand*{\acronymname}{Acronymer}
+\renewcommand*{\acronymname}{Akronymer}
 \renewcommand{\glsnamefont}[1]{\textbf{#1}}
 
 %%%
@@ -109,11 +109,18 @@ keepaspectratio]{background-1.png}
     description={RSA is a public key cryptosystem.} % Needs to get a sucre and be refined
  }
 
- \newglossaryentry{xor}
- {
-     name=XOR,
-     description={...} % Needs to get a sucre and be refined
-  }
+\newglossaryentry{xor}
+{
+    name=XOR,
+    description={...} % Needs to get a sucre and be refined
+ }
+
+\newglossaryentry{python}
+{
+    name=Python,
+    description={Python är ett högnivå programmerings språk byggt på programmerings språket C.
+    De är skapat av Guido van Rossum och släpptes i Februari 1991.\cite{python}}
+ }
 
 \newacronym{aes}{AES}{Advanced Encryption Standard}
 \newacronym{ecb}{ECB}{Electronic Code Book mode}
@@ -158,11 +165,11 @@ keepaspectratio]{background-1.png}
   {Klass:} \\
     ~\textbf{NA20}
 
+  {Handledare:} \\
+    ~\textbf{Jimmy Nylén}
+
   {Författare:} \\
     ~\textbf{Gabriel Lindeblad}
-
-	{Handledare:} \\
-	~\textbf{Rickard Janveden}
 
   {Program:} \\
     ~\textbf{Naturvetenskapsprogrammet}
@@ -198,7 +205,9 @@ tempor mi accumsan quis. Morbi blandit maximus urna non aliquet aes.
 
 \clearpage
 
-\printnoidxglossaries
+\printglossary
+
+\printglossary[type=\acronymtype]
 
 \include{Introduction}
 
