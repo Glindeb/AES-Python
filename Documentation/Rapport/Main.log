@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.3)  1 SEP 2022 19:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.3)  2 SEP 2022 17:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -178,6 +178,8 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
 \mathdisplay@stack=\toks28
 LaTeX Info: Redefining \[ on input line 2938.
 LaTeX Info: Redefining \] on input line 2939.
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
 ) (/usr/local/texlive/2022/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2022-02-21 v7.00n Hypertext links for LaTeX
  (/usr/local/texlive/2022/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
@@ -853,9 +855,13 @@ Package: blx-case-expl3 2022/02/02 v3.17 expl3 case changing code for biblatex
 Package: eso-pic 2020/10/14 v3.0a eso-pic (RN)
 \ESO@tempdima=\dimen288
 \ESO@tempdimb=\dimen289
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/chngcntr/chngcntr.sty
+Package: chngcntr 2018/04/09 v1.1a change counter resetting
+Package chngcntr Info: \counterwithout already defined.
+(chngcntr)             Quitting chngcntr on input line 21.
 )
-Package hyperref Info: Option `pdffitwindow' set `true' on input line 60.
-Package hyperref Info: Option `colorlinks' set `true' on input line 60.
+Package hyperref Info: Option `pdffitwindow' set `true' on input line 65.
+Package hyperref Info: Option `colorlinks' set `true' on input line 65.
  (/usr/local/texlive/2022/texmf-dist/tex/latex/glossaries/base/glossaries.sty
 Package: glossaries 2021/11/01 v4.49 (NLCT)
  (/usr/local/texlive/2022/texmf-dist/tex/latex/xkeyval/xkeyval.sty
@@ -1001,11 +1007,11 @@ Package: glossary-tree 2021/11/01 v4.49 (NLCT)
 \glo@main@file=\write7
 \openout7 = `Main.glo'.
 
-Package glossaries Info: Writing glossary file Main.glo on input line 99.
+Package glossaries Info: Writing glossary file Main.glo on input line 115.
 \glo@acronym@file=\write8
 \openout8 = `Main.acn'.
 
-Package glossaries Info: Writing glossary file Main.acn on input line 99.
+Package glossaries Info: Writing glossary file Main.acn on input line 115.
 
 
 Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
@@ -1016,24 +1022,24 @@ Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
 (./Main.aux (./Introduction.aux) (./Bakgrund.aux) (./Teori.aux) (./Material_utförande.aux) (./Resultat.aux) (./Diskussion.aux))
 \openout1 = `Main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 133.
-LaTeX Font Info:    ... okay on input line 133.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 133.
-LaTeX Font Info:    ... okay on input line 133.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 133.
-LaTeX Font Info:    ... okay on input line 133.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 133.
-LaTeX Font Info:    ... okay on input line 133.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 133.
-LaTeX Font Info:    ... okay on input line 133.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 133.
-LaTeX Font Info:    ... okay on input line 133.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 133.
-LaTeX Font Info:    ... okay on input line 133.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 133.
-LaTeX Font Info:    ... okay on input line 133.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 133.
-LaTeX Font Info:    ... okay on input line 133.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 152.
+LaTeX Font Info:    ... okay on input line 152.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 152.
+LaTeX Font Info:    ... okay on input line 152.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 152.
+LaTeX Font Info:    ... okay on input line 152.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 152.
+LaTeX Font Info:    ... okay on input line 152.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 152.
+LaTeX Font Info:    ... okay on input line 152.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 152.
+LaTeX Font Info:    ... okay on input line 152.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 152.
+LaTeX Font Info:    ... okay on input line 152.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 152.
+LaTeX Font Info:    ... okay on input line 152.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 152.
+LaTeX Font Info:    ... okay on input line 152.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1090,8 +1096,8 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             https://www.ctan.org/pkg/pageslts
-(lastpage)             ! on input line 133.
-Package hyperref Info: Link coloring ON on input line 133.
+(lastpage)             ! on input line 152.
+Package hyperref Info: Link coloring ON on input line 152.
  (/usr/local/texlive/2022/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
  (/usr/local/texlive/2022/texmf-dist/tex/latex/refcount/refcount.sty
@@ -1101,15 +1107,15 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count502
 )
-LaTeX Info: Redefining \ref on input line 133.
-LaTeX Info: Redefining \pageref on input line 133.
-LaTeX Info: Redefining \nameref on input line 133.
+LaTeX Info: Redefining \ref on input line 152.
+LaTeX Info: Redefining \pageref on input line 152.
+LaTeX Info: Redefining \nameref on input line 152.
  (./Main.out) (./Main.out)
 \@outlinefile=\write9
 \openout9 = `Main.out'.
 
 \c@lstlisting=\count503
-Package translations Info: no dictionary file `translations-basic-dictionary-swedish.trsl' found. on input line 133.
+Package translations Info: no dictionary file `translations-basic-dictionary-swedish.trsl' found. on input line 152.
 Package biblatex Info: Trying to load language 'swedish'...
 Package biblatex Info: ... file 'swedish.lbx' found.
  (/usr/local/texlive/2022/texmf-dist/tex/latex/biblatex/lbx/swedish.lbx
@@ -1123,8 +1129,8 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'Main.bbl' found.
  (./Main.bbl)
-Package biblatex Info: Reference section=0 on input line 133.
-Package biblatex Info: Reference segment=0 on input line 133.
+Package biblatex Info: Reference section=0 on input line 152.
+Package biblatex Info: Reference segment=0 on input line 152.
 *geometry* verbose mode - [ newgeometry ] result:
 * driver: pdftex
 * paper: a4paper
@@ -1157,15 +1163,15 @@ Package biblatex Info: Reference segment=0 on input line 133.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<Images//skola_logga.png, id=198, 225.84375pt x 225.84375pt>
+<Images//skola_logga.png, id=227, 225.84375pt x 225.84375pt>
 File: Images//skola_logga.png Graphic file (type png)
 <use Images//skola_logga.png>
-Package pdftex.def Info: Images//skola_logga.png  used on input line 144.
+Package pdftex.def Info: Images//skola_logga.png  used on input line 163.
 (pdftex.def)             Requested size: 153.64644pt x 153.6544pt.
-<Images//background-1.png, id=201, 597.6729pt x 845.19765pt>
+<Images//background-1.png, id=230, 597.6729pt x 845.19765pt>
 File: Images//background-1.png Graphic file (type png)
 <use Images//background-1.png>
-Package pdftex.def Info: Images//background-1.png  used on input line 182.
+Package pdftex.def Info: Images//background-1.png  used on input line 201.
 (pdftex.def)             Requested size: 597.55287pt x 845.02792pt.
  [1
 
@@ -1209,56 +1215,8 @@ Package pdftex.def Info: Images//background-1.png  used on input line 182.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.199 ...5cm, bottom=2cm, left = 2cm, right = 2cm}
+l.218 ...5cm, bottom=2cm, left = 2cm, right = 2cm}
                                                    % 2.25cm is the height of... [1
-
-
-]
-*geometry* verbose mode - [ newgeometry ] result:
-* driver: pdftex
-* paper: a4paper
-* layout: <same size as paper>
-* layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: 
-* h-part:(L,W,R)=(56.9055pt, 483.69687pt, 56.9055pt)
-* v-part:(T,H,B)=(64.01869pt, 724.12265pt, 56.9055pt)
-* \paperwidth=597.50787pt
-* \paperheight=845.04684pt
-* \textwidth=483.69687pt
-* \textheight=724.12265pt
-* \oddsidemargin=-15.36449pt
-* \evensidemargin=-15.36449pt
-* \topmargin=-45.2513pt
-* \headheight=12.0pt
-* \headsep=25.0pt
-* \topskip=12.0pt
-* \footskip=30.0pt
-* \marginparwidth=35.0pt
-* \marginparsep=10.0pt
-* \columnsep=10.0pt
-* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
-* \hoffset=0.0pt
-* \voffset=0.0pt
-* \mag=1000
-* \@twocolumnfalse
-* \@twosidefalse
-* \@mparswitchfalse
-* \@reversemarginfalse
-* (1in=72.27pt=25.4mm, 1cm=28.453pt)
-
- (./Main.toc
-LaTeX Font Info:    Trying to load font information for U+msa on input line 5.
- (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 5.
- (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-))
-\tf@toc=\write10
-\openout10 = `Main.toc'.
-
- [2
 
 
 ]
@@ -1294,17 +1252,39 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
- (./Main.gls)
-Overfull \hbox (1.90405pt too wide) in paragraph at lines 2--209
+ (./Main.toc
+LaTeX Font Info:    Trying to load font information for U+msa on input line 5.
+ (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 5.
+ (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [2
+
+
+])
+\tf@toc=\write10
+\openout10 = `Main.toc'.
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.805pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.805pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.805pt}.
+
+[3] (./Main.gls)
+Overfull \hbox (1.90405pt too wide) in paragraph at lines 2--226
 [] 
  []
 
-(./Main.acr [3
+(./Main.acr [4
 
 
 
-
-]) [4
+]) [5
 
 
 ]
@@ -1312,7 +1292,7 @@ Overfull \hbox (1.90405pt too wide) in paragraph at lines 2--209
 
  (./Introduction.tex
 Kapitel 1.
-) [5
+) [6
 
 
 ]
@@ -1320,7 +1300,7 @@ Kapitel 1.
 
  (./Bakgrund.tex
 Kapitel 2.
-) [6
+) [7
 
 
 
@@ -1330,7 +1310,7 @@ Kapitel 2.
 
  (./Teori.tex
 Kapitel 3.
-) [7
+) [8
 
 
 
@@ -1340,7 +1320,7 @@ Kapitel 3.
 
  (./Material_utförande.tex
 Kapitel 4.
-) [8
+) [9
 
 
 
@@ -1350,7 +1330,7 @@ Kapitel 4.
 
  (./Resultat.tex
 Kapitel 5.
-) [9
+) [10
 
 
 
@@ -1360,12 +1340,12 @@ Kapitel 5.
 
  (./Diskussion.tex
 Kapitel 6.
-) [10
+) [11
 
 
 
 
-] [11
+] [12
 
 
 
@@ -1373,31 +1353,80 @@ Kapitel 6.
 \tf@lof=\write11
 \openout11 = `Main.lof'.
 
+<Images//pi.png, id=395, 1284.8pt x 1242.6425pt>
+File: Images//pi.png Graphic file (type png)
+<use Images//pi.png>
+Package pdftex.def Info: Images//pi.png  used on input line 253.
+(pdftex.def)             Requested size: 290.22107pt x 280.7012pt.
+<Images//pi-ecb.png, id=396, 1284.8pt x 1242.6425pt>
+File: Images//pi-ecb.png Graphic file (type png)
+<use Images//pi-ecb.png>
+Package pdftex.def Info: Images//pi-ecb.png  used on input line 260.
+(pdftex.def)             Requested size: 290.22107pt x 280.7012pt.
+<Images//pi-cbc.png, id=397, 1284.8pt x 1242.6425pt>
+File: Images//pi-cbc.png Graphic file (type png)
+<use Images//pi-cbc.png>
+Package pdftex.def Info: Images//pi-cbc.png  used on input line 267.
+(pdftex.def)             Requested size: 290.22107pt x 280.7012pt.
+<Images//pi-OFB.png, id=398, 1284.8pt x 1242.6425pt>
+File: Images//pi-OFB.png Graphic file (type png)
+<use Images//pi-OFB.png>
+Package pdftex.def Info: Images//pi-OFB.png  used on input line 274.
+(pdftex.def)             Requested size: 290.22107pt x 280.7012pt.
+<Images//AES_(Rijndael)_Round_Function.png, id=399, 642.4pt x 963.6pt>
+File: Images//AES_(Rijndael)_Round_Function.png Graphic file (type png)
+<use Images//AES_(Rijndael)_Round_Function.png>
+Package pdftex.def Info: Images//AES_(Rijndael)_Round_Function.png  used on input line 281.
+(pdftex.def)             Requested size: 290.22107pt x 435.33629pt.
  
 AED: lastpage setting LastPage
-[12
+[13
 
 
-] (./Main.aux (./Introduction.aux) (./Bakgrund.aux) (./Teori.aux) (./Material_utförande.aux) (./Resultat.aux) (./Diskussion.aux))
+]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[14 <./Images//pi.png> <./Images//pi-ecb.png>]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[15 <./Images//pi-cbc.png> <./Images//pi-OFB.png>]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[16 <./Images//AES_(Rijndael)_Round_Function.png>] (./Main.aux (./Introduction.aux) (./Bakgrund.aux) (./Teori.aux) (./Material_utförande.aux) (./Resultat.aux) (./Diskussion.aux))
 Package rerunfilecheck Info: File `Main.out' has not changed.
-(rerunfilecheck)             Checksum: 1B9B76CCD4695C1D462E0386D61A18E8;4429.
+(rerunfilecheck)             Checksum: FC8CBCF1486F84B1DD412189221AB8DE;5494.
 Package logreq Info: Writing requests to 'Main.run.xml'.
 \openout1 = `Main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 46154 strings out of 478305
- 956052 string characters out of 5845249
- 1696695 words of memory out of 5000000
- 63529 multiletter control sequences out of 15000+600000
- 479528 words of font info for 67 fonts, out of 8000000 for 9000
+ 46689 strings out of 478305
+ 963483 string characters out of 5845249
+ 1698771 words of memory out of 5000000
+ 64030 multiletter control sequences out of 15000+600000
+ 479880 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 91i,12n,96p,1672b,1700s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Main.pdf (13 pages, 200417 bytes).
+ 91i,13n,96p,1672b,1954s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on Main.pdf (17 pages, 9983287 bytes).
 PDF statistics:
- 405 PDF objects out of 1000 (max. 8388607)
- 338 compressed objects within 4 object streams
- 68 named destinations out of 1000 (max. 500000)
- 479 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 498 PDF objects out of 1000 (max. 8388607)
+ 417 compressed objects within 5 object streams
+ 90 named destinations out of 1000 (max. 500000)
+ 560 words of extra memory for PDF output out of 10000 (max. 10000000)
 

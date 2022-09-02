@@ -19,6 +19,69 @@
 
 \refsection{0}
   \datalist[entry]{anyt/global//global/global}
+    \entry{10.1007/978-3-642-04138-9_8}{inproceedings}{}
+      \name{editor}{2}{}{%
+        {{hash=02d7646cefe6bc49a1af56989b3e79a8}{%
+           family={Clavier},
+           familyi={C\bibinitperiod},
+           given={Christophe},
+           giveni={C\bibinitperiod}}}%
+        {{hash=6a99ff00cddd967c2a485dcdd40a2a98}{%
+           family={Gaj},
+           familyi={G\bibinitperiod},
+           given={Kris},
+           giveni={K\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{920d1f2ee8bcd55f102df5e128c7a64a}
+      \strng{fullhash}{920d1f2ee8bcd55f102df5e128c7a64a}
+      \strng{bibnamehash}{920d1f2ee8bcd55f102df5e128c7a64a}
+      \strng{editorbibnamehash}{920d1f2ee8bcd55f102df5e128c7a64a}
+      \strng{editornamehash}{920d1f2ee8bcd55f102df5e128c7a64a}
+      \strng{editorfullhash}{920d1f2ee8bcd55f102df5e128c7a64a}
+      \field{labelalpha}{CG09}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{editor}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Algebraic side-channel attacks have been recently introduced as a powerful cryptanalysis technique against block ciphers. These attacks represent both a target algorithm and its physical information leakages as an overdefined system of equations that the adversary tries to solve. They were first applied to PRESENT because of its simple algebraic structure. In this paper, we investigate the extent to which they can be exploited against the AES Rijndael and discuss their practical specificities. We show experimentally that most of the intuitions that hold for PRESENT can also be observed for an unprotected implementation of Rijndael in an 8-bit controller. Namely, algebraic side-channel attacks can recover the AES master key with the observation of a single encrypted plaintext and they easily deal with unknown plaintexts/ciphertexts in this context. Because these attacks can take advantage of the physical information corresponding to all the cipher rounds, they imply that one cannot trade speed for code size (or gate count) without affecting the physical security of a leaking device. In other words, more intermediate computations inevitably leads to more exploitable leakages. We analyze the consequences of this observation on two different masking schemes and discuss its impact on other countermeasures. Our results exhibit that algebraic techniques lead to a new understanding of implementation weaknesses that is different than classical side-channel attacks.}
+      \field{booktitle}{Cryptographic Hardware and Embedded Systems - CHES 2009}
+      \field{isbn}{978-3-642-04138-9}
+      \field{title}{Algebraic Side-Channel Attacks on the AES: Why Time also Matters in DPA}
+      \field{year}{2009}
+      \field{pages}{97\bibrangedash 111}
+      \range{pages}{15}
+    \endentry
+    \entry{kryptografi-historia-1}{article}{}
+      \name{author}{1}{}{%
+        {{hash=8189ed0c64be1251212d3d68eef5ac0b}{%
+           family={Damico},
+           familyi={D\bibinitperiod},
+           given={Tony\bibnamedelima M},
+           giveni={T\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{8189ed0c64be1251212d3d68eef5ac0b}
+      \strng{fullhash}{8189ed0c64be1251212d3d68eef5ac0b}
+      \strng{bibnamehash}{8189ed0c64be1251212d3d68eef5ac0b}
+      \strng{authorbibnamehash}{8189ed0c64be1251212d3d68eef5ac0b}
+      \strng{authornamehash}{8189ed0c64be1251212d3d68eef5ac0b}
+      \strng{authorfullhash}{8189ed0c64be1251212d3d68eef5ac0b}
+      \field{labelalpha}{Dam09}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Inquiries Journal}
+      \field{number}{11}
+      \field{title}{A brief history of cryptography}
+      \field{volume}{1}
+      \field{year}{2009}
+    \endentry
     \entry{kumar2011investigations}{article}{}
       \name{author}{1}{}{%
         {{hash=505a5bc5aa4cbf853994707d99f52dee}{%
@@ -47,6 +110,66 @@
       \field{year}{2011}
       \field{pages}{50\bibrangedash 52}
       \range{pages}{3}
+    \endentry
+    \entry{xor}{article}{}
+      \name{author}{1}{}{%
+        {{hash=29cfea49310411d1f7ccc7cbb1afcf46}{%
+           family={LEWIN},
+           familyi={L\bibinitperiod},
+           given={FEATURE\bibnamedelima MICHAEL},
+           giveni={F\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{29cfea49310411d1f7ccc7cbb1afcf46}
+      \strng{fullhash}{29cfea49310411d1f7ccc7cbb1afcf46}
+      \strng{bibnamehash}{29cfea49310411d1f7ccc7cbb1afcf46}
+      \strng{authorbibnamehash}{29cfea49310411d1f7ccc7cbb1afcf46}
+      \strng{authornamehash}{29cfea49310411d1f7ccc7cbb1afcf46}
+      \strng{authorfullhash}{29cfea49310411d1f7ccc7cbb1afcf46}
+      \field{labelalpha}{LEW12}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{For details of ACCU, our publications and activities, visit the ACCU website: www. accu. org}
+      \field{title}{All about XOR}
+      \field{year}{2012}
+      \field{pages}{14}
+      \range{pages}{1}
+    \endentry
+    \entry{luciano1987cryptology}{article}{}
+      \name{author}{2}{}{%
+        {{hash=7733249c6f3fea053738f37368dd3ffc}{%
+           family={Luciano},
+           familyi={L\bibinitperiod},
+           given={Dennis},
+           giveni={D\bibinitperiod}}}%
+        {{hash=fc82720e9f8803ba3661af3aa7fc319c}{%
+           family={Prichett},
+           familyi={P\bibinitperiod},
+           given={Gordon},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Taylor \& Francis}%
+      }
+      \strng{namehash}{b46bbc62f1872cfefc1f1686d8c76dab}
+      \strng{fullhash}{b46bbc62f1872cfefc1f1686d8c76dab}
+      \strng{bibnamehash}{b46bbc62f1872cfefc1f1686d8c76dab}
+      \strng{authorbibnamehash}{b46bbc62f1872cfefc1f1686d8c76dab}
+      \strng{authornamehash}{b46bbc62f1872cfefc1f1686d8c76dab}
+      \strng{authorfullhash}{b46bbc62f1872cfefc1f1686d8c76dab}
+      \field{labelalpha}{LP87}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The College Mathematics Journal}
+      \field{number}{1}
+      \field{title}{Cryptology: From Caesar ciphers to public-key cryptosystems}
+      \field{volume}{18}
+      \field{year}{1987}
+      \field{pages}{2\bibrangedash 17}
+      \range{pages}{16}
     \endentry
     \entry{python}{online}{}
       \name{author}{1}{}{%
@@ -78,63 +201,35 @@
       \verb https://docs.python.org/3/faq/general.html#what-is-python
       \endverb
     \endentry
-    \entry{10.1007/978-3-642-04138-9_8}{inproceedings}{}
-      \name{author}{3}{}{%
-        {{hash=d0750c68596acad2e0db5de1c7f37138}{%
-           family={Renauld},
-           familyi={R\bibinitperiod},
-           given={Mathieu},
-           giveni={M\bibinitperiod}}}%
-        {{hash=5c71d876f9e36978a8e2cc04ac4da9fb}{%
-           family={Standaert},
-           familyi={S\bibinitperiod},
-           given={François-Xavier},
-           giveni={F\bibinithyphendelim X\bibinitperiod}}}%
-        {{hash=3a74610c9dc1db00f4c312461118aa53}{%
-           family={Veyrat-Charvillon},
-           familyi={V\bibinithyphendelim C\bibinitperiod},
-           given={Nicolas},
-           giveni={N\bibinitperiod}}}%
+    \entry{rounds-picture}{online}{}
+      \name{author}{1}{}{%
+        {{hash=f95e8679bf3071e22969b73a59ae1756}{%
+           family={{Wikipedia, the free encyclopedia}},
+           familyi={W\bibinitperiod}}}%
       }
-      \name{editor}{2}{}{%
-        {{hash=02d7646cefe6bc49a1af56989b3e79a8}{%
-           family={Clavier},
-           familyi={C\bibinitperiod},
-           given={Christophe},
-           giveni={C\bibinitperiod}}}%
-        {{hash=6a99ff00cddd967c2a485dcdd40a2a98}{%
-           family={Gaj},
-           familyi={G\bibinitperiod},
-           given={Kris},
-           giveni={K\bibinitperiod}}}%
-      }
-      \list{location}{1}{%
-        {Berlin, Heidelberg}%
-      }
-      \list{publisher}{1}{%
-        {Springer Berlin Heidelberg}%
-      }
-      \strng{namehash}{367492194ee312dca1dd5dc660721edd}
-      \strng{fullhash}{367492194ee312dca1dd5dc660721edd}
-      \strng{bibnamehash}{367492194ee312dca1dd5dc660721edd}
-      \strng{authorbibnamehash}{367492194ee312dca1dd5dc660721edd}
-      \strng{authornamehash}{367492194ee312dca1dd5dc660721edd}
-      \strng{authorfullhash}{367492194ee312dca1dd5dc660721edd}
-      \strng{editorbibnamehash}{920d1f2ee8bcd55f102df5e128c7a64a}
-      \strng{editornamehash}{920d1f2ee8bcd55f102df5e128c7a64a}
-      \strng{editorfullhash}{920d1f2ee8bcd55f102df5e128c7a64a}
-      \field{labelalpha}{RSV09}
-      \field{sortinit}{R}
-      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \strng{namehash}{f95e8679bf3071e22969b73a59ae1756}
+      \strng{fullhash}{f95e8679bf3071e22969b73a59ae1756}
+      \strng{bibnamehash}{f95e8679bf3071e22969b73a59ae1756}
+      \strng{authorbibnamehash}{f95e8679bf3071e22969b73a59ae1756}
+      \strng{authornamehash}{f95e8679bf3071e22969b73a59ae1756}
+      \strng{authorfullhash}{f95e8679bf3071e22969b73a59ae1756}
+      \field{labelalpha}{Wik99}
+      \field{sortinit}{W}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{Algebraic side-channel attacks have been recently introduced as a powerful cryptanalysis technique against block ciphers. These attacks represent both a target algorithm and its physical information leakages as an overdefined system of equations that the adversary tries to solve. They were first applied to PRESENT because of its simple algebraic structure. In this paper, we investigate the extent to which they can be exploited against the AES Rijndael and discuss their practical specificities. We show experimentally that most of the intuitions that hold for PRESENT can also be observed for an unprotected implementation of Rijndael in an 8-bit controller. Namely, algebraic side-channel attacks can recover the AES master key with the observation of a single encrypted plaintext and they easily deal with unknown plaintexts/ciphertexts in this context. Because these attacks can take advantage of the physical information corresponding to all the cipher rounds, they imply that one cannot trade speed for code size (or gate count) without affecting the physical security of a leaking device. In other words, more intermediate computations inevitably leads to more exploitable leakages. We analyze the consequences of this observation on two different masking schemes and discuss its impact on other countermeasures. Our results exhibit that algebraic techniques lead to a new understanding of implementation weaknesses that is different than classical side-channel attacks.}
-      \field{booktitle}{Cryptographic Hardware and Embedded Systems - CHES 2009}
-      \field{isbn}{978-3-642-04138-9}
-      \field{title}{Algebraic Side-Channel Attacks on the AES: Why Time also Matters in DPA}
-      \field{year}{2009}
-      \field{pages}{97\bibrangedash 111}
-      \range{pages}{15}
+      \field{title}{Advanced Encryption Standard}
+      \field{urlday}{2}
+      \field{urlmonth}{9}
+      \field{urlyear}{2022}
+      \field{year}{1999}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://en.wikipedia.org/wiki/Advanced_Encryption_Standard#/media/File:AES_(Rijndael)_Round_Function.png
+      \endverb
+      \verb{url}
+      \verb https://en.wikipedia.org/wiki/Advanced_Encryption_Standard#/media/File:AES_(Rijndael)_Round_Function.png
+      \endverb
     \endentry
   \enddatalist
 \endrefsection

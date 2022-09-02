@@ -13,6 +13,7 @@
 % Math spesific packages
 \usepackage{amsfonts}
 \usepackage{amsmath}
+\usepackage{amssymb}
 % For reffereces displaying and coloring as well as for some document settings
 \usepackage[]{hyperref}
 % For math symbols and figures
@@ -41,6 +42,10 @@ keepaspectratio]{background-1.png}
 \vfill
 }}}
 
+% To fix footnote counter between files
+\usepackage{chngcntr}
+\counterwithout*{footnote}{chapter}
+
 % Global options
 \geometry{a4paper}
 \graphicspath{{Images/}}
@@ -62,7 +67,7 @@ keepaspectratio]{background-1.png}
 \setcounter{secnumdepth}{3}
 \pagestyle{fancy}
 \rhead{\currentchapter}
-\cfoot{Sida \thepage\ av \pageref{LastPage}}
+\cfoot{\thepage}
 \fancyheadoffset[L, RO]{0cm}
 
 
@@ -73,7 +78,18 @@ keepaspectratio]{background-1.png}
 \renewcommand{\bibname}{Källförteckning}
 \renewcommand{\contentsname}{Inehållsförteckning}
 \renewcommand{\listfigurename}{Figurer}
-
+\newcommand{\fakechapter}[2]{%
+  \par\setcounter{chapter}{#2}
+  \chaptermark{#1}
+  \rhead{ }
+}
+\newcommand*{\captionsource}[2]{%
+  \caption[{#1}]{%
+    #1%
+    \\\hspace{\linewidth}%
+    {Källa:} #2%
+  }%
+}
 
 % Titel reformating
 \titleformat{\chapter}[block]
@@ -111,8 +127,11 @@ keepaspectratio]{background-1.png}
 
 \newglossaryentry{xor}
 {
-    name=XOR,
-    description={...} % Needs to get a sucre and be refined
+    name={XOR},
+    symbol={\(\oplus\)},
+    description={Ett logisk operation inom datorvetenskap som fungerar ungefär som + uttrycket,
+    med den enda skillnaden att 1 xor 1 = 0. Detta samt att xor är en binär operation, vilket
+    innebär att termerna bara kan vara 0 eller 1 och resultatet det samma.\cite{xor}} % Needs to get a sucre and be refined
  }
 
 \newglossaryentry{python}
@@ -196,12 +215,10 @@ Sed leo risus, mollis eu ex vitae, feugiat consequat metus. Aenean interdum volu
 tempor mi accumsan quis. Morbi blandit maximus urna non aliquet aes.
 
 % New page borders for bulk of the report
-\newgeometry{top=2.25cm, bottom=2cm, left = 2cm, right = 2cm} % 2.25cm is the height of the header (is a checky solution that might need to bee removed if more headings are added)
+\newgeometry{top=2.5cm, bottom=2cm, left = 2cm, right = 2cm} % 2.25cm is the height of the header (is a checky solution that might need to bee removed if more headings are added)
 
 % Inehållsförteckning
 \tableofcontents
-
-\newgeometry{top=2.5cm, bottom=2cm, left = 2cm, right = 2cm}
 
 \clearpage
 
@@ -221,13 +238,50 @@ tempor mi accumsan quis. Morbi blandit maximus urna non aliquet aes.
 
 \include{Diskussion}
 
+\fakechapter{Källförteckning}{7}
 \addcontentsline{toc}{chapter}{Källförteckning}
 \printbibliography[title=Källförteckning]
 
 \clearpage
 
+\fakechapter{Figurer}{8}
 \addcontentsline{toc}{chapter}{Figurer}
 \listoffigures
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.6\textwidth]{pi.png}
+  \caption{Före Kryptering}
+  \label{fig:pi-original}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.6\textwidth]{pi-ecb.png}
+  \caption{Efter ECB Kryptering}
+  \label{fig:pi-ecb}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.6\textwidth]{pi-cbc.png}
+  \caption{Efter CBC Kryptering}
+  \label{fig:pi-cbc}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.6\textwidth]{pi-OFB.png}
+  \caption{Efter OFB Kryptering}
+  \label{fig:pi-ofb}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.6\textwidth]{AES_(Rijndael)_Round_Function.png}
+  \captionsource{Uppställning av vanliga rundor}{{\fullcite{rounds-picture}}}
+  \label{fig:round-function}
+\end{figure}
 
 % End document
 \end{document}

@@ -1,14 +1,14 @@
 [0] Config.pm:307> INFO - This is Biber 2.17
 [0] Config.pm:310> INFO - Logfile is 'Main.blg'
-[164] biber-darwin:340> INFO - === Thu Sep  1, 2022, 19:07:15
-[197] Biber.pm:418> INFO - Reading 'Main.bcf'
-[349] Biber.pm:972> INFO - Found 3 citekeys in bib section 0
-[368] Biber.pm:4383> INFO - Processing section 0
-[384] Biber.pm:4574> INFO - Looking for bibtex file 'ref.bib' for section 0
-[386] bibtex.pm:1713> INFO - LaTeX decoding ...
-[396] bibtex.pm:1518> INFO - Found BibTeX data source 'ref.bib'
-[498] UCollate.pm:68> INFO - Overriding locale 'sv-SE' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[498] UCollate.pm:68> INFO - Overriding locale 'sv-SE' defaults 'variable = shifted' with 'variable = non-ignorable'
-[498] Biber.pm:4203> INFO - Sorting list 'anyt/global//global/global' of type 'entry' with template 'anyt' and locale 'sv-SE'
-[512] bbl.pm:654> INFO - Writing 'Main.bbl' with encoding 'UTF-8'
-[516] bbl.pm:757> INFO - Output to Main.bbl
+[198] biber-darwin:340> INFO - === Fri Sep  2, 2022, 17:58:36
+[254] Biber.pm:418> INFO - Reading 'Main.bcf'
+[500] Biber.pm:972> INFO - Found 7 citekeys in bib section 0
+[545] Biber.pm:4383> INFO - Processing section 0
+[570] Biber.pm:4574> INFO - Looking for bibtex file 'ref.bib' for section 0
+[573] bibtex.pm:1713> INFO - LaTeX decoding ...
+[595] bibtex.pm:1518> INFO - Found BibTeX data source 'ref.bib'
+[851] UCollate.pm:68> INFO - Overriding locale 'sv-SE' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[851] UCollate.pm:68> INFO - Overriding locale 'sv-SE' defaults 'variable = shifted' with 'variable = non-ignorable'
+[851] Biber.pm:4203> INFO - Sorting list 'anyt/global//global/global' of type 'entry' with template 'anyt' and locale 'sv-SE'
+[883] bbl.pm:654> INFO - Writing 'Main.bbl' with encoding 'UTF-8'
+[889] bbl.pm:757> INFO - Output to Main.bbl
