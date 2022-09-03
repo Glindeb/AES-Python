@@ -7,7 +7,7 @@ Caesar använde de vi idag kallar Caesar skiffer för att skicka hemliga meddela
 Sedan dess har kryptografi självklart utvecklats enormt och vi har gått från de på ett sätt simpla men
 även eleganta Caesar skiffer som användes då till moderna algoritmer så som \acrlong{aes} och \acrlong{des}.
 Dessa algoritmer har samma syfte som Caesar skiffer men har utvecklats under en tid där datorer står som
-de dominerande informations hanterings verktyget, vilket även är vad som används i denna rapport för att
+de dominerande informationshanteringsverktyget, vilket även är vad som används i denna rapport för att
 undersöka just en av dessa algoritmer.
 
 \section{Syfte} % Mostly clear but might need some refinement
@@ -23,21 +23,20 @@ hastighet.
     \item Hur påverkas tiden de tar att kryptera något mellan de olika nyckel längderna 128-bit,
           192-bit och 256-bit nyckel?
 
-    \item Hur påverkas algoritmen av de olika körlägen och vilken betydelse får de för den resultatet?
+    \item Hur påverkas skiffertexten av de olika körlägen och vilken betydelse får de för den resultatet?
 
-    \item Hur förändras tiden de tar att kryptera något beroende på ifall algoritmen körs i
-          \acrshort{ecb}, \acrshort{cbc} eller \acrshort{ofb} samt vilken betydelse ur ett
-          användnings perspektiv de får?
+    \item Hur förändras tiden det tar att kryptera något beroende på ifall algoritmen körs i
+          \acrshort{ecb}, \acrshort{cbc} eller \acrshort{ofb} samt vilken betydelse det får ur ett
+          tillämpningsperspektiv?
 \end{itemize}
 
 \section{Avgränsning} % Mostly clear but might need some refinement and reformulating
 
-Denna rapport är inte en komplett utvärdering av \acrshort{aes} och dess användning utan fokuserar
-enbart på hur nyckellängd och körläge påverkar krypteringstiden. Detta samt hur den resulterande
+Denna rapport är avgränsad utvärdering av \acrshort{aes} och dess användning som fokuserar
+ på hur nyckellängd och körläge påverkar krypteringstiden. Detta samt hur den resulterande
 chiffer texten påverkas av vissa körlägen och hur detta då i sin tur kan påverka säkerheten. \par
 
-Denna analys av algoritmens säkerhet är alltså inte en komplett säkerhets utvärdering och tar inte
-hänsyn till faktorer så som möjliga attacker där ibland exempelvis Brute-Force\footfullcite{kumar2011investigations}
+Denna analys av algoritmens säkerhet utelämnar faktorer så som möjliga attacker där ibland exempelvis Brute-Force\footfullcite{kumar2011investigations}
 \& Side-Channel\footfullcite{10.1007/978-3-642-04138-9_8} attacker. Undersökningen är även
 begränsad till en mjukvaruimplementering och tar inte hänsyn till möjliga skillnader som kan uppstå
 när algoritmen implementeras på en hårdvarunivå.
