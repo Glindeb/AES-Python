@@ -2349,16 +2349,20 @@
     <bcf:citekey order="3">luciano1987cryptology</bcf:citekey>
     <bcf:citekey order="4">kumar2011investigations</bcf:citekey>
     <bcf:citekey order="5">10.1007/978-3-642-04138-9_8</bcf:citekey>
-    <bcf:citekey order="6">kryptografi-historia-1</bcf:citekey>
-    <bcf:citekey order="7">rounds-picture</bcf:citekey>
-    <bcf:citekey order="8">rounds-picture</bcf:citekey>
-    <bcf:citekey order="9">python</bcf:citekey>
-    <bcf:citekey order="10">xor</bcf:citekey>
-    <bcf:citekey order="11">luciano1987cryptology</bcf:citekey>
-    <bcf:citekey order="12">kumar2011investigations</bcf:citekey>
-    <bcf:citekey order="13">10.1007/978-3-642-04138-9_8</bcf:citekey>
-    <bcf:citekey order="14">kryptografi-historia-1</bcf:citekey>
-    <bcf:citekey order="15">rounds-picture</bcf:citekey>
+    <bcf:citekey order="6">krypto</bcf:citekey>
+    <bcf:citekey order="7">NE-1</bcf:citekey>
+    <bcf:citekey order="8">kryptografi-historia-1</bcf:citekey>
+    <bcf:citekey order="9">rounds-picture</bcf:citekey>
+    <bcf:citekey order="10">rounds-picture</bcf:citekey>
+    <bcf:citekey order="11">python</bcf:citekey>
+    <bcf:citekey order="12">xor</bcf:citekey>
+    <bcf:citekey order="13">luciano1987cryptology</bcf:citekey>
+    <bcf:citekey order="14">kumar2011investigations</bcf:citekey>
+    <bcf:citekey order="15">10.1007/978-3-642-04138-9_8</bcf:citekey>
+    <bcf:citekey order="16">krypto</bcf:citekey>
+    <bcf:citekey order="17">NE-1</bcf:citekey>
+    <bcf:citekey order="18">kryptografi-historia-1</bcf:citekey>
+    <bcf:citekey order="19">rounds-picture</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="anyt">

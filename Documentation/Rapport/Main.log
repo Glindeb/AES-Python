@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.3)  5 SEP 2022 09:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.3)  8 SEP 2022 09:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1163,12 +1163,12 @@ Package biblatex Info: Reference segment=0 on input line 152.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<Images//skola_logga.png, id=227, 225.84375pt x 225.84375pt>
+<Images//skola_logga.png, id=239, 225.84375pt x 225.84375pt>
 File: Images//skola_logga.png Graphic file (type png)
 <use Images//skola_logga.png>
 Package pdftex.def Info: Images//skola_logga.png  used on input line 163.
 (pdftex.def)             Requested size: 153.64644pt x 153.6544pt.
-<Images//background-1.png, id=230, 597.6729pt x 845.19765pt>
+<Images//background-1.png, id=242, 597.6729pt x 845.19765pt>
 File: Images//background-1.png Graphic file (type png)
 <use Images//background-1.png>
 Package pdftex.def Info: Images//background-1.png  used on input line 201.
@@ -1353,27 +1353,27 @@ Kapitel 6.
 \tf@lof=\write11
 \openout11 = `Main.lof'.
 
-<Images//pi.png, id=395, 1284.8pt x 1242.6425pt>
+<Images//pi.png, id=426, 1284.8pt x 1242.6425pt>
 File: Images//pi.png Graphic file (type png)
 <use Images//pi.png>
 Package pdftex.def Info: Images//pi.png  used on input line 253.
 (pdftex.def)             Requested size: 290.22107pt x 280.7012pt.
-<Images//pi-ecb.png, id=396, 1284.8pt x 1242.6425pt>
+<Images//pi-ecb.png, id=427, 1284.8pt x 1242.6425pt>
 File: Images//pi-ecb.png Graphic file (type png)
 <use Images//pi-ecb.png>
 Package pdftex.def Info: Images//pi-ecb.png  used on input line 260.
 (pdftex.def)             Requested size: 290.22107pt x 280.7012pt.
-<Images//pi-cbc.png, id=397, 1284.8pt x 1242.6425pt>
+<Images//pi-cbc.png, id=428, 1284.8pt x 1242.6425pt>
 File: Images//pi-cbc.png Graphic file (type png)
 <use Images//pi-cbc.png>
 Package pdftex.def Info: Images//pi-cbc.png  used on input line 267.
 (pdftex.def)             Requested size: 290.22107pt x 280.7012pt.
-<Images//pi-OFB.png, id=398, 1284.8pt x 1242.6425pt>
+<Images//pi-OFB.png, id=429, 1284.8pt x 1242.6425pt>
 File: Images//pi-OFB.png Graphic file (type png)
 <use Images//pi-OFB.png>
 Package pdftex.def Info: Images//pi-OFB.png  used on input line 274.
 (pdftex.def)             Requested size: 290.22107pt x 280.7012pt.
-<Images//AES_(Rijndael)_Round_Function.png, id=399, 642.4pt x 963.6pt>
+<Images//AES_(Rijndael)_Round_Function.png, id=430, 642.4pt x 963.6pt>
 File: Images//AES_(Rijndael)_Round_Function.png Graphic file (type png)
 <use Images//AES_(Rijndael)_Round_Function.png>
 Package pdftex.def Info: Images//AES_(Rijndael)_Round_Function.png  used on input line 281.
@@ -1409,24 +1409,24 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [16 <./Images//AES_(Rijndael)_Round_Function.png>] (./Main.aux (./Introduction.aux) (./Bakgrund.aux) (./Teori.aux) (./Material_utförande.aux) (./Resultat.aux) (./Diskussion.aux))
 Package rerunfilecheck Info: File `Main.out' has not changed.
-(rerunfilecheck)             Checksum: FC8CBCF1486F84B1DD412189221AB8DE;5494.
+(rerunfilecheck)             Checksum: 410402B3406D2C194DF768EF6AC6E385;5800.
 Package logreq Info: Writing requests to 'Main.run.xml'.
 \openout1 = `Main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 46689 strings out of 478305
- 963483 string characters out of 5845249
- 1698771 words of memory out of 5000000
- 64030 multiletter control sequences out of 15000+600000
- 479880 words of font info for 68 fonts, out of 8000000 for 9000
+ 46707 strings out of 478305
+ 963908 string characters out of 5845249
+ 1698854 words of memory out of 5000000
+ 64040 multiletter control sequences out of 15000+600000
+ 480048 words of font info for 69 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 91i,13n,96p,1672b,1954s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Main.pdf (17 pages, 9983184 bytes).
+ 91i,13n,96p,1672b,1934s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on Main.pdf (17 pages, 10006294 bytes).
 PDF statistics:
- 498 PDF objects out of 1000 (max. 8388607)
- 417 compressed objects within 5 object streams
- 90 named destinations out of 1000 (max. 500000)
- 560 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 534 PDF objects out of 1000 (max. 8388607)
+ 451 compressed objects within 5 object streams
+ 97 named destinations out of 1000 (max. 500000)
+ 584 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -28,6 +28,9 @@
 \contentsline {subsubsection}{\numberline {3.4.2.3}MixColumns operation}{8}{subsubsection.3.4.2.3}%
 \contentsline {subsubsection}{\numberline {3.4.2.4}AddRoundKey operation}{8}{subsubsection.3.4.2.4}%
 \contentsline {subsection}{\numberline {3.4.3}Nyckel utökning}{8}{subsection.3.4.3}%
+\contentsline {subsubsection}{\numberline {3.4.3.1}RotWord}{8}{subsubsection.3.4.3.1}%
+\contentsline {subsubsection}{\numberline {3.4.3.2}SubWord}{8}{subsubsection.3.4.3.2}%
+\contentsline {subsubsection}{\numberline {3.4.3.3}Rcon}{8}{subsubsection.3.4.3.3}%
 \contentsline {subsection}{\numberline {3.4.4}AES-128bit}{8}{subsection.3.4.4}%
 \contentsline {subsection}{\numberline {3.4.5}AES-192bit}{8}{subsection.3.4.5}%
 \contentsline {subsection}{\numberline {3.4.6}AES-256bit}{8}{subsection.3.4.6}%

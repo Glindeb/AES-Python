@@ -171,6 +171,36 @@
       \field{pages}{2\bibrangedash 17}
       \range{pages}{16}
     \endentry
+    \entry{NE-1}{online}{}
+      \name{author}{1}{}{%
+        {{hash=4eced7187134dec1717ed706dc8ea5f4}{%
+           family={Nationalencyklopedin},
+           familyi={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{4eced7187134dec1717ed706dc8ea5f4}
+      \strng{fullhash}{4eced7187134dec1717ed706dc8ea5f4}
+      \strng{bibnamehash}{4eced7187134dec1717ed706dc8ea5f4}
+      \strng{authorbibnamehash}{4eced7187134dec1717ed706dc8ea5f4}
+      \strng{authornamehash}{4eced7187134dec1717ed706dc8ea5f4}
+      \strng{authorfullhash}{4eced7187134dec1717ed706dc8ea5f4}
+      \field{labelalpha}{Nat22}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{kryptografi}
+      \field{urlday}{7}
+      \field{urlmonth}{9}
+      \field{urlyear}{2022}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb http://www.ne.se/uppslagsverk/encyklopedi/lång/kryptografi
+      \endverb
+      \verb{url}
+      \verb http://www.ne.se/uppslagsverk/encyklopedi/l%C3%A5ng/kryptografi
+      \endverb
+    \endentry
     \entry{python}{online}{}
       \name{author}{1}{}{%
         {{hash=c7b5508dc5e59a2846d22617276cc27c}{%
@@ -199,6 +229,36 @@
       \endverb
       \verb{url}
       \verb https://docs.python.org/3/faq/general.html#what-is-python
+      \endverb
+    \endentry
+    \entry{krypto}{online}{}
+      \name{author}{1}{}{%
+        {{hash=9c677286866aad38f8e9b660f5411814}{%
+           family={Wikipedia},
+           familyi={W\bibinitperiod}}}%
+      }
+      \strng{namehash}{9c677286866aad38f8e9b660f5411814}
+      \strng{fullhash}{9c677286866aad38f8e9b660f5411814}
+      \strng{bibnamehash}{9c677286866aad38f8e9b660f5411814}
+      \strng{authorbibnamehash}{9c677286866aad38f8e9b660f5411814}
+      \strng{authornamehash}{9c677286866aad38f8e9b660f5411814}
+      \strng{authorfullhash}{9c677286866aad38f8e9b660f5411814}
+      \field{labelalpha}{Wik20}
+      \field{sortinit}{W}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Kryptografi}
+      \field{urlday}{7}
+      \field{urlmonth}{9}
+      \field{urlyear}{2022}
+      \field{year}{2020}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://sv.wikipedia.org/w/index.php?title=Kryptografi&oldid=48532107
+      \endverb
+      \verb{url}
+      \verb https://sv.wikipedia.org/w/index.php?title=Kryptografi&oldid=48532107
       \endverb
     \endentry
     \entry{rounds-picture}{online}{}
