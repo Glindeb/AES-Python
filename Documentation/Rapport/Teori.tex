@@ -11,7 +11,23 @@
 
 
 \subsubsection{ECB}
+\acrfull{ecb} är en av det enklaste körlägena som \acrshort{aes} använder.
+\acrshort{ecb} i sig är ganska lätt att förstå och bygger i huvudsak bara på
+att man tar varje block för sig och kör genom algoritmen, vilket väldigt
+tydligt visas i Figur \ref{ecb-mode-enc} \& \ref{ecb-mode-dec}.
+\footfullcite{modesofoperation}
 
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{ECB_encryption.png}
+    \captionsource{\acrlong{ecb} kryptering}{{\cite{ecb-mode-enc-ref}}}
+    \label{fig:ecb-mode-enc}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{ECB_decryption.png}
+    \captionsource{\acrlong{ecb} dekryptering}{{\cite{ecb-mode-dec-ref}}}
+    \label{fig:ecb-mode-dec}
+\end{figure}
 
 \subsubsection{CBC}
 
@@ -20,13 +36,11 @@
 
 
 \section{Symetrisk \& Asymmetrisk Kryptering}
+Symetrisk och asymetrisk kryptering handlar om hur nycklar används i olika
+krypteringsalgoritmer. För symetriska krypterings algoritmer så betyder detta
+att samma nyckel är vad som används för både kryptering och dekryptering.
 
-
-\subsection{Symetrisk Kryptering}
-
-
-\subsection{Asymmetrisk Kryptering}
-
+\footfullcite{symencrypt}
 
 \section{AES}
 
@@ -34,11 +48,14 @@
 \subsection{Finite Fields}
 
 
+\subsection{AES S-Box}
+
+
 \subsection{Struktur}
 
 
 \subsubsection{SubBytes operation}
-
+SubBytes operationen bygger på ...
 
 \subsubsection{ShiftRows operation}
 

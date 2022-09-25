@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bcf:controlfile version="3.9" bltxversion="3.18" xmlns:bcf="https://sourceforge.net/projects/biblatex">
+<bcf:controlfile version="3.8" bltxversion="3.17" xmlns:bcf="https://sourceforge.net/projects/biblatex">
   <!-- BIBER OPTIONS -->
   <bcf:options component="biber" type="global">
     <bcf:option type="singlevalued">
@@ -135,10 +135,6 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>nosortothers</bcf:key>
-      <bcf:value>0</bcf:value>
-    </bcf:option>
-    <bcf:option type="singlevalued">
-      <bcf:key>pluralothers</bcf:key>
       <bcf:value>0</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
@@ -376,11 +372,11 @@
       <bcf:value>0</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
-      <bcf:key>skipbiblist</bcf:key>
+      <bcf:key>skiplab</bcf:key>
       <bcf:value>0</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
-      <bcf:key>skiplab</bcf:key>
+      <bcf:key>skipbiblist</bcf:key>
       <bcf:value>0</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
@@ -603,7 +599,6 @@
     <bcf:option datatype="boolean">labeltitle</bcf:option>
     <bcf:option datatype="boolean">labeltitleyear</bcf:option>
     <bcf:option datatype="boolean">labeldateparts</bcf:option>
-    <bcf:option datatype="boolean">pluralothers</bcf:option>
     <bcf:option datatype="boolean">nohashothers</bcf:option>
     <bcf:option datatype="boolean">nosortothers</bcf:option>
     <bcf:option datatype="boolean">noroman</bcf:option>
@@ -1048,7 +1043,7 @@
     <bcf:namepart order="3">given</bcf:namepart>
   </bcf:uniquenametemplate>
   <!-- SORTING NAME KEY TEMPLATES -->
-  <bcf:sortingnamekeytemplate name="global" visibility="sort">
+  <bcf:sortingnamekeytemplate name="global">
     <bcf:keypart order="1">
       <bcf:part type="namepart" order="1" use="1">prefix</bcf:part>
       <bcf:part type="namepart" order="2">family</bcf:part>
@@ -2349,18 +2344,42 @@
     <bcf:datasource type="file" datatype="bibtex" glob="false">ref.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1" intorder="1">caesar</bcf:citekey>
-    <bcf:citekey order="2" intorder="1">python</bcf:citekey>
-    <bcf:citekey order="3" intorder="1">xor</bcf:citekey>
-    <bcf:citekey order="4" intorder="1">luciano1987cryptology</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">kumar2011investigations</bcf:citekey>
-    <bcf:citekey order="6" intorder="1">10.1007/978-3-642-04138-9_8</bcf:citekey>
-    <bcf:citekey order="7" intorder="1">krypto</bcf:citekey>
-    <bcf:citekey order="8" intorder="1">kryptografi-historia-1</bcf:citekey>
-    <bcf:citekey order="9" intorder="1">NE-1</bcf:citekey>
-    <bcf:citekey order="10" intorder="1">kryptografi-historia-1</bcf:citekey>
-    <bcf:citekey order="11" intorder="1">rounds-picture</bcf:citekey>
-    <bcf:citekey order="12" intorder="1">rounds-picture</bcf:citekey>
+    <bcf:citekey order="1">caesar</bcf:citekey>
+    <bcf:citekey order="2">python</bcf:citekey>
+    <bcf:citekey order="3">xor</bcf:citekey>
+    <bcf:citekey order="4">luciano1987cryptology</bcf:citekey>
+    <bcf:citekey order="5">kumar2011investigations</bcf:citekey>
+    <bcf:citekey order="6">10.1007/978-3-642-04138-9_8</bcf:citekey>
+    <bcf:citekey order="7">krypto</bcf:citekey>
+    <bcf:citekey order="8">kryptografi-historia-1</bcf:citekey>
+    <bcf:citekey order="9">NE-1</bcf:citekey>
+    <bcf:citekey order="10">kryptografi-historia-1</bcf:citekey>
+    <bcf:citekey order="11">kryptografi-historia-1</bcf:citekey>
+    <bcf:citekey order="12">modesofoperation</bcf:citekey>
+    <bcf:citekey order="13">ecb-mode-enc-ref</bcf:citekey>
+    <bcf:citekey order="14">ecb-mode-enc-ref</bcf:citekey>
+    <bcf:citekey order="15">ecb-mode-dec-ref</bcf:citekey>
+    <bcf:citekey order="16">ecb-mode-dec-ref</bcf:citekey>
+    <bcf:citekey order="17">symencrypt</bcf:citekey>
+    <bcf:citekey order="18">daemen1999aes</bcf:citekey>
+    <bcf:citekey order="19">daemen1999aes</bcf:citekey>
+    <bcf:citekey order="20">rounds-picture</bcf:citekey>
+    <bcf:citekey order="21">rounds-picture</bcf:citekey>
+    <bcf:citekey order="22">caesar</bcf:citekey>
+    <bcf:citekey order="23">python</bcf:citekey>
+    <bcf:citekey order="24">xor</bcf:citekey>
+    <bcf:citekey order="25">luciano1987cryptology</bcf:citekey>
+    <bcf:citekey order="26">kumar2011investigations</bcf:citekey>
+    <bcf:citekey order="27">10.1007/978-3-642-04138-9_8</bcf:citekey>
+    <bcf:citekey order="28">krypto</bcf:citekey>
+    <bcf:citekey order="29">kryptografi-historia-1</bcf:citekey>
+    <bcf:citekey order="30">NE-1</bcf:citekey>
+    <bcf:citekey order="31">modesofoperation</bcf:citekey>
+    <bcf:citekey order="32">ecb-mode-enc-ref</bcf:citekey>
+    <bcf:citekey order="33">ecb-mode-dec-ref</bcf:citekey>
+    <bcf:citekey order="34">symencrypt</bcf:citekey>
+    <bcf:citekey order="35">daemen1999aes</bcf:citekey>
+    <bcf:citekey order="36">rounds-picture</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="anyt">
