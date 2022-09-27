@@ -52,8 +52,27 @@ och därför inte används näst intill aldrig i praktiken.\footcite{modesofoper
 
 \subsubsection{CBC}
 \acrlong{cbc} är ett av de mest vanligen använda körlägena för många blockchiffer.
+Till skillnad från \acrshort{ecb} så förhindrar \acrshort{cbc} att två block med
+samma innehåll kan ge samma krypterade block. Detta gör \acrshort{cbc} genom att
+lägga till ett extra steg utöver vad som finns i \acrshort{ecb}. Det här steget
+är en \gls{xor}-operation mellan det krypterade blocket nästkommande block innan
+de körs genom blockchiffer algoritmen.\footcite{modesofoperation}
+Matematisk sett kan detta formuleras såhär:
 
-\footcite{modesofoperation}
+\begin{equation}
+    \label{eq:cbc-encryption}
+    \begin{aligned}
+        &S_i = K_n(B_i \oplus S_{i-1})\\\nonumber
+        &S_0 = IV
+    \end{aligned}
+\end{equation}
+
+Där $S_i$ är det krypterade blocket(skiffertexten), $B_i$ är det blocket som ska krypteras,
+$K_n$ är blockchiffer algoritmen där $n$ står för nyckeln och $S_{i-1}$ är
+det krypterade blocket före det blocket som ska krypteras. \acrshort{iv} är en
+\acrfull{iv} som används vid krypteringen av de första blocket då de inte finns
+något föregående block att använda. Hela den här processen kan även ses i
+Figur \ref{fig:cbc-mode-enc}.
 
 \begin{figure}[H]
     \includegraphics[width=\textwidth]{CBC_encryption.png}
@@ -61,11 +80,31 @@ och därför inte används näst intill aldrig i praktiken.\footcite{modesofoper
     \label{fig:cbc-mode-enc}
 \end{figure}
 
+När de gäller dekrypterings processen för \acrshort{cbc} så bär den precis som för
+\acrshort{ecb} stora likheter med krypterings processen. Det två skillnaderna som
+finns är att blockchiffert körs i dekrypterings läge istället för krypterings läge.
+Samt att för varje block så genomförs en \gls{xor}-operation mellan det dekrypterade
+blocket och föregående block innan dekrypteringen av blocket.\footcite{modesofoperation}
+Även detta går att matematiskt formulera såhär:
+
+\begin{equation}
+    \label{eq:cbc-decryption}
+    \begin{aligned}
+        &B_i = K_n(S_i) \oplus S_{i-1}\\\nonumber
+        &S_0 = IV
+    \end{aligned}
+\end{equation}
+
+...
+
 \begin{figure}[H]
     \includegraphics[width=\textwidth]{CBC_decryption.png}
     \caption{\acrlong{cbc} dekryptering \cite{cbc-mode-dec-ref}}
     \label{fig:cbc-mode-dec}
 \end{figure}
+
+
+\footcite{modesofoperation}
 
 \subsubsection{OFB}
 
