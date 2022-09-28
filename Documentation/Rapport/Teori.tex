@@ -15,7 +15,7 @@
 \acrshort{ecb} i sig är ganska lätt att förstå och bygger i huvudsak bara på
 att man delar upp den data man vill kryptera i delar kallade block och tar sedan varje
 block för sig och kör genom algoritmen, vilket tydligt visas i
-Figur \ref{fig:ecb-mode-enc} \& \ref{fig:ecb-mode-dec}.
+figur \ref{fig:ecb-mode-enc} \& \ref{fig:ecb-mode-dec}.
 \footfullcite{modesofoperation}
 
 Figur \ref{fig:ecb-mode-enc} visar hur \acrshort{ecb} fungerar vid kryptering.
@@ -54,7 +54,7 @@ och därför inte används näst intill aldrig i praktiken.\footcite{modesofoper
 \acrlong{cbc} är ett av de mest vanligen använda körlägena för många blockchiffer.
 Till skillnad från \acrshort{ecb} så förhindrar \acrshort{cbc} att två block med
 samma innehåll kan ge samma krypterade block. Detta gör \acrshort{cbc} genom att
-lägga till ett extra steg utöver vad som finns i \acrshort{ecb}. Det här steget
+lägga till ett extra steg utöver vad som finns i \acrshort{ecb}. Steget
 är en \gls{xor}-operation mellan det krypterade blocket nästkommande block innan
 de körs genom blockchiffer algoritmen.\footcite{modesofoperation}
 Matematisk sett kan detta formuleras såhär:
@@ -71,8 +71,8 @@ Där $S_i$ är det krypterade blocket(skiffertexten), $B_i$ är det blocket som 
 $K_n$ är blockchiffer algoritmen där $n$ står för nyckeln och $S_{i-1}$ är
 det krypterade blocket före det blocket som ska krypteras. \acrshort{iv} är en
 \acrfull{iv} som används vid krypteringen av de första blocket då de inte finns
-något föregående block att använda. Hela den här processen kan även ses i
-Figur \ref{fig:cbc-mode-enc}.
+något föregående block att använda. $i$ står för index där de första blocket har
+index värdet 1. Hela den här processen kan även ses i figur \ref{fig:cbc-mode-enc}.
 
 \begin{figure}[H]
     \includegraphics[width=\textwidth]{CBC_encryption.png}
@@ -85,7 +85,7 @@ När de gäller dekrypterings processen för \acrshort{cbc} så bär den precis 
 finns är att blockchiffert körs i dekrypterings läge istället för krypterings läge.
 Samt att för varje block så genomförs en \gls{xor}-operation mellan det dekrypterade
 blocket och föregående block innan dekrypteringen av blocket.\footcite{modesofoperation}
-Även detta går att matematiskt formulera såhär:
+Även detta går att både matematiskt formulera och visuellt visa såhär:
 
 \begin{equation}
     \label{eq:cbc-decryption}
@@ -95,15 +95,24 @@ blocket och föregående block innan dekrypteringen av blocket.\footcite{modesof
     \end{aligned}
 \end{equation}
 
-...
-
 \begin{figure}[H]
     \includegraphics[width=\textwidth]{CBC_decryption.png}
     \caption{\acrlong{cbc} dekryptering \cite{cbc-mode-dec-ref}}
     \label{fig:cbc-mode-dec}
 \end{figure}
 
+Fördelarna som kommer från den extra operationen i \acrshort{cbc} till skillnad
+från \acrshort{ecb} är då att varje block blir beroende av föregående block.
+Detta innebär att möjliga mönster som kunde dyka upp i \acrshort{ecb} inte längre
+kan uppstå, vilket då gör \acrshort{cbc} till ett säkrare körläge än \acrshort{ecb}.
+Dock kräver cbc en ytterligare faktor för att se till så att inte olika medelanden
+kan ge samma krypterade block. Därav så krävs en \acrfull{iv} som används vid första
+blocket.\footcite{modesofoperation}
 
+\acrshort{cbc} är dock inte prefekt och har i sig också några nackdelar. Bland dessa
+så ... % TODO: skriv om detta
+% pros: can be parallelized, no need to store previous block as well as IV
+% IV can bee discarded if you use a random block as the first block in the message...
 \footcite{modesofoperation}
 
 \subsubsection{OFB}
