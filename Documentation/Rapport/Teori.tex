@@ -50,6 +50,11 @@ figur \ref{fig:pi-original} \& \ref{fig:pi-ecb}.
 Det här faktumet är även varför \acrshort{ecb} inte är ett säkert körläge
 och därför inte används näst intill aldrig i praktiken.\footcite{modesofoperation}
 
+\acrshort{ecb} har däremot även sina fördelar då de bland annat kan parallelliseras
+både när de gäller krypteringen och dekrypteringen. Detta samt att \acrshort{ecb}
+även gör de möjligt att slumpmässigt dekryptera enskilda block av en skiffertext
+utan att man behöver dekryptera hela texten.\footcite{modesofoperation}
+
 \subsubsection{CBC}
 \acrlong{cbc} är ett av de mest vanligen använda körlägena för många blockchiffer.
 Till skillnad från \acrshort{ecb} så förhindrar \acrshort{cbc} att två block med
@@ -109,8 +114,14 @@ Dock kräver cbc en ytterligare faktor för att se till så att inte olika medel
 kan ge samma krypterade block. Därav så krävs en \acrfull{iv} som används vid första
 blocket.\footcite{modesofoperation}
 
-\acrshort{cbc} är dock inte prefekt och har i sig också några nackdelar. Bland dessa
-så ... % TODO: skriv om detta
+\acrshort{cbc} är dock inte prefekt och har i sig också några nackdelar. Där ibland
+exempelvis de faktum att en incorrect \acrshort{iv} leder till att de första blocket
+inte kan dekrypteras korrekt, detta påverkar dock inte de resterande blocken. På grund
+av det så kan man exempelvis lösa problemet genom att första blocket bara innehåller
+någon typ av fyllnad, vilket då gör dekrypteringen möjlig utan tillgång till \acrshort{iv}.\footcite{modesofoperation}
+
+
+... % TODO: skriv om detta
 % pros: can be parallelized, no need to store previous block as well as IV
 % IV can bee discarded if you use a random block as the first block in the message...
 \footcite{modesofoperation}
