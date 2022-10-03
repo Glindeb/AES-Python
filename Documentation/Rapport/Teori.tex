@@ -108,8 +108,8 @@ blocket och föregående block innan dekrypteringen av blocket.\footcite{modesof
 
 Fördelarna som kommer från den extra operationen i \acrshort{cbc} till skillnad
 från \acrshort{ecb} är då att varje block blir beroende av föregående block.
-Detta innebär att möjliga mönster som kunde dyka upp i \acrshort{ecb} inte längre
-kan uppstå, vilket då gör \acrshort{cbc} till ett säkrare körläge än \acrshort{ecb}.
+Detta innebär att dom mönster som kunde dyka upp i \acrshort{ecb} inte längre
+kan uppstå, vilket då gör \acrshort{cbc} till ett mer säkert körläge än \acrshort{ecb}.
 Dock kräver cbc en ytterligare faktor för att se till så att inte olika medelanden
 kan ge samma krypterade block. Därav så krävs en \acrfull{iv} som används vid första
 blocket.\footcite{modesofoperation}
@@ -120,14 +120,27 @@ inte kan dekrypteras korrekt, detta påverkar dock inte de resterande blocken. P
 av det så kan man exempelvis lösa problemet genom att första blocket bara innehåller
 någon typ av fyllnad, vilket då gör dekrypteringen möjlig utan tillgång till \acrshort{iv}.\footcite{modesofoperation}
 
-
-... % TODO: skriv om detta
-% pros: can be parallelized, no need to store previous block as well as IV
-% IV can bee discarded if you use a random block as the first block in the message...
-\footcite{modesofoperation}
+Utöver detta så begränsas även \acrshort{cbc} till att bara vara parallelliserbar under
+dekrypteringen och inte krypteringen, vilket är en konsekvens av att varje block i \acrshort{cbc}
+är beroende av föregående block. \acrshort{cbc} behåller dock fortfarande möjligheten
+som \acrshort{ecb} har att slumpmässigt dekryptera enskilda block utan att behöva
+dekryptera hela skiffertexten.\footcite{modesofoperation}
 
 \subsubsection{OFB}
 
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{OFB_encryption.png}
+    \caption{\acrlong{ofb} kryptering \cite{ofb-mode-enc-ref}}
+    \label{fig:ofb-mode-enc}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{OFB_decryption.png}
+    \caption{\acrlong{ofb} dekryptering \cite{ofb-mode-dec-ref}}
+    \label{fig:ofb-mode-dec}
+\end{figure}
+
+\footcite{modesofoperation}
 
 \section{Symetrisk \& Asymmetrisk Kryptering}
 Symetrisk och asymetrisk kryptering handlar om hur nycklar används i olika
