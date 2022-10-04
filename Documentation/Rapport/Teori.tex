@@ -127,6 +127,12 @@ som \acrshort{ecb} har att slumpmässigt dekryptera enskilda block utan att beh�
 dekryptera hela skiffertexten.\footcite{modesofoperation}
 
 \subsubsection{OFB}
+\acrlong{ofb} är ett ytterligare körläge som skiljer sig en del från \acrshort{ecb}
+och \acrshort{cbc} som  redan presenterats. Den största skillnaden från det andra
+körlägena är att \acrshort{ofb} inte använder blockchiffer algoritmen för att kryptera
+eller dekryptera blocken. Istället så körs \acrshort{iv} genom blockchiffer algoritmen
+och den resulterande \gls{keystream} tillförs sedan genom en \gls{xor}-operation till
+blocket som ska krypteras eller dekrypteras.\footcite{modesofoperation}
 
 \begin{figure}[H]
     \includegraphics[width=\textwidth]{OFB_encryption.png}
