@@ -134,6 +134,10 @@ eller dekryptera blocken. Istället så körs \acrshort{iv} genom blockchiffer a
 och den resulterande \gls{keystream} tillförs sedan genom en \gls{xor}-operation till
 blocket som ska krypteras eller dekrypteras.\footcite{modesofoperation}
 
+Tack vare \gls{xor}-operationens symmetriska natur så är så väl krypteringen som
+dekrypteringen av \acrshort{ofb} identisk. Detta visas tydligt i figur \ref{fig:ofb-mode-enc}
+\& \ref{fig:ofb-mode-dec}:
+
 \begin{figure}[H]
     \includegraphics[width=\textwidth]{OFB_encryption.png}
     \caption{\acrlong{ofb} kryptering \cite{ofb-mode-enc-ref}}
@@ -146,14 +150,51 @@ blocket som ska krypteras eller dekrypteras.\footcite{modesofoperation}
     \label{fig:ofb-mode-dec}
 \end{figure}
 
-\footcite{modesofoperation}
+Utöver detta kan man även matematiskt beskriva \acrshort{ofb}, vilket visas i ekvationen
+nedan:
+
+\begin{equation}
+    \label{eq:ofb-encryption}
+    \begin{aligned}
+        &S_i = B_i \oplus O_i\\\nonumber
+        &B_i = S_i \oplus O_i\\
+        &O_i = K_n(I_i)\\
+        &I_i = O_{i-1}\\
+        &I_0 = IV
+    \end{aligned}
+\end{equation}
+
+Här visas \acrshort{ofb} körläget matematiskt där $S_i$ är det krypterade blocket,
+$B_i$ är blocket som ska krypteras och $I_0$ är \acrshort{iv}. Men här finns Även
+$O_i$ som man kan säga är själva \gls{keystream} som används för att kryptera eller
+dekryptera blocket. $O_i$ i sin tur bygger då på att $O_{i-1}$ körs genom blockchiffer
+algoritmen igen och sedan används för nästa blocks kryptering.
+
+På grund av att \acrshort{ofb} är utformat på det här sättet och att själva blocken som
+ska krypteras inte används fram till sista steget så är det möjligt att genomföra blockskiffer
+operationerna i förväg, vilket gör det möjligt att även parallellisera \acrshort{ofb}. Dock
+kan \acrshort{ofb} inte parallelliseras ifall man inte gör blockskiffer operationerna
+i förväg. Utöver detta saknar även \acrshort{ofb} möjligheten att slumpmässigt dekryptera
+enskilda block utan att behöva dekryptera hela skiffertexten.\footcite{modesofoperation}
 
 \section{Symetrisk \& Asymmetrisk Kryptering}
 Symetrisk och asymetrisk kryptering handlar om hur nycklar används i olika
 krypteringsalgoritmer. För symetriska krypterings algoritmer så betyder detta
-att samma nyckel är vad som används för både kryptering och dekryptering.
+att samma nyckel är vad som används för både kryptering och dekryptering. Medans
+asymetrisk kryptering bygger på att man använder olika nycklar för kryptering och
+dekrypterings processerna.\footfullcite{symencrypt}
 
-\footfullcite{symencrypt}
+De symetriska krypterings algoritmernas huvudsakliga nackdel ligger i de faktum att
+de krävs en delad känd nyckel mellan båda parter. Detta är något som Asymetriska
+krypterings algorithmer inte behöver, vilket har lett till att man ofta använder
+asymetriska krypterings algoritmer för att sköta nyckelutbytet för de symetriska
+krypterings algoritmerna. Anledningen till detta är att det symetriska krypterings
+algoritmerna ofta är bättre för större data mängder då dom bland annat behöver mycket
+kortare nyckellängder.\footcite{symencrypt}
+
+Exempel på symetriska krypterings algoritmer är bland annat \acrshort{aes} och
+\acrshort{des} var av \acrshort{aes} kommer förklaras djupare senare i denna rapport.\footcite{symencrypt}
+Medans exempel på asymetriska krypterings algoritmer är bland annat \gls{rsa}.\footfullcite{rsa-ref}
 
 \section{AES}
 
