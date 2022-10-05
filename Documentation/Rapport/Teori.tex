@@ -5,10 +5,29 @@
 
 
 \section{Blockchiffer}
-
+Blockskiffer är en krypteringsalgoritm som verkar på block av data med en fast storlek.
+Blockchiffer är en typ av symmetrisk kryptering där samma nyckel används för att kryptera och dekryptera
+information och används bland annat som en av grundkomponenterna i kryptografiska protokoll som TLS och SSL. % Fix referencing and explaning for tls and ssl
+... % need to add more
+\footfullcite{blockskiffer-ref}
 
 \subsection{Körlägen}
+Körlägen inom kryptografin kan man se som algoritmer som appliceras i användningen av
+blockskiffer eftersom dessa endast är användbara för säker kryptering av ett litet block med bestämd längd.
+Körlägena gör de då möjligt att istället kunna använda blockskiffer på större data mängder.
+Detta löser körlägen på olika sätt beroende på hur man vill använda blockskiffer algoritmen samt hur
+mycket man ör villig att kompromissa med säkerheten i förhållande till hastighet.\footfullcite{modesofoperation}
 
+Ett ut av sätten som körlägen löser problemet med att applicera blockskiffer algoritmer på
+större data mängder är att dom använder sig av en så kallad \acrfull{iv}. Det är en unik sekvens
+av bytes som används för att säkerställa att samma data mängd aldrig kommer att generera samma
+krypterade skiffertext.\footcite{modesofoperation}
+
+\acrshort{iv} kan användas på många sätt från att introduceras genom en
+\gls{xor}-operation med första blocket och sedan kedja ihop och göra samma sak med nästkommande
+block fast med resultatet från den första operationen precis som i \acrshort{cbc}. Detta gör att blocken blir beroende av varandra
+plus att samma information som krypteras flera inte kommer ge samma resultat även fast man använder samma
+nyckel.\footcite{modesofoperation}
 
 \subsubsection{ECB}
 \acrfull{ecb} är en av det enklaste blockchiffer körlägena som finns.
@@ -16,7 +35,7 @@
 att man delar upp den data man vill kryptera i delar kallade block och tar sedan varje
 block för sig och kör genom algoritmen, vilket tydligt visas i
 figur \ref{fig:ecb-mode-enc} \& \ref{fig:ecb-mode-dec}.
-\footfullcite{modesofoperation}
+\footcite{modesofoperation}
 
 Figur \ref{fig:ecb-mode-enc} visar hur \acrshort{ecb} fungerar vid kryptering.
 Här visas hur varje block för sig krypteras med hjälp av en blockchiffer algoritm
@@ -135,7 +154,7 @@ och den resulterande \gls{keystream} tillförs sedan genom en \gls{xor}-operatio
 blocket som ska krypteras eller dekrypteras.\footcite{modesofoperation}
 
 Tack vare \gls{xor}-operationens symmetriska natur så är så väl krypteringen som
-dekrypteringen av \acrshort{ofb} identisk. Detta visas tydligt i figur \ref{fig:ofb-mode-enc}
+dekrypteringen av \acrshort{ofb} identisk, vilket även visas i figur \ref{fig:ofb-mode-enc}
 \& \ref{fig:ofb-mode-dec}:
 
 \begin{figure}[H]
