@@ -181,6 +181,33 @@ keepaspectratio]{background-1.png}
       och kan användas för att skriva kod i flera olika språk.\cite{vscode-ref}}
    }
 
+  \newglossaryentry{streamcipher}
+  {
+      name=Strömskiffer,
+      description={Strömskiffer, ett symetriskt nyckel skiffer där man använder en
+      \gls{pseudoslump}mässig skiffer ström (\gls{keystream}) som sedan en \gls{bit} i taget
+      kombineras med de som ska krypteras. Den kombinerande operationen som används i
+      strömskiffer är ofta en \gls{xor}-operation.\cite{streamcipher-ref}}
+   }
+
+  \newglossaryentry{bit}
+  {
+       name=Bit,
+       description={En Bit är den minsta enheten av information som kan lagras i en dator.
+       En bit kan endast ha två värden där den antingen är 0 eller 1. I datorvetenskap pratar
+       man dock mer vanligen om ett \gls{byte} som är 8 bits.\cite{bit-ref}}
+   }
+
+  \newglossaryentry{byte}
+  {
+      name=Byte,
+      description={En Byte består av 8 \gls{bit}s och är en enhet som används inom
+      datorvetenskap. En byte kan ha 256 olika värden från 0 till 255, vilket är $2^8$ värden.
+      Dessa värden representerar ofta tecken eller symboler som exempelvis bokstäver, siffror med mera
+      men vad en sekvens av bytes eller en enskild byte står för beror på vilken
+      teckenkodning som används. Exempel på teckenkodningar kan var \acrshort{ascii} och ISO-8859.\cite{byte-ref}}
+   }
+
 \newacronym{aes}{AES}{Advanced Encryption Standard}
 \newacronym{ecb}{ECB}{Electronic Code Book läge}
 \newacronym{cbc}{CBC}{Cipher Block Chaining läge}
@@ -189,6 +216,7 @@ keepaspectratio]{background-1.png}
 \newacronym{iv}{IV}{Initialization Vector}
 \newacronym{ssl}{SSL}{Secure Socket Layer}
 \newacronym{tls}{TLS}{Transport Layer Security}
+\newacronym{ascii}{ASCII}{American Standard Code for Information Interchange}
 %%%
 
 % Start document
