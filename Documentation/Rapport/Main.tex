@@ -30,7 +30,7 @@
 \usepackage[font=small,labelfont=bf,center]{caption}
 
 % For correct fotnotes and citation structure
-\usepackage[backend=biber,style=verbose,citestyle=alphabetic,bibstyle=alphabetic]{biblatex}
+\usepackage[backend=bibtex8,style=verbose,citestyle=alphabetic,bibstyle=alphabetic]{biblatex}
 \addbibresource{ref.bib}
 
 % Background image of title page
@@ -117,7 +117,7 @@ keepaspectratio]{background-1.png}
 \setlength{\glsdescwidth}{\textwidth}
 \makeglossaries
 
-\renewcommand*{\glossaryname}{Ordlista}
+\renewcommand*{\glossaryname}{Begreppförklaring}
 \renewcommand*{\acronymname}{Akronymer}
 \renewcommand{\glsnamefont}[1]{\textbf{#1}}
 
@@ -148,7 +148,7 @@ keepaspectratio]{background-1.png}
     symbol={\(\oplus\)},
     description={Ett logisk operation inom datorvetenskap som fungerar ungefär som + uttrycket,
     med den enda skillnaden att {\(1 \oplus 1 = 0\)}. Detta samt att xor är en binär operation, vilket
-    innebär att termerna bara kan vara 0 eller 1 och resultatet det samma.\cite{xor}} % Needs to get a sucre and be refined
+    innebär att termerna bara kan vara 0 eller 1 och resultatet det samma.\cite{xor}} % Maybe needs to be refined
  }
 
 \newglossaryentry{python}
@@ -187,6 +187,8 @@ keepaspectratio]{background-1.png}
 \newacronym{ofb}{OFB}{Output Feedback läge}
 \newacronym{des}{DES}{Data Encryption Standard}
 \newacronym{iv}{IV}{Initialization Vector}
+\newacronym{ssl}{SSL}{Secure Socket Layer}
+\newacronym{tls}{TLS}{Transport Layer Security}
 %%%
 
 % Start document
