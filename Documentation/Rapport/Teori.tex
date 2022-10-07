@@ -9,10 +9,13 @@ Blockskiffer är en krypteringsalgoritm som verkar på block av data med en fast
 blockskiffer används bland annat som en av grundkomponenterna i kryptografiska protokoll som \acrfull{tls} och \acrfull{ssl}
 som används för att kryptera data som skickas över internet bland annat.\footfullcite{blockskiffer-ref}
 
-En ut av de sörsta problemen med är att oavsett hur säkra dom är så passar det bara att använda
+En ut av de största problemen med Blockskiffer är dock att oavsett hur säkra dom är så passar det bara att använda
 för kryptering av enskilda block med en nyckel, vilket skiljer sig från något som ett \gls{streamcipher}.
+På grund av detta har en mängd olika körlägen utvecklats för att på så sätt göra de möjlig att utnyttja
+blockskiffer för att kryptera större mängder data med en nyckel.\footcite{blockskiffer-ref}
 
-\footcite{blockskiffer-ref}
+Blockskiffer används däremot inte bara för kryptering utan kan även användas i olika typer av \gls{hashfunktion}er  % needs glossary entry
+och \gls{pseudoslump} nummer generatorer bland annat då blockskifferets resulterande skiffertext ser ut att vara slumpmässig.\footcite{blockskiffer-ref}
 % need to add more
 
 \subsection{Körlägen}

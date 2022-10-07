@@ -203,9 +203,22 @@ keepaspectratio]{background-1.png}
       name=Byte,
       description={En Byte består av 8 \gls{bit}s och är en enhet som används inom
       datorvetenskap. En byte kan ha 256 olika värden från 0 till 255, vilket är $2^8$ värden.
-      Dessa värden representerar ofta tecken eller symboler som exempelvis bokstäver, siffror med mera
-      men vad en sekvens av bytes eller en enskild byte står för beror på vilken
+      Dessa värden representerar ofta tecken eller symboler som exempelvis bokstäver, siffror med mera.
+      Tolkningen av vad en sekvens av bytes eller en enskild byte står för beror däremot på vilken
       teckenkodning som används. Exempel på teckenkodningar kan var \acrshort{ascii} och ISO-8859.\cite{byte-ref}}
+   }
+
+  \newglossaryentry{hashfunktion}
+  {
+      name=Hashfunktion,
+      description={Hashfunktion är en funktion som man kan säga delar upp en viss datamängd
+      och genom för en serie operationer som resulterar i hashtext av godkännd längd.
+      Längden är samma för alla hastexter som använder samma funktion medans innehållet
+      förändras så fort något över huvud taget ändras i datan som funktionen appliceras på.
+      Användningsområdet för dessa funktioner är bland annat när man vill kunna verifiera
+      medelanden eller information och försäkra sig om att ingen ändrat på medellandet efter att de skickats.
+      Detta kan man då göra för att man vet att om man skör informationen genom samma hashfunktion
+      borde resultatet vara identisk ifall informationen är oförändrad.\cite{hashfunktion-ref}}
    }
 
 \newacronym{aes}{AES}{Advanced Encryption Standard}
