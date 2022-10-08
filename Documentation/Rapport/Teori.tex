@@ -1,8 +1,14 @@
 \mychapter{Teori}
 
-
 \section{Kryptering}
+Kryptering handlar om att gömma information för att förhindra att andra än den menade mottagaren kan läsa informationen.
+Detta genomförs i dagens samhälle genom olika typer av krypteringsalgoritmer. Dessa algoritmer kan ses som både komplicerade
+och för virrande men bygger på enkla principer. En krypteringsalgoritm tar in en text och en nyckel och ger sedan tillbaka en
+skiffertext, vilket då är en krypterad version av den ursprungliga texten.\footfullcite{kryptering}
 
+För att den menade mottagaren ska kunna läsa skiffertexten sedan så behöver hen ha en nyckel samt köra samma krypteringsalgoritm
+i dekrypterings läge. Bland de vanligaste typerna av krypteringsalgoritmer finns \nameref{sec:symmetric-asymmetric-encryption},
+vilket bland annat innefattar algoritmer såsom \acrshort{aes} och \gls{rsa}.\footcite{kryptering}
 
 \section{Blockchiffer}
 Blockskiffer är en krypteringsalgoritm som verkar på block av data med en fast storlek.
@@ -204,6 +210,7 @@ i förväg. Utöver detta saknar även \acrshort{ofb} möjligheten att slumpmäs
 enskilda block utan att behöva dekryptera hela skiffertexten.\footcite{modesofoperation}
 
 \section{Symetrisk \& Asymmetrisk Kryptering}
+\label{sec:symmetric-asymmetric-encryption}
 Symetrisk och asymetrisk kryptering handlar om hur nycklar används i olika
 krypteringsalgoritmer. För symetriska krypterings algoritmer så betyder detta
 att samma nyckel är vad som används för både kryptering och dekryptering. Medans
