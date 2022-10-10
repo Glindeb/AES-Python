@@ -221,6 +221,31 @@ keepaspectratio]{background-1.png}
       borde resultatet vara identisk ifall informationen är oförändrad.\cite{hashfunktion-ref}}
    }
 
+  \newglossaryentry{polyalphabetic-cipher}
+  {
+      name=Polyalfabetiska skiffer,
+      description={Polyalfabetiska skiffer bygger på att man använder flera olika \gls{substitutionsskiffer} för att
+      på så sätt undvika en ut av de största svagheterna med \gls{substitutionsskiffer}. Detta då att dom lätt går att
+      knäcka genom en \gls{frekvensanalys} då vissa bokstäver dyker upp mer frekvent i språket än andra. För att lösa
+      detta så använder polyalphabetiska skiffer flera olika substitutionsskiffer som man byter mellan med en viss
+      frekvens för att eliminera \gls{frekvensanalys}ens effektivitet.\cite{polyalphabetic-ref}}
+   }
+
+  \newglossaryentry{frekvensanalys}
+  {
+    name=Frekvensanalys,
+    description={Frekvensanalys inom kryptografi är en metod för att knäcka ett \gls{substitutionsskiffer} genom att
+    analysera frekvensen av bokstäver och utnyttja de faktum att en del bokstäver framkommer mer frekvent än andra
+    i språket. På detta viset kan man då sedan lista ut vilka bokstäver som är vilka i det krypterade medellandet.\cite{frekvensanalys-ref}}
+    }
+
+  \newglossaryentry{substitutionsskiffer}
+  {
+      name=Substitutionsskiffer, % fix this
+      description={...
+        \cite{substitutionsskiffer-ref}}
+    }
+
 \newacronym{aes}{AES}{Advanced Encryption Standard}
 \newacronym{ecb}{ECB}{Electronic Code Book läge}
 \newacronym{cbc}{CBC}{Cipher Block Chaining läge}
