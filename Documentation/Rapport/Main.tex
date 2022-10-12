@@ -114,7 +114,7 @@ keepaspectratio]{background-1.png}
 
 % Glossaries setup
 \usepackage[nopostdot,nonumberlist,style=super,acronym,toc]{glossaries}
-\setlength{\glsdescwidth}{\textwidth}
+\setlength{\glsdescwidth}{0.88\hsize}
 \makeglossaries
 
 \renewcommand*{\glossaryname}{Begreppförklaring}
@@ -124,7 +124,7 @@ keepaspectratio]{background-1.png}
 %%%
 \newglossaryentry{rsa}
 {
-    name=RSA,
+    name={RSA},
     description={Rivest-Shamir-Adleman (RSA) är en av de mest välkända krypteringsalgoritmerna
     och var en av de första algorithmerna som byggde på en asymetrisk kryptering.
     RSA bygger på multiplikation av stora primatal där primtalen är
@@ -133,8 +133,8 @@ keepaspectratio]{background-1.png}
 
 \newglossaryentry{caesar}
 {
-    name=Caesarchiffer,
-    description={Caesarchiffer är ett substitutions chiffer,
+    name={Caesarchiffer},
+    description={Caesarchiffer är ett \gls{substitutionsskiffer},
     vilket helt enkelt bygger på att man byter ut varje bokstav i
     medelandet med en annan. Ersättnings bokstaven bestäms genom
     att man hoppar ett visst antal hopp i alphabetet som exempelvis
@@ -144,23 +144,24 @@ keepaspectratio]{background-1.png}
 
 \newglossaryentry{xor}
 {
-    name=XOR,
+    name={XOR},
     symbol={\(\oplus\)},
-    description={Ett logisk operation inom datorvetenskap som fungerar ungefär som + uttrycket,
+    description={XOR är en logisk operation inom datorvetenskap som fungerar ungefär som + uttrycket,
     med den enda skillnaden att {\(1 \oplus 1 = 0\)}. Detta samt att xor är en binär operation, vilket
-    innebär att termerna bara kan vara 0 eller 1 och resultatet det samma.\cite{xor}} % Maybe needs to be refined
+    innebär att termerna bara kan vara 0 eller 1 och resultatet det samma. Utöver XOR finns även
+    \gls{or}, \gls{not} och \gls{and}.\cite{xor}} % Maybe needs to be refined
  }
 
 \newglossaryentry{python}
 {
-    name=Python,
+    name={Python},
     description={Python är ett högnivå programmerings språk byggt på programmerings språket C.
     De är skapat av Guido van Rossum och släpptes i Februari 1991.\cite{python}}
  }
 
  \newglossaryentry{keystream}
  {
-     name=Nyckelström,
+     name={Nyckelström},
      description={En nyckelström är i kryptografin en ström av \gls{pseudoslump}
      karaktärer som kan kombineras med exempelvis ett medelande för att producera
      en skiffertext.\cite{keystream}}
@@ -168,14 +169,14 @@ keepaspectratio]{background-1.png}
 
   \newglossaryentry{pseudoslump}
   {
-      name=Pseudoslump,
+      name={Pseudoslump},
       description={Pseudoslump är en rad av nummer som kan se ut att vara helt
       slumpmässiga men har blivit framställda genom en upprepbar process.\cite{pseudoslump}}
    }
 
   \newglossaryentry{vscode}
   {
-      name=VSCode,
+      name={VSCode},
       description={Visual Studio Code är en programutveklingsmiljö som är skapad av Microsoft.
       Det är ett öppet källkods projekt som är tillgängligt för det flesta operativsystem
       och kan användas för att skriva kod i flera olika språk.\cite{vscode-ref}}
@@ -183,7 +184,7 @@ keepaspectratio]{background-1.png}
 
   \newglossaryentry{streamcipher}
   {
-      name=Strömskiffer,
+      name={Strömskiffer},
       description={Strömskiffer, ett symetriskt nyckel skiffer där man använder en
       \gls{pseudoslump}mässig skiffer ström (\gls{keystream}) som sedan en \gls{bit} i taget
       kombineras med de som ska krypteras. Den kombinerande operationen som används i
@@ -192,7 +193,7 @@ keepaspectratio]{background-1.png}
 
   \newglossaryentry{bit}
   {
-       name=Bit,
+       name={Bit},
        description={En Bit är den minsta enheten av information som kan lagras i en dator.
        En bit kan endast ha två värden där den antingen är 0 eller 1. I datorvetenskap pratar
        man dock mer vanligen om ett \gls{byte} som är 8 bits.\cite{bit-ref}}
@@ -200,7 +201,7 @@ keepaspectratio]{background-1.png}
 
   \newglossaryentry{byte}
   {
-      name=Byte,
+      name={Byte},
       description={En Byte består av 8 \gls{bit}s och är en enhet som används inom
       datorvetenskap. En byte kan ha 256 olika värden från 0 till 255, vilket är $2^8$ värden.
       Dessa värden representerar ofta tecken eller symboler som exempelvis bokstäver, siffror med mera.
@@ -210,7 +211,7 @@ keepaspectratio]{background-1.png}
 
   \newglossaryentry{hashfunktion}
   {
-      name=Hashfunktion,
+      name={Hashfunktion},
       description={Hashfunktion är en funktion som man kan säga delar upp en viss datamängd
       och genom för en serie operationer som resulterar i hashtext av godkännd längd.
       Längden är samma för alla hastexter som använder samma funktion medans innehållet
@@ -223,7 +224,7 @@ keepaspectratio]{background-1.png}
 
   \newglossaryentry{polyalphabetic-cipher}
   {
-      name=Polyalfabetiska skiffer,
+      name={Polyalfabetiska skiffer},
       description={Polyalfabetiska skiffer bygger på att man använder flera olika \gls{substitutionsskiffer} för att
       på så sätt undvika en ut av de största svagheterna med \gls{substitutionsskiffer}. Detta då att dom lätt går att
       knäcka genom en \gls{frekvensanalys} då vissa bokstäver dyker upp mer frekvent i språket än andra. För att lösa
@@ -233,7 +234,7 @@ keepaspectratio]{background-1.png}
 
   \newglossaryentry{frekvensanalys}
   {
-    name=Frekvensanalys,
+    name={Frekvensanalys},
     description={Frekvensanalys inom kryptografi är en metod för att knäcka ett \gls{substitutionsskiffer} genom att
     analysera frekvensen av bokstäver och utnyttja de faktum att en del bokstäver framkommer mer frekvent än andra
     i språket. På detta viset kan man då sedan lista ut vilka bokstäver som är vilka i det krypterade medellandet.\cite{frekvensanalys-ref}}
@@ -241,9 +242,29 @@ keepaspectratio]{background-1.png}
 
   \newglossaryentry{substitutionsskiffer}
   {
-      name=Substitutionsskiffer, % fix this
-      description={...
-        \cite{substitutionsskiffer-ref}}
+      name={Substitutionsskiffer}, % fix this
+      description={Ett Substitutionsskiffer är en typ av krypterings metod som bygger på att man
+      byter ut delar av informationen man ska kryptera med exempelvis andra symboler med hjälp av en nyckel.
+      Detta kan exempelvis vara bokstäver som byts ut mot andra bokstäver precis som i \gls{caesar} eller
+      siffror som byts ut mot andra siffror.\cite{substitutionsskiffer-ref}}
+    }
+
+  \newglossaryentry{and}
+  {
+      name={AND}, % fix this
+      description={...\cite{logical-operators-ref}}
+    }
+
+  \newglossaryentry{or}
+  {
+      name={OR}, % fix this
+      description={...\cite{logical-operators-ref}}
+    }
+
+  \newglossaryentry{not}
+  {
+      name={NOT}, % fix this
+      description={...\cite{logical-operators-ref}}
     }
 
 \newacronym{aes}{AES}{Advanced Encryption Standard}
