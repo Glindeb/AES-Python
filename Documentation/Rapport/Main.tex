@@ -114,7 +114,7 @@ keepaspectratio]{background-1.png}
 
 % Glossaries setup
 \usepackage[nopostdot,nonumberlist,style=super,acronym,toc]{glossaries}
-\setlength{\glsdescwidth}{0.88\hsize}
+\setlength{\glsdescwidth}{0.8\hsize}
 \makeglossaries
 
 \renewcommand*{\glossaryname}{Begreppförklaring}
@@ -147,9 +147,9 @@ keepaspectratio]{background-1.png}
     name={XOR},
     symbol={\(\oplus\)},
     description={XOR är en logisk operation inom datorvetenskap som fungerar ungefär som + uttrycket,
-    med den enda skillnaden att {\(1 \oplus 1 = 0\)}. Detta samt att xor är en binär operation, vilket
+    med den enda skillnaden att {\(1 \oplus 1 = 0\)}. Detta samt att xor är en \gls{binär} operation, vilket
     innebär att termerna bara kan vara 0 eller 1 och resultatet det samma. Utöver XOR finns även
-    \gls{or}, \gls{not} och \gls{and}.\cite{xor}} % Maybe needs to be refined
+    \gls{or}, \gls{not} och \gls{and} bland annat.\cite{xor}} % Maybe needs to be refined
  }
 
 \newglossaryentry{python}
@@ -195,8 +195,8 @@ keepaspectratio]{background-1.png}
   {
        name={Bit},
        description={En Bit är den minsta enheten av information som kan lagras i en dator.
-       En bit kan endast ha två värden där den antingen är 0 eller 1. I datorvetenskap pratar
-       man dock mer vanligen om ett \gls{byte} som är 8 bits.\cite{bit-ref}}
+       En bit kan endast ha två värden där den antingen är 0 eller 1, alltså ett \gls{binär}t
+       värde. I datorvetenskap pratar man dock mer vanligen om ett \gls{byte} som är 8 bits.\cite{bit-ref}}
    }
 
   \newglossaryentry{byte}
@@ -222,10 +222,10 @@ keepaspectratio]{background-1.png}
       borde resultatet vara identisk ifall informationen är oförändrad.\cite{hashfunktion-ref}}
    }
 
-  \newglossaryentry{polyalphabetic-cipher}
+  \newglossaryentry{polyalphabetic-substitutionsskiffer}
   {
-      name={Polyalfabetiska skiffer},
-      description={Polyalfabetiska skiffer bygger på att man använder flera olika \gls{substitutionsskiffer} för att
+      name={Polyalphabetic substitutionsskiffer},
+      description={polyalphabetic substitutionsskiffer bygger på att man använder flera olika \gls{substitutionsskiffer} för att
       på så sätt undvika en ut av de största svagheterna med \gls{substitutionsskiffer}. Detta då att dom lätt går att
       knäcka genom en \gls{frekvensanalys} då vissa bokstäver dyker upp mer frekvent i språket än andra. För att lösa
       detta så använder polyalphabetiska skiffer flera olika substitutionsskiffer som man byter mellan med en viss
@@ -251,20 +251,42 @@ keepaspectratio]{background-1.png}
 
   \newglossaryentry{and}
   {
-      name={AND}, % fix this
-      description={...\cite{logical-operators-ref}}
+      name={AND},
+      description={AND är en logisk operation inom datorvetenskap och matematik
+      som tar två \gls{binär}a värden och ger till baka ett \gls{binär}t värd. Detta värde
+      är 1 om och endast om båda värdena är 1 annars är värdet 0.\cite{logical-operators-ref}}
     }
 
   \newglossaryentry{or}
   {
-      name={OR}, % fix this
-      description={...\cite{logical-operators-ref}}
+      name={OR},
+      description={OR är en logisk operation inom datorvetenskap och matematik
+      som tar två \gls{binär}a värden och ger till baka ett \gls{binär}t värd. Detta värde
+      är 1 om minst ett av värdena är 1 annars är värdet 0.\cite{logical-operators-ref}}
     }
 
   \newglossaryentry{not}
   {
-      name={NOT}, % fix this
-      description={...\cite{logical-operators-ref}}
+      name={NOT},
+      description={NOT är en logisk operation inom datorvetenskap och matematik
+      som tar två \gls{binär}a värden och jämför dom. Det slutgiltiga värdet som ges tillbaka är
+      1 om värdena inte är lika varandra och annars är värdet 0.\cite{logical-operators-ref}}
+    }
+
+  \newglossaryentry{binär}
+  {
+      name={Binär},
+      description={Binär är ett begrepp som används inom datorvetenskap och matematik för att beskriva
+      ett värde som endast kan vara två olika saker som exempelvis 0 eller 1, sant eller falskt. Detta innebär abstract
+      binära tal bygger på talbasen 2, vilket skiljer sig från vad som ofta vanligen används i vardagen
+      som är talbasen 10.\cite{binär-ref}}
+    }
+
+  \newglossaryentry{enigma}
+  {
+      name={Enigma},
+      description={Enigma var en...
+        .\cite{enigma-ref}}
     }
 
 \newacronym{aes}{AES}{Advanced Encryption Standard}
