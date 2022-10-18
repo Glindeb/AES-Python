@@ -113,8 +113,7 @@ keepaspectratio]{background-1.png}
 
 
 % Glossaries setup
-\usepackage[nopostdot,nonumberlist,style=super,acronym,toc]{glossaries}
-\setlength{\glsdescwidth}{0.8\hsize}
+\usepackage[nopostdot,nonumberlist,style=altlisthypergroup,acronym,toc]{glossaries}
 \makeglossaries
 
 \renewcommand*{\glossaryname}{Begreppförklaring}
@@ -285,8 +284,11 @@ keepaspectratio]{background-1.png}
   \newglossaryentry{enigma}
   {
       name={Enigma},
-      description={Enigma var en...
-        .\cite{enigma-ref}}
+      description={Enigma var ett krypterings verktyg som användes under andra världskriget av tyska
+      militären för att kryptera medelanden. Maskinen bestod av en elektromekanisk rotordisk som under tiden
+      medellandet skrivs in för kryptering även ändrar de elektriska kopplingarna mellan vilka bokstäver som blir vad.
+      Detta är en av sakerna som gjorde enigma väldigt svår att knäcka och en av anledningarna till att
+      liknande maskiner användes under stora delar av de tidiga 1900-talet.\cite{enigma-ref}}
     }
 
 \newacronym{aes}{AES}{Advanced Encryption Standard}
@@ -376,7 +378,7 @@ tempor mi accumsan quis. Morbi blandit maximus urna non aliquet aes.
 
 \printglossary
 
-\printglossary[type=\acronymtype]
+\printglossary[type=\acronymtype, style=super]
 
 \include{Introduction}
 
