@@ -44,8 +44,6 @@ def test_encrypt(name, key, sizes, running_mode, iv=None, terminal_size=80, iter
 
 
 if __name__ == '__main__':
-    #main()
-
     # Run in parallel
     key_128 = "2b7e151628aed2a6abf7158809cf4f3c"
     key_192 = "8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b"

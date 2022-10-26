@@ -10,7 +10,8 @@ För att den menade mottagaren ska kunna läsa skiffertexten sedan så behöver 
 i dekrypterings läge. Bland de vanligaste typerna av krypteringsalgoritmer finns \nameref{sec:symmetric-asymmetric-encryption},
 vilket bland annat innefattar algoritmer som \acrshort{aes} och \gls{rsa}.\footcite{kryptering}
 
-\section{Blockchiffer}
+\section{Blockskiffer}
+\label{sec:blockskiffer}
 Blockskiffer är en krypteringsalgoritm som verkar på block av data med en fast storlek.
 blockskiffer används bland annat som en av grundkomponenterna i kryptografiska protokoll som \acrfull{tls} och \acrfull{ssl}
 som används för att kryptera data som skickas över internet bland annat.\footfullcite{blockskiffer-ref}
@@ -231,48 +232,83 @@ Medans exempel på asymetriska krypterings algoritmer är bland annat \gls{rsa}.
 
 \section{AES}
 
-Som nämnts tidigare i \nameref{sec:aes-uppkomst} bygger \acrshort{aes} standarden på Rijndael blockchiffer algoritmen
-skapad av ...
+Som nämnts tidigare i \nameref{sec:aes-uppkomst} bygger \acrshort{aes} standarden på en variant av Rijndael \nameref{sec:blockskiffer} algoritmen
+skapad av Vincent Rijmen och Joan Daemen. \acrshort{aes} är en symetrisk \nameref{sec:blockskiffer} krypterings algoritm som utformades för att ersätta
+\acrshort{des} som då var den dominerande krypterings algoritmen. \acrshort{aes} är en av de mest använda krypterings algoritmerna idag
+och används bland annat i säkerhetsprotokoll så som \acrshort{wpa2}\footfullcite{wpa2_ref}. \acrshort{aes} går att dela upp i tre olika varianter
+som alla är baserade på samma grundläggande struktur. Dessa varianter är \nameref{sec:aes-128bit}, \nameref{sec:aes-192bit} och \nameref{sec:aes-256bit} som huvudsakligen
+skiljer sig från varandra när det kommer till längden av krypteringsnyckeln samt antalet rundor som genomförs i algoritmens krypterings process.\footfullcite{aes_wiki}
 
+Även själva algoritmen kan delas upp i ett antal olika delar som alla har olika syften. Dessa delar är \nameref{sec:aes-addroundkey}, \nameref{sec:aes-subbytes}, \nameref{sec:aes-shiftrows},
+\nameref{sec:aes-mixcolumns} och \nameref{sec:aes-key-expansion} som alla kommer att förklaras mer detaljerat i de följande sektioner. \nameref{sec:aes-key-expansion} delen kan även
+delas upp ytterligare i tre olika varianter som är \nameref{sec:aes-key-expansion-128bit}, \nameref{sec:aes-key-expansion-192bit} och \nameref{sec:aes-key-expansion-256bit} beroende
+på vilken av de tre \acrshort{aes} varianterna som används.\footcite{aes_wiki}
+
+Utöver detta så bygger \nameref{sec:aes-key-expansion} på tre operationer vilka är \nameref{sec:aes-subword}, \nameref{sec:aes-rotword} och
+\nameref{sec:aes-rcon} som också kommer att förklaras mer detaljerat i de följande sektioner.\footcite{aes_wiki} För att förstå vissa av dessa delar
+så kommer det däremot krävas en förklaring av både \nameref{sec:aes-sbox} och \nameref{sec:finite-fields} som kommer att förklaras först.
 
 \subsection{Finite Fields}
-
+\label{sec:finite-fields}
 
 \subsection{AES S-Box}
-
+\label{sec:aes-sbox}
 
 \subsection{Struktur}
+\label{sec:aes-structure}
 
 
 \subsubsection{SubBytes operation}
+\label{sec:aes-subbytes}
 SubBytes operationen bygger på ...
 
 \subsubsection{ShiftRows operation}
+\label{sec:aes-shiftrows}
 
 
 \subsubsection{MixColumns operation}
+\label{sec:aes-mixcolumns}
 
 
 \subsubsection{AddRoundKey operation}
+\label{sec:aes-addroundkey}
 
 
 \subsection{Nyckel utökning}
+\label{sec:aes-key-expansion}
+
+\subsubsection{Nyckel utökning 128bit}
+\label{sec:aes-key-expansion-128bit}
+
+
+\subsubsection{Nyckel utökning 192bit}
+\label{sec:aes-key-expansion-192bit}
+
+
+\subsubsection{Nyckel utökning 256bit}
+\label{sec:aes-key-expansion-256bit}
 
 
 \subsubsection{RotWord}
+\label{sec:aes-rotword}
 
 
 \subsubsection{SubWord}
+\label{sec:aes-subword}
 
 
 \subsubsection{Rcon}
+\label{sec:aes-rcon}
 
 
 \subsection{AES-128bit}
+\label{sec:aes-128bit}
 
 
 \subsection{AES-192bit}
+\label{sec:aes-192bit}
 
 
 \subsection{AES-256bit}
+\label{sec:aes-256bit}
 
