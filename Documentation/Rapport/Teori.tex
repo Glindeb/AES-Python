@@ -250,14 +250,30 @@ så kommer det däremot krävas en förklaring av både \nameref{sec:aes-sbox} o
 
 \subsection{Finite Fields}
 \label{sec:finite-fields}
+Inom bland annat matematiken och datorvetenskapen finns begreppet Finite Fields
+som även på svenska kallas för ändliga kroppar. Finite Fields är en matematisk
+koncept som bland annat kan användas ifall man vill kunna utföra aritmetiska
+operationer som addition, subtraktion, multiplikation och division med ett
+bestämt antal element. Produkten från varje operation inom ett Finite Field
+kommer då alltid att vara ett element inom samma Finite Field.\footfullcite{finitefield_wiki}
 
-\subsubsection{AES Finite Field $GF(2^8)$}
-\label{sec:aes-finite-field}
-
+Detta är ett viktigt koncept för \acrshort{aes} då \acrshort{aes} använder sig av
+Finite Fields för att utföra vissa av sina operationer. Där anledningen till behovet
+ligger i att \acrshort{aes} jobbar på en byte nivå vilket innebär att alla operationer
+som utförs måste resultera i ett värde som är mellan 0 och 255. \acrshort{aes} Finite Field
+kan då med detta skrivas som $GF(2^8)$ där $GF$ står för Galios Field vilket är
+en annan benämning på Finite Fields.\footcite{finitefield_wiki} För en mer grundlig matematiskt förklaring av Finite Fields så kan man bland annat läsa rapporten
+\citetitle{boman2016andliga} av \citeauthor{boman2016andliga}.\footfullcite{boman2016andliga}
 
 \subsection{AES S-Box}
 \label{sec:aes-sbox}
+\acrshort{aes} använder sig av en så kallad S-Box eller med andra ord substitutions box
+för en del av sina operationer. S-Boxen kan man se som en slags uppslagstabell
+som används för att byta ut ett värde mot ett annat. S-Boxen används huvudsakligen
+för att byta ut värden i \nameref{sec:aes-key-expansion} delen av \acrshort{aes} algoritmen
+samt i \nameref{sec:aes-subbytes} operationen.\footfullcite{sbox_wiki}
 
+...\footcite{sbox_wiki}
 
 \subsection{Struktur}
 \label{sec:aes-structure}
