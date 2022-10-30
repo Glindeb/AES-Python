@@ -5,7 +5,7 @@ from sys import argv
 # ---------------
 # Decryption function
 # ---------------
-def decrypt(key, file_path, running_mode, iv=None, terminal_size=80):
+def decrypt(key, file_path, running_mode, iv=None):
 
     # Input validation
     if file_path[-4:] != ".enc":
@@ -18,13 +18,13 @@ def decrypt(key, file_path, running_mode, iv=None, terminal_size=80):
 
     # Running mode selection
     if running_mode == "ECB":
-        AES.ecb_dec(key, file_path, terminal_size)
+        AES.ecb_dec(key, file_path)
     elif running_mode == "CBC" and iv is not None:
-        AES.cbc_dec(key, file_path, iv, terminal_size)
+        AES.cbc_dec(key, file_path, iv)
     elif running_mode == "PCBC" and iv is not None:
-        AES.pcbc_dec(key, file_path, iv, terminal_size)
+        AES.pcbc_dec(key, file_path, iv)
     elif running_mode == "OFB" and iv is not None:
-        AES.ofb_dec(key, file_path, iv, terminal_size)
+        AES.ofb_dec(key, file_path, iv)
     else:
         raise Exception("Running mode not supported")
 

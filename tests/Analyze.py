@@ -28,14 +28,14 @@ def write_data(data, name_f):
         writer.writerows(data)
 
 
-def test_encrypt(name, key, sizes, running_mode, iv=None, terminal_size=80, iterations=None):
+def test_encrypt(name, key, sizes, running_mode, iv=None, iterations=None):
     test = []
     for i in range(iterations):
         test_0 = []
         for i in range(len(sizes)):
             test_init('setup', sizes[i], name)
             start = timer()
-            encrypt(key, name + str(sizes[i]) + end_f, running_mode, iv=iv, terminal_size=terminal_size)
+            encrypt(key, name + str(sizes[i]) + end_f, running_mode, iv=iv)
             end = timer()
             test_init('clean', sizes[i], name)
             test_0.append(end - start)
@@ -51,17 +51,17 @@ if __name__ == '__main__':
     iv = "000102030405060708090a0b0c0d0e0f"
     sizes = [(2**3), (2**5), (2**7), (2**9), (2**11), (2**13), (2**15), (2**17), (2**19), (2**21), (2**23), (2**25)]
 
-    p1 = Process(target=test_encrypt, args=("test_1_ECB", key_128, sizes, 'ECB', None, 80, 10))
-    p2 = Process(target=test_encrypt, args=("test_1_CBC", key_128, sizes, 'CBC', iv, 80, 10))
-    p3 = Process(target=test_encrypt, args=("test_1_OFB", key_128, sizes, 'OFB', iv, 80, 10))
+    p1 = Process(target=test_encrypt, args=("test_1_ECB", key_128, sizes, 'ECB', None, 10))
+    p2 = Process(target=test_encrypt, args=("test_1_CBC", key_128, sizes, 'CBC', iv, 10))
+    p3 = Process(target=test_encrypt, args=("test_1_OFB", key_128, sizes, 'OFB', iv, 10))
 
-    p4 = Process(target=test_encrypt, args=("test_2_ECB", key_192, sizes, 'ECB', None, 80, 10))
-    p5 = Process(target=test_encrypt, args=("test_2_CBC", key_192, sizes, 'CBC', iv, 80, 10))
-    p6 = Process(target=test_encrypt, args=("test_2_OFB", key_192, sizes, 'OFB', iv, 80, 10))
+    p4 = Process(target=test_encrypt, args=("test_2_ECB", key_192, sizes, 'ECB', None, 10))
+    p5 = Process(target=test_encrypt, args=("test_2_CBC", key_192, sizes, 'CBC', iv, 10))
+    p6 = Process(target=test_encrypt, args=("test_2_OFB", key_192, sizes, 'OFB', iv, 10))
 
-    p7 = Process(target=test_encrypt, args=("test_3_ECB", key_256, sizes, 'ECB', None, 80, 10))
-    p8 = Process(target=test_encrypt, args=("test_3_CBC", key_256, sizes, 'CBC', iv, 80, 10))
-    p9 = Process(target=test_encrypt, args=("test_3_OFB", key_256, sizes, 'OFB', iv, 80, 10))
+    p7 = Process(target=test_encrypt, args=("test_3_ECB", key_256, sizes, 'ECB', None, 10))
+    p8 = Process(target=test_encrypt, args=("test_3_CBC", key_256, sizes, 'CBC', iv, 10))
+    p9 = Process(target=test_encrypt, args=("test_3_OFB", key_256, sizes, 'OFB', iv, 10))
 
     p1.start()
     p2.start()
