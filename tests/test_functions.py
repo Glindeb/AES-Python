@@ -1,4 +1,5 @@
 import pytest
+import numpy as np
 import PyAES.AES as AES
 import PyAES
 
@@ -35,26 +36,14 @@ def test_exist():
     assert PyAES.__description__ is not None
     assert PyAES.__platforms__ is not None
 
-def test_aes_actions_list_to_matrix():
-    assert AES.list_to_matrix([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]) == [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15]]
-
-def test_aes_actions_matrix_to_list():
-    assert AES.matrix_to_list([[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15]]) == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-
-def test_aes_actions_add_round_key():
-    assert AES.add_round_key([[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15]], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]) == [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
-
-def test_aes_actions_xor():
-    assert AES.xor([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]) == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
 def test_aes_actions_sub_bytes():
     assert AES.sub_bytes([[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15]], subBytesTable) == [[0x63, 0x7c, 0x77, 0x7b], [0xf2, 0x6b, 0x6f, 0xc5], [0x30, 0x01, 0x67, 0x2b], [0xfe, 0xd7, 0xab, 0x76]]
 
 def test_aes_actions_shift_rows():
-    assert AES.shift_rows([[0x63, 0x7c, 0x77, 0x7b], [0xf2, 0x6b, 0x6f, 0xc5], [0x30, 0x01, 0x67, 0x2b], [0xfe, 0xd7, 0xab, 0x76]]) == [[99, 107, 103, 118], [242, 1, 171, 123], [48, 215, 119, 197], [254, 124, 111, 43]]
+    assert np.array_equal(AES.shift_rows(np.array([0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76]).reshape(4, 4)), [[99, 107, 103, 118], [242, 1, 171, 123], [48, 215, 119, 197], [254, 124, 111, 43]])
 
 def test_aes_actions_inv_shift_rows():
-    assert AES.inv_shift_rows([[99, 107, 103, 118], [242, 1, 171, 123], [48, 215, 119, 197], [254, 124, 111, 43]]) == [[0x63, 0x7c, 0x77, 0x7b], [0xf2, 0x6b, 0x6f, 0xc5], [0x30, 0x01, 0x67, 0x2b], [0xfe, 0xd7, 0xab, 0x76]]
+    assert np.array_equal(AES.inv_shift_rows(np.array([99, 107, 103, 118, 242, 1, 171, 123, 48, 215, 119, 197, 254, 124, 111, 43]).reshape(4, 4)), [[0x63, 0x7c, 0x77, 0x7b], [0xf2, 0x6b, 0x6f, 0xc5], [0x30, 0x01, 0x67, 0x2b], [0xfe, 0xd7, 0xab, 0x76]])
 
 def test_aes_actions_mix_columns():
     assert AES.mix_columns([[0xdb, 0x13, 0x53, 0x45], [0xf2, 0x0a, 0x22, 0x5c], [0x01, 0x01, 0x01, 0x01], [0xc6, 0xc6, 0xc6, 0xc6]]) == [[0x8e, 0x4d, 0xa1, 0xbc], [0x9f, 0xdc, 0x58, 0x9d], [0x01, 0x01, 0x01, 0x01], [0xc6, 0xc6, 0xc6, 0xc6]]
@@ -87,14 +76,17 @@ def test_aes_encryption_rounds(data, key, expected):
     for i, t in enumerate(data):
         data[i] = int(t, 16)
 
-    result = AES.encryption_rounds(data, round_keys, nr)
+    result = AES.encryption_rounds(np.array(data).reshape(4, 4), round_keys, nr)
 
-    for i, t in enumerate(result):
-        result[i] = hex(t)[2:]
-        if len(result[i]) == 1:
-            result[i] = "0" + result[i]
+    e = []
+    for j in result:
+        for i in j:
+            tmp = hex(i)[2:]
+            if len(tmp) == 1:
+                tmp = "0" + tmp
+            e.append(tmp)
 
-    result = "".join(result)
+    result = "".join(e)
 
     assert result == expected
 
@@ -122,13 +114,16 @@ def test_aes_decryption_rounds(data, key, expected):
     for i, t in enumerate(data):
         data[i] = int(t, 16)
 
-    result = AES.decryption_rounds(data, round_keys, nr)
+    result = AES.decryption_rounds(np.array(data).reshape(4, 4), round_keys, nr)
 
-    for i, t in enumerate(result):
-        result[i] = hex(t)[2:]
-        if len(result[i]) == 1:
-            result[i] = "0" + result[i]
+    e = []
+    for j in result:
+        for i in j:
+            tmp = hex(i)[2:]
+            if len(tmp) == 1:
+                tmp = "0" + tmp
+            e.append(tmp)
 
-    result = "".join(result)
+    result = "".join(e)
 
     assert result == expected

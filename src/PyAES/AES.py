@@ -3,23 +3,7 @@
 # ---------------
 from os.path import getsize
 from os import remove
-from functools import wraps
-
-
-# ---------------
-# Cache decorator
-# ---------------
-def memoize(func):
-    cache = {}
-
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        key = str(args) + str(kwargs)
-        if key not in cache:
-            cache[key] = func(*args, **kwargs)
-        return cache[key]
-    return wrapper
-
+import numpy as np
 
 # ---------------
 # Fixed variables
@@ -81,53 +65,28 @@ def xtime(a):
     return (((a << 1) ^ 0x1B) & 0xFF) if (a & 0x80) else (a << 1)
 
 
-# Converts a list to a matrix of 4x4
-def list_to_matrix(data):
-    return [list(data[i:i+4]) for i in range(0, len(data), 4)]
-
-
-# Converts a matrix of 4x4 to a list
-def matrix_to_list(matrix):
-    return sum(matrix, [])
-
-
-# Add round key function
-def add_round_key(data, round_key):
-    key = list_to_matrix(round_key)
-    for i in range(4):
-        for j in range(4):
-            data[i][j] ^= key[i][j]
-    return data
-
-
-# XOR function
-def xor(data1, data2):
-    data1, data2 = list_to_matrix(data1), list_to_matrix(data2)
-    for i in range(4):
-        for j in range(4):
-            data1[i][j] ^= data2[i][j]
-    return matrix_to_list(data1)
-
-
 # Performs the byte substitution layer
 def sub_bytes(data, bytesTable):
-    return [[bytesTable[c] for c in r] for r in data]
+    for i, row in enumerate(data):
+        for j, byte in enumerate(row):
+            data[i][j] = bytesTable[byte]
+    return data
 
 
 # Shift rows function
-def shift_rows(data):
-    data[0][1], data[1][1], data[2][1], data[3][1] = data[1][1], data[2][1], data[3][1], data[0][1]
-    data[0][2], data[1][2], data[2][2], data[3][2] = data[2][2], data[3][2], data[0][2], data[1][2]
-    data[0][3], data[1][3], data[2][3], data[3][3] = data[3][3], data[0][3], data[1][3], data[2][3]
-    return data
+def shift_rows(array):
+    array[:, 1] = np.roll(array[:, 1], -1, axis=0)
+    array[:, 2] = np.roll(array[:, 2], -2, axis=0)
+    array[:, 3] = np.roll(array[:, 3], -3, axis=0)
+    return array
 
 
 # Inverse shift rows function
-def inv_shift_rows(data):
-    data[0][1], data[1][1], data[2][1], data[3][1] = data[3][1], data[0][1], data[1][1], data[2][1]
-    data[0][2], data[1][2], data[2][2], data[3][2] = data[2][2], data[3][2], data[0][2], data[1][2]
-    data[0][3], data[1][3], data[2][3], data[3][3] = data[1][3], data[2][3], data[3][3], data[0][3]
-    return data
+def inv_shift_rows(array):
+    array[:, 1] = np.roll(array[:, 1], 1, axis=0)
+    array[:, 2] = np.roll(array[:, 2], 2, axis=0)
+    array[:, 3] = np.roll(array[:, 3], 3, axis=0)
+    return array
 
 
 # Performs the mix columns layer
@@ -183,48 +142,42 @@ def remove_padding(data, identifier):
 
 # Performs the encryption rounds
 def encryption_rounds(data, round_keys, nr):
-    # Creates a 4x4 matrix from the 16-byte array
-    data = list_to_matrix(data)
-
     # Inizial add round key
-    data = add_round_key(data, round_keys[0])
+    data = np.bitwise_xor(data, round_keys[0])
 
     # Rounds 1 to 9 or 1 to 11 or 1 to 13
     for i in range(1, (nr - 1)):
         data = sub_bytes(data, subBytesTable)
         data = shift_rows(data)
         data = mix_columns(data)
-        data = add_round_key(data, round_keys[i])
+        data = np.bitwise_xor(data, round_keys[i])
 
     # Final round
     data = sub_bytes(data, subBytesTable)
     data = shift_rows(data)
-    data = add_round_key(data, round_keys[nr - 1])
+    data = np.bitwise_xor(data, round_keys[nr - 1])
 
-    return matrix_to_list(data)
+    return data
 
 
 # Performs the decryption rounds
 def decryption_rounds(data, round_keys, nr):
-    # Creates a 4x4 matrix from the 16-byte array
-    data = list_to_matrix(data)
-
     # Inizial add round key
-    data = add_round_key(data, round_keys[-1])
+    data = np.bitwise_xor(data, round_keys[-1])
 
     # Rounds 1 to 9 or 1 to 11 or 1 to 13
     for i in range(1, (nr - 1)):
         data = inv_shift_rows(data)
         data = sub_bytes(data, invSubBytesTable)
-        data = add_round_key(data, round_keys[-(i+1)])
+        data = np.bitwise_xor(data, round_keys[-(i+1)])
         data = inv_mix_columns(data)
 
     # Final round
     data = inv_shift_rows(data)
     data = sub_bytes(data, invSubBytesTable)
-    data = add_round_key(data, round_keys[0])
+    data = np.bitwise_xor(data, round_keys[0])
 
-    return matrix_to_list(data)
+    return data
 
 
 # ---------------
@@ -256,7 +209,7 @@ def keyExpansion(key):
         words[i] = tuple(tmp)
 
     for i in range(nr):
-        round_keys[i] = (words[i * 4] + words[i * 4 + 1] + words[i * 4 + 2] + words[i * 4 + 3])
+        round_keys[i] = np.array(words[i * 4] + words[i * 4 + 1] + words[i * 4 + 2] + words[i * 4 + 3]).reshape(4, 4)
 
     return round_keys, nr
 
@@ -365,20 +318,20 @@ def ecb_enc(key, file_path):
 
     with open(f"{file_path}.enc", 'wb') as output, open(file_path, 'rb') as data:
         for i in range(int(file_size/16)):
-            raw = [i for i in data.read(16)]
-            result = bytes(encryption_rounds(raw, round_keys, nr))
+            raw = np.array([i for i in data.read(16)]).reshape(4, 4)
+            result = bytes((encryption_rounds(raw, round_keys, nr).flatten()).tolist())
             output.write(result)
 
         if file_size % 16 != 0:
             raw = [i for i in data.read()]
             raw, length = add_padding(raw)
 
-            result = bytes(encryption_rounds(raw, round_keys, nr))
-            identifier = bytes(encryption_rounds([0 for i in range(15)] + [length], round_keys, nr))
+            result = bytes((encryption_rounds(np.array(raw).reshape(4, 4), round_keys, nr).flatten()).tolist())
+            identifier = bytes((encryption_rounds(np.array([0 for i in range(15)] + [length]).reshape(4, 4), round_keys, nr).flatten()).tolist())
 
             output.write(result + identifier)
         else:
-            identifier = bytes(encryption_rounds([0 for i in range(16)], round_keys, nr))
+            identifier = bytes((encryption_rounds(np.array([0 for i in range(16)]).reshape(4, 4), round_keys, nr).flatten()).tolist())
             output.write(identifier)
     remove(file_path)
 
