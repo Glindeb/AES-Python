@@ -209,7 +209,7 @@ def keyExpansion(key):
         words[i] = tuple(tmp)
 
     for i in range(nr):
-        round_keys[i] = np.array(words[i * 4] + words[i * 4 + 1] + words[i * 4 + 2] + words[i * 4 + 3]).reshape(4, 4)
+        round_keys[i] = np.array(words[i * 4] + words[i * 4 + 1] + words[i * 4 + 2] + words[i * 4 + 3]).reshape(4, 4)  # type: ignore
 
     return round_keys, nr
 
@@ -323,7 +323,7 @@ def ecb_enc(key, file_path):
             output.write(result)
 
         if file_size % 16 != 0:
-            raw = [i for i in data.read()]
+            raw = [i for i in data.read()]  # type: ignore
             raw, length = add_padding(raw)
 
             result = bytes((encryption_rounds(np.array(raw).reshape(4, 4), round_keys, nr).flatten()).tolist())
@@ -374,7 +374,7 @@ def cbc_enc(key, file_path, iv):
             output.write(bytes((vector.flatten()).tolist()))
 
         if file_size % 16 != 0:
-            raw = [i for i in data.read()]
+            raw = [i for i in data.read()]  # type: ignore
             raw, length = add_padding(raw)
 
             raw = np.bitwise_xor(np.array(raw).reshape(4, 4), vector)
@@ -386,8 +386,8 @@ def cbc_enc(key, file_path, iv):
             output.write(bytes((vector.flatten()).tolist() + (identifier.flatten()).tolist()))
         else:
             identifier = np.bitwise_xor(np.array([0 for i in range(16)]).reshape(4, 4), vector)
-            identifier = bytes(((encryption_rounds(identifier, round_keys, nr)).flatten()).tolist())
-            output.write(identifier)
+            identifier = bytes(((encryption_rounds(identifier, round_keys, nr)).flatten()).tolist())  # type: ignore
+            output.write(identifier)  # type: ignore
     remove(file_path)
 
 
@@ -444,7 +444,7 @@ def pcbc_enc(key, file_path, iv):
             vector = np.bitwise_xor(vector, raw)
 
         if file_size % 16 != 0:
-            raw = [i for i in data.read()]
+            raw = [i for i in data.read()]  # type: ignore
             raw, length = add_padding(raw)
             raw = np.array(raw).reshape(4, 4)
 
@@ -458,8 +458,8 @@ def pcbc_enc(key, file_path, iv):
             output.write(bytes((vector1.flatten()).tolist() + (identifier.flatten()).tolist()))
         else:
             identifier = np.bitwise_xor(np.array([0 for i in range(16)]).reshape(4, 4), vector)
-            identifier = bytes((encryption_rounds(identifier, round_keys, nr).flatten()).tolist())
-            output.write(identifier)
+            identifier = bytes((encryption_rounds(identifier, round_keys, nr).flatten()).tolist())  # type: ignore
+            output.write(identifier)  # type: ignore
     remove(file_path)
 
 
@@ -518,7 +518,7 @@ def ofb_enc(key, file_path, iv):
             output.write(bytes((result.flatten()).tolist()))
 
         if file_size % 16 != 0:
-            raw = [i for i in data.read()]
+            raw = [i for i in data.read()]  # type: ignore
             raw, length = add_padding(raw)
             raw = np.array(raw).reshape(4, 4)
 
@@ -570,7 +570,7 @@ def ofb_dec(key, file_path, iv):
         mix = encryption_rounds(mix, round_keys, nr)
         identifier = np.bitwise_xor(identifier, mix)
 
-        result = bytes(remove_padding((data_pice.flatten()).tolist(), (identifier.flatten()).tolist()))
+        result = bytes(remove_padding((data_pice.flatten()).tolist(), (identifier.flatten()).tolist()))  # type: ignore
 
-        output.write(result)
+        output.write(result)  # type: ignore
     remove(file_path)
