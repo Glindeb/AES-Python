@@ -5,7 +5,7 @@ from sys import argv
 # ---------------
 # Encryption function
 # ---------------
-def encrypt(key, file_path, running_mode, iv=None, terminal_size=80):
+def encrypt(key, file_path, running_mode, iv=None):
 
     # Input validation
     if (len(key) / 2) not in [16, 24, 32]:
@@ -16,13 +16,13 @@ def encrypt(key, file_path, running_mode, iv=None, terminal_size=80):
 
     # Running mode selection
     if running_mode == "ECB":
-        AES.ecb_enc(key, file_path, terminal_size)
+        AES.ecb_enc(key, file_path)
     elif running_mode == "CBC" and iv is not None:
-        AES.cbc_enc(key, file_path, iv, terminal_size)
+        AES.cbc_enc(key, file_path, iv)
     elif running_mode == "PCBC" and iv is not None:
-        AES.pcbc_enc(key, file_path, iv, terminal_size)
+        AES.pcbc_enc(key, file_path, iv)
     elif running_mode == "OFB" and iv is not None:
-        AES.ofb_enc(key, file_path, iv, terminal_size)
+        AES.ofb_enc(key, file_path, iv)
     else:
         raise Exception("Running mode not supported")
 

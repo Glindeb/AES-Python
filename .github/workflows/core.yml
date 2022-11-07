@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ['3.9', '3.10']
+        python-version: ['3.9', '3.10', '3.11']
 
     steps:
       - uses: actions/checkout@v3
@@ -65,9 +65,9 @@ jobs:
         uses: 'marvinpinto/action-automatic-releases@latest'
         with:
           repo_token: ${{ secrets.RELEASE_TOKEN }}
-          automatic_release_tag: v1.2.1
+          automatic_release_tag: v1.3.0
           prerelease: false
-          title: v1.2.1
+          title: v1.3.0
           files: |
             dist/*
 

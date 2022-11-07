@@ -1,33 +1,330 @@
 @InProceedings{10.1007/978-3-642-04138-9_8,
-      author="Renauld, Mathieu
-      and Standaert, Fran{\c{c}}ois-Xavier
-      and Veyrat-Charvillon, Nicolas",
-      editor="Clavier, Christophe
-      and Gaj, Kris",
-      title="Algebraic Side-Channel Attacks on the AES: Why Time also Matters in DPA",
-      booktitle="Cryptographic Hardware and Embedded Systems - CHES 2009",
-      year="2009",
-      publisher="Springer Berlin Heidelberg",
-      address="Berlin, Heidelberg",
-      pages="97--111",
-      abstract="Algebraic side-channel attacks have been recently introduced as a powerful cryptanalysis technique against block ciphers. These attacks represent both a target algorithm and its physical information leakages as an overdefined system of equations that the adversary tries to solve. They were first applied to PRESENT because of its simple algebraic structure. In this paper, we investigate the extent to which they can be exploited against the AES Rijndael and discuss their practical specificities. We show experimentally that most of the intuitions that hold for PRESENT can also be observed for an unprotected implementation of Rijndael in an 8-bit controller. Namely, algebraic side-channel attacks can recover the AES master key with the observation of a single encrypted plaintext and they easily deal with unknown plaintexts/ciphertexts in this context. Because these attacks can take advantage of the physical information corresponding to all the cipher rounds, they imply that one cannot trade speed for code size (or gate count) without affecting the physical security of a leaking device. In other words, more intermediate computations inevitably leads to more exploitable leakages. We analyze the consequences of this observation on two different masking schemes and discuss its impact on other countermeasures. Our results exhibit that algebraic techniques lead to a new understanding of implementation weaknesses that is different than classical side-channel attacks.",
-      isbn="978-3-642-04138-9"
-      }
+  vauthor="Renauld, Mathieu
+  and Standaert, Fran{\c{c}}ois-Xavier
+  and Veyrat-Charvillon, Nicolas",
+  editor="Clavier, Christophe
+  and Gaj, Kris",
+  title="Algebraic Side-Channel Attacks on the AES: Why Time also Matters in DPA",
+  booktitle="Cryptographic Hardware and Embedded Systems - CHES 2009",
+  year="2009",
+  publisher="Springer Berlin Heidelberg",
+  address="Berlin, Heidelberg",
+  pages="97--111",
+  abstract="Algebraic side-channel attacks have been recently introduced as a powerful cryptanalysis technique against block ciphers. These attacks represent both a target algorithm and its physical information leakages as an overdefined system of equations that the adversary tries to solve. They were first applied to PRESENT because of its simple algebraic structure. In this paper, we investigate the extent to which they can be exploited against the AES Rijndael and discuss their practical specificities. We show experimentally that most of the intuitions that hold for PRESENT can also be observed for an unprotected implementation of Rijndael in an 8-bit controller. Namely, algebraic side-channel attacks can recover the AES master key with the observation of a single encrypted plaintext and they easily deal with unknown plaintexts/ciphertexts in this context. Because these attacks can take advantage of the physical information corresponding to all the cipher rounds, they imply that one cannot trade speed for code size (or gate count) without affecting the physical security of a leaking device. In other words, more intermediate computations inevitably leads to more exploitable leakages. We analyze the consequences of this observation on two different masking schemes and discuss its impact on other countermeasures. Our results exhibit that algebraic techniques lead to a new understanding of implementation weaknesses that is different than classical side-channel attacks.",
+  isbn="978-3-642-04138-9"
+}
 
 @article{kumar2011investigations,
-      title={Investigations in brute force attack on cellular security based on des and aes},
-      author={Kumar, Neeraj},
-      journal={IJCEM International Journal of Computational Engineering \& Management},
-      volume={14},
-      pages={50--52},
-      year={2011},
-      publisher={Citeseer}
-      }
+  title={Investigations in brute force attack on cellular security based on des and aes},
+  author={Kumar, Neeraj},
+  journal={IJCEM International Journal of Computational Engineering \& Management},
+  volume={14},
+  pages={50--52},
+  year={2011},
+  publisher={Citeseer}
+}
 
 @online{python,
-      author = {{Python Software Foundation}},
-      title = {What is Python?},
-      year = {2022},
-      url = {https://docs.python.org/3/faq/general.html#what-is-python},
-      urldate = {2022-09-01}
-      }
+  author = {{Python Software Foundation}},
+  title = {What is Python?},
+  year = {2022},
+  url = {https://docs.python.org/3/faq/general.html#what-is-python},
+  urldate = {2022-09-01}
+}
+
+@online{NE-1,
+  author = {Nationalencyklopedin},
+  title = {kryptografi},
+  year = {2022},
+  url = {http://www.ne.se/uppslagsverk/encyklopedi/lång/kryptografi},
+  urldate = {2022-09-07}
+}
+
+@online{krypto,
+  author = {Wikipedia},
+  title = {Kryptografi},
+  year = {2020},
+  url = {https://sv.wikipedia.org/w/index.php?title=Kryptografi&oldid=48532107},
+  urldate = {2022-09-07}
+}
+
+@online{kryptering,
+  author = {Wikipedia},
+  title = {Kryptering},
+  year = {2021},
+  url = {https://sv.wikipedia.org/w/index.php?title=Kryptering&oldid=49187134},
+  urldate = {2022-09-08}
+}
+
+@online{symencrypt,
+  author = {Wikipedia},
+  title = {Symmetric-key algorithm},
+  year = {2022},
+  url = {https://en.wikipedia.org/w/index.php?title=Symmetric-key_algorithm&oldid=1106743629},
+  urldate = {2022-09-25}
+}
+
+@online{modesofoperation,
+  author = {Wikipedia},
+  title = {Block cipher mode of operation},
+  year = {2022},
+  url = {https://en.wikipedia.org/w/index.php?title=Block_cipher_mode_of_operation&oldid=1106163325},
+  urldate = {2022-09-25}
+}
+
+@online{caesar,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Caesarchiffer},
+  year = {2021},
+  url = {https://sv.wikipedia.org/w/index.php?title=Caesarchiffer&oldid=48885737},
+  urldate = {2022-09-23}
+}
+
+@online{rounds-picture,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Advanced Encryption Standard},
+  year = {1999},
+  url = {https://en.wikipedia.org/wiki/Advanced_Encryption_Standard#/media/File:AES_(Rijndael)_Round_Function.png},
+  urldate = {2022-09-02}
+}
+
+@online{ecb-mode-enc-ref,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Block cipher mode of operation},
+  year = {2022},
+  url = {https://en.wikipedia.org/w/index.php?title=Block_cipher_mode_of_operation&oldid=1106163325#/media/File:ECB_encryption.svg},
+  urldate = {2022-09-25}
+}
+
+@online{ecb-mode-dec-ref,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Block cipher mode of operation},
+  year = {2022},
+  url = {https://en.wikipedia.org/w/index.php?title=Block_cipher_mode_of_operation&oldid=1106163325#/media/File:ECB_decryption.svg},
+  urldate = {2022-09-25}
+}
+
+@online{cbc-mode-enc-ref,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Block cipher mode of operation},
+  year = {2022},
+  url = {https://en.wikipedia.org/w/index.php?title=Block_cipher_mode_of_operation&oldid=1106163325#/media/File:CBC_encryption.svg},
+  urldate = {2022-09-26}
+}
+
+@online{cbc-mode-dec-ref,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Block cipher mode of operation},
+  year = {2022},
+  url = {https://en.wikipedia.org/w/index.php?title=Block_cipher_mode_of_operation&oldid=1106163325#/media/File:CBC_decryption.svg},
+  urldate = {2022-09-26}
+}
+
+@online{ofb-mode-enc-ref,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Block cipher mode of operation},
+  year = {2022},
+  url = {https://en.wikipedia.org/w/index.php?title=Block_cipher_mode_of_operation&oldid=1106163325#/media/File:OFB_encryption.svg},
+  urldate = {2022-10-3}
+}
+
+@online{ofb-mode-dec-ref,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Block cipher mode of operation},
+  year = {2022},
+  url = {https://en.wikipedia.org/w/index.php?title=Block_cipher_mode_of_operation&oldid=1106163325#/media/File:OFB_decryption.svg},
+  urldate = {2022-10-3}
+}
+
+@online{keystream,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Keystream},
+  year = {2021},
+  url = {https://en.wikipedia.org/w/index.php?title=Keystream&oldid=1039345792},
+  urldate = {2022-10-4}
+}
+
+@online{pseudoslump,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Pseudorandomness},
+  year = {2022},
+  url = {https://en.wikipedia.org/w/index.php?title=Pseudorandomness&oldid=1112429322},
+  urldate = {2022-10-4}
+}
+
+@online{rsa-ref,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {RSA},
+  year = {2022},
+  url = {https://sv.wikipedia.org/w/index.php?title=RSA&oldid=50280992},
+  urldate = {2022-10-4}
+}
+
+@online{vscode-ref,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Visual Studio Code},
+  year = {2021},
+  url = {https://sv.wikipedia.org/w/index.php?title=Visual_Studio_Code&oldid=48905230},
+  urldate = {2022-10-4}
+}
+
+@online{blockskiffer-ref,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Block cipher},
+  year = {2022},
+  url = {https://en.wikipedia.org/w/index.php?title=Block_cipher&oldid=1111913955},
+  urldate = {2022-10-5}
+}
+
+@online{streamcipher-ref,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Stream cipher},
+  year = {2022},
+  url = {https://en.wikipedia.org/w/index.php?title=Stream_cipher&oldid=1098861130},
+  urldate = {2022-10-5}
+}
+
+@online{bit-ref,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Bit},
+  year = {2022},
+  url = {https://sv.wikipedia.org/w/index.php?title=Bit&oldid=51073011},
+  urldate = {2022-10-5}
+}
+
+@online{byte-ref,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Byte},
+  year = {2020},
+  url = {https://sv.wikipedia.org/w/index.php?title=Byte&oldid=48406212},
+  urldate = {2022-10-5}
+}
+
+@online{hashfunktion-ref,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Hashfunktion},
+  year = {2022},
+  url = {https://sv.wikipedia.org/w/index.php?title=Hashfunktion&oldid=50669121},
+  urldate = {2022-10-7}
+}
+
+@online{polyalphabetic-ref,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Polyalphabetic cipher},
+  year = {2022},
+  url = {https://en.wikipedia.org/w/index.php?title=Polyalphabetic_cipher&oldid=1113775685},
+  urldate = {2022-10-10}
+}
+
+@online{substitutionsskiffer-ref,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Substitution cipher},
+  year = {2022},
+  url = {https://en.wikipedia.org/w/index.php?title=Substitution_cipher&oldid=1111925704},
+  urldate = {2022-10-10}
+}
+
+@online{frekvensanalys-ref,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Frequency analysis},
+  year = {2022},
+  url = {https://en.wikipedia.org/w/index.php?title=Frequency_analysis&oldid=1113626431},
+  urldate = {2022-10-10}
+}
+
+@online{logical-operators-ref,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Logical connective},
+  year = {2022},
+  url = {https://en.wikipedia.org/w/index.php?title=Logical_connective&oldid=1113164184},
+  urldate = {2022-10-12}
+}
+
+@online{binär-ref,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Binära talsystemet},
+  year = {2021},
+  url = {https://sv.wikipedia.org/w/index.php?title=Binära_talsystemet&oldid=49765783},
+  urldate = {2022-10-17}
+}
+
+@online{enigma-ref,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Enigma machine},
+  year = {2022},
+  url = {https://en.wikipedia.org/w/index.php?title=Enigma_machine&oldid=1109006355},
+  urldate = {2022-10-17}
+}
+
+@online{aes_wiki,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Advanced Encryption Standard},
+  year = {2022},
+  url = {https://en.wikipedia.org/w/index.php?title=Advanced_Encryption_Standard&oldid=1117488157#See_also},
+  urldate = {2022-10-26}
+}
+
+@online{finitefield_wiki,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Finite field},
+  year = {2022},
+  url = {https://en.wikipedia.org/w/index.php?title=Finite_field&oldid=1117661014},
+  urldate = {2022-10-27}
+}
+
+@online{sbox_wiki,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {Rijndael S-box},
+  year = {2022},
+  url = {https://en.wikipedia.org/w/index.php?title=Rijndael_S-box&oldid=1110299033},
+  urldate = {2022-10-27}
+}
+
+@misc{boman2016andliga,
+  title={{\"A}ndliga kroppar},
+  author={{Boman, Anna}},
+  year={2016}
+}
+
+@online{wpa2_ref,
+  author = {{Wikipedia, the free encyclopedia}},
+  title = {WPA},
+  year = {2021},
+  url = {https://sv.wikipedia.org/w/index.php?title=WPA&oldid=49187997},
+  urldate = {2022-10-26}
+}
+
+@article{xor,
+  title={All about XOR},
+  author={LEWIN, FEATURE MICHAEL},
+  journal={For details of ACCU, our publications and activities, visit the ACCU website: www. accu. org},
+  pages={14},
+  year={2012}
+}
+
+@article{daemen1999aes,
+  title={AES proposal: Rijndael},
+  author={Daemen, Joan and Rijmen, Vincent},
+  year={1999},
+  publisher={Gaithersburg, MD, USA}
+}
+
+@article{luciano1987cryptology,
+  title={Cryptology: From Caesar ciphers to public-key cryptosystems},
+  author={Luciano, Dennis and Prichett, Gordon},
+  journal={The College Mathematics Journal},
+  volume={18},
+  number={1},
+  pages={2--17},
+  year={1987},
+  publisher={Taylor \& Francis}
+}
+
+@article{kryptografi-historia-1,
+  title={A brief history of cryptography},
+  author={Damico, Tony M},
+  journal={Inquiries Journal},
+  volume={1},
+  number={11},
+  year={2009}
+}

@@ -3,6 +3,7 @@
 # ---------------
 from os.path import getsize
 from os import remove
+import numpy as np
 
 # ---------------
 # Fixed variables
@@ -59,78 +60,33 @@ round_constant = (
 # ---------------
 # Main action functions
 # ---------------
-# Progress bar display and update
-def progress_bar(progress, total_progress, terminal_width):
-    if terminal_width > 85:
-        bar_width = 75
-    else:
-        bar_width = terminal_width - 10
-
-    percent = 100 * (float(progress) / float(total_progress))
-    bar_progress = int(bar_width * (float(progress) / float(total_progress)))
-
-    if bar_progress > bar_width or percent > 100:
-        bar_progress = bar_width
-        percent = 100
-
-    bar_remaining = bar_width - bar_progress
-    bar = '#' * bar_progress + '-' * bar_remaining
-    print(f"\r[{bar}] {percent:.2f}%", end="\r")
-    return progress + 16
-
-
 # Xtime
 def xtime(a):
     return (((a << 1) ^ 0x1B) & 0xFF) if (a & 0x80) else (a << 1)
 
 
-# Converts a list to a matrix of 4x4
-def list_to_matrix(data):
-    return [list(data[i:i+4]) for i in range(0, len(data), 4)]
-
-
-# Converts a matrix of 4x4 to a list
-def matrix_to_list(matrix):
-    return sum(matrix, [])
-
-
-# Add round key function
-def add_round_key(data, round_key):
-    key = list_to_matrix(round_key)
-    for i in range(4):
-        for j in range(4):
-            data[i][j] ^= key[i][j]
-    return data
-
-
-# XOR function
-def xor(data1, data2):
-    data1, data2 = list_to_matrix(data1), list_to_matrix(data2)
-    for i in range(4):
-        for j in range(4):
-            data1[i][j] ^= data2[i][j]
-    return matrix_to_list(data1)
-
-
 # Performs the byte substitution layer
 def sub_bytes(data, bytesTable):
-    return [[bytesTable[c] for c in r] for r in data]
+    for i, row in enumerate(data):
+        for j, byte in enumerate(row):
+            data[i][j] = bytesTable[byte]
+    return data
 
 
 # Shift rows function
-def shift_rows(data):
-    data[0][1], data[1][1], data[2][1], data[3][1] = data[1][1], data[2][1], data[3][1], data[0][1]
-    data[0][2], data[1][2], data[2][2], data[3][2] = data[2][2], data[3][2], data[0][2], data[1][2]
-    data[0][3], data[1][3], data[2][3], data[3][3] = data[3][3], data[0][3], data[1][3], data[2][3]
-    return data
+def shift_rows(array):
+    array[:, 1] = np.roll(array[:, 1], -1, axis=0)
+    array[:, 2] = np.roll(array[:, 2], -2, axis=0)
+    array[:, 3] = np.roll(array[:, 3], -3, axis=0)
+    return array
 
 
 # Inverse shift rows function
-def inv_shift_rows(data):
-    data[0][1], data[1][1], data[2][1], data[3][1] = data[3][1], data[0][1], data[1][1], data[2][1]
-    data[0][2], data[1][2], data[2][2], data[3][2] = data[2][2], data[3][2], data[0][2], data[1][2]
-    data[0][3], data[1][3], data[2][3], data[3][3] = data[1][3], data[2][3], data[3][3], data[0][3]
-    return data
+def inv_shift_rows(array):
+    array[:, 1] = np.roll(array[:, 1], 1, axis=0)
+    array[:, 2] = np.roll(array[:, 2], 2, axis=0)
+    array[:, 3] = np.roll(array[:, 3], 3, axis=0)
+    return array
 
 
 # Performs the mix columns layer
@@ -186,48 +142,42 @@ def remove_padding(data, identifier):
 
 # Performs the encryption rounds
 def encryption_rounds(data, round_keys, nr):
-    # Creates a 4x4 matrix from the 16-byte array
-    data = list_to_matrix(data)
-
     # Inizial add round key
-    data = add_round_key(data, round_keys[0])
+    data = np.bitwise_xor(data, round_keys[0])
 
     # Rounds 1 to 9 or 1 to 11 or 1 to 13
     for i in range(1, (nr - 1)):
         data = sub_bytes(data, subBytesTable)
         data = shift_rows(data)
         data = mix_columns(data)
-        data = add_round_key(data, round_keys[i])
+        data = np.bitwise_xor(data, round_keys[i])
 
     # Final round
     data = sub_bytes(data, subBytesTable)
     data = shift_rows(data)
-    data = add_round_key(data, round_keys[nr - 1])
+    data = np.bitwise_xor(data, round_keys[nr - 1])
 
-    return matrix_to_list(data)
+    return data
 
 
 # Performs the decryption rounds
 def decryption_rounds(data, round_keys, nr):
-    # Creates a 4x4 matrix from the 16-byte array
-    data = list_to_matrix(data)
-
     # Inizial add round key
-    data = add_round_key(data, round_keys[-1])
+    data = np.bitwise_xor(data, round_keys[-1])
 
     # Rounds 1 to 9 or 1 to 11 or 1 to 13
     for i in range(1, (nr - 1)):
         data = inv_shift_rows(data)
         data = sub_bytes(data, invSubBytesTable)
-        data = add_round_key(data, round_keys[-(i+1)])
+        data = np.bitwise_xor(data, round_keys[-(i+1)])
         data = inv_mix_columns(data)
 
     # Final round
     data = inv_shift_rows(data)
     data = sub_bytes(data, invSubBytesTable)
-    data = add_round_key(data, round_keys[0])
+    data = np.bitwise_xor(data, round_keys[0])
 
-    return matrix_to_list(data)
+    return data
 
 
 # ---------------
@@ -259,7 +209,7 @@ def keyExpansion(key):
         words[i] = tuple(tmp)
 
     for i in range(nr):
-        round_keys[i] = (words[i * 4] + words[i * 4 + 1] + words[i * 4 + 2] + words[i * 4 + 3])
+        round_keys[i] = np.array(words[i * 4] + words[i * 4 + 1] + words[i * 4 + 2] + words[i * 4 + 3]).reshape(4, 4)  # type: ignore
 
     return round_keys, nr
 
@@ -362,310 +312,265 @@ def SubWord(word):
 # Running modes setup
 # ---------------
 # ECB encryption function
-def ecb_enc(key, file_path, terminal_width=80):
+def ecb_enc(key, file_path):
     file_size = getsize(file_path)
-    progress = 0
-    progress = progress_bar(progress, file_size, terminal_width)
     round_keys, nr = keyExpansion(key)
 
     with open(f"{file_path}.enc", 'wb') as output, open(file_path, 'rb') as data:
         for i in range(int(file_size/16)):
-            raw = [i for i in data.read(16)]
-            result = bytes(encryption_rounds(raw, round_keys, nr))
+            raw = np.array([i for i in data.read(16)]).reshape(4, 4)
+            result = bytes((encryption_rounds(raw, round_keys, nr).flatten()).tolist())
             output.write(result)
-            progress = progress_bar(progress, file_size, terminal_width)
 
         if file_size % 16 != 0:
-            raw = [i for i in data.read()]
+            raw = [i for i in data.read()]  # type: ignore
             raw, length = add_padding(raw)
 
-            result = bytes(encryption_rounds(raw, round_keys, nr))
-            identifier = bytes(encryption_rounds([0 for i in range(15)] + [length], round_keys, nr))
+            result = bytes((encryption_rounds(np.array(raw).reshape(4, 4), round_keys, nr).flatten()).tolist())
+            identifier = bytes((encryption_rounds(np.array([0 for i in range(15)] + [length]).reshape(4, 4), round_keys, nr).flatten()).tolist())
 
             output.write(result + identifier)
-            progress = progress_bar(progress, file_size, terminal_width)
         else:
-            identifier = bytes(encryption_rounds([0 for i in range(16)], round_keys, nr))
+            identifier = bytes((encryption_rounds(np.array([0 for i in range(16)]).reshape(4, 4), round_keys, nr).flatten()).tolist())
             output.write(identifier)
-            progress = progress_bar(progress, file_size, terminal_width)
-    progress = progress_bar(progress, file_size, terminal_width)
     remove(file_path)
 
 
 # ECB decryption function
-def ecb_dec(key, file_path, terminal_width=80):
+def ecb_dec(key, file_path):
     file_size = getsize(file_path)
-    progress = 0
-    progress = progress_bar(progress, file_size, terminal_width)
     file_name = file_path[:-4]
     round_keys, nr = keyExpansion(key)
 
     with open(f"{file_name}", 'wb') as output, open(file_path, 'rb') as data:
         for i in range(int(file_size/16) - 2):
-            raw = [i for i in data.read(16)]
-            result = bytes(decryption_rounds(raw, round_keys, nr))
+            raw = np.array([i for i in data.read(16)]).reshape(4, 4)
+            result = bytes((decryption_rounds(raw, round_keys, nr).flatten()).tolist())
             output.write(result)
-            progress = progress_bar(progress, file_size, terminal_width)
 
-        data_pice = [i for i in data.read(16)]
-        identifier = [i for i in data.read()]
+        data_pice = np.array([i for i in data.read(16)]).reshape(4, 4)
+        identifier = np.array([i for i in data.read()]).reshape(4, 4)
 
-        result = decryption_rounds(data_pice, round_keys, nr)
-        identifier = decryption_rounds(identifier, round_keys, nr)
+        result = (decryption_rounds(data_pice, round_keys, nr).flatten()).tolist()
+        identifier = (decryption_rounds(identifier, round_keys, nr).flatten()).tolist()
 
         result = bytes(remove_padding(result, identifier))
 
         output.write(result)
-        progress = progress_bar(progress, file_size, terminal_width)
-    progress = progress_bar(progress, file_size, terminal_width)
     remove(file_path)
 
 
 # CBC encryption function
-def cbc_enc(key, file_path, iv, terminal_width=80):
+def cbc_enc(key, file_path, iv):
     file_size = getsize(file_path)
-    progress = 0
-    progress = progress_bar(progress, file_size, terminal_width)
-    vector = [int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]
+    vector = np.array([int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]).reshape(4, 4)
     round_keys, nr = keyExpansion(key)
 
     with open(f"{file_path}.enc", 'wb') as output, open(file_path, 'rb') as data:
         for i in range(int(file_size/16)):
-            raw = [i for i in data.read(16)]
-            raw = xor(raw, vector)
+            raw = np.array([i for i in data.read(16)]).reshape(4, 4)
+            raw = np.bitwise_xor(raw, vector)
             vector = encryption_rounds(raw, round_keys, nr)
-            output.write(bytes(vector))
-            progress = progress_bar(progress, file_size, terminal_width)
+            output.write(bytes((vector.flatten()).tolist()))
 
         if file_size % 16 != 0:
-            raw = [i for i in data.read()]
+            raw = [i for i in data.read()]  # type: ignore
             raw, length = add_padding(raw)
 
-            raw = xor(raw, vector)
+            raw = np.bitwise_xor(np.array(raw).reshape(4, 4), vector)
             vector = encryption_rounds(raw, round_keys, nr)
 
-            identifier = xor(([0 for i in range(15)] + [length]), vector)
+            identifier = np.bitwise_xor(np.array([0 for i in range(15)] + [length]).reshape(4, 4), vector)
             identifier = encryption_rounds(identifier, round_keys, nr)
 
-            output.write(bytes(vector + identifier))
-            progress = progress_bar(progress, file_size, terminal_width)
+            output.write(bytes((vector.flatten()).tolist() + (identifier.flatten()).tolist()))
         else:
-            identifier = xor([0 for i in range(16)], vector)
-            identifier = bytes(encryption_rounds(identifier, round_keys, nr))
-            output.write(identifier)
-            progress = progress_bar(progress, file_size, terminal_width)
-    progress = progress_bar(progress, file_size, terminal_width)
+            identifier = np.bitwise_xor(np.array([0 for i in range(16)]).reshape(4, 4), vector)
+            identifier = bytes(((encryption_rounds(identifier, round_keys, nr)).flatten()).tolist())  # type: ignore
+            output.write(identifier)  # type: ignore
     remove(file_path)
 
 
 # CBC decryption function
-def cbc_dec(key, file_path, iv, terminal_width=80):
-    iv = [int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]
+def cbc_dec(key, file_path, iv):
+    iv = np.array([int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]).reshape(4, 4)
     file_size = getsize(file_path)
-    progress = 0
-    progress = progress_bar(progress, file_size, terminal_width)
     file_name = file_path[:-4]
     round_keys, nr = keyExpansion(key)
 
     with open(f"{file_name}", 'wb') as output, open(file_path, 'rb') as data:
         if int(file_size/16) - 3 >= 0:
-            vector = [i for i in data.read(16)]
+            vector = np.array([i for i in data.read(16)]).reshape(4, 4)
             raw = decryption_rounds(vector, round_keys, nr)
-            result = xor(raw, iv)
-            output.write(bytes(result))
-            progress = progress_bar(progress, file_size, terminal_width)
+            result = np.bitwise_xor(raw, iv)
+            output.write(bytes((result.flatten()).tolist()))
 
             for i in range(int(file_size/16) - 3):
-                raw = [i for i in data.read(16)]
+                raw = np.array([i for i in data.read(16)]).reshape(4, 4)
                 result = decryption_rounds(raw, round_keys, nr)
-                result = xor(result, vector)
+                result = np.bitwise_xor(result, vector)
                 vector = raw
-                output.write(bytes(result))
-                progress = progress_bar(progress, file_size, terminal_width)
+                output.write(bytes((result.flatten()).tolist()))
         else:
             vector = iv
 
-        data_pice = [i for i in data.read(16)]
-        vector_1, identifier = data_pice, [i for i in data.read()]
+        data_pice = np.array([i for i in data.read(16)]).reshape(4, 4)
+        vector_1, identifier = data_pice, np.array([i for i in data.read()]).reshape(4, 4)
 
         result = decryption_rounds(data_pice, round_keys, nr)
         identifier = decryption_rounds(identifier, round_keys, nr)
 
-        identifier = xor(identifier, vector_1)
-        data_pice = xor(result, vector)
+        identifier = np.bitwise_xor(identifier, vector_1)
+        data_pice = np.bitwise_xor(result, vector)
 
-        result = bytes(remove_padding(data_pice, identifier))
+        result = bytes(remove_padding((data_pice.flatten()).tolist(), (identifier.flatten()).tolist()))
 
         output.write(result)
-        progress = progress_bar(progress, file_size, terminal_width)
-    progress = progress_bar(progress, file_size, terminal_width)
     remove(file_path)
 
 
 # PCBC encryption function
-def pcbc_enc(key, file_path, iv, terminal_width=80):
+def pcbc_enc(key, file_path, iv):
     file_size = getsize(file_path)
-    progress = 0
-    progress = progress_bar(progress, file_size, terminal_width)
-    vector = [int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]
+    vector = np.array([int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]).reshape(4, 4)
     round_keys, nr = keyExpansion(key)
 
     with open(f"{file_path}.enc", 'wb') as output, open(file_path, 'rb') as data:
         for i in range(int(file_size/16)):
-            raw = [i for i in data.read(16)]
-            tmp = xor(raw, vector)
+            raw = np.array([i for i in data.read(16)]).reshape(4, 4)
+            tmp = np.bitwise_xor(raw, vector)
             vector = encryption_rounds(tmp, round_keys, nr)
-            output.write(bytes(vector))
-            vector = xor(vector, raw)
-            progress = progress_bar(progress, file_size, terminal_width)
+            output.write(bytes((vector.flatten()).tolist()))
+            vector = np.bitwise_xor(vector, raw)
 
         if file_size % 16 != 0:
-            raw = [i for i in data.read()]
+            raw = [i for i in data.read()]  # type: ignore
             raw, length = add_padding(raw)
+            raw = np.array(raw).reshape(4, 4)
 
-            tmp = xor(raw, vector)
+            tmp = np.bitwise_xor(raw, vector)
             vector1 = encryption_rounds(tmp, round_keys, nr)
-            vector = xor(vector1, raw)
+            vector = np.bitwise_xor(vector1, raw)
 
-            identifier = xor(([0 for i in range(15)] + [length]), vector)
+            identifier = np.bitwise_xor(np.array([0 for i in range(15)] + [length]).reshape(4, 4), vector)
             identifier = encryption_rounds(identifier, round_keys, nr)
 
-            output.write(bytes(vector1 + identifier))
-            progress = progress_bar(progress, file_size, terminal_width)
+            output.write(bytes((vector1.flatten()).tolist() + (identifier.flatten()).tolist()))
         else:
-            identifier = xor([0 for i in range(16)], vector)
-            identifier = bytes(encryption_rounds(identifier, round_keys, nr))
-            output.write(identifier)
-            progress = progress_bar(progress, file_size, terminal_width)
-    progress = progress_bar(progress, file_size, terminal_width)
+            identifier = np.bitwise_xor(np.array([0 for i in range(16)]).reshape(4, 4), vector)
+            identifier = bytes((encryption_rounds(identifier, round_keys, nr).flatten()).tolist())  # type: ignore
+            output.write(identifier)  # type: ignore
     remove(file_path)
 
 
 # PCBC decryption function
-def pcbc_dec(key, file_path, iv, terminal_width=80):
-    iv = [int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]
+def pcbc_dec(key, file_path, iv):
+    iv = np.array([int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]).reshape(4, 4)
     file_size = getsize(file_path)
-    progress = 0
-    progress = progress_bar(progress, file_size, terminal_width)
     file_name = file_path[:-4]
     round_keys, nr = keyExpansion(key)
 
     with open(f"{file_name}", 'wb') as output, open(file_path, 'rb') as data:
         if int(file_size/16) - 3 >= 0:
-            vector = [i for i in data.read(16)]
+            vector = np.array([i for i in data.read(16)]).reshape(4, 4)
             raw = decryption_rounds(vector, round_keys, nr)
-            result = xor(raw, iv)
-            vector = xor(vector, result)
-            output.write(bytes(result))
-            progress = progress_bar(progress, file_size, terminal_width)
+            result = np.bitwise_xor(raw, iv)
+            vector = np.bitwise_xor(vector, result)
+            output.write(bytes((result.flatten()).tolist()))
 
             for i in range(int(file_size/16) - 3):
-                raw = [i for i in data.read(16)]
+                raw = np.array([i for i in data.read(16)]).reshape(4, 4)
                 result = decryption_rounds(raw, round_keys, nr)
-                result = xor(result, vector)
-                vector = xor(raw, result)
-                output.write(bytes(result))
-                progress = progress_bar(progress, file_size, terminal_width)
+                result = np.bitwise_xor(result, vector)
+                vector = np.bitwise_xor(raw, result)
+                output.write(bytes((result.flatten()).tolist()))
         else:
             vector = iv
 
-        data_pice = [i for i in data.read(16)]
-        vector_1, identifier = data_pice, [i for i in data.read()]
+        data_pice = np.array([i for i in data.read(16)]).reshape(4, 4)
+        vector_1, identifier = data_pice, np.array([i for i in data.read()]).reshape(4, 4)
 
         result = decryption_rounds(data_pice, round_keys, nr)
-        data_pice = xor(result, vector)
+        data_pice = np.bitwise_xor(result, vector)
 
-        vector_1 = xor(vector_1, data_pice)
+        vector_1 = np.bitwise_xor(vector_1, data_pice)
         identifier = decryption_rounds(identifier, round_keys, nr)
-        identifier = xor(identifier, vector_1)
+        identifier = np.bitwise_xor(identifier, vector_1)
 
-        result = bytes(remove_padding(data_pice, identifier))
+        result = bytes(remove_padding((data_pice.flatten()).tolist(), (identifier.flatten()).tolist()))
 
         output.write(result)
-        progress = progress_bar(progress, file_size, terminal_width)
-    progress = progress_bar(progress, file_size, terminal_width)
     remove(file_path)
 
 
 # OFB encryption function
-def ofb_enc(key, file_path, iv, terminal_width=80):
+def ofb_enc(key, file_path, iv):
     file_size = getsize(file_path)
-    progress = 0
-    progress = progress_bar(progress, file_size, terminal_width)
     round_keys, nr = keyExpansion(key)
-    mix = [int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]
+    mix = np.array([int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]).reshape(4, 4)
     iv = mix
 
     with open(f"{file_path}.enc", 'wb') as output, open(file_path, 'rb') as data:
         for i in range(int(file_size/16)):
-            raw = [i for i in data.read(16)]
+            raw = np.array([i for i in data.read(16)]).reshape(4, 4)
             mix = encryption_rounds(mix, round_keys, nr)
-            result = xor(raw, mix)
-            output.write(bytes(result))
-            progress = progress_bar(progress, file_size, terminal_width)
+            result = np.bitwise_xor(raw, mix)
+            output.write(bytes((result.flatten()).tolist()))
 
         if file_size % 16 != 0:
-            raw = [i for i in data.read()]
+            raw = [i for i in data.read()]  # type: ignore
             raw, length = add_padding(raw)
+            raw = np.array(raw).reshape(4, 4)
 
             if file_size < 16:
                 mix = encryption_rounds(iv, round_keys, nr)
             else:
                 mix = encryption_rounds(mix, round_keys, nr)
-            result = xor(mix, raw)
+            result = np.bitwise_xor(mix, raw)
 
             mix = encryption_rounds(mix, round_keys, nr)
-            identifier = xor(([0 for i in range(15)] + [length]), mix)
+            identifier = np.bitwise_xor(np.array([0 for i in range(15)] + [length]).reshape(4, 4), mix)
 
-            output.write(bytes(result + identifier))
-            progress = progress_bar(progress, file_size, terminal_width)
+            output.write(bytes((result.flatten()).tolist() + (identifier.flatten()).tolist()))
         else:
             mix = encryption_rounds(mix, round_keys, nr)
-            identifier = xor([0 for i in range(16)], mix)
-            output.write(bytes(identifier))
-            progress = progress_bar(progress, file_size, terminal_width)
-    progress = progress_bar(progress, file_size, terminal_width)
+            identifier = np.bitwise_xor(np.array([0 for i in range(16)]).reshape(4, 4), mix)
+            output.write(bytes((identifier.flatten()).tolist()))
     remove(file_path)
 
 
 # OFB decryption function
-def ofb_dec(key, file_path, iv, terminal_width=80):
-    iv = [int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]
+def ofb_dec(key, file_path, iv):
+    iv = np.array([int(iv[i:i+2], 16) for i in range(0, len(iv), 2)]).reshape(4, 4)
     file_size = getsize(file_path)
-    progress = 0
-    progress = progress_bar(progress, file_size, terminal_width)
     file_name = file_path[:-4]
     round_keys, nr = keyExpansion(key)
 
     with open(f"{file_name}", 'wb') as output, open(file_path, 'rb') as data:
         if int(file_size/16) - 3 >= 0:
-            raw = [i for i in data.read(16)]
+            raw = np.array([i for i in data.read(16)]).reshape(4, 4)
             mix = encryption_rounds(iv, round_keys, nr)
-            result = xor(raw, mix)
-            output.write(bytes(result))
-            progress = progress_bar(progress, file_size, terminal_width)
+            result = np.bitwise_xor(raw, mix)
+            output.write(bytes((result.flatten()).tolist()))
 
             for i in range(int(file_size/16) - 3):
-                raw = [i for i in data.read(16)]
+                raw = np.array([i for i in data.read(16)]).reshape(4, 4)
                 mix = encryption_rounds(mix, round_keys, nr)
-                result = xor(raw, mix)
-                output.write(bytes(result))
-                progress = progress_bar(progress, file_size, terminal_width)
+                result = np.bitwise_xor(raw, mix)
+                output.write(bytes((result.flatten()).tolist()))
         else:
             mix = iv
 
-        data_pice = [i for i in data.read(16)]
-        identifier = [i for i in data.read()]
+        data_pice = np.array([i for i in data.read(16)]).reshape(4, 4)
+        identifier = np.array([i for i in data.read()]).reshape(4, 4)
 
         mix = encryption_rounds(mix, round_keys, nr)
-        data_pice = xor(data_pice, mix)
+        data_pice = np.bitwise_xor(data_pice, mix)
 
         mix = encryption_rounds(mix, round_keys, nr)
-        identifier = xor(identifier, mix)
+        identifier = np.bitwise_xor(identifier, mix)
 
-        result = bytes(remove_padding(data_pice, identifier))
+        result = bytes(remove_padding((data_pice.flatten()).tolist(), (identifier.flatten()).tolist()))  # type: ignore
 
-        output.write(result)
-        progress = progress_bar(progress, file_size, terminal_width)
-    progress = progress_bar(progress, file_size, terminal_width)
+        output.write(result)  # type: ignore
     remove(file_path)
