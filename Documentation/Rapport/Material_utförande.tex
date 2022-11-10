@@ -6,9 +6,29 @@ Metoden för denna undersökning bygger på en implementering av \acrshort{aes} 
 
 \section{Implementering}
 Implementeringen av \acrshort{aes} är uppdelad i ett antal funktioner till stor del är baserat på
-hur strukturen och uppdelningen av \acrshort{aes} som beskrivet i \citetitle{daemen1999aes}\footcite{daemen1999aes}...
+hur strukturen och uppdelningen av \acrshort{aes} som beskrivet i \citetitle{daemen1999aes}\footcite{daemen1999aes}.
+De Huvudsakliga funktionerna är:
+\begin{itemize}
+    \item \texttt{sub\_bytes}
+    \item \texttt{shift\_rows}
+    \item \texttt{mix\_columns}
+    \item \texttt{add\_round\_key}
+    \item \texttt{key\_expansion}
+    \item \texttt{encryption\_rounds}
+    \item \texttt{...}
+\end{itemize}
 
 \section{Test Uppsättning}
-Test uppsättningen går att se i filen Analyze.py ...
+Test uppsättningen är uppdelad i tre delar där varje del är konstruerad för att generera ett
+resultat i koppling till frågeställningarna för denna undersökning. Delarna är som följande:
+
+\begin{itemize}
+    \item \texttt{Nyckel längds tid test}
+    \item \texttt{Körläges tid test}
+    \item \texttt{Körläges krypterings test}
+\end{itemize}
+
+Varje del
 
 \section{Genomförande}
+Genomförandet av undersökningen gick som följande:

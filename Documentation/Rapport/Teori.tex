@@ -268,30 +268,92 @@ en annan benämning på Finite Fields.\footcite{finitefield_wiki} För en mer gr
 \subsection{AES S-Box}
 \label{sec:aes-sbox}
 \acrshort{aes} använder sig av en så kallad S-Box eller med andra ord substitutions box
-för en del av sina operationer. S-Boxen kan man se som en slags uppslagstabell
-som används för att byta ut ett värde mot ett annat. S-Boxen används huvudsakligen
-för att byta ut värden i \nameref{sec:aes-key-expansion} delen av \acrshort{aes} algoritmen
-samt i \nameref{sec:aes-subbytes} operationen.\footfullcite{sbox_wiki}
+för en del av sina operationer. S-Boxen används huvudsakligen för att byta ut värden
+i \nameref{sec:aes-key-expansion} delen av \acrshort{aes} algoritmen samt i
+\nameref{sec:aes-subbytes} operationen.\footfullcite{sbox_wiki}
 
-...\footcite{sbox_wiki}
+S-boxen består av 256 olika värden som alla är unika och som alla är mellan 0 och 255.
+Värdena i S-boxen är ordnade i en lista och värdenas position i listan används som
+index för att kunna hitta ett värde i S-boxen. När S-boxen används för att byta ut
+ett värde så används det värde som ska bytas ut som index värdet för att kunna hitta
+rätt värde i S-boxen.\footcite{sbox_wiki}
+
+\acrshort{aes} S-box genereras utifrån \acrshort{aes} Finite Field {$GF(2^8)$}.
+Själva S-boxen är konstant genom hela \acrshort{aes} algoritmen och kan därför
+vara en attack vector för olika försök till att bryta krypteringen. På grund av
+detta så finns det även användningar av dynamiska S-boxar som kan genereras
+utifrån en viss nyckel och skapar då ytterligare ett lager av säkerhet.\footfullcite{singh2017analysis}
+
+\acrshort{aes} har två olika S-boxar varav den ena är en invers S-box av den andra.
+Detta så att operationen går att utföra i båda riktningarna, vilket gör dekryptering
+av data möjlig.\footcite{sbox_wiki} Dessa två S-boxar går att se nedan i figur \ref{fig:aes-sbox} där
+värdena är representerade i hexadecimala tal.
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{S-box.png}
+    \caption{\acrshort{aes} S-box (Den vänstra matrisen) \& Invers S-box (Den högra matrisen) \cite{sbox_wiki}}
+    \label{fig:aes-sbox}
+\end{figure}
 
 \subsection{Struktur}
 \label{sec:aes-structure}
+\acrshort{aes} är baserad på en design princip kallad \gls{SP-network} och byggs huvudsakligen upp av fyra olika steg som alla utförs på en matris av \glspl{byte}. Dessa fyra steg är
+\nameref{sec:aes-subbytes}, \nameref{sec:aes-shiftrows}, \nameref{sec:aes-mixcolumns} och
+\nameref{sec:aes-addroundkey}. Dessa steg utförs antingen 10, 12 eller 14 gånger, vilket brukar kallas för rundor. Beroende på vilken nyckel som används krävs olika antal rundor.
+En 128bit nyckel kommer att kräva 10 rundor, en 192bit nyckel kommer att kräva 12 rundor och en 256bit nyckel kommer att kräva 14 rundor.\footcite{aes_wiki}
+
+\acrshort{aes} algoritmen har en fixerad block storlek på 128bit vilket innebär att
+det alltid kommer att vara 16 \glspl{byte} som krypteras åt gången. De första
+9, 11 eller 13 rundorna beroende på nyckel storlek kommer att utföras identiska till varandra.
+Den sista rundan skiljer sig från dom andra på så sätt att man hoppar över ett av stegen då
+det inte får någon betydelse ur ett kryptografiskt perspektiv.\footcite{aes_wiki}
+
+En vanlig runda består av följande steg:
+
+x
+
+x
+
+x
+
+x
 
 
-\subsubsection{SubBytes operation}
+Den sista rundan ser istället ut på följande sätt:
+
+x
+
+x
+
+x
+
+Detta visas även i \gls{python} kod i figur ??? nedan:
+
+
+
+Man kan se att nyckeln används flera gånger under själva krypterings processen av ett block.
+För att varje runda då ska få en unik nyckel så genomförs en \nameref{sec:aes-key-expansion}s operation
+som genererar en nyckel för varje runda utifrån den ursprungliga nyckeln.\footcite{aes_wiki}
+
+
+För dekryptering så sker liknande rundor av operationer som för krypteringen fast
+i en lite annorlunda ordning samt med ett par andra steg...
+
+
+
+\subsubsection{SubBytes operationen}
 \label{sec:aes-subbytes}
 SubBytes operationen bygger på ...
 
-\subsubsection{ShiftRows operation}
+\subsubsection{ShiftRows operationen}
 \label{sec:aes-shiftrows}
 
 
-\subsubsection{MixColumns operation}
+\subsubsection{MixColumns operationen}
 \label{sec:aes-mixcolumns}
 
 
-\subsubsection{AddRoundKey operation}
+\subsubsection{AddRoundKey operationen}
 \label{sec:aes-addroundkey}
 
 
