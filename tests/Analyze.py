@@ -4,6 +4,20 @@ from random import randint
 from os import remove
 
 
+def progress_bar(progress, total_progress):
+    percent = 100 * (float(progress) / float(total_progress))
+    bar_progress = int(100 * (float(progress) / float(total_progress)))
+
+    if bar_progress > 100 or percent > 100:
+        bar_progress = 100
+        percent = 100
+
+    bar_remaining = 100 - bar_progress
+    bar = '#' * bar_progress + '-' * bar_remaining
+    print(f"\r[{bar}] {percent:.2f}%", end="\r")
+    return progress + 1
+
+
 def write_data(data, name_f):
     with open(name_f + '.txt', 'w') as f:
         for i in data:
@@ -37,9 +51,11 @@ if __name__ == '__main__':
 
     # Test time difference between 128, 192 and 256 bit keys
     data = []
+    progress = 0
     for i in keys:
         data_tmp = []
         for j in range(runs):
+            progress = progress_bar(progress, 150)
             test = speed_test(file_size, i, 'ECB', iv)
             data_tmp.append(test)
         write_data(data_tmp, 'keys_test_raw ' + str(len(i) * 4))
@@ -50,22 +66,27 @@ if __name__ == '__main__':
     data = []
     data_tmp = []
     for i in range(runs):
+        progress = progress_bar(progress, 150)
         test = speed_test(file_size, keys[0], 'OFB', iv)
         data_tmp.append(test)
     write_data(data_tmp, 'modes_test_raw OFB')
     data.append(sum(data_tmp)/len(data_tmp))
     data_tmp = []
     for i in range(runs):
+        progress = progress_bar(progress, 150)
         test = speed_test(file_size, keys[0], 'CBC', iv)
         data_tmp.append(test)
     write_data(data_tmp, 'modes_test_raw CBC')
     data.append(sum(data_tmp)/len(data_tmp))
     data_tmp = []
     for i in range(runs):
+        progress = progress_bar(progress, 150)
         test = speed_test(file_size, keys[0], 'ECB', iv)
         data_tmp.append(test)
     write_data(data_tmp, 'modes_test_raw ECB')
     data.append(sum(data_tmp)/len(data_tmp))
     write_data(data, 'modes_test')
 
+    progress = progress_bar(progress, 150)
+    print("\n")
     print("Completed")
