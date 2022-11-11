@@ -8,6 +8,7 @@ def write_data(data, name_f):
     with open(name_f + '.txt', 'w') as f:
         for i in data:
             f.write(str(i) + '\n')
+        f.write(str('\n'))
 
 
 def setup(count):
@@ -41,6 +42,7 @@ if __name__ == '__main__':
         for j in range(runs):
             test = speed_test(file_size, i, 'ECB', iv)
             data_tmp.append(test)
+        write_data(data_tmp, 'keys_test_raw ' + str(len(i) * 4))
         data.append(sum(data_tmp)/len(data_tmp))
     write_data(data, 'keys_test')
 
@@ -50,16 +52,19 @@ if __name__ == '__main__':
     for i in range(runs):
         test = speed_test(file_size, keys[0], 'OFB', iv)
         data_tmp.append(test)
+    write_data(data_tmp, 'modes_test_raw OFB')
     data.append(sum(data_tmp)/len(data_tmp))
     data_tmp = []
     for i in range(runs):
         test = speed_test(file_size, keys[0], 'CBC', iv)
         data_tmp.append(test)
+    write_data(data_tmp, 'modes_test_raw CBC')
     data.append(sum(data_tmp)/len(data_tmp))
     data_tmp = []
     for i in range(runs):
         test = speed_test(file_size, keys[0], 'ECB', iv)
         data_tmp.append(test)
+    write_data(data_tmp, 'modes_test_raw ECB')
     data.append(sum(data_tmp)/len(data_tmp))
     write_data(data, 'modes_test')
 
