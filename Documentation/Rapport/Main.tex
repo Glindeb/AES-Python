@@ -7,6 +7,7 @@
 \usepackage{fontenc}
 \usepackage{float}
 \usepackage[swedish]{babel}
+\usepackage{pythonhighlight}
 % For headers and footers
 \usepackage{fancyhdr, lastpage}
 \usepackage{fancyvrb}
@@ -80,7 +81,8 @@ keepaspectratio]{background-1.png}
 \renewcommand{\currentchapter}{#1}}
 \renewcommand{\bibname}{Källförteckning}
 \renewcommand{\contentsname}{Inehållsförteckning}
-\renewcommand{\listfigurename}{Figurer}
+\addto\captionsswedish{%
+  \renewcommand\listfigurename{Figur lista}}
 \newcommand{\fakechapter}[2]{%
   \par\setcounter{chapter}{#2}
   \chaptermark{#1}
@@ -389,6 +391,8 @@ tempor mi accumsan quis. Morbi blandit maximus urna non aliquet aes.
 % Inehållsförteckning
 \tableofcontents
 
+\listoffigures
+
 \clearpage
 
 \printglossary
@@ -413,44 +417,7 @@ tempor mi accumsan quis. Morbi blandit maximus urna non aliquet aes.
 
 \clearpage
 
-\fakechapter{Figurer}{8}
-\addcontentsline{toc}{chapter}{Figurer}
-\listoffigures
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.6\textwidth]{pi.png}
-  \caption{Orginal bild}
-  \label{fig:pi-original}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.6\textwidth]{pi-ecb.png}
-  \caption{Efter ECB Kryptering}
-  \label{fig:pi-ecb}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.6\textwidth]{pi-cbc.png}
-  \caption{Efter CBC Kryptering}
-  \label{fig:pi-cbc}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.6\textwidth]{pi-OFB.png}
-  \caption{Efter OFB Kryptering}
-  \label{fig:pi-ofb}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.6\textwidth]{AES_(Rijndael)_Round_Function.png}
-  \captionsource{Uppställning av vanliga rundor}{{\fullcite{rounds-picture}}}
-  \label{fig:round-function-test}
-\end{figure}
+\include{Bilagor}
 
 % End document
 \end{document}
