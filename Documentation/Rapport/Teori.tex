@@ -303,43 +303,54 @@ värdena är representerade i hexadecimala tal. % May need explanation in glossa
 En 128bit nyckel kommer att kräva 10 rundor, en 192bit nyckel kommer att kräva 12 rundor och en 256bit nyckel kommer att kräva 14 rundor.\footcite{aes_wiki}
 
 \acrshort{aes} algoritmen har en fixerad block storlek på 128bit vilket innebär att
-det alltid kommer att vara 16 \glspl{byte} som krypteras åt gången. De första
-9, 11 eller 13 rundorna beroende på nyckel storlek kommer att utföras identiska till varandra.
-Den sista rundan skiljer sig från dom andra på så sätt att man hoppar över ett av stegen då
-det inte får någon betydelse ur ett kryptografiskt perspektiv.\footcite{aes_wiki}
+det alltid kommer att vara 16 \glspl{byte} som krypteras åt gången. Absolut först genomförs
+en initial \nameref{sec:aes-addroundkey} operation där den första rund nyckeln används.
+Sedan genomförs 9, 11 eller 13 identiska rundor. Den sista rundan skiljer sig dock från dom andra
+på så sätt att man hoppar sista \nameref{sec:aes-mixcolumns} då det inte får någon betydelse ur ett
+kryptografiskt perspektiv för den slutliga skiffer texten.\footcite{aes_wiki}
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.8\linewidth]{AES_(Rijndael)_Round_Function.png}
+    \caption{Vanlig runda \cite{rounds-picture}}
+    \label{fig:round-function}
+\end{wrapfigure}
 
 En vanlig runda består av följande steg:
 
-x
-
-x
-
-x
-
-x
-
+\begin{enumerate}
+    \item \nameref{sec:aes-subbytes}
+    \item \nameref{sec:aes-shiftrows}
+    \item \nameref{sec:aes-mixcolumns}
+    \item \nameref{sec:aes-addroundkey}
+\end{enumerate}
 
 Den sista rundan ser istället ut på följande sätt:
 
-x
+\begin{enumerate}
+    \item \nameref{sec:aes-subbytes}
+    \item \nameref{sec:aes-shiftrows}
+    \item \nameref{sec:aes-addroundkey}
+\end{enumerate}
 
-x
-
-x
-
-Detta visas även i \gls{python} kod i figur ??? nedan:
-
-
-
-Man kan se att nyckeln används flera gånger under själva krypterings processen av ett block.
+Utifrån detta kan man se att nyckeln används flera gånger under själva krypterings processen av ett block.
 För att varje runda då ska få en unik nyckel så genomförs en \nameref{sec:aes-key-expansion}s operation
-som genererar en nyckel för varje runda utifrån den ursprungliga nyckeln.\footcite{aes_wiki}
+som genererar en nyckel för varje runda utifrån den ursprungliga nyckeln. Detta för att samma nyckel
+inte ska användas flera gånger vilket skulle göra det enklare att bryta krypteringen.\footcite{aes_wiki}
 
-
+\nameref{sec:aes-key-expansion}en är en operationen som genomförs före själva krypterings stadiet påbörjas
+och genererar en lista med nycklar för varje runda. Antalet nycklar beror av nyckellängden som även bestämmer antalet rundor.
 För dekryptering så sker liknande rundor av operationer som för krypteringen fast
-i en lite annorlunda ordning samt med ett par andra steg...
+i en lite annorlunda ordning samt med den inversa operationen till \nameref{sec:aes-shiftrows} \& \nameref{sec:aes-mixcolumns}.\footcite{aes_wiki}
 
+En vanlig dekrypterings runda ser då ut på följande sätt:
 
+\begin{enumerate}
+    \item \nameref{sec:aes-addroundkey}
+    \item \nameref{sec:aes-invers-mixcolumns}
+    \item \nameref{sec:aes-invers-shiftrows}
+    \item \nameref{sec:aes-subbytes}
+\end{enumerate}
 
 \subsubsection{SubBytes operationen}
 \label{sec:aes-subbytes}
@@ -348,10 +359,14 @@ SubBytes operationen bygger på ...
 \subsubsection{ShiftRows operationen}
 \label{sec:aes-shiftrows}
 
+\subsubsection{Inverse ShiftRows operationen}
+\label{sec:aes-invers-shiftrows}
 
 \subsubsection{MixColumns operationen}
 \label{sec:aes-mixcolumns}
 
+\subsubsection{Inverse MixColumns operationen}
+\label{sec:aes-invers-mixcolumns}
 
 \subsubsection{AddRoundKey operationen}
 \label{sec:aes-addroundkey}
