@@ -79,7 +79,7 @@ ett identiskt krypterat block.\footcite{modesofoperation}
 Vad detta innebär är att för större mängder data
 är att det börjar bildas mönster i skiffertexten. Detta är något som väldigt
 tydligt visar sig ifall man krypterar en bild, vilket går att se när man jämför
-figur \ref{fig:pi-original} \& \ref{fig:pi-ecb}.
+bilaga \ref{fig:pi-original} \& \ref{fig:pi-ecb}.
 Det här faktumet är även varför \acrshort{ecb} inte är ett säkert körläge
 och därför inte används näst intill aldrig i praktiken.\footcite{modesofoperation}
 
@@ -143,7 +143,7 @@ Fördelarna som kommer från den extra operationen i \acrshort{cbc} till skillna
 från \acrshort{ecb} är då att varje block blir beroende av föregående block.
 Detta innebär att dom mönster som kunde dyka upp i \acrshort{ecb} inte längre
 kan uppstå, vilket då gör \acrshort{cbc} till ett mer säkert körläge än \acrshort{ecb}.
-Dock kräver cbc en ytterligare faktor för att se till så att inte olika medelanden
+Dock kräver \acrshort{cbc} en ytterligare faktor för att se till så att inte olika medelanden
 kan ge samma krypterade block. Därav så krävs en \acrfull{iv} som används vid första
 blocket.\footcite{modesofoperation}
 
@@ -299,7 +299,7 @@ värdena är representerade i hexadecimala tal. % May need explanation in glossa
 \label{sec:aes-structure}
 \acrshort{aes} är baserad på en design princip kallad \gls{SP-network} och byggs huvudsakligen upp av fyra olika steg som alla utförs på en matris av \glspl{byte}. Dessa fyra steg är
 \nameref{sec:aes-subbytes}, \nameref{sec:aes-shiftrows}, \nameref{sec:aes-mixcolumns} och
-\nameref{sec:aes-addroundkey}. Dessa steg utförs antingen 10, 12 eller 14 gånger, vilket brukar kallas för rundor. Beroende på vilken nyckel som används krävs olika antal rundor.
+\nameref{sec:aes-addroundkey}. Steg utförs antingen 10, 12 eller 14 gånger, vilket brukar kallas för rundor. Beroende på vilken nyckel som används krävs olika antal rundor.
 En 128bit nyckel kommer att kräva 10 rundor, en 192bit nyckel kommer att kräva 12 rundor och en 256bit nyckel kommer att kräva 14 rundor.\footcite{aes_wiki}
 
 \acrshort{aes} algoritmen har en fixerad block storlek på 128bit vilket innebär att
