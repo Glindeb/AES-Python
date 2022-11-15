@@ -2,33 +2,41 @@
 Metoden för denna undersökning bygger på en implementering av \acrshort{aes} i programmeringsspråket
 \gls{python}. Detta tillsammans med ett antal konstruerade tester även dom implementerade i
 \gls{python} är vad som använts för själva undersökningen av \acrshort{aes}. Själva koden
-är skriven med hjälp av programmet \gls{vscode} och är byggd huvudsakligen för \gls{python} 3.10.
+är skriven med hjälp av programmet \gls{vscode} och är byggd huvudsakligen för \gls{python} 3.10 men
+på grund av att \gls{python} 3.11 släpptes innan undersökningen genomfördes så är de \gls{python} 3.11
+som användes under undersöknings genomförandet.\footfullcite{python311}
 
 \section{Implementering}
 Implementeringen av \acrshort{aes} är uppdelad i ett antal funktioner till stor del är baserat på
 hur strukturen och uppdelningen av \acrshort{aes} som beskrivet i \citetitle{daemen1999aes}\footcite{daemen1999aes}.
-De Huvudsakliga funktionerna är:
+De Huvudsakliga funktionerna är följande:
 \begin{itemize}
-    \item \texttt{sub\_bytes}
-    \item \texttt{shift\_rows}
-    \item \texttt{mix\_columns}
-    \item \texttt{add\_round\_key}
-    \item \texttt{key\_expansion}
-    \item \texttt{encryption\_rounds}
-    \item \texttt{...}
+    \item \texttt{\nameref{sec:aes-subbytes}}
+    \item \texttt{\nameref{sec:aes-shiftrows}}
+    \item \texttt{\nameref{sec:aes-mixcolumns}}
+    \item \texttt{\nameref{sec:aes-addroundkey}}
+    \item \texttt{\nameref{sec:aes-key-expansion}}
 \end{itemize}
+
+Dessa används då i själva algoritmens rundor samt utanför och är beskrivna och förklarade i respektive teori avsnitt.
+Utöver detta kan
 
 \section{Test Uppsättning}
 Test uppsättningen är uppdelad i tre delar där varje del är konstruerad för att generera ett
-resultat i koppling till frågeställningarna för denna undersökning. Delarna är som följande:
+resultat i koppling till frågeställningarna för denna undersökning.
 
-\begin{itemize}
-    \item \texttt{Nyckel längds tid test}
-    \item \texttt{Körläges tid test}
-    \item \texttt{Körläges krypterings test}
-\end{itemize}
 
-Varje del
+\subsection{Nyckellängds Test}
+\label{sec:nyckellängd-test}
+
+
+\subsection{Körläges Test}
+\label{sec:körlages-test}
+
+
+\subsection{Krypterings Test}
+\label{sec:krypterings-test}
+
 
 \section{Genomförande}
 Genomförandet av undersökningen gick som följande:

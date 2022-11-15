@@ -7,6 +7,10 @@
 \glossaryentry{OFB?\glossentry{ofb}|setentrycounter[]{page}"\glsnumberformat}{4}
 \glossaryentry{OFB?\glossentry{ofb}|setentrycounter[]{page}"\glsnumberformat}{4}
 \glossaryentry{AES?\glossentry{aes}|setentrycounter[]{page}"\glsnumberformat}{4}
+\glossaryentry{AES?\glossentry{aes}|setentrycounter[]{page}"\glsnumberformat}{4}
+\glossaryentry{ECB?\glossentry{ecb}|setentrycounter[]{page}"\glsnumberformat}{4}
+\glossaryentry{CBC?\glossentry{cbc}|setentrycounter[]{page}"\glsnumberformat}{4}
+\glossaryentry{OFB?\glossentry{ofb}|setentrycounter[]{page}"\glsnumberformat}{4}
 \glossaryentry{ASCII?\glossentry{ascii}|setentrycounter[]{page}"\glsnumberformat}{5}
 \glossaryentry{AES?\glossentry{aes}|setentrycounter[]{page}"\glsnumberformat}{9}
 \glossaryentry{DES?\glossentry{des}|setentrycounter[]{page}"\glsnumberformat}{9}
@@ -102,7 +106,11 @@
 \glossaryentry{AES?\glossentry{aes}|setentrycounter[]{page}"\glsnumberformat}{19}
 \glossaryentry{AES?\glossentry{aes}|setentrycounter[]{page}"\glsnumberformat}{19}
 \glossaryentry{AES?\glossentry{aes}|setentrycounter[]{page}"\glsnumberformat}{19}
-\glossaryentry{AES?\glossentry{aes}|setentrycounter[]{page}"\glsnumberformat}{22}
-\glossaryentry{AES?\glossentry{aes}|setentrycounter[]{page}"\glsnumberformat}{22}
-\glossaryentry{AES?\glossentry{aes}|setentrycounter[]{page}"\glsnumberformat}{22}
-\glossaryentry{AES?\glossentry{aes}|setentrycounter[]{page}"\glsnumberformat}{22}
+\glossaryentry{AES?\glossentry{aes}|setentrycounter[]{page}"\glsnumberformat}{24}
+\glossaryentry{AES?\glossentry{aes}|setentrycounter[]{page}"\glsnumberformat}{24}
+\glossaryentry{AES?\glossentry{aes}|setentrycounter[]{page}"\glsnumberformat}{24}
+\glossaryentry{AES?\glossentry{aes}|setentrycounter[]{page}"\glsnumberformat}{24}
+\glossaryentry{AES?\glossentry{aes}|setentrycounter[]{page}"\glsnumberformat}{25}
+\glossaryentry{ECB?\glossentry{ecb}|setentrycounter[]{page}"\glsnumberformat}{25}
+\glossaryentry{CBC?\glossentry{cbc}|setentrycounter[]{page}"\glsnumberformat}{25}
+\glossaryentry{OFB?\glossentry{ofb}|setentrycounter[]{page}"\glsnumberformat}{25}

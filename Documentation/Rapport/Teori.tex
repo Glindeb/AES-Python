@@ -278,7 +278,7 @@ index för att kunna hitta ett värde i S-boxen. När S-boxen används för att 
 ett värde så används det värde som ska bytas ut som index värdet för att kunna hitta
 rätt värde i S-boxen.\footcite{sbox_wiki}
 
-\acrshort{aes} S-box genereras utifrån \acrshort{aes} Finite Field {$GF(2^8)$}.
+\acrshort{aes} S-box genereras med hjälp av \acrshort{aes} Finite Field {$GF(2^8)$}.
 Själva S-boxen är konstant genom hela \acrshort{aes} algoritmen och kan därför
 vara en attack vector för olika försök till att bryta krypteringen. På grund av
 detta så finns det även användningar av dynamiska S-boxar som kan genereras
@@ -297,16 +297,16 @@ värdena är representerade i hexadecimala tal. % May need explanation in glossa
 
 \subsection{Struktur}
 \label{sec:aes-structure}
-\acrshort{aes} är baserad på en design princip kallad \gls{SP-network} och byggs huvudsakligen upp av fyra olika steg som alla utförs på en matris av \glspl{byte}. Dessa fyra steg är
+\acrshort{aes} är baserad på en design princip kallad \gls{SP-network} och byggs huvudsakligen upp av fyra olika steg som alla utförs på en matris av 16 \glspl{byte}. Dessa fyra steg är
 \nameref{sec:aes-subbytes}, \nameref{sec:aes-shiftrows}, \nameref{sec:aes-mixcolumns} och
-\nameref{sec:aes-addroundkey}. Steg utförs antingen 10, 12 eller 14 gånger, vilket brukar kallas för rundor. Beroende på vilken nyckel som används krävs olika antal rundor.
+\nameref{sec:aes-addroundkey}, vilket visas i figur \ref{fig:round-function}. Steg utförs antingen 10, 12 eller 14 gånger, vilket brukar kallas för rundor. Beroende på vilken nyckel som används krävs olika antal rundor.
 En 128bit nyckel kommer att kräva 10 rundor, en 192bit nyckel kommer att kräva 12 rundor och en 256bit nyckel kommer att kräva 14 rundor.\footcite{aes_wiki}
 
 \acrshort{aes} algoritmen har en fixerad block storlek på 128bit vilket innebär att
 det alltid kommer att vara 16 \glspl{byte} som krypteras åt gången. Absolut först genomförs
 en initial \nameref{sec:aes-addroundkey} operation där den första rund nyckeln används.
-Sedan genomförs 9, 11 eller 13 identiska rundor. Den sista rundan skiljer sig dock från dom andra
-på så sätt att man hoppar sista \nameref{sec:aes-mixcolumns} då det inte får någon betydelse ur ett
+Sedan genomförs 9, 11 eller 13 identiska rundor. Den sista rundan skiljer sig däremot från det andra
+på så sätt att man hoppar över sista \nameref{sec:aes-mixcolumns} då den inte får någon betydelse ur ett
 kryptografiskt perspektiv för den slutliga skiffer texten.\footcite{aes_wiki}
 
 \begin{wrapfigure}{r}{0.5\textwidth}
@@ -352,18 +352,97 @@ En vanlig dekrypterings runda ser då ut på följande sätt:
     \item \nameref{sec:aes-subbytes}
 \end{enumerate}
 
+Anledningen till att \nameref{sec:aes-addroundkey} och \nameref{sec:aes-subbytes} inte kräver någon invers operation handlar om hur dessa operationer
+är uppbyggda. För \nameref{sec:aes-addroundkey} så är det på grund av \gls{xor}-operationens linjära egenskaper som innebär att den är sin egen invers.
+Detta eftersom ifall man tar och genomför \gls{xor}-operationen med samma nyckel två gånger så kommer man tillbaka till ursprungsvärdet. När de gäller \nameref{sec:aes-subbytes}
+så handlar de istället om att de helt enkelt är en substitution utifrån en \nameref{sec:aes-sbox}, vilket då betyder att de som krävs för att genomföra den motsatta operationen
+blir att använda den inversa \nameref{sec:aes-sbox}en.\footcite{aes_wiki}
+
+Både krypterings och dekrypterings strukturen av ett block som beskrivits ovan kan representeras i \gls{python} kod på följande sätt i figur \ref{fig:encryption-rounds-function} \& \ref{fig:decryption-rounds-function}.
+
+\begin{figure}[h]
+    \centering
+    \begin{python}
+    def encryption_rounds(data, round_keys, nr):
+        # Inizial add round key
+        data = np.bitwise_xor(data, round_keys[0])
+
+        # Rounds 1 to 9 or 1 to 11 or 1 to 13
+        for i in range(1, (nr - 1)):
+            data = sub_bytes(data, subBytesTable)
+            data = shift_rows(data)
+            data = mix_columns(data)
+            data = np.bitwise_xor(data, round_keys[i])
+
+        # Final round
+        data = sub_bytes(data, subBytesTable)
+        data = shift_rows(data)
+        data = np.bitwise_xor(data, round_keys[nr - 1])
+
+        return data
+    \end{python}
+    \caption{Krypterings runda funktion}
+    \label{fig:encryption-rounds-function}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{python}
+    def decryption_rounds(data, round_keys, nr):
+        # Inizial add round key
+        data = np.bitwise_xor(data, round_keys[-1])
+
+        # Rounds 1 to 9 or 1 to 11 or 1 to 13
+        for i in range(1, (nr - 1)):
+            data = inv_shift_rows(data)
+            data = sub_bytes(data, invSubBytesTable)
+            data = np.bitwise_xor(data, round_keys[-(i+1)])
+            data = inv_mix_columns(data)
+
+        # Final round
+        data = inv_shift_rows(data)
+        data = sub_bytes(data, invSubBytesTable)
+        data = np.bitwise_xor(data, round_keys[0])
+
+        return data
+    \end{python}
+    \caption{Dekrypterings runda funktion}
+    \label{fig:decryption-rounds-function}
+\end{figure}
+
 \subsubsection{SubBytes operationen}
 \label{sec:aes-subbytes}
 SubBytes operationen bygger på ...
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{AES-SubBytes.png}
+    \caption{SubBytes operationen \cite{subbytes-pic-ref}}
+    \label{fig:aes-subbytes-pic}
+\end{figure}
+
 \subsubsection{ShiftRows operationen}
 \label{sec:aes-shiftrows}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{AES-ShiftRows.png}
+    \caption{ShiftRows operationen \cite{shiftrows-pic-ref}}
+    \label{fig:aes-shiftrows-pic}
+\end{figure}
 
 \subsubsection{Inverse ShiftRows operationen}
 \label{sec:aes-invers-shiftrows}
 
 \subsubsection{MixColumns operationen}
 \label{sec:aes-mixcolumns}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{AES-MixColumns.png}
+    \caption{MixColumns operationen \cite{mixcolums-pic-ref}}
+    \label{fig:aes-mixcolumns-pic}
+\end{figure}
 
 \subsubsection{Inverse MixColumns operationen}
 \label{sec:aes-invers-mixcolumns}
