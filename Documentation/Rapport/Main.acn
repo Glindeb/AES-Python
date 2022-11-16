@@ -19,6 +19,9 @@
 \glossaryentry{CBC?\glossentry{cbc}|setentrycounter[]{page}"\glsnumberformat}{9}
 \glossaryentry{OFB?\glossentry{ofb}|setentrycounter[]{page}"\glsnumberformat}{9}
 \glossaryentry{AES?\glossentry{aes}|setentrycounter[]{page}"\glsnumberformat}{9}
+\glossaryentry{ECB?\glossentry{ecb}|setentrycounter[]{page}"\glsnumberformat}{9}
+\glossaryentry{CBC?\glossentry{cbc}|setentrycounter[]{page}"\glsnumberformat}{9}
+\glossaryentry{OFB?\glossentry{ofb}|setentrycounter[]{page}"\glsnumberformat}{9}
 \glossaryentry{AES?\glossentry{aes}|setentrycounter[]{page}"\glsnumberformat}{12}
 \glossaryentry{TLS?\glossentry{tls}|setentrycounter[]{page}"\glsnumberformat}{12}
 \glossaryentry{TLS?\glossentry{tls}|setentrycounter[]{page}"\glsnumberformat}{12}
