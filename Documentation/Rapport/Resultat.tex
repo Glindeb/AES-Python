@@ -1,17 +1,18 @@
 \mychapter{Resultat}
 \label{chap:resultat}
 Notera att tiden som visas i tabellerna är i sekunder och är ett medelvärde av 25 enskilda
-krypteringsomgångar för varje nyckel och varje körläge. Det råa data värdena från hela undersökningen
+krypteringsomgångar för varje nyckel och varje körläge.
+Den resulterande procentuella skillnaden mellan värdena har en felmarginal på 7,7 procentenheter. % Check this so its correct
+Det råa data värdena från hela undersökningen
 går att se i bilaga \ref{app:raw-data-mode-picture-test}, \ref{app:raw-data-keylength} \& \ref{app:raw-data-mode}.
 
-\section{Nyckellängds Test}
+\section{Nyckellängdstest}
 \label{sec:nyckellangd}
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{ ||c|c|c|| }
-      \hline
-      \multicolumn{3}{|c|}{\bfseries{Resultat Tid (s)}} \\
+    \begin{tabular}{ |c|c|c| }
+      \multicolumn{3}{c}{\bfseries{Resultat Tid (s)}} \\
       \hline
       \bfseries{ECB - 128bit} & \bfseries{ECB - 192bit} & \bfseries{ECB - 256bit} \\
       \hline
@@ -20,14 +21,27 @@ går att se i bilaga \ref{app:raw-data-mode-picture-test}, \ref{app:raw-data-key
     \end{tabular}
 \end{table}
 
-\section{Körläges Test}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{ |c|c| }
+    \multicolumn{2}{c}{\bfseries{Procentuell skillnad}} \\
+    \hline
+    \bfseries{ECB - 128bit \& 192bit} & 18,8\% \\
+    \hline
+    \bfseries{ECB - 192bit \& 256bit} & 16,6\% \\
+    \hline
+    \bfseries{ECB - 128bit \& 256bit} & 27,8\% \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\section{Körlägestest}
 \label{sec:korlages}
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{ ||c|c|c|| }
-      \hline
-      \multicolumn{3}{|c|}{\bfseries{Resultat Tid (s)}} \\
+    \begin{tabular}{ |c|c|c| }
+      \multicolumn{3}{c}{\bfseries{Resultat Tid (s)}} \\
       \hline
       \bfseries{ECB - 128bit} & \bfseries{CBC - 128bit} & \bfseries{OFB - 128bit} \\
       \hline
@@ -36,7 +50,21 @@ går att se i bilaga \ref{app:raw-data-mode-picture-test}, \ref{app:raw-data-key
     \end{tabular}
 \end{table}
 
-\section{Krypterings Test}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{ |c|c| }
+    \multicolumn{2}{c}{\bfseries{Procentuell skillnad}} \\
+    \hline
+    \bfseries{ECB - 128bit \& CBC - 128bit} & 0,3\% \\
+    \hline
+    \bfseries{CBC - 128bit \& OFB - 128bit} & 0,1\% \\
+    \hline
+    \bfseries{ECB - 128bit \& CBC - 128bit} & 0,4\% \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\section{Krypteringstest}
 \label{sec:krypterings-test}
 
 \begin{figure}[H]

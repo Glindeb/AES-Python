@@ -57,18 +57,18 @@ Här visas hur varje block för sig krypteras med hjälp av en blockchiffer algo
 tillsammans med den givna nyckeln.
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{ECB_encryption.png}
-    \caption{\acrlong{ecb} kryptering \cite{ecb-mode-enc-ref}}
+    \includegraphics[width=\textwidth]{ECB Kryptering.png}
+    \caption{\acrlong{ecb} kryptering}
     \label{fig:ecb-mode-enc}
 \end{figure}
 
 Figur \ref{fig:ecb-mode-dec} visar istället hur \acrshort{ecb} fungerar vid
 dekryptering, vilken är en till stort sett identisk operation med det enda undantaget
-att blockchiffret körs i dekrypterings läge istället för krypterings läge. % May need reformulating!!
+att blockchiffret körs i dekrypterings läge istället för krypterings läge.
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{ECB_decryption.png}
-    \caption{\acrlong{ecb} dekryptering \cite{ecb-mode-dec-ref}}
+    \includegraphics[width=\textwidth]{ECB Decryptering.png}
+    \caption{\acrlong{ecb} dekryptering}
     \label{fig:ecb-mode-dec}
 \end{figure}
 
@@ -114,8 +114,8 @@ något föregående block att använda. $i$ står för index där de första blo
 index värdet 1. Hela den här processen kan även ses i figur \ref{fig:cbc-mode-enc}.
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{CBC_encryption.png}
-    \caption{\acrlong{cbc} kryptering \cite{cbc-mode-enc-ref}}
+    \includegraphics[width=\textwidth]{CBC Kryptering.png}
+    \caption{\acrlong{cbc} kryptering}
     \label{fig:cbc-mode-enc}
 \end{figure}
 
@@ -135,8 +135,8 @@ blocket och föregående block innan dekrypteringen av blocket.\footcite{modesof
 \end{equation}
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{CBC_decryption.png}
-    \caption{\acrlong{cbc} dekryptering \cite{cbc-mode-dec-ref}}
+    \includegraphics[width=\textwidth]{CBC Decryptering.png}
+    \caption{\acrlong{cbc} dekryptering}
     \label{fig:cbc-mode-dec}
 \end{figure}
 
@@ -173,19 +173,18 @@ dekrypteringen av \acrshort{ofb} identisk, vilket även visas i figur \ref{fig:o
 \& \ref{fig:ofb-mode-dec}:
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{OFB_encryption.png}
-    \caption{\acrlong{ofb} kryptering \cite{ofb-mode-enc-ref}}
+    \includegraphics[width=\textwidth]{OFB Kryptering.png}
+    \caption{\acrlong{ofb} kryptering}
     \label{fig:ofb-mode-enc}
 \end{figure}
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{OFB_decryption.png}
-    \caption{\acrlong{ofb} dekryptering \cite{ofb-mode-dec-ref}}
+    \includegraphics[width=\textwidth]{OFB Decryptering.png}
+    \caption{\acrlong{ofb} dekryptering}
     \label{fig:ofb-mode-dec}
 \end{figure}
 
-Utöver detta kan man även matematiskt beskriva \acrshort{ofb}, vilket visas i ekvationen
-nedan:
+Utöver detta kan man även matematiskt beskriva \acrshort{ofb}, vilket visas i nedan:
 
 \begin{equation}
     \label{eq:ofb-encryption}
@@ -288,11 +287,11 @@ utifrån en viss nyckel och skapar då ytterligare ett lager av säkerhet.\footf
 \acrshort{aes} har två olika S-boxar varav den ena är en invers S-box av den andra.
 Detta så att operationen går att utföra i båda riktningarna, vilket gör dekryptering
 av data möjlig.\footcite{sbox_wiki} Dessa två S-boxar går att se nedan i figur \ref{fig:aes-sbox} där
-värdena är representerade i hexadecimala tal. % May need explanation in glossarie
+värdena är representerade i \gls{hexadecimal} tal.
 
 \begin{figure}[H]
     \includegraphics[width=\textwidth]{S-box.png}
-    \caption{\acrshort{aes} S-box (Den vänstra matrisen) \& Invers S-box (Den högra matrisen) \cite{sbox_wiki}}
+    \caption{\acrshort{aes} S-box (Den vänstra matrisen) \& Invers S-box (Den högra matrisen)}
     \label{fig:aes-sbox}
 \end{figure}
 
