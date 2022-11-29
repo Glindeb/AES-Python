@@ -1,6 +1,6 @@
 \mychapter{Bakgrund}
 
-\section{Kryptografi} % Maybe presenting cryptography and some famous algorithms and systems...
+\section{Kryptografi} % Ask for opinion on this section
 Ordet kryptografi härstammar från de två grekiska orden
 kryptos som betyder gömd och grafein som betyder skrift.\footfullcite{krypto}
 I sin simplaste form handlar kryptografi alltså om att
@@ -12,7 +12,20 @@ Begreppet kryptografi har dock också fått en utökade betydelse
 med tiden då det idag även inkluderar olika metoder för att
 säkerställa autenticiteten av informationen och avsändaren.\footfullcite{NE-1}
 
-\subsection{Uppkomst} % Mention things like Caesar cipher
+\section{Varför behövs kryptering?} % Why do we need encryption?
+\label{sec:varfor-behovs-kryptering}
+I takt med utvecklingen av såväl tekniken som samhälle så visar sig en tydlig trend mot digitalisering av allt från
+post och medelanden till betalningar och personuppgifter. Detta har öppnat upp för helt
+nya problem när det gäller säkerhet och integritet av information som inte tidigare funnits. Utan denna utbredning av
+digitalisering så hade våran utveckling troligen begränsas men med den nya tekniken kommer även nya problem
+som måste lösas.\footfullcite{diffie2010privacy}
+
+Ett av dessa problem är integritet och säkerhet. Något som tidigare kunde lösas genom att låsa in informationen på
+en fysisk plats men som nu inte längre är möjligt. Den digitala världen har gjort det nästan
+omöjligt att vara helt säker och strävan efter att behålla den enskilda individens integritet
+är en av de största utmaningarna som vi står inför idag.\footcite{diffie2010privacy}
+
+\subsection{Kryptografins uppkomst} % Kind of done but need to ask jimmy of what he thinks and maybe someone more
 Kryptografins historia kan man nästan säga börjar vid den
 tidigaste formen av skrift, vilket grundar sig i de faktum att
 de flesta inte kunde läsa. Detta är ju såklart något som förändrats
@@ -29,7 +42,7 @@ och sedan skrev medellandet på pappersbiten. När pappersbiten sedan togs av s�
 oläslig och mottagaren behövde vira upp pappersbiten på ett cylinderformat objekt
 med samma diameter för att läsa det.\footcite{kryptografi-historia-1}
 
-\subsection{Utveckling} % Mention things like DES, RSA and enigma as well as the development of the algorithms and technological advances
+\subsection{Kryptografins utveckling} % May need more but not sure
 Utvecklingen av kryptografin som en vetenskap och teknik såg dock inga större framsteg
 ända till medeltiden. När utvecklingen ändå började ta fart igen så använde bland annat
 nästan alla Europeiska nationer någon form av kryptografi för att dölja medelande och hemlig kommunikation.
@@ -41,7 +54,7 @@ under många år fram till 1900 då bland annat \gls{enigma} uppkom. \gls{enigma
 bygger på \gls{substitutionsskiffer} precis som många skiffer tidigare men som tills skillnad från tidigare
 använde sig av ett flertal nya metoder för att göra krypteringen säkrare.\footcite{kryptografi-historia-1}
 
-\gls{enigma} kan man nästan se som ett av de första stegen i utvecklingen av den morderna kryptografin som
+\gls{enigma} kan man nästan se som ett av de första stegen i utvecklingen av den moderna kryptografin som
 till stora delar bygger på våran teknologiska utveckling. Den nya tekniken öppnade nya portar, vilket bland annat gjorde det möjligt
 för krypteringen att bli mer komplicerad och säkrare utan att påverkar användbarheten. Men utvecklingen visades sig även inom
 dekrypteringen där ett tydligt exempel är hur en av de första fullt programmerbara datorerna Colossus skapades. Datorn hade i syfte
@@ -54,7 +67,16 @@ protokoll som \gls{http} och \gls{ssh}.\footcite{krypto}
 
 \section{AES Uppkomst} % The rise of the AES standard and the Rijndael algorithm
 \label{sec:aes-uppkomst}
+Startskottet för uppkomsten av \acrshort{aes} gavs av \acrfull{nist} som 1997
+utlyste en utmaning för att skapa en ny standard för kryptering för att ersätta
+\acrshort{des} som då var den dominerande standarden.\footfullcite{nechvatal2001report} Utmaningen utlystes för att
+\acrshort{des} säkerhet började bli allt mer ifrågasatt i takt med att datorerna blev mer kraftfulla, vilket då blev starten för sökandet efter
+en ny mer framtidssäker standard.\footfullcite{burr2003selecting}
 
-\section{Tidigare forskning} % Mention the previous research done on the subject and so on
-\label{sec:tidigare-forskning}
-
+\acrshort{nist} utlyste sedan 1998 de 15 kandidaterna som valts ut. Där efter så fick
+den kryptografiska forskargruppen runt om i världen möjligheten att undersöka och testa
+de olika kandidaterna under processen. Efter ett flertal rundor av analysering och testande
+där antalet kandidater sakta men säkert minskat så valdes tillslut 5 kandidater ut som
+finalister. Dessa var Rijndael, RC6, Serpent, MARS och Twofish. Slutligen en tid senare så
+valdes Rijndael ut som den nya standarden och en modifierad verison av Rijndael
+blev då sedan den så kallade \acrfull{aes}.\footcite{nechvatal2001report}
