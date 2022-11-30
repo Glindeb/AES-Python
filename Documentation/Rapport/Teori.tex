@@ -45,6 +45,7 @@ plus att samma information som krypteras flera inte kommer ge samma resultat äv
 nyckel.\footcite{modesofoperation}
 
 \subsubsection{ECB}
+\label{sec:ecb}
 \acrfull{ecb} är en av det enklaste blockchiffer körlägena som finns.
 \acrshort{ecb} i sig är ganska lätt att förstå och bygger i huvudsak bara på
 att man delar upp den data man vill kryptera i delar kallade block och tar sedan varje
@@ -90,6 +91,7 @@ både när de gäller krypteringen och dekrypteringen. Detta samt att \acrshort{
 utan att man behöver dekryptera hela texten.\footcite{modesofoperation}
 
 \subsubsection{CBC}
+\label{sec:cbc}
 \acrlong{cbc} är ett av de mest vanligen använda körlägena för många blockchiffer.
 Till skillnad från \acrshort{ecb} så förhindrar \acrshort{cbc} att två block med
 samma innehåll kan ge samma krypterade block. Detta gör \acrshort{cbc} genom att
@@ -161,6 +163,7 @@ som \acrshort{ecb} har att slumpmässigt dekryptera enskilda block utan att beh�
 dekryptera hela skiffertexten.\footcite{modesofoperation}
 
 \subsubsection{OFB}
+\label{sec:ofb}
 \acrlong{ofb} är ett ytterligare körläge som skiljer sig en del från \acrshort{ecb}
 och \acrshort{cbc} som  redan presenterats. Den största skillnaden från det andra
 körlägena är att \acrshort{ofb} inte använder blockchiffer algoritmen för att kryptera
@@ -358,7 +361,7 @@ Detta eftersom ifall man tar och genomför \gls{xor}-operationen med samma nycke
 så handlar de istället om att de helt enkelt är en substitution utifrån en \nameref{sec:aes-sbox}, vilket då betyder att de som krävs för att genomföra den motsatta operationen
 blir att använda den inversa \nameref{sec:aes-sbox}en.\footcite{aes_wiki}
 
-Både krypterings och dekrypterings strukturen av ett block som beskrivits ovan kan representeras i \gls{python} kod på följande sätt i figur \ref{fig:encryption-rounds-function} \& \ref{fig:decryption-rounds-function}.
+Både krypterings och dekrypterings strukturen av ett block som beskrivits ovan kan representeras i \gls{python} kod på följande sätt som visas i figur \ref{fig:encryption-rounds-function} \& \ref{fig:decryption-rounds-function}.
 
 \begin{figure}[h]
     \centering

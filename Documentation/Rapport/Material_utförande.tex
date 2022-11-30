@@ -1,30 +1,37 @@
 \mychapter{Metod \& Genomförande}
 Metoden för denna undersökning bygger på en implementering av \acrshort{aes} i programmeringsspråket
 \gls{python}. Detta tillsammans med ett antal konstruerade tester även dom implementerade i
-\gls{python} är vad som använts för själva undersökningen av \acrshort{aes}. Själva koden
+\gls{python} är vad som använts för själva undersökningen av \acrshort{aes}. Koden
 är skriven med hjälp av programmet \gls{vscode} och är byggd huvudsakligen för \gls{python} 3.10 men
-på grund av att \gls{python} 3.11 släpptes innan undersökningen genomfördes så är de \gls{python} 3.11
+på grund av att \gls{python} 3.11 släpptes innan undersökningen genomfördes så är de istället \gls{python} 3.11
 som användes under undersöknings genomförandet.\footfullcite{python311}
 
-\section{Implementering}
+\section{Implementering} % Describe the implementation of the AES algorithm in python
 Implementeringen av \acrshort{aes} är uppdelad i ett antal funktioner till stor del är baserat på
 hur strukturen och uppdelningen av \acrshort{aes} som beskrivet i \citetitle{daemen1999aes}\footcite{daemen1999aes}.
-De Huvudsakliga funktionerna är följande:
+Några av det Huvudsakliga funktionerna av algoritmen är som följande:
 \begin{itemize}
     \item \texttt{\nameref{sec:aes-subbytes}}
     \item \texttt{\nameref{sec:aes-shiftrows}}
     \item \texttt{\nameref{sec:aes-mixcolumns}}
-    \item \texttt{\nameref{sec:aes-addroundkey}}
-    \item \texttt{\nameref{sec:aes-key-expansion}}
 \end{itemize}
 
-Dessa används då i själva algoritmens rundor samt utanför och är beskrivna och förklarade i respektive teori avsnitt.
-Utöver detta kan
+Dessa funktioner används i varje runda och är grunden för hur algorithmen fungerar. Utöver detta finns
+äne \nameref{sec:aes-addroundkey} som används för att lägga till nyckeln i varje runda. AddRoundKey steget är dock inte
+en funktion eftersom det enbart består ut av en \gls{xor}-operation. Utöver detta finns det även
+en funktion som används för att expandera nyckeln som beskrivs i \nameref{sec:aes-key-expansion} samt
+individuella funktioner för kryptering och dekryptering till de olika körlägen \nameref{sec:ecb}, \nameref{sec:cbc} och
+\nameref{sec:ofb}.
 
-\section{Test Uppsättning}
+Implementeringen använder sig av \gls{python} biblioteket NumPy för att hantera matriser och genomföra
+matematiska operationer på dessa. Hela implementeringen går att hitta i appendix \ref{app:python} "\nameref{app:python}".
+
+\section{Test Uppsättning} % Describe the individual test setup for each test and it´s method
 Test uppsättningen är uppdelad i tre delar där varje del är konstruerad för att generera ett
-resultat i koppling till frågeställningarna för denna undersökning.
-
+resultat i koppling till frågeställningarna för denna undersökning. Två av delarna, \nameref{sec:nyckellängd-test} och
+\nameref{sec:körlages-test} är skrivna som ett \gls{python} script som kan köras för att då genererar
+resultatet. När det gäller Krypteringstest så skiljer sig det från de två andra testerna eftersom det
+inte är ett skript utan ett antal manuella steg som genomfördes för att generera resultatet istället.
 
 \subsection{Nyckellängds Test}
 \label{sec:nyckellängd-test}
@@ -34,9 +41,18 @@ resultat i koppling till frågeställningarna för denna undersökning.
 \label{sec:körlages-test}
 
 
-\subsection{Krypterings Test}
+\subsection{Krypterings Test} % explain how the encryption test is setup
 \label{sec:krypterings-test}
+Krypterigns testet består utav att man krypterar en bild i \gls{ppm} format med \acrshort{aes} i tre olika körlägen.
+PPM formatet används då de tack vare sin enkla struktur kan genomgå en kryptering och fortfarande representeras som en bild
+efteråt. Detta gör det då möjligt att visualisera resultatet av krypteringen. För att kryptera bilden används den implementerade
+\acrshort{aes} algorithmen som körs i körlägena \nameref{sec:ecb}, \nameref{sec:cbc} och \nameref{sec:ofb} körlägen.
 
+Före och efter krypteringen modifieras dock \gls{ppm} filen så att den går att öppna när den väl är krypterad. Detta görs genom att de fyra
+första raderna i filen tas bort och sätts sedan tillbaka efter krypteringen. Detta gör att filen fortfarande kan öppnas som en bild
+efter krypteringen.
 
-\section{Genomförande}
-Genomförandet av undersökningen gick som följande:
+\section{Genomförande} % Describe the test enviroment that was used as well as hwo the test was preformed
+Först kördes Nyckellängdstestet och Körlägestestet genom att köra \gls{python} filen \nameref{app:analyze}. Där efter
+genomfördes Krypterings testet. För krypteringstestet valdes först en lämplig bild för krypteringen ut. Sedan
+konverterades bilden till \gls{ppm} format med hjälp av programmet \gls{gimp}.

@@ -2,7 +2,6 @@
 \label{chap:resultat}
 Notera att tiden som visas i tabellerna är i sekunder och är ett medelvärde av 25 enskilda
 krypteringsomgångar för varje nyckel och varje körläge.
-Den resulterande procentuella skillnaden mellan värdena har en felmarginal på 7,7 procentenheter. % Check this so its correct
 Det råa data värdena från hela undersökningen
 går att se i bilaga \ref{app:raw-data-mode-picture-test}, \ref{app:raw-data-keylength} \& \ref{app:raw-data-mode}.
 
@@ -11,12 +10,16 @@ går att se i bilaga \ref{app:raw-data-mode-picture-test}, \ref{app:raw-data-key
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{ |c|c|c| }
-      \multicolumn{3}{c}{\bfseries{Resultat Tid (s)}} \\
+    \begin{tabular}{ |c|c|c|c| }
+      \multicolumn{4}{c}{\bfseries{Resultat Tid (s)}} \\
       \hline
-      \bfseries{ECB - 128bit} & \bfseries{ECB - 192bit} & \bfseries{ECB - 256bit} \\
+      & \bfseries{ECB - 128bit} & \bfseries{ECB - 192bit} & \bfseries{ECB - 256bit} \\
       \hline
-      21.05752382799983 & 25.014501572000153 & 29.177583716000083 \\
+      \bfseries{Maxvärde} & 21,7096068999963 & 25,3103521000012 & 29,2763711000007 \\
+      \hline
+      \bfseries{Minvärde} & 20,8357139000000 & 24,8878867999956 & 29,0315928999989 \\
+      \hline
+      \bfseries{Medelvärde} & 21,0575238279998 & 25,01450157200015 & 29,17758371600008 \\
       \hline
     \end{tabular}
 \end{table}
@@ -24,7 +27,7 @@ går att se i bilaga \ref{app:raw-data-mode-picture-test}, \ref{app:raw-data-key
 \begin{table}[H]
   \centering
   \begin{tabular}{ |c|c| }
-    \multicolumn{2}{c}{\bfseries{Procentuell skillnad}} \\
+    \multicolumn{2}{c}{\bfseries{Procentuell skillnad (medelvärde)}} \\
     \hline
     \bfseries{ECB - 128bit \& 192bit} & 18,8\% \\
     \hline
@@ -40,12 +43,16 @@ går att se i bilaga \ref{app:raw-data-mode-picture-test}, \ref{app:raw-data-key
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{ |c|c|c| }
-      \multicolumn{3}{c}{\bfseries{Resultat Tid (s)}} \\
+    \begin{tabular}{ |c|c|c|c| }
+      \multicolumn{4}{c}{\bfseries{Resultat Tid (s)}} \\
       \hline
-      \bfseries{ECB - 128bit} & \bfseries{CBC - 128bit} & \bfseries{OFB - 128bit} \\
+      & \bfseries{ECB - 128bit} & \bfseries{CBC - 128bit} & \bfseries{OFB - 128bit} \\
       \hline
-      20.82165230000013 & 20.885069635999972 & 20.89562146799988 \\
+      \bfseries{Maxvärde} & 21,0857602999968 & 20,9346826999972 & 20,8816630000001 \\
+      \hline
+      \bfseries{Minvärde} & 20,8010089999952 & 20,8505676999994 & 20,7675767999972 \\
+      \hline
+      \bfseries{Medelvärde} & 20.82165230000013 & 20.885069635999972 & 20.89562146799988 \\
       \hline
     \end{tabular}
 \end{table}
@@ -53,7 +60,7 @@ går att se i bilaga \ref{app:raw-data-mode-picture-test}, \ref{app:raw-data-key
 \begin{table}[H]
   \centering
   \begin{tabular}{ |c|c| }
-    \multicolumn{2}{c}{\bfseries{Procentuell skillnad}} \\
+    \multicolumn{2}{c}{\bfseries{Procentuell skillnad (medelvärde)}} \\
     \hline
     \bfseries{ECB - 128bit \& CBC - 128bit} & 0,3\% \\
     \hline
@@ -68,7 +75,8 @@ går att se i bilaga \ref{app:raw-data-mode-picture-test}, \ref{app:raw-data-key
 \label{sec:krypterings-test}
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{summarie-tp-background.png}
+      \centering
+    \includegraphics[width=0.8\textwidth]{summarie-tp-background.png}
     \caption{\acrshort{aes} krypterings test (\acrshort{ecb}, \acrshort{cbc}, \acrshort{ofb})}
     \label{fig:aes-krypterings-test}
 \end{figure}
