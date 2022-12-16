@@ -140,12 +140,13 @@ def remove_padding(data, identifier):
         raise ValueError('Invalid padding')
 
 
-# Performs the encryption rounds
+# Performs the encryption rounds on the input data matrix
 def encryption_rounds(data, round_keys, nr):
     # Inizial add round key
     data = np.bitwise_xor(data, round_keys[0])
 
     # Rounds 1 to 9 or 1 to 11 or 1 to 13
+    # Here each step in one round is performed in a sequence n times
     for i in range(1, (nr - 1)):
         data = sub_bytes(data, subBytesTable)
         data = shift_rows(data)
@@ -153,6 +154,7 @@ def encryption_rounds(data, round_keys, nr):
         data = np.bitwise_xor(data, round_keys[i])
 
     # Final round
+    # Identical to the previous rounds, but without mix columns
     data = sub_bytes(data, subBytesTable)
     data = shift_rows(data)
     data = np.bitwise_xor(data, round_keys[nr - 1])
