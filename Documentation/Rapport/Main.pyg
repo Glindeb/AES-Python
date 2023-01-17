@@ -1,7 +1,0 @@
-    $ head -n 4 pi.ppm > header.txt
-
-    $ tail -n +5 pi.ppm > body.bin
-
-    $ python3 encrypt.py 2b7e151628aed2a6abf7158809cf4f3c body.bin ECB
-
-    $ cat header.txt body.bin.enc > pi-ecb.ppm
