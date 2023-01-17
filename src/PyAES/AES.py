@@ -61,11 +61,13 @@ round_constant = (
 # Main action functions
 # ---------------
 # Xtime
+# Used to preform multiplication by x in the Galois field
 def xtime(a):
     return (((a << 1) ^ 0x1B) & 0xFF) if (a & 0x80) else (a << 1)
 
 
-# Performs the byte substitution layer
+# Byte substitution function
+# Substitutes each byte in the state with a byte from the S-Box
 def sub_bytes(data, bytesTable):
     for i, row in enumerate(data):
         for j, byte in enumerate(row):
@@ -74,6 +76,8 @@ def sub_bytes(data, bytesTable):
 
 
 # Shift rows function
+# Shifts the rows of the the matrix to the left.
+# Each row is shifted by the number of its index
 def shift_rows(array):
     array[:, 1] = np.roll(array[:, 1], -1, axis=0)
     array[:, 2] = np.roll(array[:, 2], -2, axis=0)
@@ -82,6 +86,8 @@ def shift_rows(array):
 
 
 # Inverse shift rows function
+# Shifts the rows of the the matrix to the right.
+# Each row is shifted by the number of its index
 def inv_shift_rows(array):
     array[:, 1] = np.roll(array[:, 1], 1, axis=0)
     array[:, 2] = np.roll(array[:, 2], 2, axis=0)
@@ -91,8 +97,8 @@ def inv_shift_rows(array):
 
 # Performs the mix columns layer
 def mix_columns(data):
+    # mixes a single column
     def mix_single_column(data):
-        # See Sec 4.1.2 in The Design of Rijndael
         t = data[0] ^ data[1] ^ data[2] ^ data[3]
         u = data[0]
         data[0] ^= t ^ xtime(data[0] ^ data[1])
@@ -100,6 +106,7 @@ def mix_columns(data):
         data[2] ^= t ^ xtime(data[2] ^ data[3])
         data[3] ^= t ^ xtime(data[3] ^ u)
 
+    # mixes all columns using mix_single_column
     def mix(data):
         for i in range(4):
             mix_single_column(data[i])
@@ -110,7 +117,6 @@ def mix_columns(data):
 
 # Preforms the inverse mix columns layer
 def inv_mix_columns(data):
-    # See Sec 4.1.3 in The Design of Rijndael
     for i in range(4):
         u = xtime(xtime(data[i][0] ^ data[i][2]))
         v = xtime(xtime(data[i][1] ^ data[i][3]))
@@ -130,7 +136,7 @@ def add_padding(data):
     return data, length
 
 
-# Removes the padding
+# Removes the padding from the data
 def remove_padding(data, identifier):
     if identifier[-1] == 0:
         return data
