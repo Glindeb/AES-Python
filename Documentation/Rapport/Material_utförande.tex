@@ -35,13 +35,14 @@ inte är en automatiserad process utan ett antal praktiska steg som genomfördes
 \subsection{Testmiljö} % Describe the test enviroment (might reqiuer extra glossary entrys for some of the terms)
 Genomförandet av undersökningen skedde på en Windows dator med \gls{python} 3.11.0 installerat. I syfte att minimerar variabiliteten
 mellan de olika omgångarna av tester då allt repeteras ett vist antal gånger så begränsades vissa delar av datorn och anpassningar gjordes i genomförandet.
-De begränsningar som placerades på datorn bestod ut av att datorn CPU klockhastighet begränsades till sin bas hastighet för att ge
+De begränsningar som placerades på datorn bestod ut av att datorn CPU klockhastighet begränsades till sin grund hastighet för att ge
 varje test ett likvärdigt utgångsläge som möjligt. Utöver detta så genomfördes även varje test separat utan parallellisering för att
 eliminera risken av att testerna skulle kunna påverka varandra.
 
 \subsection{Nyckellängds Test} % Explain the key length test
 \label{sec:nyckellangd-test}
-
+Nyckellängds testet bygger på att varje nyckellängd används för att kryptera en text fil på 1 MB. Detta genomförs 25 gånger för
+varje nyckellängd och resultatet av varje test sparas sedan ...
 
 \subsection{Körläges Test} % Explain the mode of operation test
 \label{sec:körlages-test}
