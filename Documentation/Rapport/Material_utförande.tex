@@ -42,7 +42,16 @@ eliminera risken av att testerna skulle kunna påverka varandra.
 \subsection{Nyckellängds Test} % Explain the key length test
 \label{sec:nyckellangd-test}
 Nyckellängds testet bygger på att varje nyckellängd används för att kryptera en text fil på 1 MB. Detta genomförs 25 gånger för
-varje nyckellängd och resultatet av varje test sparas sedan ...
+varje nyckellängd och resultatet av varje test sparas sedan i en text fil. Själva testet består av att det för varje runda
+genereras en text fil på 1 MB fylld med slumpmässiga \gls{byte}s. Denna text fil krypteras sedan med hjälp av \acrshort{aes} samtidigt
+som tiden som det tar att kryptera filen mätas. Detta upprepas sedan som tidigare nämnts 25 gånger för följande tre nycklarna som går att se nedan.
+För \acrshort{cbc} \& \acrshort{ofb} körlägen så används utöver dessa nycklar även en \acrshort{iv} som är 128 bit lång.
+
+\begin{itemize}
+    \item 2b7e151628aed2a6abf7158809cf4f3c (128 bit)
+    \item 8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b (192 bit)
+    \item 603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4 (256 bit)
+\end{itemize}
 
 \subsection{Körläges Test} % Explain the mode of operation test
 \label{sec:körlages-test}
