@@ -22,27 +22,26 @@ På grund av detta har en mängd olika körlägen utvecklats för att på så s�
 blockskiffer för att kryptera större mängder data med en nyckel.\footcite{blockskiffer-ref}
 
 Blockskiffer används däremot inte bara för kryptering utan kan även användas i olika typer av \gls{hashfunktion}er
-och \gls{pseudoslump} nummer generatorer bland annat, då eftersom blockskifferets resulterande skiffertext ser ut att vara helt slumpmässig
+och \gls{pseudoslump} nummer generatorer bland annat, eftersom blockskifferets resulterande skiffertext ser ut att vara helt slumpmässig
 trots att den inte egentligen är det.\footcite{blockskiffer-ref}
-% need to add more
 
 \subsection{Körlägen}
 Körlägen inom kryptografin kan man se som algoritmer som appliceras i användningen av
 blockskiffer eftersom dessa endast är användbara för säker kryptering av ett litet block med bestämd längd.
 Körlägena gör de då möjligt att istället kunna använda blockskiffer på större data mängder.
 Detta löser körlägen på olika sätt beroende på hur man vill använda blockskiffer algoritmen samt hur
-mycket man ör villig att kompromissa med säkerheten i förhållande till hastighet.\footfullcite{modesofoperation}
+mycket man ör villig att kompromissa med säkerheten i förhållande till hastighet.\footfullcite{dworkin2001sp}
 
 Ett ut av sätten som körlägen löser problemet med att applicera blockskiffer algoritmer på
 större data mängder är att dom använder sig av en så kallad \acrfull{iv}. Det är en unik sekvens
 av bytes som används för att säkerställa att samma data mängd aldrig kommer att generera samma
-krypterade skiffertext.\footcite{modesofoperation}
+krypterade skiffertext.\footcite{dworkin2001sp}
 
-\acrshort{iv} kan användas på många sätt från att introduceras genom en
-\gls{xor}-operation med första blocket och sedan kedja ihop och göra samma sak med nästkommande
-block fast med resultatet från den första operationen precis som i \acrshort{cbc}. Detta gör att blocken blir beroende av varandra
+\acrshort{iv} kan användas på många sätt, exempelvis kan den introduceras genom en
+\gls{xor}-operation till första blocket. Sedan kedjas resterande block ihop med en \gls{xor}-operation med resultatet från
+den första operationen, vilket precis är vad som görs i \acrshort{cbc}. Detta gör att blocken blir beroende av varandra
 plus att samma information som krypteras flera inte kommer ge samma resultat även fast man använder samma
-nyckel.\footcite{modesofoperation}
+nyckel.\footcite{dworkin2001sp}
 
 \subsubsection{ECB}
 \label{sec:ecb}
@@ -51,7 +50,7 @@ nyckel.\footcite{modesofoperation}
 att man delar upp den data man vill kryptera i delar kallade block och tar sedan varje
 block för sig och kör genom algoritmen, vilket tydligt visas i
 figur \ref{fig:ecb-mode-enc} \& \ref{fig:ecb-mode-dec}.
-\footcite{modesofoperation}
+\footcite{dworkin2001sp}
 
 Figur \ref{fig:ecb-mode-enc} visar hur \acrshort{ecb} fungerar vid kryptering.
 Här visas hur varje block för sig krypteras med hjälp av en blockchiffer algoritm
@@ -76,19 +75,19 @@ att blockchiffret körs i dekrypterings läge istället för krypterings läge.
 På grund av \acrshort{ecb} körlägets simplicitet så finns det dock även ett ganska
 stort problem med detta körläge. Det handlar om att \acrshort{ecb} inte på något
 sätt förhindrar att två block med samma innehåll som krypteras inte resulterar i
-ett identiskt krypterat block.\footcite{modesofoperation}
+ett identiskt krypterat block.\footcite{dworkin2001sp}
 
 Vad detta innebär är att för större mängder data
 är att det börjar bildas mönster i skiffertexten. Detta är något som väldigt
 tydligt visar sig ifall man krypterar en bild, vilket går att se när man jämför
 bilaga \ref{fig:pi-original} \& \ref{fig:pi-ecb}.
 Det här faktumet är även varför \acrshort{ecb} inte är ett säkert körläge
-och därför inte används näst intill aldrig i praktiken.\footcite{modesofoperation}
+och därför inte används näst intill aldrig i praktiken.\footcite{dworkin2001sp}
 
 \acrshort{ecb} har däremot även sina fördelar då de bland annat kan parallelliseras
 både när de gäller krypteringen och dekrypteringen. Detta samt att \acrshort{ecb}
 även gör de möjligt att slumpmässigt dekryptera enskilda block av en skiffertext
-utan att man behöver dekryptera hela texten.\footcite{modesofoperation}
+utan att man behöver dekryptera hela texten.\footcite{dworkin2001sp}
 
 \subsubsection{CBC}
 \label{sec:cbc}
@@ -97,7 +96,7 @@ Till skillnad från \acrshort{ecb} så förhindrar \acrshort{cbc} att två block
 samma innehåll kan ge samma krypterade block. Detta gör \acrshort{cbc} genom att
 lägga till ett extra steg utöver vad som finns i \acrshort{ecb}. Steget
 är en \gls{xor}-operation mellan det krypterade blocket nästkommande block innan
-de körs genom blockchiffer algoritmen.\footcite{modesofoperation}
+de körs genom blockchiffer algoritmen.\footcite{dworkin2001sp}
 Matematisk sett kan detta formuleras såhär:
 
 \begin{equation}
@@ -125,7 +124,7 @@ När de gäller dekrypterings processen för \acrshort{cbc} så bär den precis 
 \acrshort{ecb} stora likheter med krypterings processen. Det två skillnaderna som
 finns är att blockchiffert körs i dekrypterings läge istället för krypterings läge.
 Samt att för varje block så genomförs en \gls{xor}-operation mellan det dekrypterade
-blocket och föregående block innan dekrypteringen av blocket.\footcite{modesofoperation}
+blocket och föregående block innan dekrypteringen av blocket.\footcite{dworkin2001sp}
 Även detta går att både matematiskt formulera och visuellt visa såhär:
 
 \begin{equation}
@@ -148,19 +147,19 @@ Detta innebär att dom mönster som kunde dyka upp i \acrshort{ecb} inte längre
 kan uppstå, vilket då gör \acrshort{cbc} till ett mer säkert körläge än \acrshort{ecb}.
 Dock kräver \acrshort{cbc} en ytterligare faktor för att se till så att inte olika medelanden
 kan ge samma krypterade block. Därav så krävs en \acrfull{iv} som används vid första
-blocket.\footcite{modesofoperation}
+blocket.\footcite{dworkin2001sp}
 
 \acrshort{cbc} är dock inte prefekt och har i sig också några nackdelar. Där ibland
 exempelvis de faktum att en incorrect \acrshort{iv} leder till att de första blocket
 inte kan dekrypteras korrekt, detta påverkar dock inte de resterande blocken. På grund
 av det så kan man exempelvis lösa problemet genom att första blocket bara innehåller
-någon typ av fyllnad, vilket då gör dekrypteringen möjlig utan tillgång till \acrshort{iv}.\footcite{modesofoperation}
+någon typ av fyllnad, vilket då gör dekrypteringen möjlig utan tillgång till \acrshort{iv}.\footcite{dworkin2001sp}
 
 Utöver detta så begränsas även \acrshort{cbc} till att bara vara parallelliserbar under
 dekrypteringen och inte krypteringen, vilket är en konsekvens av att varje block i \acrshort{cbc}
 är beroende av föregående block. \acrshort{cbc} behåller dock fortfarande möjligheten
 som \acrshort{ecb} har att slumpmässigt dekryptera enskilda block utan att behöva
-dekryptera hela skiffertexten.\footcite{modesofoperation}
+dekryptera hela skiffertexten.\footcite{dworkin2001sp}
 
 \subsubsection{OFB}
 \label{sec:ofb}
@@ -169,7 +168,7 @@ och \acrshort{cbc} som  redan presenterats. Den största skillnaden från det an
 körlägena är att \acrshort{ofb} inte använder blockchiffer algoritmen för att kryptera
 eller dekryptera blocken. Istället så körs \acrshort{iv} genom blockchiffer algoritmen
 och den resulterande \gls{keystream} tillförs sedan genom en \gls{xor}-operation till
-blocket som ska krypteras eller dekrypteras.\footcite{modesofoperation}
+blocket som ska krypteras eller dekrypteras.\footcite{dworkin2001sp}
 
 Tack vare \gls{xor}-operationens symmetriska natur så är så väl krypteringen som
 dekrypteringen av \acrshort{ofb} identisk, vilket även visas i figur \ref{fig:ofb-mode-enc}
@@ -211,7 +210,7 @@ ska krypteras inte används fram till sista steget så är det möjligt att geno
 operationerna i förväg, vilket gör det möjligt att även parallellisera \acrshort{ofb}. Dock
 kan \acrshort{ofb} inte parallelliseras ifall man inte gör blockskiffer operationerna
 i förväg. Utöver detta saknar även \acrshort{ofb} möjligheten att slumpmässigt dekryptera
-enskilda block utan att behöva dekryptera hela skiffertexten.\footcite{modesofoperation}
+enskilda block utan att behöva dekryptera hela skiffertexten.\footcite{dworkin2001sp}
 
 \section{Symetrisk \& Asymmetrisk Kryptering}
 \label{sec:symmetric-asymmetric-encryption}
@@ -246,11 +245,11 @@ skiljer sig från varandra när det kommer till längden av krypteringsnyckeln s
 Även själva algoritmen kan delas upp i ett antal olika delar som alla har olika syften. Dessa delar är \nameref{sec:aes-addroundkey}, \nameref{sec:aes-subbytes}, \nameref{sec:aes-shiftrows},
 \nameref{sec:aes-mixcolumns} och \nameref{sec:aes-key-expansion} som alla kommer att förklaras mer detaljerat i de följande sektioner. \nameref{sec:aes-key-expansion} delen kan även
 delas upp ytterligare i tre olika varianter som är \nameref{sec:aes-key-expansion-128bit}, \nameref{sec:aes-key-expansion-192bit} och \nameref{sec:aes-key-expansion-256bit} beroende
-på vilken av de tre \acrshort{aes} varianterna som används.\footcite{aes_wiki}
+på vilken av de tre \acrshort{aes} varianterna som används.\footfullcite{daemen1999aes}
 
 Utöver detta så bygger \nameref{sec:aes-key-expansion} på tre operationer vilka är \nameref{sec:aes-subword}, \nameref{sec:aes-rotword} och
 \nameref{sec:aes-rcon} som också kommer att förklaras mer detaljerat i de följande sektioner.\footcite{aes_wiki} För att förstå vissa av dessa delar
-så kommer det däremot krävas en förklaring av både \nameref{sec:aes-sbox} och \nameref{sec:finite-fields} som kommer att förklaras först.
+så kommer det däremot krävas en förklaring av både \nameref{sec:aes-sbox} och \nameref{sec:finite-fields} som kommer att förklaras först.\footcite{daemen1999aes}
 
 \subsection{Finite Fields}
 \label{sec:finite-fields}
@@ -304,14 +303,14 @@ värdena är representerade i \gls{hexadecimal} tal.
 \acrshort{aes} är baserad på en design princip kallad \gls{SP-network} och byggs huvudsakligen upp av fyra olika steg som alla utförs på en matris av 16 \glspl{byte}. Dessa fyra steg är
 \nameref{sec:aes-subbytes}, \nameref{sec:aes-shiftrows}, \nameref{sec:aes-mixcolumns} och
 \nameref{sec:aes-addroundkey}, vilket visas i figur \ref{fig:round-function}. Steg utförs antingen 10, 12 eller 14 gånger, vilket brukar kallas för rundor. Beroende på vilken nyckel som används krävs olika antal rundor.
-En 128bit nyckel kommer att kräva 10 rundor, en 192bit nyckel kommer att kräva 12 rundor och en 256bit nyckel kommer att kräva 14 rundor.\footcite{aes_wiki}
+En 128bit nyckel kommer att kräva 10 rundor, en 192bit nyckel kommer att kräva 12 rundor och en 256bit nyckel kommer att kräva 14 rundor.\footcite{daemen1999aes}
 
 \acrshort{aes} algoritmen har en fixerad block storlek på 128bit vilket innebär att
 det alltid kommer att vara 16 \glspl{byte} som krypteras åt gången. Absolut först genomförs
 en initial \nameref{sec:aes-addroundkey} operation där den första rund nyckeln används.
 Sedan genomförs 9, 11 eller 13 identiska rundor. Den sista rundan skiljer sig däremot från det andra
 på så sätt att man hoppar över sista \nameref{sec:aes-mixcolumns} då den inte får någon betydelse ur ett
-kryptografiskt perspektiv för den slutliga skiffer texten.\footcite{aes_wiki}
+kryptografiskt perspektiv för den slutliga skiffer texten.\footcite{daemen1999aes}
 
 \begin{wrapfigure}{r}{0.5\textwidth}
     \centering
@@ -340,12 +339,12 @@ Den sista rundan ser istället ut på följande sätt:
 Utifrån detta kan man se att nyckeln används flera gånger under själva krypterings processen av ett block.
 För att varje runda då ska få en unik nyckel så genomförs en \nameref{sec:aes-key-expansion}s operation
 som genererar en nyckel för varje runda utifrån den ursprungliga nyckeln. Detta för att samma nyckel
-inte ska användas flera gånger vilket skulle göra det enklare att bryta krypteringen.\footcite{aes_wiki}
+inte ska användas flera gånger vilket skulle göra det enklare att bryta krypteringen.\footcite{daemen1999aes}
 
 \nameref{sec:aes-key-expansion}en är en operationen som genomförs före själva krypterings stadiet påbörjas
 och genererar en lista med nycklar för varje runda. Antalet nycklar beror av nyckellängden som även bestämmer antalet rundor.
 För dekryptering så sker liknande rundor av operationer som för krypteringen fast
-i en lite annorlunda ordning samt med den inversa operationen till \nameref{sec:aes-shiftrows} \& \nameref{sec:aes-mixcolumns}.\footcite{aes_wiki}
+i en lite annorlunda ordning samt med den inversa operationen till \nameref{sec:aes-shiftrows} \& \nameref{sec:aes-mixcolumns}.\footcite{daemen1999aes}
 
 En vanlig dekrypterings runda ser då ut på följande sätt:
 
@@ -360,7 +359,7 @@ Anledningen till att \nameref{sec:aes-addroundkey} och \nameref{sec:aes-subbytes
 är uppbyggda. För \nameref{sec:aes-addroundkey} så är det på grund av \gls{xor}-operationens linjära egenskaper som innebär att den är sin egen invers.
 Detta eftersom ifall man tar och genomför \gls{xor}-operationen med samma nyckel två gånger så kommer man tillbaka till ursprungsvärdet. När de gäller \nameref{sec:aes-subbytes}
 så handlar de istället om att de helt enkelt är en substitution utifrån en \nameref{sec:aes-sbox}, vilket då betyder att de som krävs för att genomföra den motsatta operationen
-blir att använda den inversa \nameref{sec:aes-sbox}en.\footcite{aes_wiki}
+blir att använda den inversa \nameref{sec:aes-sbox}en.\footcite{daemen1999aes}
 
 Både krypterings och dekrypterings strukturen av ett block som beskrivits ovan kan representeras i \gls{python} kod på följande sätt som visas i figur \ref{fig:encryption-rounds-function} \& \ref{fig:decryption-rounds-function}.
 

@@ -9,16 +9,11 @@ som användes under undersöknings genomförandet.\footfullcite{python311}
 \section{Implementering} % (To be reviwed)
 Implementeringen av \acrshort{aes} är uppdelad i ett antal funktioner till stor del är baserat på
 hur strukturen och uppdelningen av \acrshort{aes} beskrivs i \citetitle{daemen1999aes}\footcite{daemen1999aes}.
-Några av det Huvudsakliga funktionerna av algoritmen är som följande:
-\begin{itemize}
-    \item \texttt{\nameref{sec:aes-subbytes}}
-    \item \texttt{\nameref{sec:aes-shiftrows}}
-    \item \texttt{\nameref{sec:aes-mixcolumns}}
-\end{itemize}
+Några av det Huvudsakliga funktionerna av algoritmen är \nameref{sec:aes-subbytes}, \nameref{sec:aes-shiftrows} och
+\nameref{sec:aes-mixcolumns}.
 
 Dessa funktioner används i varje runda och utgör grunden av algoritmen. Utöver detta finns
-även \nameref{sec:aes-addroundkey} som används för att lägga till nyckeln i varje runda. AddRoundKey steget är dock inte
-en funktion eftersom det enbart består ut av en \gls{xor}-operation. Utöver detta finns det även
+även \nameref{sec:aes-addroundkey}-operationen som används för att lägga till nyckeln i varje runda. Sedan finns även
 en funktion som används för att expandera nyckeln som beskrivs i \nameref{sec:aes-key-expansion} samt
 individuella funktioner för kryptering och dekryptering till de olika körlägen \nameref{sec:ecb}, \nameref{sec:cbc} och
 \nameref{sec:ofb}.
@@ -33,9 +28,9 @@ Test uppsättningen är uppdelad i det tre delarna \nameref{sec:nyckellangd-test
 inte är en automatiserad process utan ett antal praktiska steg som genomfördes för att generera resultatet.
 
 \subsection{Testmiljö} % Describe the test enviroment (might reqiuer extra glossary entrys for some of the terms)
-Genomförandet av undersökningen skedde på en Windows dator med \gls{python} 3.11.0 installerat. I syfte att minimerar variabiliteten
+Genomförandet av undersökningen skedde på en \gls{win11} dator med \gls{python} 3.11.0 installerat. I syfte att minimerar variabiliteten
 mellan de olika omgångarna av tester då allt repeteras ett vist antal gånger så begränsades vissa delar av datorn och anpassningar gjordes i genomförandet.
-De begränsningar som placerades på datorn bestod ut av att datorn CPU klockhastighet begränsades till sin grund hastighet för att ge
+De begränsningar som placerades på datorn bestod ut av att datorn \gls{cpuh} begränsades till sin grund hastighet för att ge
 varje test ett likvärdigt utgångsläge som möjligt. Utöver detta så genomfördes även varje test separat utan parallellisering för att
 eliminera risken av att testerna skulle kunna påverka varandra.
 
@@ -43,26 +38,54 @@ eliminera risken av att testerna skulle kunna påverka varandra.
 \label{sec:nyckellangd-test}
 Nyckellängds testet bygger på att varje nyckellängd används för att kryptera en text fil på 1 MB. Detta genomförs 25 gånger för
 varje nyckellängd och resultatet av varje test sparas sedan i en text fil. Själva testet består av att det för varje runda
-genereras en text fil på 1 MB fylld med slumpmässiga \gls{byte}s. Denna text fil krypteras sedan med hjälp av \acrshort{aes} samtidigt
-som tiden som det tar att kryptera filen mätas. Detta upprepas sedan som tidigare nämnts 25 gånger för följande tre nycklarna som går att se nedan.
-För \acrshort{cbc} \& \acrshort{ofb} körlägen så används utöver dessa nycklar även en \acrshort{iv} som är 128 bit lång.
+genereras en text fil på 1 MB fylld med slumpmässiga \gls{byte}s. Denna text fil krypteras sedan med hjälp av \acrshort{aes} i körläget \acrshort{ecb} samtidigt
+som tiden som det tar att kryptera filen mätas. Detta upprepas sedan som tidigare nämnts sedan 25 gånger för följande tre nycklarna som går att se nedan.
 
 \begin{itemize}
-    \item 2b7e151628aed2a6abf7158809cf4f3c (128 bit)
-    \item 8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b (192 bit)
-    \item 603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4 (256 bit)
+    \item []\textbf{Nycklar:}
+    \begin{itemize}
+        \item 2b7e151628aed2a6abf7158809cf4f3c (128 bit)
+        \item 8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b (192 bit)
+        \item 603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4 (256 bit)
+    \end{itemize}
 \end{itemize}
 
-\subsection{Körläges Test} % Explain the mode of operation test
+\subsection{Körläges Test} % Explain the mode of operation test (to be reviwed)
 \label{sec:körlages-test}
+Körläges testet har en struktur som väldigt mycket liknar det som används i \nameref{sec:nyckellangd-test}. Detta då det
+består av att kryptera en text fil på 1 MB fylld med random bytes med hjälp av \acrshort{aes} med den stora skillnaden att istället för att använda olika nycklar så används
+istället samma nyckel samtidigt som körläget ändras. Krypteringen utförs 25 gånger för varje körläge och resultatet av varje test sparas sedan i en text fil.
+För att kryptera filen används nyckeln som visas nedan samt för körlägena \acrshort{cbc} och \acrshort{ofb} så används även \acrshort{iv} som visas nedan.
 
+\begin{itemize}
+    \item []\textbf{Nyckel:}
+    \begin{itemize}
+        \item 2b7e151628aed2a6abf7158809cf4f3c (128 bit)
+    \end{itemize}
+    \item []\textbf{IV:}
+    \begin{itemize}
+        \item 000102030405060708090a0b0c0d0e0f (128 bit)
+    \end{itemize}
+\end{itemize}
 
-\subsection{Krypterings Test} % explain how the encryption test is setup
+\subsection{Krypterings Test} % explain how the encryption test is setup (to be rewived)
 \label{sec:krypterings-test}
 Krypterigns testet består utav att man krypterar en bild i bild formatet \gls{ppm} med hjälp av \acrshort{aes} i tre olika körlägen.
 PPM formatet används då de tack vare sin enkla struktur kan genomgå en kryptering och fortfarande representeras som en bild
 efteråt. Detta gör det då möjligt att visualisera resultatet av krypteringen. För att kryptera bilden används den implementerade
-\acrshort{aes} algorithmen som körs i körlägena \nameref{sec:ecb}, \nameref{sec:cbc} och \nameref{sec:ofb} körlägen.
+\acrshort{aes} algorithmen som körs i körlägena \nameref{sec:ecb}, \nameref{sec:cbc} och \nameref{sec:ofb} tillsammans med nyckeln som visas nedan samt
+för körlägena \acrshort{cbc} och \acrshort{ofb} så används även \acrshort{iv} som visas nedan.
+
+\begin{itemize}
+    \item []\textbf{Nyckel:}
+    \begin{itemize}
+        \item 2b7e151628aed2a6abf7158809cf4f3c (128 bit)
+    \end{itemize}
+    \item []\textbf{IV:}
+    \begin{itemize}
+        \item 000102030405060708090a0b0c0d0e0f (128 bit)
+    \end{itemize}
+\end{itemize}
 
 Före och efter krypteringen modifieras dock \gls{ppm} filen så att den går att öppna när den väl är krypterad. Detta görs genom att de fyra
 första raderna i filen tas bort och sätts sedan tillbaka efter krypteringen. Detta gör att filen fortfarande kan öppnas som en bild
