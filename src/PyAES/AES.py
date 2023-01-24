@@ -116,6 +116,8 @@ def mix_columns(data):
 
 
 # Preforms the inverse mix columns layer
+# This function is similar to the mix_columns function
+# but instead preforms the inverse operation.
 def inv_mix_columns(data):
     for i in range(4):
         u = xtime(xtime(data[i][0] ^ data[i][2]))
@@ -147,16 +149,23 @@ def remove_padding(data, identifier):
 
 
 # Performs the encryption rounds on the input data matrix
+# This function is used for the encryption of data matrixes
+# using the expanded keys.
 def encryption_rounds(data, round_keys, nr):
     # Inizial add round key
     data = np.bitwise_xor(data, round_keys[0])
 
     # Rounds 1 to 9 or 1 to 11 or 1 to 13
     # Here each step in one round is performed in a sequence n times
+    # where n is the number of rounds minus the last round.
     for i in range(1, (nr - 1)):
+        # Sub bytes
         data = sub_bytes(data, subBytesTable)
+        # Shift rows
         data = shift_rows(data)
+        # Mix columns
         data = mix_columns(data)
+        # Add round key
         data = np.bitwise_xor(data, round_keys[i])
 
     # Final round
@@ -165,38 +174,53 @@ def encryption_rounds(data, round_keys, nr):
     data = shift_rows(data)
     data = np.bitwise_xor(data, round_keys[nr - 1])
 
+    # Returns the encrypted data
     return data
 
 
-# Performs the decryption rounds
+# Performs the decryption rounds on the input data matrix
+# This function is used for the decryption of data matrixes
+# using the expanded keys.
 def decryption_rounds(data, round_keys, nr):
     # Inizial add round key
     data = np.bitwise_xor(data, round_keys[-1])
 
     # Rounds 1 to 9 or 1 to 11 or 1 to 13
+    # Here each step in one round is performed in a sequence n times
+    # where n is the number of rounds minus the last round.
     for i in range(1, (nr - 1)):
+        # Inverse shift rows
         data = inv_shift_rows(data)
+        # Inverse sub bytes
         data = sub_bytes(data, invSubBytesTable)
+        # Add round key
         data = np.bitwise_xor(data, round_keys[-(i+1)])
+        # Inverse mix columns
         data = inv_mix_columns(data)
 
     # Final round
+    # Identical to the previous rounds, but without mix columns
     data = inv_shift_rows(data)
     data = sub_bytes(data, invSubBytesTable)
     data = np.bitwise_xor(data, round_keys[0])
 
+    # Returns the decrypted data
     return data
 
 
 # ---------------
 # Key expansion setup
 # ---------------
-# Key expansion function (returns a list of round keys)
+# Key expansion function
+# This function is used to expand the key to the correct number of round
+# keys for the encryption and decryption rounds.
 def keyExpansion(key):
     # Format key correctly for the key expansion
     key = [key[i:i+2] for i in range(0, len(key), 2)]
 
     # Key expansion setup
+    # This part determines the number of rounds and the number of words
+    # using the key length.
     if len(key) == 16:
         words = key_schedule(key, 4, 11)
         nr = 11
@@ -207,24 +231,30 @@ def keyExpansion(key):
         words = key_schedule(key, 8, 15)
         nr = 15
 
+    # Create list for storing the round keys & tmp list for storing
+    # for temporary storage.
     round_keys = [None for i in range(nr)]
-
     tmp = [None for i in range(4)]
 
+    # Formats the words to a list of tuples
     for i in range(nr * 4):
         for index, t in enumerate(words[i]):
             tmp[index] = int(t, 16)  # type: ignore
         words[i] = tuple(tmp)
 
+    # Formats teh words to a list of numpy arrays where each
+    # array is a 4x4 matrix representing a round key.
     for i in range(nr):
         round_keys[i] = np.array(words[i * 4] + words[i * 4 + 1] + words[i * 4 + 2] + words[i * 4 + 3]).reshape(4, 4)  # type: ignore
 
+    # Returns the list of round keys and the number of rounds
     return round_keys, nr
 
 
 # Key schedule (nk = number of colums, nr = number of rounds)
+# This function is used to expand the key to the correct number of round
 def key_schedule(key, nk, nr):
-    # Create list and populates first nk words with key
+    # Create list for storing the words
     words = [(key[4*i], key[4*i+1], key[4*i+2], key[4*i+3]) for i in range(nk)]
 
     # Fill out the rest based on previews words, rotword, subword and rcon values
@@ -267,6 +297,7 @@ def hexor(hex1, hex2):
     if len(hexed) != 8:
         hexed = '0' + hexed
 
+    # Return hex
     return hexed
 
 
