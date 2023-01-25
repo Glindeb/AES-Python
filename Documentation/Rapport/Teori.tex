@@ -441,7 +441,8 @@ Både krypterings och dekrypterings strukturen som nu beskrivits kan implementer
 
 \subsubsection{SubBytes operationen}
 \label{sec:aes-subbytes}
-SubBytes operationen bygger på ...
+SubBytes operationen bygger på att varje byte byts ut mot en korresponderande \gls{byte} från en \nameref{sec:aes-sbox}.
+Själva operationen fungerar som det icke linjära steget i krypteringsprocessen och är därmed en viktig del av AES.
 
 \begin{figure}[H]
     \centering
@@ -450,7 +451,7 @@ SubBytes operationen bygger på ...
     \label{fig:aes-subbytes-pic}
 \end{figure}
 
-...
+För att genomföra den inversa varianten av SubBytes operationen så krävs endast att man använder den inversa \nameref{sec:aes-sbox}en.
 
 \begin{figure}[H]
     \centering
