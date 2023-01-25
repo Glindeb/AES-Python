@@ -254,10 +254,12 @@ def keyExpansion(key):
 # Key schedule (nk = number of colums, nr = number of rounds)
 # This function is used to expand the key to the correct number of round
 def key_schedule(key, nk, nr):
-    # Create list for storing the words
+    # Create list for storing the words and populates the first
+    # 4 with the specified key.
     words = [(key[4*i], key[4*i+1], key[4*i+2], key[4*i+3]) for i in range(nk)]
 
-    # Fill out the rest based on previews words, rotword, subword and rcon values
+    # Fill out the rest based on previews four words using the fucnitons, rotword,
+    # subword and rcon values
     limit = False
     for i in range(nk, (nr * nk)):
         # Get required previous keywords
@@ -277,7 +279,9 @@ def key_schedule(key, nk, nr):
 
         # Xor the two hex values
         xord = hexor(''.join(word), ''.join(temp))
+        # Add to list
         words.append((xord[:2], xord[2:4], xord[4:6], xord[6:8]))
+    # Return the list of words
     return words
 
 
@@ -311,11 +315,13 @@ def RotWord(word):
     return word[1:] + word[:1]
 
 
-# Selects correct value from sbox based on the current word
+# Selects correct values from sbox based on the current word
+# and replaces the word with the new values.
 def SubWord(word):
+    # Create list for storing the new word
     sWord = []
 
-    # Loop throug the current word
+    # Loop through the current word
     for i in range(4):
 
         # Check first char, if its a letter(a-f) get corresponding decimal
@@ -334,16 +340,17 @@ def SubWord(word):
         # Get the index base on row and col (16x16 grid)
         sBoxIndex = (row*16) - (17-col)
 
-        # Get the value from sbox without prefix
+        # Get the value from sbox and removes prefix (0x)
         piece = hex(subBytesTable[sBoxIndex])[2:]
 
         # Check length to ensure leading 0s are not forgotton
         if len(piece) != 2:
             piece = '0' + piece
 
+        # Adds the new value to the list
         sWord.append(piece)
 
-    # Return string
+    # Returning word as string
     return ''.join(sWord)
 
 
