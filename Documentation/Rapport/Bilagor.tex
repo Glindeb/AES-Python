@@ -189,11 +189,13 @@ round_constant = (
 # Main action functions
 # ---------------
 # Xtime
+# Used to preform multiplication by x in the Galois field
 def xtime(a):
     return (((a << 1) ^ 0x1B) & 0xFF) if (a & 0x80) else (a << 1)
 
 
-# Performs the byte substitution layer
+# Byte substitution function
+# Substitutes each byte in the state with a byte from the S-Box
 def sub_bytes(data, bytesTable):
     for i, row in enumerate(data):
         for j, byte in enumerate(row):
@@ -202,6 +204,8 @@ def sub_bytes(data, bytesTable):
 
 
 # Shift rows function
+# Shifts the rows of the the matrix to the left.
+# Each row is shifted by the number of its index
 def shift_rows(array):
     array[:, 1] = np.roll(array[:, 1], -1, axis=0)
     array[:, 2] = np.roll(array[:, 2], -2, axis=0)
@@ -210,6 +214,8 @@ def shift_rows(array):
 
 
 # Inverse shift rows function
+# Shifts the rows of the the matrix to the right.
+# Each row is shifted by the number of its index
 def inv_shift_rows(array):
     array[:, 1] = np.roll(array[:, 1], 1, axis=0)
     array[:, 2] = np.roll(array[:, 2], 2, axis=0)
@@ -219,8 +225,8 @@ def inv_shift_rows(array):
 
 # Performs the mix columns layer
 def mix_columns(data):
+    # mixes a single column
     def mix_single_column(data):
-        # See Sec 4.1.2 in The Design of Rijndael
         t = data[0] ^ data[1] ^ data[2] ^ data[3]
         u = data[0]
         data[0] ^= t ^ xtime(data[0] ^ data[1])
@@ -228,6 +234,7 @@ def mix_columns(data):
         data[2] ^= t ^ xtime(data[2] ^ data[3])
         data[3] ^= t ^ xtime(data[3] ^ u)
 
+    # mixes all columns using mix_single_column
     def mix(data):
         for i in range(4):
             mix_single_column(data[i])
@@ -237,8 +244,9 @@ def mix_columns(data):
 
 
 # Preforms the inverse mix columns layer
+# This function is similar to the mix_columns function
+# but instead preforms the inverse operation.
 def inv_mix_columns(data):
-    # See Sec 4.1.3 in The Design of Rijndael
     for i in range(4):
         u = xtime(xtime(data[i][0] ^ data[i][2]))
         v = xtime(xtime(data[i][1] ^ data[i][3]))
@@ -258,7 +266,7 @@ def add_padding(data):
     return data, length
 
 
-# Removes the padding
+# Removes the padding from the data
 def remove_padding(data, identifier):
     if identifier[-1] == 0:
         return data
@@ -268,55 +276,79 @@ def remove_padding(data, identifier):
         raise ValueError('Invalid padding')
 
 
-# Performs the encryption rounds
+# Performs the encryption rounds on the input data matrix
+# This function is used for the encryption of data matrixes
+# using the expanded keys.
 def encryption_rounds(data, round_keys, nr):
     # Inizial add round key
     data = np.bitwise_xor(data, round_keys[0])
 
     # Rounds 1 to 9 or 1 to 11 or 1 to 13
+    # Here each step in one round is performed in a sequence n times
+    # where n is the number of rounds minus the last round.
     for i in range(1, (nr - 1)):
+        # Sub bytes
         data = sub_bytes(data, subBytesTable)
+        # Shift rows
         data = shift_rows(data)
+        # Mix columns
         data = mix_columns(data)
+        # Add round key
         data = np.bitwise_xor(data, round_keys[i])
 
     # Final round
+    # Identical to the previous rounds, but without mix columns
     data = sub_bytes(data, subBytesTable)
     data = shift_rows(data)
     data = np.bitwise_xor(data, round_keys[nr - 1])
 
+    # Returns the encrypted data
     return data
 
 
-# Performs the decryption rounds
+# Performs the decryption rounds on the input data matrix
+# This function is used for the decryption of data matrixes
+# using the expanded keys.
 def decryption_rounds(data, round_keys, nr):
-    # Inizial add round key
+    # Inizial add round key, inverse shift rows and inverse sub bytes
     data = np.bitwise_xor(data, round_keys[-1])
-
-    # Rounds 1 to 9 or 1 to 11 or 1 to 13
-    for i in range(1, (nr - 1)):
-        data = inv_shift_rows(data)
-        data = sub_bytes(data, invSubBytesTable)
-        data = np.bitwise_xor(data, round_keys[-(i+1)])
-        data = inv_mix_columns(data)
-
-    # Final round
     data = inv_shift_rows(data)
     data = sub_bytes(data, invSubBytesTable)
+
+    # Rounds 1 to 9 or 1 to 11 or 1 to 13
+    # Here each step in one round is performed in a sequence n times
+    # where n is the number of rounds minus the last round.
+    for i in range(1, (nr - 1)):
+        # Add round key
+        data = np.bitwise_xor(data, round_keys[-(i+1)])
+        # Inverse mix columns
+        data = inv_mix_columns(data)
+        # Inverse shift rows
+        data = inv_shift_rows(data)
+        # Inverse sub bytes
+        data = sub_bytes(data, invSubBytesTable)
+
+    # Final round
+    # Final add round key of final round
     data = np.bitwise_xor(data, round_keys[0])
 
+    # Returns the decrypted data
     return data
 
 
 # ---------------
 # Key expansion setup
 # ---------------
-# Key expansion function (returns a list of round keys)
+# Key expansion function
+# This function is used to expand the key to the correct number of round
+# keys for the encryption and decryption rounds.
 def keyExpansion(key):
     # Format key correctly for the key expansion
     key = [key[i:i+2] for i in range(0, len(key), 2)]
 
     # Key expansion setup
+    # This part determines the number of rounds and the number of words
+    # using the key length.
     if len(key) == 16:
         words = key_schedule(key, 4, 11)
         nr = 11
@@ -327,27 +359,35 @@ def keyExpansion(key):
         words = key_schedule(key, 8, 15)
         nr = 15
 
+    # Create list for storing the round keys & tmp list for storing
+    # for temporary storage.
     round_keys = [None for i in range(nr)]
-
     tmp = [None for i in range(4)]
 
+    # Formats the words to a list of tuples
     for i in range(nr * 4):
         for index, t in enumerate(words[i]):
             tmp[index] = int(t, 16)  # type: ignore
         words[i] = tuple(tmp)
 
+    # Formats teh words to a list of numpy arrays where each
+    # array is a 4x4 matrix representing a round key.
     for i in range(nr):
         round_keys[i] = np.array(words[i * 4] + words[i * 4 + 1] + words[i * 4 + 2] + words[i * 4 + 3]).reshape(4, 4)  # type: ignore
 
+    # Returns the list of round keys and the number of rounds
     return round_keys, nr
 
 
 # Key schedule (nk = number of colums, nr = number of rounds)
+# This function is used to expand the key to the correct number of round
 def key_schedule(key, nk, nr):
-    # Create list and populates first nk words with key
+    # Create list for storing the words and populates the first
+    # 4 with the specified key.
     words = [(key[4*i], key[4*i+1], key[4*i+2], key[4*i+3]) for i in range(nk)]
 
-    # Fill out the rest based on previews words, rotword, subword and rcon values
+    # Fill out the rest based on previews four words using the fucnitons, rotword,
+    # subword and rcon values
     limit = False
     for i in range(nk, (nr * nk)):
         # Get required previous keywords
@@ -367,7 +407,9 @@ def key_schedule(key, nk, nr):
 
         # Xor the two hex values
         xord = hexor(''.join(word), ''.join(temp))
+        # Add to list
         words.append((xord[:2], xord[2:4], xord[4:6], xord[6:8]))
+    # Return the list of words
     return words
 
 
@@ -387,6 +429,7 @@ def hexor(hex1, hex2):
     if len(hexed) != 8:
         hexed = '0' + hexed
 
+    # Return hex
     return hexed
 
 
@@ -400,11 +443,13 @@ def RotWord(word):
     return word[1:] + word[:1]
 
 
-# Selects correct value from sbox based on the current word
+# Selects correct values from sbox based on the current word
+# and replaces the word with the new values.
 def SubWord(word):
+    # Create list for storing the new word
     sWord = []
 
-    # Loop throug the current word
+    # Loop through the current word
     for i in range(4):
 
         # Check first char, if its a letter(a-f) get corresponding decimal
@@ -423,16 +468,17 @@ def SubWord(word):
         # Get the index base on row and col (16x16 grid)
         sBoxIndex = (row*16) - (17-col)
 
-        # Get the value from sbox without prefix
+        # Get the value from sbox and removes prefix (0x)
         piece = hex(subBytesTable[sBoxIndex])[2:]
 
         # Check length to ensure leading 0s are not forgotton
         if len(piece) != 2:
             piece = '0' + piece
 
+        # Adds the new value to the list
         sWord.append(piece)
 
-    # Return string
+    # Returning word as string
     return ''.join(sWord)
 
 
