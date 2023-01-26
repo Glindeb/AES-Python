@@ -40,8 +40,10 @@ krypterade skiffertext.\footcite{dworkin2001sp}
 \acrshort{iv} kan användas på många sätt, exempelvis kan den introduceras genom en
 \gls{xor}-operation till första blocket. Sedan kedjas resterande block ihop med en \gls{xor}-operation med resultatet från
 den första operationen, vilket precis är vad som görs i \acrshort{cbc}. Detta gör att blocken blir beroende av varandra
-plus att samma information som krypteras flera inte kommer ge samma resultat även fast man använder samma
+vilket förhindrar att upprepad information som krypteras ger samma resultat även fast man använder samma
 nyckel.\footcite{dworkin2001sp}
+
+Exempel på hur \acrshort{ecb}, \acrshort{ofb} och \acrshort{cbc} kan ses i appendix \ref{app:python}.
 
 \subsubsection{ECB}
 \label{sec:ecb}
@@ -439,10 +441,11 @@ Både krypterings och dekrypterings strukturen som nu beskrivits kan implementer
     \label{fig:decryption-rounds-function}
 \end{figure}
 
-\subsubsection{SubBytes operationen}
+\subsubsection{SubBytes operationen} %(To be reviwed)
 \label{sec:aes-subbytes}
-SubBytes operationen bygger på att varje byte byts ut mot en korresponderande \gls{byte} från en \nameref{sec:aes-sbox}.
-Själva operationen fungerar som det icke linjära steget i krypteringsprocessen och är därmed en viktig del av AES.
+SubBytes operationen bygger på att varje byte byts ut mot en korresponderande \gls{byte} från en \nameref{sec:aes-sbox} som
+visas i figur \ref{fig:aes-subbytes-pic}.
+Själva operationen fungerar som det icke linjära steget i krypteringsprocessen och är därmed en viktig del av AES.\footcite{daemen1999aes}
 
 \begin{figure}[H]
     \centering
@@ -451,7 +454,8 @@ Själva operationen fungerar som det icke linjära steget i krypteringsprocessen
     \label{fig:aes-subbytes-pic}
 \end{figure}
 
-För att genomföra den inversa varianten av SubBytes operationen så krävs endast att man använder den inversa \nameref{sec:aes-sbox}en.
+För att genomföra den inversa varianten av SubBytes operationen så krävs endast att man använder den inversa \nameref{sec:aes-sbox}en,
+vilket då resulterar i den ursprungliga \gls{byte} matrisen.\footcite{daemen1999aes} Vilket visas i figur \ref{fig:aes-inverse-subbytes-pic}.
 
 \begin{figure}[H]
     \centering
@@ -463,6 +467,10 @@ För att genomföra den inversa varianten av SubBytes operationen så krävs end
 \subsubsection{ShiftRows operationen}
 \label{sec:aes-shiftrows}
 
+ShiftRows operationen är en operation som bygger på att varje rad i \gls{byte} matrisen förflyttas sidled ett viss antal steg.
+Första raden förflyttas 0 steg, andra raden 1 steg åt vänster, tredje raden 2 steg åt vänster och fjärde raden 3 steg åt vänster. Anledningen till att ShiftRows steget
+finns är för att att kolumnerna i \gls{byte} matrisen krypteras oberoende av varandra.\footcite{daemen1999aes}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{ShiftRows.png}
@@ -473,6 +481,10 @@ För att genomföra den inversa varianten av SubBytes operationen så krävs end
 \subsubsection{Inverse ShiftRows operationen}
 \label{sec:aes-invers-shiftrows}
 
+ShiftRows motsatts är Inverse ShiftRows operationen. Denna operationen är en invers till ShiftRows operationen och förflyttar
+första raden 0 steg, andra raden 1 steg åt höger, tredje raden 2 steg åt höger och fjärde raden 3 steg åt höger.\footcite{daemen1999aes}
+Vilket visas i figur \ref{fig:aes-inverse-shiftrows-pic}.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{Inverse-ShiftRows.png}
@@ -480,8 +492,13 @@ För att genomföra den inversa varianten av SubBytes operationen så krävs end
     \label{fig:aes-inverse-shiftrows-pic}
 \end{figure}
 
-\subsubsection{MixColumns operationen}
+\subsubsection{MixColumns operationen} %(May need some glossary entrys)
 \label{sec:aes-mixcolumns}
+
+MixColumns operationen är en operation som primärt agerar på kolumnerna i \gls{byte} matrisen. Operationen bygger på att varje kolumn multipliceras genom en
+matris multiplication inom \hyperref[sec:finite-fields]{$GF(2^8)$} med en matris som är konstant för alla kolumner. Detta steg gör då att kolumnerna i matrisen omvandlas till nya kolumner,
+vilket tillsammans med ShiftRows operationen är en dal av vad som gör \acrshort{aes} så säker.\footcite{daemen1999aes} Själva operationen visas i figur \ref{fig:aes-mixcolumns-pic}
+där även den konstanta matrisen som multipliceras med varje kolumnerna visas.
 
 \begin{figure}[H]
     \centering
@@ -502,6 +519,9 @@ För att genomföra den inversa varianten av SubBytes operationen så krävs end
 
 \subsubsection{AddRoundKey operationen}
 \label{sec:aes-addroundkey}
+
+AddRoundKey operationen är en operation som bygger på att varje \gls{byte} i \gls{byte} matrisen genomgår en XOR operation med korresponderande \gls{byte} i en nyckel matris.
+I det här steget så introduceras nyckeln i krypteringsprocessen vilket är en viktig del av AES.\footcite{daemen1999aes}
 
 \begin{figure}[H]
     \centering
@@ -524,18 +544,6 @@ För att genomföra den inversa varianten av SubBytes operationen så krävs end
 
 \subsubsection{Rcon}
 \label{sec:aes-rcon}
-
-
-\subsubsection{Nyckel utökning 128bit}
-\label{sec:aes-key-expansion-128bit}
-
-
-\subsubsection{Nyckel utökning 192bit}
-\label{sec:aes-key-expansion-192bit}
-
-
-\subsubsection{Nyckel utökning 256bit}
-\label{sec:aes-key-expansion-256bit}
 
 
 \subsection{AES-128bit}
