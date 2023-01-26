@@ -497,7 +497,7 @@ Vilket visas i figur \ref{fig:aes-inverse-shiftrows-pic}.
 
 MixColumns operationen är en operation som primärt agerar på kolumnerna i \gls{byte} matrisen. Operationen bygger på att varje kolumn multipliceras genom en
 matris multiplication inom \hyperref[sec:finite-fields]{$GF(2^8)$} med en matris som är konstant för alla kolumner. Detta steg gör då att kolumnerna i matrisen omvandlas till nya kolumner,
-vilket tillsammans med ShiftRows operationen är en dal av vad som gör \acrshort{aes} så säker.\footcite{daemen1999aes} Själva operationen visas i figur \ref{fig:aes-mixcolumns-pic}
+vilket tillsammans med ShiftRows operationen ser till så att inte bara enskilda bytes krypteras utan hela matrisen tillsammans.\footcite{daemen1999aes} Själva operationen visas i figur \ref{fig:aes-mixcolumns-pic}
 där även den konstanta matrisen som multipliceras med varje kolumnerna visas.
 
 \begin{figure}[H]
@@ -510,6 +510,10 @@ där även den konstanta matrisen som multipliceras med varje kolumnerna visas.
 \subsubsection{Inverse MixColumns operationen}
 \label{sec:aes-invers-mixcolumns}
 
+Inverse MixColumns operationen är en invers till MixColumns operationen och fungerar på nästan exakt samma sätt. Operationen bygger på att varje kolumn multipliceras genom en
+matris multiplication inom \hyperref[sec:finite-fields]{$GF(2^8)$} med en matris som är konstant för alla kolumner. Den stora skillnaden ligger i att den konstanta matrisen som multipliceras med varje kolumn fungerar
+som en invers till den tidigare matrisen använd i MixColumns operationen.\footcite{daemen1999aes} Själva operationen visas i figur \ref{fig:aes-inverse-mixcolumns-pic}.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{Inverse-MixColmuns.png}
@@ -521,7 +525,7 @@ där även den konstanta matrisen som multipliceras med varje kolumnerna visas.
 \label{sec:aes-addroundkey}
 
 AddRoundKey operationen är en operation som bygger på att varje \gls{byte} i \gls{byte} matrisen genomgår en XOR operation med korresponderande \gls{byte} i en nyckel matris.
-I det här steget så introduceras nyckeln i krypteringsprocessen vilket är en viktig del av AES.\footcite{daemen1999aes}
+I det här steget så introduceras nyckeln i krypteringsprocessen vilket är en viktig del av AES som gör det möjligt att kryptera och dekryptera informationen så länge man har rätt nyckel.\footcite{daemen1999aes}
 
 \begin{figure}[H]
     \centering
@@ -530,9 +534,22 @@ I det här steget så introduceras nyckeln i krypteringsprocessen vilket är en 
     \label{fig:aes-addroundkey-pic}
 \end{figure}
 
+\pagebreak
 \subsection{Nyckel utökning}
 \label{sec:aes-key-expansion}
 
+Nyckel utökningen är den operation som används för att utöka den angivna nyckeln till antingen 10, 12 eller 14 nycklar beroende på längden av den angivna nyckeln.
+Nyckel utökningen är en viktig del av AES som ser till att det finns en unik nyckel för varje runda i krypteringsprocessen.\footcite{daemen1999aes}
+
+Själva utökningen av nyckeln genomförs genom att först dela upp den ursprungliga nyckeln i 4 så kallade words. Varje word består av 4 \gls{byte} och är därmed 32 \gls{bit}s långa.
+Där efter så genereras varje nytt word...
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{KeyExpansion.png}
+    \caption{Nyckel utöknings processen}
+    \label{fig:aes-key-expansion-pic}
+\end{figure}
 
 \subsubsection{RotWord}
 \label{sec:aes-rotword}

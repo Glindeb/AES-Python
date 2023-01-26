@@ -8,13 +8,13 @@
 		\setentrycounter[]{page}\glsnumberformat{4\delimR 7}}}%
 \glossentry{bit}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{4}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{7}}}%
+		\setentrycounter[]{page}\glsnumberformat{7}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{26}}}%
 \glossentry{byte}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{4}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{6}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{19}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{22\delimR 25}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{27\delimR 29}}}\glsgroupskip
+		\setentrycounter[]{page}\glsnumberformat{22\delimR 29}}}\glsgroupskip
 \glsgroupheading{C}\relax \glsresetentrylist %
 \glossentry{caesar}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{7}\delimN 
