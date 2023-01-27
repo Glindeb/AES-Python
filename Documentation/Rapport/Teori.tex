@@ -539,10 +539,16 @@ I det här steget så introduceras nyckeln i krypteringsprocessen vilket är en 
 \label{sec:aes-key-expansion}
 
 Nyckel utökningen är den operation som används för att utöka den angivna nyckeln till antingen 10, 12 eller 14 nycklar beroende på längden av den angivna nyckeln.
-Nyckel utökningen är en viktig del av AES som ser till att det finns en unik nyckel för varje runda i krypteringsprocessen.\footcite{daemen1999aes}
+Nyckel utökningen är en viktig del av AES som ser till att det finns en unik nyckel för varje runda i krypteringsprocessen.
+Själva utökningen av nyckeln genomförs genom att först dela upp den ursprungliga nyckeln i 4 så kallade words.\footcite{daemen1999aes}
 
-Själva utökningen av nyckeln genomförs genom att först dela upp den ursprungliga nyckeln i 4 så kallade words. Varje word består av 4 \gls{byte} och är därmed 32 \gls{bit}s långa.
-Där efter så genereras varje nytt word...
+Varje word består av 4 \gls{byte} och är därmed 32 \gls{bit}s långa.
+Där efter så genereras varje nytt word utifrån de tidigare worden. Det fyra nästkommande worden genereras genom att ta det sista wordet i den tidigare nyckeln och genom föra en serie av operationer
+på detta word. Först så genomförs en \hyperref[sec:aes-rotword]{RotWord} operation och sedan en \hyperref[sec:aes-subword]{SubWord} operation samt slutligen en \hyperref[sec:aes-rcon]{Rcon} operation.\footcite{daemen1999aes}
+
+Därefter så genereras det första wordet i nästa nyckel genom en \gls{xor}-operation mellan det första wordet i den tidigare nyckeln och det resultat som genererades i föregående steg.
+Sedan så genereras resterande tre words genom att en \gls{xor}-operation genomförs mellan det tidigare wordet och det koresponderande wordet i den tidigare nyckeln.
+Denna process upprepas tills alla nycklar genererats.\footcite{daemen1999aes} Själva processen visas även i figur \ref{fig:aes-key-expansion-pic}.
 
 \begin{figure}[H]
     \centering
