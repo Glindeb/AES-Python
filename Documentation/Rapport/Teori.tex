@@ -304,8 +304,11 @@ värdena är representerade i \gls{hexadecimal} tal.
 \label{sec:aes-structure}
 \acrshort{aes} är baserad på en design princip kallad \gls{SP-network} och byggs huvudsakligen upp av fyra olika steg som alla utförs på en matris av 16 \glspl{byte}. Dessa fyra steg är
 \nameref{sec:aes-subbytes}, \nameref{sec:aes-shiftrows}, \nameref{sec:aes-mixcolumns} och
-\nameref{sec:aes-addroundkey}, vilket visas i figur \ref{fig:round-function}. Steg utförs antingen 10, 12 eller 14 gånger, vilket brukar kallas för rundor. Beroende på vilken nyckel som används krävs olika antal rundor.
-En 128bit nyckel kommer att kräva 10 rundor, en 192bit nyckel kommer att kräva 12 rundor och en 256bit nyckel kommer att kräva 14 rundor.\footcite{daemen1999aes}
+\nameref{sec:aes-addroundkey}, vilket visas i figur \ref{fig:round-function}. Steg utförs antingen 10, 12 eller 14 gånger, vilket brukar kallas för rundor.\footcite{daemen1999aes}
+
+Beroende på vilken nyckel som används krävs olika antal rundor.
+En 128bit nyckel kommer att kräva 10 rundor, en 192bit nyckel kommer att kräva 12 rundor och en 256bit nyckel kommer att kräva 14 rundor.
+Utöver detta så genomförs dock även en initial \nameref{sec:aes-addroundkey} operation innan den första rundan påbörjas.\footcite{daemen1999aes}
 
 \acrshort{aes} algoritmen har en fixerad block storlek på 128bit vilket innebär att
 det alltid kommer att vara 16 \glspl{byte} som krypteras åt gången. Absolut först genomförs
@@ -492,12 +495,12 @@ Vilket visas i figur \ref{fig:aes-inverse-shiftrows-pic}.
     \label{fig:aes-inverse-shiftrows-pic}
 \end{figure}
 
-\subsubsection{MixColumns operationen} %(May need some glossary entrys)
+\subsubsection{MixColumns operationen}
 \label{sec:aes-mixcolumns}
 
 MixColumns operationen är en operation som primärt agerar på kolumnerna i \gls{byte} matrisen. Operationen bygger på att varje kolumn multipliceras genom en
-matris multiplication inom \hyperref[sec:finite-fields]{$GF(2^8)$} med en matris som är konstant för alla kolumner. Detta steg gör då att kolumnerna i matrisen omvandlas till nya kolumner,
-vilket tillsammans med ShiftRows operationen ser till så att inte bara enskilda bytes krypteras utan hela matrisen tillsammans.\footcite{daemen1999aes} Själva operationen visas i figur \ref{fig:aes-mixcolumns-pic}
+\gls{matrismultiplikation} inom \hyperref[sec:finite-fields]{$GF(2^8)$} med en matris som är konstant för alla kolumner. Detta steg gör då att kolumnerna i matrisen omvandlas till nya kolumner,
+vilket tillsammans med \nameref{sec:aes-shiftrows} operationen ser till så att inte bara enskilda bytes krypteras utan hela matrisen tillsammans.\footcite{daemen1999aes} Själva operationen visas i figur \ref{fig:aes-mixcolumns-pic}
 där även den konstanta matrisen som multipliceras med varje kolumnerna visas.
 
 \begin{figure}[H]
@@ -538,7 +541,8 @@ I det här steget så introduceras nyckeln i krypteringsprocessen vilket är en 
 \subsection{Nyckel utökning}
 \label{sec:aes-key-expansion}
 
-Nyckel utökningen är den operation som används för att utöka den angivna nyckeln till antingen 10, 12 eller 14 nycklar beroende på längden av den angivna nyckeln.
+Nyckel utökningen är den operation som används för att utöka den angivna nyckeln till antingen 11, 13 eller 15 nycklar beroende på längden av den angivna nyckeln.
+Anledningen till att antalet nycklar inte är den samma som antalet rundor är för att det innan första rundan genomförs en inledande AddRoundKey operation som använder den första nyckeln.
 Nyckel utökningen är en viktig del av AES som ser till att det finns en unik nyckel för varje runda i krypteringsprocessen.
 Själva utökningen av nyckeln genomförs genom att först dela upp den ursprungliga nyckeln i 4 så kallade words.\footcite{daemen1999aes}
 
@@ -560,14 +564,57 @@ Denna process upprepas tills alla nycklar genererats.\footcite{daemen1999aes} Sj
 \subsubsection{RotWord}
 \label{sec:aes-rotword}
 
+RotWord operationen är en operation som liknar \nameref{sec:aes-shiftrows} operationen och fungerar så att varje \gls{byte} i wordet skiftas en position till vänster.\footcite{daemen1999aes}
+Detta innebär att den första \gls{byte}n i wordet hamnar sist och den sista \gls{byte}n hamnar först, vilket går att se i figur \ref{fig:aes-rotword-pic}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{RotWord.png}
+    \caption{RotWord operationen}
+    \label{fig:aes-rotword-pic}
+\end{figure}
 
 \subsubsection{SubWord}
 \label{sec:aes-subword}
 
+SubWord operationen är en operation som är nästan identisk med \nameref{sec:aes-subbytes} operationen. Själva operationen går ut på att varje \gls{byte} i wordet byts ut mot den korresponderande \gls{byte}n i \nameref{sec:aes-sbox}.\footcite{daemen1999aes}
+Som visas i figur \ref{fig:aes-subword-pic}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{SubWord.png}
+    \caption{SubWord operationen}
+    \label{fig:aes-subword-pic}
+\end{figure}
 
 \subsubsection{Rcon}
 \label{sec:aes-rcon}
 
+\acrshort{rcon} operationen bygger på att hela wordet genomgår en \gls{xor}-operation med ett speciellt word som är förutbestämt $[rc_i, 0, 0, 0]$, vilket går att se i figur \ref{fig:aes-rcon-pic}.
+Det förutbestämda wordet beror vilket nummer nyckeln som genereras är.
+Exempelvis ifall det är nyckel nummer 2 så kommer det förutbestämda wordet vara $[1, 0, 0, 0]$. Det ända som förändras beroende på vilket nummer nyckeln är är det första \gls{byte}n.\footcite{daemen1999aes}
+Värdet på den \gls{byte}n bestäms genom följande regler:
+
+\begin{center}
+    \begin{math}
+        rc_i =
+        \begin{cases}
+            1 & \text{ifall } i = 1 \\
+            2 \cdot rc_{i-1} & \text{ifall } i > 1 \text{ och } rc_{i-1} < 80_{16} \\
+            (2 \cdot rc_{i-1}) \oplus \text {11B}_{16} & \text{ifall } i > 1 \text{ och } rc_{i-1} \ge 80_{16}
+        \end{cases}
+    \end{math}
+\end{center}
+
+Där $\oplus$ är en \gls{xor}-operation, $i$ är vilket nummer på nyckel det är -1 eftersom det första fyra worden är den ursprungliga nyckeln.
+Utifrån dessa regler för $rc_i$ så kan man då räkna ut det förutbestämda wordet för varje nyckel som behövs.\footcite{daemen1999aes}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Rcon.png}
+    \caption{Rcon operationen}
+    \label{fig:aes-rcon-pic}
+\end{figure}
 
 \subsection{AES-128bit}
 \label{sec:aes-128bit}
