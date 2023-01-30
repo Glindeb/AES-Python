@@ -304,11 +304,13 @@ värdena är representerade i \gls{hexadecimal} tal.
 \label{sec:aes-structure}
 \acrshort{aes} är baserad på en design princip kallad \gls{SP-network} och byggs huvudsakligen upp av fyra olika steg som alla utförs på en matris av 16 \glspl{byte}. Dessa fyra steg är
 \nameref{sec:aes-subbytes}, \nameref{sec:aes-shiftrows}, \nameref{sec:aes-mixcolumns} och
-\nameref{sec:aes-addroundkey}, vilket visas i figur \ref{fig:round-function}. Steg utförs antingen 10, 12 eller 14 gånger, vilket brukar kallas för rundor.\footcite{daemen1999aes}
+\nameref{sec:aes-addroundkey}, vilket visas i figur \ref{fig:round-function}. Stegen utförs antingen 10, 12 eller 14 gånger, vilket brukar kallas för rundor.
+\footcite{daemen1999aes}
 
 Beroende på vilken nyckel som används krävs olika antal rundor.
 En 128bit nyckel kommer att kräva 10 rundor, en 192bit nyckel kommer att kräva 12 rundor och en 256bit nyckel kommer att kräva 14 rundor.
-Utöver detta så genomförs dock även en initial \nameref{sec:aes-addroundkey} operation innan den första rundan påbörjas.\footcite{daemen1999aes}
+Detta brukar man se som det tre olika krypterings lägena \acrshort{aes}-128bit \acrshort{aes}-192bit och \acrshort{aes}-256bit som
+då är de tre olika nyckel storlekarna som \acrshort{aes} stödjer.\footcite{daemen1999aes}
 
 \acrshort{aes} algoritmen har en fixerad block storlek på 128bit vilket innebär att
 det alltid kommer att vara 16 \glspl{byte} som krypteras åt gången. Absolut först genomförs
@@ -615,15 +617,3 @@ Utifrån dessa regler för $rc_i$ så kan man då räkna ut det förutbestämda 
     \caption{Rcon operationen}
     \label{fig:aes-rcon-pic}
 \end{figure}
-
-\subsection{AES-128bit}
-\label{sec:aes-128bit}
-
-
-\subsection{AES-192bit}
-\label{sec:aes-192bit}
-
-
-\subsection{AES-256bit}
-\label{sec:aes-256bit}
-
