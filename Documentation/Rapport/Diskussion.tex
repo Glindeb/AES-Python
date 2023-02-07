@@ -1,22 +1,26 @@
 \mychapter{Diskussion \& Slutord} % Diskussion av resultat, presentera och tolka resultatet samt för ett nyanserat resonemang om vad resultatet betyder. Diskutera även eventuella brister i experimentet och hur dessa kan förbättras.
 \label{chap:discussion}
 
-Utifrån resultatet från undersökningen kan man då se hur tiden det tar att kryptera en fil på 1MB ökar när man använder längre nycklar så som 192-\gls{bit} 256-\gls{bit} nycklar.
-Samtidigt visar det sig även att skillnaden i krypteringstid mellan olika körlägen är väldigt liten. Något som tydligt visas det procentuella tids skillnaderna där
-det som högst skiljde sig med 0,4\% mellan \acrshort{ecb} \& \acrshort{ofb}. Medans skillnaden mellan \acrshort{cbc} \& \acrshort{ofb} var 0,1\%.
+Utifrån resultatet från undersökningen kan man då se hur tiden det tar att kryptera en fil på 1MB ökar när man använder längre nycklar så som 192-\gls{bit} 256-\gls{bit} nycklar
+i förhållande till en 128-\gls{bit} nyckel. Samtidigt visar resultatet även att skillnaden i krypteringstid mellan olika körlägen är väldigt liten.
+Något som tydligt visas det procentuella tids skillnaderna där det som högst skiljde sig med 0,4\% mellan \acrshort{ecb} \& \acrshort{ofb}.
+Medans skillnaden mellan \acrshort{cbc} \& \acrshort{ofb} var 0,1\%.
+
+I resultatet kan man dock även se en viss variabilitet i tiden som det tar att kryptera en fil mellan det olika omgångarna. Något som visar på en viss osäkerhet när det exempelvis gäller
+resultatet för körläges testet där \acrshort{ecb} har en högsta tid som är högre än både den högsta tiden för \acrshort{cbc} och \acrshort{ofb}. Vilket då skulle kunna antyda
+att de skillnader som mätts upp mellan medelvärdena kan vara något som är inom felmarginalen för mätningen.
 
 Tittar man sedan istället på hur säkerheten påverkas av det olika körlägena så kan man ganska tydligt se att \acrshort{ecb} är det mest osäkra körläget för större data mängder.
 Detta då man som visas i resultatet kan se hur trots kryptering man fortfarande kan se spår av den ursprungliga bilden i informationen som krypterats. Något som inte
 går att göra när bilden istället krypteras med hjälp av \acrshort{cbc} eller \acrshort{ofb}.
 
 
-\section{Felkällor} % Variabilitet i klockhastighet, Ogämnheter i implementeringen som resutlerar i missvisande tider, osäkerhet host mätmetoden, fel i implementeringen, 
+
+\section{Felkällor} % Variabilitet i klockhastighet, Ogämnheter i implementeringen som resulterar i missvisande tider, osäkerhet host mätmetoden, fel i implementeringen,
 
 
-\section{Förbättringar} % Öka antalet reppetitioner för att minskar risken för fel, använda andra metoder för att mäta tiden, testa olika nycklar för att se hur de påverkar, 
+\section{Förbättringar} % Öka antalet reppetitioner för att minskar risken för fel, använda andra metoder för att mäta tiden, testa olika nycklar för att se hur de påverkar,
 
 
 \section{Slutsats}
 
-
-\section{Slutord}
