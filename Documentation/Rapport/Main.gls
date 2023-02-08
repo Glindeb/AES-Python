@@ -18,7 +18,8 @@
 		\setentrycounter[]{page}\glsnumberformat{6}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{20}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{23\delimR 28}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{30\delimR 32}}}\glsgroupskip
+		\setentrycounter[]{page}\glsnumberformat{30\delimR 32}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{34}}}\glsgroupskip
 \glsgroupheading{C}\relax \glsresetentrylist %
 \glossentry{caesar}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{7}\delimN 
@@ -91,5 +92,6 @@
 		\setentrycounter[]{page}\glsnumberformat{7}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{14\delimR 17}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{21}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{27\delimR 29}}}%
+		\setentrycounter[]{page}\glsnumberformat{27\delimR 29}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{34}}}%
 \end{theglossary}\glossarypostamble
