@@ -15,3 +15,8 @@ src/PyAES/__main__.py
 src/PyAES/decrypt.py
 src/PyAES/encrypt.py
 src/PyAES/py.typed
+tests/test_decryption.py
+tests/test_encryption.py
+tests/test_exeptions.py
+tests/test_functions.py
+tests/test_key_expansion.py

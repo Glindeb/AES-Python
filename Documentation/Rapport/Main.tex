@@ -6,7 +6,10 @@
 \usepackage{titlesec}
 \usepackage{fontenc}
 \usepackage{float}
+\usepackage{minted}
 \usepackage[swedish]{babel}
+\usepackage{pythonhighlight}
+\usepackage{wrapfig}
 % For headers and footers
 \usepackage{fancyhdr, lastpage}
 \usepackage{fancyvrb}
@@ -80,7 +83,8 @@ keepaspectratio]{background-1.png}
 \renewcommand{\currentchapter}{#1}}
 \renewcommand{\bibname}{Källförteckning}
 \renewcommand{\contentsname}{Inehållsförteckning}
-\renewcommand{\listfigurename}{Figurer}
+\addto\captionsswedish{%
+  \renewcommand\listfigurename{Figur lista}}
 \newcommand{\fakechapter}[2]{%
   \par\setcounter{chapter}{#2}
   \chaptermark{#1}
@@ -290,6 +294,73 @@ keepaspectratio]{background-1.png}
       Detta är en av sakerna som gjorde enigma väldigt svår att knäcka samt en av anledningarna till att
       liknande maskiner användes under stora delar av de tidiga 1900-talet.\cite{enigma-ref}}
     }
+  \newglossaryentry{SP-network}
+  {
+      name={SP-network},
+      description={SP-network eller även kallat Substitution-permutation network är inom kryptografin
+      en serie av matematiska operationer som genomförs i rundor för att på så sätt kryptera ett medelande. Det består
+      ut av två delar, en substitutions del och en permutation del. Substitutionen delen fungerar
+      precis som \nameref{sec:aes-subbytes} medans permutationen exempelvis skulle kunna representeras
+      med \nameref{sec:aes-shiftrows}.\cite{sp-network-ref}}
+    }
+  \newglossaryentry{ssh}
+  {
+      name={SSH},
+      description={SSH eller som de även är kallat Secure Shell är ett protokoll som används för säker kommunikation
+      över ett nätverk. SSH är ett exempel på ett nätverksprotokoll och används bland annat för att kryptera medelanden
+      som skickas mellan två enheter.\cite{ssh}}
+    }
+  \newglossaryentry{http}
+  {
+        name={HTTP},
+        description={HTTP (The Hypertext Transfer Protocol) är de protokoll som används när man besöker en webbsida.
+        Detta protokoll har används sedan 1990-talet och används fortfarande till stora delar.\cite{http}}
+    }
+  \newglossaryentry{hexadecimal}
+  {
+        name={Hexadecimal},
+        description={Hexadecimal tal är tal med talbasen 16. Detta innebär att det finns 16 olika symboler som kan användas
+        istället för 10 symboler som används i decimaltal som har talbasen 10. Detta görs genom att man representerar tal
+        större än 9 med bokstäverna A-F.\cite{NE-2}}
+    }
+  \newglossaryentry{ppm}
+  {
+        name={PPM},
+        description={PPM eller även kallad Portable Pixel Map är ett fil format som förvara bilder i råa bytes som då representerar
+        färgerna i bilden. PPM använder sig av 3 \gls{byte}s för att representera en färg.\cite{ppm}}
+    }
+  \newglossaryentry{gimp}
+  {
+        name={GIMP},
+        description={GIMP är ett open source bild redigerings program som är tillgängligt för de flesta operativsystem.\cite{gimp}}
+    }
+  \newglossaryentry{win11}
+  {
+        name={Windows 11},
+        description={Windows 11 är den senaste versionen av ett \gls{operativsystem} för datorer framtaget av företaget Microsoft. Windows 11
+        tillhör \gls{operativsystem} familjen Windows NT som först lanserades 1993.\cite{win11}}
+    }
+  \newglossaryentry{operativsystem}
+  {
+        name={Operativsystem},
+        description={Operativsystem är de program på en dator som fungerar som gränssnitt mellan användaren och datorns maskinvara. Detta
+        innebär att operativsystemet hanterar saker som inmatning från användaren till att tillhandahålla ett gränssnitt för olika program
+        så att dom kan genomföra sina uppgifter.\cite{opsystem}}
+    }
+  \newglossaryentry{cpuh}
+  {
+      name={CPU klockhastighet},
+      description={CPU klockhastighet är den hastighet som en CPU kan utföra instruktioner på. Den mäts i hertz och är frekvensen som
+      klockgeneratorn i en dators CPU använder sig av för att bland annat styra hur snabbt instruktioner ska utföras samt synka
+      olika komponenter i datorn.\cite{cpuh}}
+    }
+  \newglossaryentry{matrismultiplikation}
+  {
+      name={Matrismultiplikation},
+      description={Matrismultiplikation är en matematisk metod för att multiplicera ihop två eller flera matriser med varandra. Detta görs
+      genom att värdena i den första matrisen multipliceras med värdena i den andra matrisen och sedan summeras ihop. Detta resulterar
+      i en ny matris som är resultatet av multiplikationen.\cite{matrismultiplikation}}
+    }
 
 \newacronym{aes}{AES}{Advanced Encryption Standard}
 \newacronym{ecb}{ECB}{Electronic Code Book läge}
@@ -301,6 +372,8 @@ keepaspectratio]{background-1.png}
 \newacronym{tls}{TLS}{Transport Layer Security}
 \newacronym{ascii}{ASCII}{American Standard Code for Information Interchange}
 \newacronym{wpa2}{WPA2}{Wi-Fi Protected Access 2}
+\newacronym{nist}{NIST}{National Institute of Standards and Technology}
+\newacronym{rcon}{Rcon}{Round Constant}
 %%%
 
 % Data visualization setup
@@ -380,6 +453,8 @@ tempor mi accumsan quis. Morbi blandit maximus urna non aliquet aes.
 % Inehållsförteckning
 \tableofcontents
 
+\listoffigures
+
 \clearpage
 
 \printglossary
@@ -404,44 +479,7 @@ tempor mi accumsan quis. Morbi blandit maximus urna non aliquet aes.
 
 \clearpage
 
-\fakechapter{Figurer}{8}
-\addcontentsline{toc}{chapter}{Figurer}
-\listoffigures
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.6\textwidth]{pi.png}
-  \caption{Orginal bild}
-  \label{fig:pi-original}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.6\textwidth]{pi-ecb.png}
-  \caption{Efter ECB Kryptering}
-  \label{fig:pi-ecb}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.6\textwidth]{pi-cbc.png}
-  \caption{Efter CBC Kryptering}
-  \label{fig:pi-cbc}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.6\textwidth]{pi-OFB.png}
-  \caption{Efter OFB Kryptering}
-  \label{fig:pi-ofb}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.6\textwidth]{AES_(Rijndael)_Round_Function.png}
-  \captionsource{Uppställning av vanliga rundor}{{\fullcite{rounds-picture}}}
-  \label{fig:round-function}
-\end{figure}
+\include{Bilagor}
 
 % End document
 \end{document}

@@ -21,80 +21,84 @@ för kryptering av enskilda block med en nyckel, vilket skiljer sig från något
 På grund av detta har en mängd olika körlägen utvecklats för att på så sätt göra de möjlig att utnyttja
 blockskiffer för att kryptera större mängder data med en nyckel.\footcite{blockskiffer-ref}
 
-Blockskiffer används däremot inte bara för kryptering utan kan även användas i olika typer av \gls{hashfunktion}er  % needs glossary entry
-och \gls{pseudoslump} nummer generatorer bland annat då blockskifferets resulterande skiffertext ser ut att vara slumpmässig.\footcite{blockskiffer-ref}
-% need to add more
+Blockskiffer används däremot inte bara för kryptering utan kan även användas i olika typer av \gls{hashfunktion}er
+och \gls{pseudoslump} nummer generatorer bland annat, eftersom blockskifferets resulterande skiffertext ser ut att vara helt slumpmässig
+trots att den inte egentligen är det.\footcite{blockskiffer-ref}
 
 \subsection{Körlägen}
 Körlägen inom kryptografin kan man se som algoritmer som appliceras i användningen av
 blockskiffer eftersom dessa endast är användbara för säker kryptering av ett litet block med bestämd längd.
 Körlägena gör de då möjligt att istället kunna använda blockskiffer på större data mängder.
 Detta löser körlägen på olika sätt beroende på hur man vill använda blockskiffer algoritmen samt hur
-mycket man ör villig att kompromissa med säkerheten i förhållande till hastighet.\footfullcite{modesofoperation}
+mycket man ör villig att kompromissa med säkerheten i förhållande till hastighet.\footfullcite{dworkin2001sp}
 
 Ett ut av sätten som körlägen löser problemet med att applicera blockskiffer algoritmer på
 större data mängder är att dom använder sig av en så kallad \acrfull{iv}. Det är en unik sekvens
 av bytes som används för att säkerställa att samma data mängd aldrig kommer att generera samma
-krypterade skiffertext.\footcite{modesofoperation}
+krypterade skiffertext.\footcite{dworkin2001sp}
 
-\acrshort{iv} kan användas på många sätt från att introduceras genom en
-\gls{xor}-operation med första blocket och sedan kedja ihop och göra samma sak med nästkommande
-block fast med resultatet från den första operationen precis som i \acrshort{cbc}. Detta gör att blocken blir beroende av varandra
-plus att samma information som krypteras flera inte kommer ge samma resultat även fast man använder samma
-nyckel.\footcite{modesofoperation}
+\acrshort{iv} kan användas på många sätt, exempelvis kan den introduceras genom en
+\gls{xor}-operation till första blocket. Sedan kedjas resterande block ihop med en \gls{xor}-operation med resultatet från
+den första operationen, vilket precis är vad som görs i \acrshort{cbc}. Detta gör att blocken blir beroende av varandra
+vilket förhindrar att upprepad information som krypteras ger samma resultat även fast man använder samma
+nyckel.\footcite{dworkin2001sp}
+
+Exempel på hur \acrshort{ecb}, \acrshort{ofb} och \acrshort{cbc} kan ses i appendix \ref{app:python}.
 
 \subsubsection{ECB}
+\label{sec:ecb}
 \acrfull{ecb} är en av det enklaste blockchiffer körlägena som finns.
 \acrshort{ecb} i sig är ganska lätt att förstå och bygger i huvudsak bara på
 att man delar upp den data man vill kryptera i delar kallade block och tar sedan varje
 block för sig och kör genom algoritmen, vilket tydligt visas i
 figur \ref{fig:ecb-mode-enc} \& \ref{fig:ecb-mode-dec}.
-\footcite{modesofoperation}
+\footcite{dworkin2001sp}
 
 Figur \ref{fig:ecb-mode-enc} visar hur \acrshort{ecb} fungerar vid kryptering.
 Här visas hur varje block för sig krypteras med hjälp av en blockchiffer algoritm
 tillsammans med den givna nyckeln.
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{ECB_encryption.png}
-    \caption{\acrlong{ecb} kryptering \cite{ecb-mode-enc-ref}}
+    \includegraphics[width=\textwidth]{ECB Kryptering.png}
+    \caption{\acrlong{ecb} kryptering}
     \label{fig:ecb-mode-enc}
 \end{figure}
 
 Figur \ref{fig:ecb-mode-dec} visar istället hur \acrshort{ecb} fungerar vid
 dekryptering, vilken är en till stort sett identisk operation med det enda undantaget
-att blockchiffret körs i dekrypterings läge istället för krypterings läge. % May need reformulating!!
+att blockchiffret körs i dekrypterings läge istället för krypterings läge.
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{ECB_decryption.png}
-    \caption{\acrlong{ecb} dekryptering \cite{ecb-mode-dec-ref}}
+    \includegraphics[width=\textwidth]{ECB Decryptering.png}
+    \caption{\acrlong{ecb} dekryptering}
     \label{fig:ecb-mode-dec}
 \end{figure}
 
 På grund av \acrshort{ecb} körlägets simplicitet så finns det dock även ett ganska
 stort problem med detta körläge. Det handlar om att \acrshort{ecb} inte på något
 sätt förhindrar att två block med samma innehåll som krypteras inte resulterar i
-ett identiskt krypterat block.\footcite{modesofoperation}
+ett identiskt krypterat block.\footcite{dworkin2001sp}
 
 Vad detta innebär är att för större mängder data
 är att det börjar bildas mönster i skiffertexten. Detta är något som väldigt
 tydligt visar sig ifall man krypterar en bild, vilket går att se när man jämför
-figur \ref{fig:pi-original} \& \ref{fig:pi-ecb}.
+bilaga \ref{fig:pi-original} \& \ref{fig:pi-ecb}.
 Det här faktumet är även varför \acrshort{ecb} inte är ett säkert körläge
-och därför inte används näst intill aldrig i praktiken.\footcite{modesofoperation}
+och därför inte används näst intill aldrig i praktiken.\footcite{dworkin2001sp}
 
 \acrshort{ecb} har däremot även sina fördelar då de bland annat kan parallelliseras
 både när de gäller krypteringen och dekrypteringen. Detta samt att \acrshort{ecb}
 även gör de möjligt att slumpmässigt dekryptera enskilda block av en skiffertext
-utan att man behöver dekryptera hela texten.\footcite{modesofoperation}
+utan att man behöver dekryptera hela texten.\footcite{dworkin2001sp}
 
 \subsubsection{CBC}
+\label{sec:cbc}
 \acrlong{cbc} är ett av de mest vanligen använda körlägena för många blockchiffer.
 Till skillnad från \acrshort{ecb} så förhindrar \acrshort{cbc} att två block med
 samma innehåll kan ge samma krypterade block. Detta gör \acrshort{cbc} genom att
 lägga till ett extra steg utöver vad som finns i \acrshort{ecb}. Steget
 är en \gls{xor}-operation mellan det krypterade blocket nästkommande block innan
-de körs genom blockchiffer algoritmen.\footcite{modesofoperation}
+de körs genom blockchiffer algoritmen.\footcite{dworkin2001sp}
 Matematisk sett kan detta formuleras såhär:
 
 \begin{equation}
@@ -113,8 +117,8 @@ något föregående block att använda. $i$ står för index där de första blo
 index värdet 1. Hela den här processen kan även ses i figur \ref{fig:cbc-mode-enc}.
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{CBC_encryption.png}
-    \caption{\acrlong{cbc} kryptering \cite{cbc-mode-enc-ref}}
+    \includegraphics[width=\textwidth]{CBC Kryptering.png}
+    \caption{\acrlong{cbc} kryptering}
     \label{fig:cbc-mode-enc}
 \end{figure}
 
@@ -122,7 +126,7 @@ När de gäller dekrypterings processen för \acrshort{cbc} så bär den precis 
 \acrshort{ecb} stora likheter med krypterings processen. Det två skillnaderna som
 finns är att blockchiffert körs i dekrypterings läge istället för krypterings läge.
 Samt att för varje block så genomförs en \gls{xor}-operation mellan det dekrypterade
-blocket och föregående block innan dekrypteringen av blocket.\footcite{modesofoperation}
+blocket och föregående block innan dekrypteringen av blocket.\footcite{dworkin2001sp}
 Även detta går att både matematiskt formulera och visuellt visa såhär:
 
 \begin{equation}
@@ -134,8 +138,8 @@ blocket och föregående block innan dekrypteringen av blocket.\footcite{modesof
 \end{equation}
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{CBC_decryption.png}
-    \caption{\acrlong{cbc} dekryptering \cite{cbc-mode-dec-ref}}
+    \includegraphics[width=\textwidth]{CBC Decryptering.png}
+    \caption{\acrlong{cbc} dekryptering}
     \label{fig:cbc-mode-dec}
 \end{figure}
 
@@ -143,48 +147,48 @@ Fördelarna som kommer från den extra operationen i \acrshort{cbc} till skillna
 från \acrshort{ecb} är då att varje block blir beroende av föregående block.
 Detta innebär att dom mönster som kunde dyka upp i \acrshort{ecb} inte längre
 kan uppstå, vilket då gör \acrshort{cbc} till ett mer säkert körläge än \acrshort{ecb}.
-Dock kräver cbc en ytterligare faktor för att se till så att inte olika medelanden
+Dock kräver \acrshort{cbc} en ytterligare faktor för att se till så att inte olika medelanden
 kan ge samma krypterade block. Därav så krävs en \acrfull{iv} som används vid första
-blocket.\footcite{modesofoperation}
+blocket.\footcite{dworkin2001sp}
 
 \acrshort{cbc} är dock inte prefekt och har i sig också några nackdelar. Där ibland
 exempelvis de faktum att en incorrect \acrshort{iv} leder till att de första blocket
 inte kan dekrypteras korrekt, detta påverkar dock inte de resterande blocken. På grund
 av det så kan man exempelvis lösa problemet genom att första blocket bara innehåller
-någon typ av fyllnad, vilket då gör dekrypteringen möjlig utan tillgång till \acrshort{iv}.\footcite{modesofoperation}
+någon typ av fyllnad, vilket då gör dekrypteringen möjlig utan tillgång till \acrshort{iv}.\footcite{dworkin2001sp}
 
 Utöver detta så begränsas även \acrshort{cbc} till att bara vara parallelliserbar under
 dekrypteringen och inte krypteringen, vilket är en konsekvens av att varje block i \acrshort{cbc}
 är beroende av föregående block. \acrshort{cbc} behåller dock fortfarande möjligheten
 som \acrshort{ecb} har att slumpmässigt dekryptera enskilda block utan att behöva
-dekryptera hela skiffertexten.\footcite{modesofoperation}
+dekryptera hela skiffertexten.\footcite{dworkin2001sp}
 
 \subsubsection{OFB}
+\label{sec:ofb}
 \acrlong{ofb} är ett ytterligare körläge som skiljer sig en del från \acrshort{ecb}
 och \acrshort{cbc} som  redan presenterats. Den största skillnaden från det andra
 körlägena är att \acrshort{ofb} inte använder blockchiffer algoritmen för att kryptera
 eller dekryptera blocken. Istället så körs \acrshort{iv} genom blockchiffer algoritmen
 och den resulterande \gls{keystream} tillförs sedan genom en \gls{xor}-operation till
-blocket som ska krypteras eller dekrypteras.\footcite{modesofoperation}
+blocket som ska krypteras eller dekrypteras.\footcite{dworkin2001sp}
 
 Tack vare \gls{xor}-operationens symmetriska natur så är så väl krypteringen som
 dekrypteringen av \acrshort{ofb} identisk, vilket även visas i figur \ref{fig:ofb-mode-enc}
 \& \ref{fig:ofb-mode-dec}:
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{OFB_encryption.png}
-    \caption{\acrlong{ofb} kryptering \cite{ofb-mode-enc-ref}}
+    \includegraphics[width=\textwidth]{OFB Kryptering.png}
+    \caption{\acrlong{ofb} kryptering}
     \label{fig:ofb-mode-enc}
 \end{figure}
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{OFB_decryption.png}
-    \caption{\acrlong{ofb} dekryptering \cite{ofb-mode-dec-ref}}
+    \includegraphics[width=\textwidth]{OFB Decryptering.png}
+    \caption{\acrlong{ofb} dekryptering}
     \label{fig:ofb-mode-dec}
 \end{figure}
 
-Utöver detta kan man även matematiskt beskriva \acrshort{ofb}, vilket visas i ekvationen
-nedan:
+Utöver detta kan man även matematiskt beskriva \acrshort{ofb}, vilket visas i nedan:
 
 \begin{equation}
     \label{eq:ofb-encryption}
@@ -208,7 +212,7 @@ ska krypteras inte används fram till sista steget så är det möjligt att geno
 operationerna i förväg, vilket gör det möjligt att även parallellisera \acrshort{ofb}. Dock
 kan \acrshort{ofb} inte parallelliseras ifall man inte gör blockskiffer operationerna
 i förväg. Utöver detta saknar även \acrshort{ofb} möjligheten att slumpmässigt dekryptera
-enskilda block utan att behöva dekryptera hela skiffertexten.\footcite{modesofoperation}
+enskilda block utan att behöva dekryptera hela skiffertexten.\footcite{dworkin2001sp}
 
 \section{Symetrisk \& Asymmetrisk Kryptering}
 \label{sec:symmetric-asymmetric-encryption}
@@ -231,6 +235,7 @@ Exempel på symetriska krypterings algoritmer är bland annat \acrshort{aes} och
 Medans exempel på asymetriska krypterings algoritmer är bland annat \gls{rsa}.\footfullcite{rsa-ref}
 
 \section{AES}
+\label{sec:aes}
 
 Som nämnts tidigare i \nameref{sec:aes-uppkomst} bygger \acrshort{aes} standarden på en variant av Rijndael \nameref{sec:blockskiffer} algoritmen
 skapad av Vincent Rijmen och Joan Daemen. \acrshort{aes} är en symetrisk \nameref{sec:blockskiffer} krypterings algoritm som utformades för att ersätta
@@ -242,11 +247,11 @@ skiljer sig från varandra när det kommer till längden av krypteringsnyckeln s
 Även själva algoritmen kan delas upp i ett antal olika delar som alla har olika syften. Dessa delar är \nameref{sec:aes-addroundkey}, \nameref{sec:aes-subbytes}, \nameref{sec:aes-shiftrows},
 \nameref{sec:aes-mixcolumns} och \nameref{sec:aes-key-expansion} som alla kommer att förklaras mer detaljerat i de följande sektioner. \nameref{sec:aes-key-expansion} delen kan även
 delas upp ytterligare i tre olika varianter som är \nameref{sec:aes-key-expansion-128bit}, \nameref{sec:aes-key-expansion-192bit} och \nameref{sec:aes-key-expansion-256bit} beroende
-på vilken av de tre \acrshort{aes} varianterna som används.\footcite{aes_wiki}
+på vilken av de tre \acrshort{aes} varianterna som används.\footfullcite{daemen1999aes}
 
 Utöver detta så bygger \nameref{sec:aes-key-expansion} på tre operationer vilka är \nameref{sec:aes-subword}, \nameref{sec:aes-rotword} och
 \nameref{sec:aes-rcon} som också kommer att förklaras mer detaljerat i de följande sektioner.\footcite{aes_wiki} För att förstå vissa av dessa delar
-så kommer det däremot krävas en förklaring av både \nameref{sec:aes-sbox} och \nameref{sec:finite-fields} som kommer att förklaras först.
+så kommer det däremot krävas en förklaring av både \nameref{sec:aes-sbox} och \nameref{sec:finite-fields} som kommer att förklaras först.\footcite{daemen1999aes}
 
 \subsection{Finite Fields}
 \label{sec:finite-fields}
@@ -262,75 +267,353 @@ Finite Fields för att utföra vissa av sina operationer. Där anledningen till 
 ligger i att \acrshort{aes} jobbar på en byte nivå vilket innebär att alla operationer
 som utförs måste resultera i ett värde som är mellan 0 och 255. \acrshort{aes} Finite Field
 kan då med detta skrivas som $GF(2^8)$ där $GF$ står för Galios Field vilket är
-en annan benämning på Finite Fields.\footcite{finitefield_wiki} För en mer grundlig matematiskt förklaring av Finite Fields så kan man bland annat läsa rapporten
+en annan benämning på Finite Fields.\footcite{finitefield_wiki} För en mer grundlig matematiskt förklaring av Finite Fields så kan man läsa vidare i rapporten
 \citetitle{boman2016andliga} av \citeauthor{boman2016andliga}.\footfullcite{boman2016andliga}
 
 \subsection{AES S-Box}
 \label{sec:aes-sbox}
 \acrshort{aes} använder sig av en så kallad S-Box eller med andra ord substitutions box
-för en del av sina operationer. S-Boxen kan man se som en slags uppslagstabell
-som används för att byta ut ett värde mot ett annat. S-Boxen används huvudsakligen
-för att byta ut värden i \nameref{sec:aes-key-expansion} delen av \acrshort{aes} algoritmen
-samt i \nameref{sec:aes-subbytes} operationen.\footfullcite{sbox_wiki}
+för en del av sina operationer. S-Boxen används huvudsakligen för att byta ut värden
+i \nameref{sec:aes-key-expansion} delen av \acrshort{aes} algoritmen samt i
+\nameref{sec:aes-subbytes} operationen.\footfullcite{sbox_wiki}
 
-...\footcite{sbox_wiki}
+S-boxen består av 256 olika värden som alla är unika och som alla är mellan 0 och 255.
+Värdena i S-boxen är ordnade i en lista och värdenas position i listan används som
+index för att kunna hitta ett värde i S-boxen. När S-boxen används för att byta ut
+ett värde så används det värde som ska bytas ut som index värdet för att kunna hitta
+rätt värde i S-boxen.\footcite{sbox_wiki}
+
+\acrshort{aes} S-box genereras med hjälp av \acrshort{aes} Finite Field {$GF(2^8)$}.
+Själva S-boxen är konstant genom hela \acrshort{aes} algoritmen och kan därför
+vara en attack vector för olika försök till att bryta krypteringen. På grund av
+detta så finns det även användningar av dynamiska S-boxar som kan genereras
+utifrån en viss nyckel och skapar då ytterligare ett lager av säkerhet.\footfullcite{singh2017analysis}
+
+\acrshort{aes} har två olika S-boxar varav den ena är en invers S-box av den andra.
+Detta så att operationen går att utföra i båda riktningarna, vilket gör dekryptering
+av data möjlig.\footcite{sbox_wiki} Dessa två S-boxar går att se nedan i figur \ref{fig:aes-sbox} där
+värdena är representerade i \gls{hexadecimal} tal.
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{S-box.png}
+    \caption{\acrshort{aes} S-box (Den vänstra matrisen) \& Invers S-box (Den högra matrisen)}
+    \label{fig:aes-sbox}
+\end{figure}
 
 \subsection{Struktur}
 \label{sec:aes-structure}
+\acrshort{aes} är baserad på en design princip kallad \gls{SP-network} och byggs huvudsakligen upp av fyra olika steg som alla utförs på en matris av 16 \glspl{byte}. Dessa fyra steg är
+\nameref{sec:aes-subbytes}, \nameref{sec:aes-shiftrows}, \nameref{sec:aes-mixcolumns} och
+\nameref{sec:aes-addroundkey}, vilket visas i figur \ref{fig:round-function}. Stegen utförs antingen 10, 12 eller 14 gånger, vilket brukar kallas för rundor.
+\footcite{daemen1999aes}
 
+Beroende på vilken nyckel som används krävs olika antal rundor.
+En 128bit nyckel kommer att kräva 10 rundor, en 192bit nyckel kommer att kräva 12 rundor och en 256bit nyckel kommer att kräva 14 rundor.
+Detta brukar man se som det tre olika krypterings lägena \acrshort{aes}-128bit \acrshort{aes}-192bit och \acrshort{aes}-256bit som
+då är de tre olika nyckel storlekarna som \acrshort{aes} stödjer.\footcite{daemen1999aes}
 
-\subsubsection{SubBytes operation}
+\acrshort{aes} algoritmen har en fixerad block storlek på 128bit vilket innebär att
+det alltid kommer att vara 16 \glspl{byte} som krypteras åt gången. Absolut först genomförs
+en initial \nameref{sec:aes-addroundkey} operation där den första rund nyckeln används.
+Sedan genomförs 9, 11 eller 13 identiska rundor. Den sista rundan skiljer sig däremot från det andra
+på så sätt att man hoppar över sista \nameref{sec:aes-mixcolumns} då den inte får någon betydelse ur ett
+kryptografiskt perspektiv för den slutliga skiffer texten.\footcite{daemen1999aes}
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.5\linewidth]{Vanlig runda.png}
+    \caption{Vanlig runda}
+    \label{fig:round-function}
+\end{wrapfigure}
+
+En vanlig runda består av följande steg:
+
+\begin{enumerate}
+    \item \nameref{sec:aes-subbytes}
+    \item \nameref{sec:aes-shiftrows}
+    \item \nameref{sec:aes-mixcolumns}
+    \item \nameref{sec:aes-addroundkey}
+\end{enumerate}
+
+Den sista rundan ser istället ut på följande sätt:
+
+\begin{enumerate}
+    \item \nameref{sec:aes-subbytes}
+    \item \nameref{sec:aes-shiftrows}
+    \item \nameref{sec:aes-addroundkey}
+\end{enumerate}
+
+Utifrån detta kan man se att nyckeln används flera gånger under själva krypterings processen av ett block.
+För att varje runda då ska få en unik nyckel så genomförs en \nameref{sec:aes-key-expansion}s operation
+som genererar en nyckel för varje runda utifrån den ursprungliga nyckeln. Detta för att samma nyckel
+inte ska användas flera gånger vilket skulle göra det enklare att bryta krypteringen.\footcite{daemen1999aes}
+
+\nameref{sec:aes-key-expansion}en är en operationen som genomförs före själva krypterings stadiet påbörjas
+och genererar en lista med nycklar för varje runda. Antalet nycklar beror av nyckellängden som även bestämmer antalet rundor.
+För dekryptering så sker liknande rundor av operationer som för krypteringen fast
+i en lite annorlunda ordning samt med den inversa operationen till \nameref{sec:aes-shiftrows} \& \nameref{sec:aes-mixcolumns}.\footcite{daemen1999aes}
+
+En vanilg runda för dekryptering ser ut på följande sätt:
+
+\begin{enumerate}
+    \item \nameref{sec:aes-addroundkey}
+    \item \nameref{sec:aes-invers-mixcolumns}
+    \item \nameref{sec:aes-invers-shiftrows}
+    \item \nameref{sec:aes-subbytes}
+\end{enumerate}
+
+Anledningen till att \nameref{sec:aes-addroundkey} och \nameref{sec:aes-subbytes} inte kräver någon direct invers function handlar om hur dessa operationer
+är uppbyggda. För \nameref{sec:aes-addroundkey} så är det på grund av \gls{xor}-operationens linjära egenskaper som innebär att den är sin egen invers.
+Detta eftersom ifall man tar och genomför \gls{xor}-operationen med samma nyckel två gånger så kommer man tillbaka till ursprungsvärdet.
+
+När de gäller \nameref{sec:aes-subbytes}
+så handlar de istället om att de helt enkelt är en substitution utifrån en \nameref{sec:aes-sbox}, vilket då betyder att de som krävs för att genomföra den motsatta operationen
+blir att använda den inversa \nameref{sec:aes-sbox}en.\footcite{daemen1999aes}
+
+Både krypterings och dekrypterings strukturen som nu beskrivits kan implementeras i exempelvis \gls{python} kod på som visas i figur \ref{fig:encryption-rounds-function} \& \ref{fig:decryption-rounds-function}.
+
+\begin{figure}[H]
+    \centering
+    \begin{python}
+    # Performs the encryption rounds on the input data matrix
+    # This function is used for the encryption of data matrixes
+    # using the expanded keys.
+    def encryption_rounds(data, round_keys, nr):
+        # Inizial add round key
+        data = np.bitwise_xor(data, round_keys[0])
+
+        # Rounds 1 to 9 or 1 to 11 or 1 to 13
+        # Here each step in one round is performed in a sequence n times
+        # where n is the number of rounds minus the last round.
+        for i in range(1, (nr - 1)):
+            # Sub bytes
+            data = sub_bytes(data, subBytesTable)
+            # Shift rows
+            data = shift_rows(data)
+            # Mix columns
+            data = mix_columns(data)
+            # Add round key
+            data = np.bitwise_xor(data, round_keys[i])
+
+        # Final round
+        # Identical to the previous rounds, but without mix columns
+        data = sub_bytes(data, subBytesTable)
+        data = shift_rows(data)
+        data = np.bitwise_xor(data, round_keys[nr - 1])
+
+        # Returns the encrypted data
+        return data
+
+    \end{python}
+    \caption{Krypterings runda funktion}
+    \label{fig:encryption-rounds-function}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{python}
+    # Performs the decryption rounds on the input data matrix
+    # This function is used for the decryption of data matrixes
+    # using the expanded keys.
+    def decryption_rounds(data, round_keys, nr):
+        # Inizial add round key, inverse shift rows and inverse sub bytes
+        data = np.bitwise_xor(data, round_keys[-1])
+        data = inv_shift_rows(data)
+        data = sub_bytes(data, invSubBytesTable)
+
+        # Rounds 1 to 9 or 1 to 11 or 1 to 13
+        # Here each step in one round is performed in a sequence n times
+        # where n is the number of rounds minus the last round.
+        for i in range(1, (nr - 1)):
+            # Add round key
+            data = np.bitwise_xor(data, round_keys[-(i+1)])
+            # Inverse mix columns
+            data = inv_mix_columns(data)
+            # Inverse shift rows
+            data = inv_shift_rows(data)
+            # Inverse sub bytes
+            data = sub_bytes(data, invSubBytesTable)
+
+        # Final round
+        # Final add round key of final round
+        data = np.bitwise_xor(data, round_keys[0])
+
+        # Returns the decrypted data
+        return data
+
+    \end{python}
+    \caption{Dekrypterings runda funktion}
+    \label{fig:decryption-rounds-function}
+\end{figure}
+
+\subsubsection{SubBytes operationen} %(To be reviwed)
 \label{sec:aes-subbytes}
-SubBytes operationen bygger på ...
+SubBytes operationen bygger på att varje byte byts ut mot en korresponderande \gls{byte} från en \nameref{sec:aes-sbox} som
+visas i figur \ref{fig:aes-subbytes-pic}.
+Själva operationen fungerar som det icke linjära steget i krypteringsprocessen och är därmed en viktig del av AES.\footcite{daemen1999aes}
 
-\subsubsection{ShiftRows operation}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{SubBytes.png}
+    \caption{SubBytes operationen}
+    \label{fig:aes-subbytes-pic}
+\end{figure}
+
+För att genomföra den inversa varianten av SubBytes operationen så krävs endast att man använder den inversa \nameref{sec:aes-sbox}en,
+vilket då resulterar i den ursprungliga \gls{byte} matrisen.\footcite{daemen1999aes} Vilket visas i figur \ref{fig:aes-inverse-subbytes-pic}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Inverse-SubBytes.png}
+    \caption{Inverse SubBytes operationen}
+    \label{fig:aes-inverse-subbytes-pic}
+\end{figure}
+
+\subsubsection{ShiftRows operationen}
 \label{sec:aes-shiftrows}
 
+ShiftRows operationen är en operation som bygger på att varje rad i \gls{byte} matrisen förflyttas sidled ett viss antal steg.
+Första raden förflyttas 0 steg, andra raden 1 steg åt vänster, tredje raden 2 steg åt vänster och fjärde raden 3 steg åt vänster. Anledningen till att ShiftRows steget
+finns är för att att kolumnerna i \gls{byte} matrisen krypteras oberoende av varandra.\footcite{daemen1999aes}
 
-\subsubsection{MixColumns operation}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{ShiftRows.png}
+    \caption{ShiftRows operationen}
+    \label{fig:aes-shiftrows-pic}
+\end{figure}
+
+\subsubsection{Inverse ShiftRows operationen}
+\label{sec:aes-invers-shiftrows}
+
+ShiftRows motsatts är Inverse ShiftRows operationen. Denna operationen är en invers till ShiftRows operationen och förflyttar
+första raden 0 steg, andra raden 1 steg åt höger, tredje raden 2 steg åt höger och fjärde raden 3 steg åt höger.\footcite{daemen1999aes}
+Vilket visas i figur \ref{fig:aes-inverse-shiftrows-pic}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Inverse-ShiftRows.png}
+    \caption{Inverse ShiftRows operationen}
+    \label{fig:aes-inverse-shiftrows-pic}
+\end{figure}
+
+\subsubsection{MixColumns operationen}
 \label{sec:aes-mixcolumns}
 
+MixColumns operationen är en operation som primärt agerar på kolumnerna i \gls{byte} matrisen. Operationen bygger på att varje kolumn multipliceras genom en
+\gls{matrismultiplikation} inom \hyperref[sec:finite-fields]{$GF(2^8)$} med en matris som är konstant för alla kolumner. Detta steg gör då att kolumnerna i matrisen omvandlas till nya kolumner,
+vilket tillsammans med \nameref{sec:aes-shiftrows} operationen ser till så att inte bara enskilda bytes krypteras utan hela matrisen tillsammans.\footcite{daemen1999aes} Själva operationen visas i figur \ref{fig:aes-mixcolumns-pic}
+där även den konstanta matrisen som multipliceras med varje kolumnerna visas.
 
-\subsubsection{AddRoundKey operation}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{MixColumns.png}
+    \caption{MixColumns operationen}
+    \label{fig:aes-mixcolumns-pic}
+\end{figure}
+
+\subsubsection{Inverse MixColumns operationen}
+\label{sec:aes-invers-mixcolumns}
+
+Inverse MixColumns operationen är en invers till MixColumns operationen och fungerar på nästan exakt samma sätt. Operationen bygger på att varje kolumn multipliceras genom en
+matris multiplication inom \hyperref[sec:finite-fields]{$GF(2^8)$} med en matris som är konstant för alla kolumner. Den stora skillnaden ligger i att den konstanta matrisen som multipliceras med varje kolumn fungerar
+som en invers till den tidigare matrisen använd i MixColumns operationen.\footcite{daemen1999aes} Själva operationen visas i figur \ref{fig:aes-inverse-mixcolumns-pic}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Inverse-MixColmuns.png}
+    \caption{Inverse MixColumns operationen}
+    \label{fig:aes-inverse-mixcolumns-pic}
+\end{figure}
+
+\subsubsection{AddRoundKey operationen}
 \label{sec:aes-addroundkey}
 
+AddRoundKey operationen är en operation som bygger på att varje \gls{byte} i \gls{byte} matrisen genomgår en XOR operation med korresponderande \gls{byte} i en nyckel matris.
+I det här steget så introduceras nyckeln i krypteringsprocessen vilket är en viktig del av AES som gör det möjligt att kryptera och dekryptera informationen så länge man har rätt nyckel.\footcite{daemen1999aes}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{AddRoundKey.png}
+    \caption{AddRoundKey operationen}
+    \label{fig:aes-addroundkey-pic}
+\end{figure}
+
+\pagebreak
 \subsection{Nyckel utökning}
 \label{sec:aes-key-expansion}
 
+Nyckel utökningen är den operation som används för att utöka den angivna nyckeln till antingen 11, 13 eller 15 nycklar beroende på längden av den angivna nyckeln.
+Anledningen till att antalet nycklar inte är den samma som antalet rundor är för att det innan första rundan genomförs en inledande AddRoundKey operation som använder den första nyckeln.
+Nyckel utökningen är en viktig del av AES som ser till att det finns en unik nyckel för varje runda i krypteringsprocessen.
+Själva utökningen av nyckeln genomförs genom att först dela upp den ursprungliga nyckeln i 4 så kallade words.\footcite{daemen1999aes}
+
+Varje word består av 4 \gls{byte} och är därmed 32 \gls{bit}s långa.
+Där efter så genereras varje nytt word utifrån de tidigare worden. Det fyra nästkommande worden genereras genom att ta det sista wordet i den tidigare nyckeln och genom föra en serie av operationer
+på detta word. Först så genomförs en \hyperref[sec:aes-rotword]{RotWord} operation och sedan en \hyperref[sec:aes-subword]{SubWord} operation samt slutligen en \hyperref[sec:aes-rcon]{Rcon} operation.\footcite{daemen1999aes}
+
+Därefter så genereras det första wordet i nästa nyckel genom en \gls{xor}-operation mellan det första wordet i den tidigare nyckeln och det resultat som genererades i föregående steg.
+Sedan så genereras resterande tre words genom att en \gls{xor}-operation genomförs mellan det tidigare wordet och det koresponderande wordet i den tidigare nyckeln.
+Denna process upprepas tills alla nycklar genererats.\footcite{daemen1999aes} Själva processen visas även i figur \ref{fig:aes-key-expansion-pic}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{KeyExpansion.png}
+    \caption{Nyckel utöknings processen}
+    \label{fig:aes-key-expansion-pic}
+\end{figure}
 
 \subsubsection{RotWord}
 \label{sec:aes-rotword}
 
+RotWord operationen är en operation som liknar \nameref{sec:aes-shiftrows} operationen och fungerar så att varje \gls{byte} i wordet skiftas en position till vänster.\footcite{daemen1999aes}
+Detta innebär att den första \gls{byte}n i wordet hamnar sist och den sista \gls{byte}n hamnar först, vilket går att se i figur \ref{fig:aes-rotword-pic}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{RotWord.png}
+    \caption{RotWord operationen}
+    \label{fig:aes-rotword-pic}
+\end{figure}
 
 \subsubsection{SubWord}
 \label{sec:aes-subword}
 
+SubWord operationen är en operation som är nästan identisk med \nameref{sec:aes-subbytes} operationen. Själva operationen går ut på att varje \gls{byte} i wordet byts ut mot den korresponderande \gls{byte}n i \nameref{sec:aes-sbox}.\footcite{daemen1999aes}
+Som visas i figur \ref{fig:aes-subword-pic}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{SubWord.png}
+    \caption{SubWord operationen}
+    \label{fig:aes-subword-pic}
+\end{figure}
 
 \subsubsection{Rcon}
 \label{sec:aes-rcon}
 
+\acrshort{rcon} operationen bygger på att hela wordet genomgår en \gls{xor}-operation med ett speciellt word som är förutbestämt $[rc_i, 0, 0, 0]$, vilket går att se i figur \ref{fig:aes-rcon-pic}.
+Det förutbestämda wordet beror vilket nummer nyckeln som genereras är.
+Exempelvis ifall det är nyckel nummer 2 så kommer det förutbestämda wordet vara $[1, 0, 0, 0]$. Det ända som förändras beroende på vilket nummer nyckeln är är det första \gls{byte}n.\footcite{daemen1999aes}
+Värdet på den \gls{byte}n bestäms genom följande regler:
 
-\subsubsection{Nyckel utökning 128bit}
-\label{sec:aes-key-expansion-128bit}
+\begin{center}
+    \begin{math}
+        rc_i =
+        \begin{cases}
+            1 & \text{ifall } i = 1 \\
+            2 \cdot rc_{i-1} & \text{ifall } i > 1 \text{ och } rc_{i-1} < 80_{16} \\
+            (2 \cdot rc_{i-1}) \oplus \text {11B}_{16} & \text{ifall } i > 1 \text{ och } rc_{i-1} \ge 80_{16}
+        \end{cases}
+    \end{math}
+\end{center}
 
+Där $\oplus$ är en \gls{xor}-operation, $i$ är vilket nummer på nyckel det är -1 eftersom det första fyra worden är den ursprungliga nyckeln.
+Utifrån dessa regler för $rc_i$ så kan man då räkna ut det förutbestämda wordet för varje nyckel som behövs.\footcite{daemen1999aes}
 
-\subsubsection{Nyckel utökning 192bit}
-\label{sec:aes-key-expansion-192bit}
-
-
-\subsubsection{Nyckel utökning 256bit}
-\label{sec:aes-key-expansion-256bit}
-
-
-\subsection{AES-128bit}
-\label{sec:aes-128bit}
-
-
-\subsection{AES-192bit}
-\label{sec:aes-192bit}
-
-
-\subsection{AES-256bit}
-\label{sec:aes-256bit}
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Rcon.png}
+    \caption{Rcon operationen}
+    \label{fig:aes-rcon-pic}
+\end{figure}
