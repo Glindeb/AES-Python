@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: AES-Python
-Version: 1.3.0
+Version: 1.3.1
 Summary: AES (Advanced Encryption Standard) implementation in Python-3
 Author-email: Gabriel Lindeblad <Gabriel.Lindeblad@icloud.com>
 Project-URL: Homepage, https://github.com/Glindeb/AES-Python
