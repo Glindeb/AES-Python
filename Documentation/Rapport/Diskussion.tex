@@ -46,15 +46,27 @@ repetera undersökningen fler gånger med liten variabilitet, vilket då gör at
 en annan fördel att det lätt går att jämföra och urskilja skillnader i säkerheten för stora data mängder mellan olika körlägen tack vare att en bild användes som testdata.
 Vilket då ger en tydlig visuell indikation på hur säkerheten påverkas av det olika körlägena.
 
-\section{Felkällor} % Variabilitet i klockhastighet, Ogämnheter i implementeringen som resulterar i missvisande tider, osäkerhet host mätmetoden, fel i implementeringen, ????
-Om man ska titta på felkällorna som finns i undersökningen så finns det bland annat som nämnts tidigare en risk för att implementeringen av \acrshort{aes} inte är helt korrekt. Vilket
-då skulle kunna påverka resultatets tillförlitlighet.
+\section{Felkällor} % Variabilitet i klockhastighet, osäkerhet host mätmetoden, Data mängden som testas, Ta hänsyn till att en större nyckel inebär en längre nyckel utvecklings tid.
+\label{sec:errors}
+Om man ska titta på felkällor så finns det bland annat som nämnts tidigare en risk för att implementeringen av \acrshort{aes} inte är helt korrekt. Vilket
+då skulle kunna påverka resultatets tillförlitlighet. Bland annat genom att introducera tidskillnader mellan exempelvis olika körlägen eller nyckellängder som inte skulle finnas i en korrekt implementering. Detta innebär
+då att det finns en risk att fel i implementeringen av \acrshort{aes} kan påverka resultatet, vilket därmed tillför en viss osäkerhet till resultatet. % (To be rewived)
+
+En annan felkälla skulle även kunna vara själva resultat hanteringen. Något som för denna undersökning gjordes manuellt efter att undersökningen var genomförd. Detta innebär då att
+de finns en möjlighet för fel som beror på den mänsklig faktorn som exempelvis felaktig avläsning eller felaktiga beräkningar vid sammanställning av resultatet. Något som då ytterligare
+påverkar resultatets tillförlitlighet negativt. % (To be rewived)
+
+Sedan skulle en annan felkälla även kunna vara en variation i \gls{cpuh} mellan omgångarna, vilket då skulle leda till att olika omgångar av underrsökningen hinner olika många instruktioner
+per sekund. En variation som då skulle kunna leda till en ökad spridning i resultatet och därmed tillföra en viss osäkerhet till resultatet.
+
+Ytterligare en felkälla skulle kunna vara 
 
 Sedan så skulle en felkälla kunna vara variabilitet i klockhastigheten hos datorn som undersökningen utfördes på. Eftersom ifall
 den varierar mellan omgångarna så innebär de att antalet instruktioner som datorns CPU hinner med på en viss tid förändras, vilket då leder till en viss osäkerhet i resultatet.
 
 
 \section{Förbättringar} % Öka antalet reppetitioner för att minskar risken för fel, använda andra metoder för att mäta tiden, testa olika nycklar för att se hur de påverkar, Dubbelkolla implementeringen, testa med andra filstorlekar och gämföra om inehållet i filerna har betydlese, Begränsa kolckhastigheten ytterligare, Utföra undersökningen i en mer kontrolerad testmiljö
+\label{sec:improvements}
 Möjliga förbättringar som skulle kunna genomföras för att få ett mer tillförlitligt resultat skulle exempelvis kunna vara att öka antalet omgångar som varje nyckel och körläge
 testas. Vilket då skulle kunna minska risken för att resultatet blir påverkat av slumpmässiga felkällor så som variationer i klockhastigheten.
 
@@ -63,5 +75,10 @@ Kontrollera implementeringen ytterligare
 Större filstorlekar för att se om man det är samma för olika storlekar
 
 \section{Slutsats} % Besvara frågeställningarna och kanske koppla lite till syftet med undersökningen
+\label{sec:conclusion}
 Om man nu ska besvara frågeställningen "Hur påverkas tiden de tar att kryptera något mellan de olika nyckel längderna 128-bit, 192-bit och 256-bit nyckel?" så visar resultatet från
 undersökningen tydligt hur tiden det tar att kryptera något ökar ganska mycket i takt med att nyckeln blir längre.
+
+Pågrund av att utrustingnen som undersökningen genomförs på påverkar den faktiska tiden det tar att kryptera något så kan inte den tiden användas för att bygga några resonemang
+utan istället går det bara att gämföra tiderna inbördes som genomfördes i denna undersökning, vilekt är varför alla resonemang och slusatser bygger på den procentuella tidsskilllnaden istället för
+skillnaden i sekunder.
