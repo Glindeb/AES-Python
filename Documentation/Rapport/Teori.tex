@@ -7,7 +7,7 @@ och för virrande men bygger på enkla principer. En krypteringsalgoritm tar in 
 skiffertext, vilket då är en krypterad version av den ursprungliga texten.\footfullcite{kryptering}
 
 För att den menade mottagaren ska kunna läsa skiffertexten sedan så behöver hen ha en nyckel samt köra samma krypteringsalgoritm
-i dekrypterings läge. Bland de vanligaste typerna av krypteringsalgoritmer finns \nameref{sec:symmetric-asymmetric-encryption},
+i dekrypterings läge. Bland det vanligaste typerna av krypteringsalgoritmer finns \nameref{sec:symmetric-asymmetric-encryption},
 vilket bland annat innefattar algoritmer som \acrshort{aes} och \gls{rsa}.\footcite{kryptering}
 
 \section{Blockskiffer}
@@ -16,9 +16,9 @@ Blockskiffer är en krypteringsalgoritm som verkar på block av data med en fast
 blockskiffer används bland annat som en av grundkomponenterna i kryptografiska protokoll som \acrfull{tls} och \acrfull{ssl}
 som används för att kryptera data som skickas över internet bland annat.\footfullcite{blockskiffer-ref}
 
-En ut av de största problemen med Blockskiffer är dock att oavsett hur säkra dom är så passar det bara att använda
+En ut av det största problemen med Blockskiffer är dock att oavsett hur säkra dom är så passar det bara att använda
 för kryptering av enskilda block med en nyckel, vilket skiljer sig från något som ett \gls{streamcipher}.
-På grund av detta har en mängd olika körlägen utvecklats för att på så sätt göra de möjlig att utnyttja
+På grund av detta har en mängd olika körlägen utvecklats för att på så sätt göra det möjlig att utnyttja
 blockskiffer för att kryptera större mängder data med en nyckel.\footcite{blockskiffer-ref}
 
 Blockskiffer används däremot inte bara för kryptering utan kan även användas i olika typer av \gls{hashfunktion}er
@@ -28,7 +28,7 @@ trots att den inte egentligen är det.\footcite{blockskiffer-ref}
 \subsection{Körlägen}
 Körlägen inom kryptografin kan man se som algoritmer som appliceras i användningen av
 blockskiffer eftersom dessa endast är användbara för säker kryptering av ett litet block med bestämd längd.
-Körlägena gör de då möjligt att istället kunna använda blockskiffer på större data mängder.
+Körlägena gör det då möjligt att istället kunna använda blockskiffer på större data mängder.
 Detta löser körlägen på olika sätt beroende på hur man vill använda blockskiffer algoritmen samt hur
 mycket man ör villig att kompromissa med säkerheten i förhållande till hastighet.\footfullcite{dworkin2001sp}
 
@@ -86,14 +86,14 @@ bilaga \ref{fig:pi-original} \& \ref{fig:pi-ecb}.
 Det här faktumet är även varför \acrshort{ecb} inte är ett säkert körläge
 och därför inte används näst intill aldrig i praktiken.\footcite{dworkin2001sp}
 
-\acrshort{ecb} har däremot även sina fördelar då de bland annat kan parallelliseras
-både när de gäller krypteringen och dekrypteringen. Detta samt att \acrshort{ecb}
-även gör de möjligt att slumpmässigt dekryptera enskilda block av en skiffertext
+\acrshort{ecb} har däremot även sina fördelar då det bland annat kan parallelliseras
+både när det gäller krypteringen och dekrypteringen. Detta samt att \acrshort{ecb}
+även gör det möjligt att slumpmässigt dekryptera enskilda block av en skiffertext
 utan att man behöver dekryptera hela texten.\footcite{dworkin2001sp}
 
 \subsubsection{CBC}
 \label{sec:cbc}
-\acrlong{cbc} är ett av de mest vanligen använda körlägena för många blockchiffer.
+\acrlong{cbc} är ett av det mest vanligen använda körlägena för många blockchiffer.
 Till skillnad från \acrshort{ecb} så förhindrar \acrshort{cbc} att två block med
 samma innehåll kan ge samma krypterade block. Detta gör \acrshort{cbc} genom att
 lägga till ett extra steg utöver vad som finns i \acrshort{ecb}. Steget
@@ -112,8 +112,8 @@ Matematisk sett kan detta formuleras såhär:
 Där $S_i$ är det krypterade blocket(skiffertexten), $B_i$ är det blocket som ska krypteras,
 $K_n$ är blockchiffer algoritmen där $n$ står för nyckeln och $S_{i-1}$ är
 det krypterade blocket före det blocket som ska krypteras. \acrshort{iv} är en
-\acrfull{iv} som används vid krypteringen av de första blocket då de inte finns
-något föregående block att använda. $i$ står för index där de första blocket har
+\acrfull{iv} som används vid krypteringen av det första blocket då det inte finns
+något föregående block att använda. $i$ står för index där det första blocket har
 index värdet 1. Hela den här processen kan även ses i figur \ref{fig:cbc-mode-enc}.
 
 \begin{figure}[H]
@@ -122,7 +122,7 @@ index värdet 1. Hela den här processen kan även ses i figur \ref{fig:cbc-mode
     \label{fig:cbc-mode-enc}
 \end{figure}
 
-När de gäller dekrypterings processen för \acrshort{cbc} så bär den precis som för
+När det gäller dekrypterings processen för \acrshort{cbc} så bär den precis som för
 \acrshort{ecb} stora likheter med krypterings processen. Det två skillnaderna som
 finns är att blockchiffert körs i dekrypterings läge istället för krypterings läge.
 Samt att för varje block så genomförs en \gls{xor}-operation mellan det dekrypterade
@@ -152,8 +152,8 @@ kan ge samma krypterade block. Därav så krävs en \acrfull{iv} som används vi
 blocket.\footcite{dworkin2001sp}
 
 \acrshort{cbc} är dock inte prefekt och har i sig också några nackdelar. Där ibland
-exempelvis de faktum att en incorrect \acrshort{iv} leder till att de första blocket
-inte kan dekrypteras korrekt, detta påverkar dock inte de resterande blocken. På grund
+exempelvis det faktum att en incorrect \acrshort{iv} leder till att det första blocket
+inte kan dekrypteras korrekt, detta påverkar dock inte det resterande blocken. På grund
 av det så kan man exempelvis lösa problemet genom att första blocket bara innehåller
 någon typ av fyllnad, vilket då gör dekrypteringen möjlig utan tillgång till \acrshort{iv}.\footcite{dworkin2001sp}
 
@@ -222,10 +222,10 @@ att samma nyckel är vad som används för både kryptering och dekryptering. Me
 asymetrisk kryptering bygger på att man använder olika nycklar för kryptering och
 dekrypterings processerna.\footfullcite{symencrypt}
 
-De symetriska krypterings algoritmernas huvudsakliga nackdel ligger i de faktum att
+De symetriska krypterings algoritmernas huvudsakliga nackdel ligger i det faktum att
 de krävs en delad känd nyckel mellan båda parter. Detta är något som Asymetriska
 krypterings algorithmer inte behöver, vilket har lett till att man ofta använder
-asymetriska krypterings algoritmer för att sköta nyckelutbytet för de symetriska
+asymetriska krypterings algoritmer för att sköta nyckelutbytet för det symetriska
 krypterings algoritmerna. Anledningen till detta är att det symetriska krypterings
 algoritmerna ofta är bättre för större data mängder då dom bland annat behöver mycket
 kortare nyckellängder.\footcite{symencrypt}
@@ -239,18 +239,18 @@ Medans exempel på asymetriska krypterings algoritmer är bland annat \gls{rsa}.
 
 Som nämnts tidigare i \nameref{sec:aes-uppkomst} bygger \acrshort{aes} standarden på en variant av Rijndael \nameref{sec:blockskiffer} algoritmen
 skapad av Vincent Rijmen och Joan Daemen. \acrshort{aes} är en symetrisk \nameref{sec:blockskiffer} krypterings algoritm som utformades för att ersätta
-\acrshort{des} som då var den dominerande krypterings algoritmen. \acrshort{aes} är en av de mest använda krypterings algoritmerna idag
+\acrshort{des} som då var den dominerande krypterings algoritmen. \acrshort{aes} är en av det mest använda krypterings algoritmerna idag
 och används bland annat i säkerhetsprotokoll så som \acrfull{wpa2}\footfullcite{wpa2_ref}. \acrshort{aes} går att dela upp i tre olika varianter
 som alla är baserade på samma grundläggande struktur. Dessa varianter är \nameref{sec:aes-128bit}, \nameref{sec:aes-192bit} och \nameref{sec:aes-256bit} som huvudsakligen
 skiljer sig från varandra när det kommer till längden av krypteringsnyckeln samt antalet rundor som genomförs i algoritmens krypterings process.\footfullcite{aes_wiki}
 
 Även själva algoritmen kan delas upp i ett antal olika delar som alla har olika syften. Dessa delar är \nameref{sec:aes-addroundkey}, \nameref{sec:aes-subbytes}, \nameref{sec:aes-shiftrows},
-\nameref{sec:aes-mixcolumns} och \nameref{sec:aes-key-expansion} som alla kommer att förklaras mer detaljerat i de följande sektioner. \nameref{sec:aes-key-expansion} delen kan även
+\nameref{sec:aes-mixcolumns} och \nameref{sec:aes-key-expansion} som alla kommer att förklaras mer detaljerat i det följande sektioner. \nameref{sec:aes-key-expansion} delen kan även
 delas upp ytterligare i tre olika varianter som är \nameref{sec:aes-key-expansion-128bit}, \nameref{sec:aes-key-expansion-192bit} och \nameref{sec:aes-key-expansion-256bit} beroende
-på vilken av de tre \acrshort{aes} varianterna som används.\footfullcite{daemen1999aes}
+på vilken av det tre \acrshort{aes} varianterna som används.\footfullcite{daemen1999aes}
 
 Utöver detta så bygger \nameref{sec:aes-key-expansion} på tre operationer vilka är \nameref{sec:aes-subword}, \nameref{sec:aes-rotword} och
-\nameref{sec:aes-rcon} som också kommer att förklaras mer detaljerat i de följande sektioner.\footcite{aes_wiki} För att förstå vissa av dessa delar
+\nameref{sec:aes-rcon} som också kommer att förklaras mer detaljerat i det följande sektioner.\footcite{aes_wiki} För att förstå vissa av dessa delar
 så kommer det däremot krävas en förklaring av både \nameref{sec:aes-sbox} och \nameref{sec:finite-fields} som kommer att förklaras först.\footcite{daemen1999aes}
 
 \subsection{Finite Fields}
@@ -280,7 +280,7 @@ i \nameref{sec:aes-key-expansion} delen av \acrshort{aes} algoritmen samt i
 S-boxen består av 256 olika värden som alla är unika och som alla är mellan 0 och 255.
 Värdena i S-boxen är ordnade i en lista och värdenas position i listan används som
 index för att kunna hitta ett värde i S-boxen. När S-boxen används för att byta ut
-ett värde så används det värde som ska bytas ut som index värdet för att kunna hitta
+ett värde så används det värde som ska bytas ut som index värde för att kunna hitta
 rätt värde i S-boxen.\footcite{sbox_wiki}
 
 \acrshort{aes} S-box genereras med hjälp av \acrshort{aes} Finite Field {$GF(2^8)$}.
@@ -310,7 +310,7 @@ värdena är representerade i \gls{hexadecimal} tal.
 Beroende på vilken nyckel som används krävs olika antal rundor.
 En 128bit nyckel kommer att kräva 10 rundor, en 192bit nyckel kommer att kräva 12 rundor och en 256bit nyckel kommer att kräva 14 rundor.
 Detta brukar man se som det tre olika krypterings lägena \acrshort{aes}-128bit \acrshort{aes}-192bit och \acrshort{aes}-256bit som
-då är de tre olika nyckel storlekarna som \acrshort{aes} stödjer.\footcite{daemen1999aes}
+då är det tre olika nyckel storlekarna som \acrshort{aes} stödjer.\footcite{daemen1999aes}
 
 \acrshort{aes} algoritmen har en fixerad block storlek på 128bit vilket innebär att
 det alltid kommer att vara 16 \glspl{byte} som krypteras åt gången. Absolut först genomförs
@@ -366,8 +366,8 @@ Anledningen till att \nameref{sec:aes-addroundkey} och \nameref{sec:aes-subbytes
 är uppbyggda. För \nameref{sec:aes-addroundkey} så är det på grund av \gls{xor}-operationens linjära egenskaper som innebär att den är sin egen invers.
 Detta eftersom ifall man tar och genomför \gls{xor}-operationen med samma nyckel två gånger så kommer man tillbaka till ursprungsvärdet.
 
-När de gäller \nameref{sec:aes-subbytes}
-så handlar de istället om att de helt enkelt är en substitution utifrån en \nameref{sec:aes-sbox}, vilket då betyder att de som krävs för att genomföra den motsatta operationen
+När det gäller \nameref{sec:aes-subbytes}
+så handlar det istället om att det helt enkelt är en substitution utifrån en \nameref{sec:aes-sbox}, vilket då betyder att det som krävs för att genomföra den motsatta operationen
 blir att använda den inversa \nameref{sec:aes-sbox}en.\footcite{daemen1999aes}
 
 Både krypterings och dekrypterings strukturen som nu beskrivits kan implementeras i exempelvis \gls{python} kod på som visas i figur \ref{fig:encryption-rounds-function} \& \ref{fig:decryption-rounds-function}.
@@ -549,7 +549,7 @@ Nyckel utökningen är en viktig del av AES som ser till att det finns en unik n
 Själva utökningen av nyckeln genomförs genom att först dela upp den ursprungliga nyckeln i 4 så kallade words.\footcite{daemen1999aes}
 
 Varje word består av 4 \gls{byte} och är därmed 32 \gls{bit}s långa.
-Där efter så genereras varje nytt word utifrån de tidigare worden. Det fyra nästkommande worden genereras genom att ta det sista wordet i den tidigare nyckeln och genom föra en serie av operationer
+Där efter så genereras varje nytt word utifrån det tidigare worden. Det fyra nästkommande worden genereras genom att ta det sista wordet i den tidigare nyckeln och genom föra en serie av operationer
 på detta word. Först så genomförs en \hyperref[sec:aes-rotword]{RotWord} operation och sedan en \hyperref[sec:aes-subword]{SubWord} operation samt slutligen en \hyperref[sec:aes-rcon]{Rcon} operation.\footcite{daemen1999aes}
 
 Därefter så genereras det första wordet i nästa nyckel genom en \gls{xor}-operation mellan det första wordet i den tidigare nyckeln och det resultat som genererades i föregående steg.
