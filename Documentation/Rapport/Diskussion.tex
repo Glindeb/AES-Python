@@ -3,7 +3,7 @@
 
 % Tolka resultatet från nyckellängds undersökningen (To be rewived)
 Utifrån resultatet från undersökningen går det att se hur tiden det tar att kryptera en fil på 1MB ökar när man använder längre nycklar så som 192-\gls{bit} 256-\gls{bit} nycklar
-i förhållande till en 128-\gls{bit} nyckel. Något som bland annat visar sig när man tittar på den procentuella tidskillnaden mellan de olika nyckellängderna. Där kan man se en
+i förhållande till en 128-\gls{bit} nyckel. Något som bland annat visar sig när man tittar på den procentuella tidskillnaden mellan det olika nyckellängderna. Där kan man se en
 tids skillnad på 18,8\% mellan 128-\gls{bit} \& 192-\gls{bit} nyckeln och 27,8\% mellan 128-\gls{bit} \& 256-\gls{bit} nyckeln.
 
 Anledningen till denna tidökning är något som exempelvis kan bero på antalet rundor som genomförs för varje 16-\gls{byte} block som krypteras, vilket är den huvudsakliga
@@ -14,30 +14,29 @@ i sin tur då troligen höjer den totala krypterings tiden.
 % Tolka resultatet från körläges undersökningen (To be rewived)
 Resultatet visar även att skillnaden i krypteringstid mellan olika körlägen är väldigt liten. Mellan \acrshort{ecb} \& \acrshort{cbc} var skillnaden 0,3\% och mellan \acrshort{ecb}
 \& \acrshort{ofb} var skillnaden 0,4\%. Något som inte riktigt var väntat då det för både \acrshort{cbc} och \acrshort{ofb}
-genomförs en ytterligare operation mellan varje 16-\gls{byte} block som krypteras för att länka ihop de olika blocken. Men samtidigt så är denna extra operation en \gls{xor}-operation
+genomförs en ytterligare operation mellan varje 16-\gls{byte} block som krypteras för att länka ihop det olika blocken. Men samtidigt så är denna extra operation en \gls{xor}-operation
 som är relativt lätt och snabb för en dator att genomföra. Något som då innebär att trots att det genomförs en extra operation så är den ändå relativt snabb och därför inte
 påverkar krypterings tiden särskilt mycket.
 
 I resultatet av körläges testet kan man dock även se en viss spridning i tiden som det tar att kryptera en fil mellan det olika omgångarna. Detta bland annat när man jämför
-max och min tiderna för det olika körlägena. Där går det att se hur exempelvis se när man tittar på maxvärdet för \acrshort{ecb} som är 21,0857602999968 s, vilket är högre än
+max och min tiderna för det olika körlägena. Där går det att se ifall man tittar på maxvärdet för \acrshort{ecb} som är 21,0857602999968 s att det är högre än
 maxvärdet för \acrshort{cbc} som är 20,9346826999972 s och \acrshort{ofb} som är 20,8816630000001 s. En skillnad som då påvisar att det finns en viss osäkerhet i
-resultatet och ytterligare bekräftas ifall man tittar på medelvärdes tiderna.
-Logiskt sett borde finnas en liten tidsökning i när man till för en extra operation. Detta innebär då att det resultat som undersökningen genererat för
-körläges testet troligen inte är särskilt tillförlitligt.
+resultatet och ytterligare bekräftas ifall man tittar på min värdena. I och med detta går det inte med säkerhet att konstatera något utifrån resultatet av körläges testet
+när det gäller vilken betydelse det har för krypterings tiden.
 
 % Tolka resultatet från krypteringsmetod undersökningen (To be rewived)
-Tittar man sedan istället på hur säkerheten påverkas av det olika körlägena så kan man ganska tydligt se att \acrshort{ecb} är det mest osäkra körläget för större data mängder.
+Tittar man sedan istället på hur säkerheten påverkas av det olika körlägena så kan man ganska tydligt se att \acrshort{ecb} är det mest osäkra körläget för större informations mängder.
 Detta då man som visas i resultatet kan se hur trots kryptering fortfarande kan se spår av den ursprungliga bilden i informationen som krypterats. Något som inte
 går att göra när bilden istället krypteras med hjälp av \acrshort{cbc} eller \acrshort{ofb}.
 
 % Utvärdera metoden (nyanserat resonemang) (To be rewied)
-Metoden som användes för att genomföra undersökningen bär med sig både för och nackdelar. Bland annat så medför metoden en ökad förståelse för hur \acrfull{aes} fungerar
+Själva metoden som användes för att genomföra undersökningen bär med sig både för och nackdelar. Bland annat så medför metoden en ökad förståelse för hur \acrfull{aes} fungerar
 på en låg nivå tack vare det faktum att implementeringen av algoritmen gjordes specifikt för undersökningen. En förståelse som gör det lättare att formulera resonemang och
 dra slutsatser om hur \acrshort{aes} fungerar. Vilket är något som skulle gå förlorat ifall man istället använt en befintlig implementation av \acrshort{aes}. Men att implementera
 \acrshort{aes} på egenhand innebär också att det finns en risk för att implementeringen av algoritmen inte är helt korrekt och är även en tidskrävande process som kräver
 mycket arbete. Något som kan ses som en nackdel som skulle kunna undvikas ifall en befintlig implementation av \acrshort{aes} använts.
 
-En fördel med metoden när det gäller just nyckellängds testet är att säkerheten med resultatet stärks genom att varje nyckel testas flera gånger, vilket då medför att
+En fördel med metoden när det gäller just nyckellängds testet är att säkerheten hos resultatet stärks genom att varje nyckel testas flera gånger, vilket då medför att
 potentiell slumpmässiga felkällor som kan påverka resultatet minskas. Men samtidigt så innebär detta att tiden som krävs för att genomföra undersökningen ökar. Något som
 då påverkar hur stora filer som går att testa för att kunna genomföra undersökningen inom en rimlig tidsrymd.
 
@@ -46,39 +45,66 @@ repetera undersökningen fler gånger med liten variabilitet, vilket då gör at
 en annan fördel att det lätt går att jämföra och urskilja skillnader i säkerheten för stora data mängder mellan olika körlägen tack vare att en bild användes som testdata.
 Vilket då ger en tydlig visuell indikation på hur säkerheten påverkas av det olika körlägena.
 
-\section{Felkällor} % Variabilitet i klockhastighet, osäkerhet host mätmetoden, Data mängden som testas, Ta hänsyn till att en större nyckel inebär en längre nyckel utvecklings tid.
+\section{Felkällor} % (To be rewived)
 \label{sec:errors}
 Om man ska titta på felkällor så finns det bland annat som nämnts tidigare en risk för att implementeringen av \acrshort{aes} inte är helt korrekt. Vilket
 då skulle kunna påverka resultatets tillförlitlighet. Bland annat genom att introducera tidskillnader mellan exempelvis olika körlägen eller nyckellängder som inte skulle finnas i en korrekt implementering. Detta innebär
 då att det finns en risk att fel i implementeringen av \acrshort{aes} kan påverka resultatet, vilket därmed tillför en viss osäkerhet till resultatet. % (To be rewived)
 
 En annan felkälla skulle även kunna vara själva resultat hanteringen. Något som för denna undersökning gjordes manuellt efter att undersökningen var genomförd. Detta innebär då att
-de finns en möjlighet för fel som beror på den mänsklig faktorn som exempelvis felaktig avläsning eller felaktiga beräkningar vid sammanställning av resultatet. Något som då ytterligare
+det finns en möjlighet för fel som beror på den mänsklig faktorn som exempelvis felaktig avläsning eller felaktiga beräkningar vid sammanställning av resultatet. Något som då ytterligare
 påverkar resultatets tillförlitlighet negativt. % (To be rewived)
 
-Sedan skulle en annan felkälla även kunna vara en variation i \gls{cpuh} mellan omgångarna, vilket då skulle leda till att olika omgångar av underrsökningen hinner olika många instruktioner
-per sekund. En variation som då skulle kunna leda till en ökad spridning i resultatet och därmed tillföra en viss osäkerhet till resultatet.
+Sedan skulle en annan felkälla även kunna vara en variation i \gls{cpuh} mellan omgångarna, vilket då resulterar i att olika omgångar av undersökningen hinner olika många instruktioner
+per sekund. En faktor som då innebär att det kan ta olika lång tid för samma operationer att utföras mellan omgångarna i undersökningen. Detta leder då till en viss variation i resultatet,
+vilket då även till för en viss osäkerhet. % (To be rewived)
 
-Ytterligare en felkälla skulle kunna vara 
+Slutligen skulle även ytterligare en felkälla kunna vara \nameref{sec:aes-key-expansion}en som användes för att generera nycklarna för varje runda. Detta eftersom detta steg behöver genomföra fler operationer för längre nyckel längder.
+Något som då innebär att det tar längre tid för större nycklar att utökas i förhållande till kortare nycklar. Detta är då en systematisk felkälla som innebär att det alltid kommer
+finnas ett visst tidstillägg för större nycklar i förhållande till kortare nycklar. Ett faktum som man då behöver ta i beaktande vid jämförelser mellan olika nyckellängder. % (To be rewived)
 
-Sedan så skulle en felkälla kunna vara variabilitet i klockhastigheten hos datorn som undersökningen utfördes på. Eftersom ifall
-den varierar mellan omgångarna så innebär de att antalet instruktioner som datorns CPU hinner med på en viss tid förändras, vilket då leder till en viss osäkerhet i resultatet.
-
-
-\section{Förbättringar} % Öka antalet reppetitioner för att minskar risken för fel, använda andra metoder för att mäta tiden, testa olika nycklar för att se hur de påverkar, Dubbelkolla implementeringen, testa med andra filstorlekar och gämföra om inehållet i filerna har betydlese, Begränsa kolckhastigheten ytterligare, Utföra undersökningen i en mer kontrolerad testmiljö
+\section{Förbättringar} % (To be rewived)
 \label{sec:improvements}
-Möjliga förbättringar som skulle kunna genomföras för att få ett mer tillförlitligt resultat skulle exempelvis kunna vara att öka antalet omgångar som varje nyckel och körläge
-testas. Vilket då skulle kunna minska risken för att resultatet blir påverkat av slumpmässiga felkällor så som variationer i klockhastigheten.
+Om man nu istället ska titta på möjliga förbättringar av undersökningen så skulle en förbättring kunna vara att öka antalet gånger som varje nyckel och körläge testas. Detta skulle då
+minska risken för att resultatet blir påverkat av slumpmässiga felkällor så som exempelvis variationer i klockhastigheten. Något som då skulle göra resultatet mer tillförlitligt. % (To be rewived)
 
-Kontrollera implementeringen ytterligare
+En annan förbättring skulle även kunna vara att genomföra \nameref{sec:aes-key-expansion}en innan själva tidtagningen av krypteringen. Något som då skulle kunna eliminera den systematiska
+felkälla som nämnts tidigare när det gäller \nameref{sec:aes-key-expansion}en. Detta innebär då att jämförelser av tiden det tar att kryptera något mellan olika nyckellängder skulle spegla
+den faktiska skillnaden bättre och därmed ge ett mer tillförlitligt resultat. % (To be rewived)
 
-Större filstorlekar för att se om man det är samma för olika storlekar
+Det är dock värt att notera att denna skillnad som kan uppstå mellan olika nyckellängder för \nameref{sec:aes-key-expansion}en inte är särskilt stor i förhållande till resten av krypteringsprocessen
+i takt med att data mängden ökar. Detta innebär då att felet som uppstår från att genomföra \nameref{sec:aes-key-expansion}en medans tidtagningen pågår även skulle kunna minimeras genom att
+öka data mängden. Något som då skulle göra att skillnaden blir försumbar i förhållande till resten av krypteringsprocessen.% (To be rewived)
 
-\section{Slutsats} % Besvara frågeställningarna och kanske koppla lite till syftet med undersökningen
+Ytterligare en förbättring kan vara att på något sätt begränsa \gls{cpuh} till en viss fast klockhastighet, vilket då skulle ge varje omgång av undersökningen samma förutsättningar
+att hinna med exakt samma antal operationer per sekund. Något som då skulle innebära ett mer tillförlitligt resultat. Utöver detta skulle man även kunna försöka minska den mänskliga faktorns
+påverkan på resultatet genom att automatisera resultat hanteringen och beräkningarna av exempelvis medelvärde. Något som då även det skulle göra resultatet mer tillförlitligt. % (To be rewived)
+
+En annan förbättring skulle även kunna vara att kontrollera implementeringen av \acrshort{aes} ytterligare exempelvis genom att låta någon utomstående individ insatt i ämnet och
+med en bra förståelse utav programmerings språket \gls{python} gå igenom koden rad för rad. Något som då skulle kunna minimerar risken för felaktigheter i implementeringen,
+vilket i sin tur då skulle leda till att resultatet blir mer tillförlitligt. % (To be rewived)
+
+\section{Slutsats} % (To be rewived)
 \label{sec:conclusion}
-Om man nu ska besvara frågeställningen "Hur påverkas tiden de tar att kryptera något mellan de olika nyckel längderna 128-bit, 192-bit och 256-bit nyckel?" så visar resultatet från
-undersökningen tydligt hur tiden det tar att kryptera något ökar ganska mycket i takt med att nyckeln blir längre.
+Om man nu ska besvara frågeställningen “Hur påverkas tiden det tar att kryptera något mellan det olika nyckel längderna 128-bit, 192-bit och 256-bit nyckel?” så visar resultatet från
+undersökningen tydligt hur tiden det tar att kryptera något ökar ganska mycket i takt med att nyckeln blir längre. En tids ökning på 18,8\% mellan 128-bit och 192-bit nyckel och en tids ökning på 27,8\%
+mellan 192-bit och 256-bit nyckel. Ett resultat som trots vissa felkällor och osäkerheter ändå är tillräckligt tillförlitligt för att kunna dra slutsatsen att det tar längre tid.
 
-Pågrund av att utrustingnen som undersökningen genomförs på påverkar den faktiska tiden det tar att kryptera något så kan inte den tiden användas för att bygga några resonemang
-utan istället går det bara att gämföra tiderna inbördes som genomfördes i denna undersökning, vilekt är varför alla resonemang och slusatser bygger på den procentuella tidsskilllnaden istället för
-skillnaden i sekunder.
+När man sedan ska besvara frågeställningen “Hur förändras tiden det tar att kryptera något beroende på ifall algoritmen körs i \acrshort{ecb}, \acrshort{cbc} eller \acrshort{ofb}?” så är resultatet inte
+riktigt lika tydligt som när det gäller nyckellängderna. Resultatet visar på en tidsökning på 0,3\% mellan \acrshort{ecb} och \acrshort{cbc} och en tidsökning på 0,1\% mellan \acrshort{cbc} och
+\acrshort{ofb}. Att dra några konkreta slutsatser från detta resultat är dock inte möjligt utifrån denna undersökning då det är svårt att säga om skillnaden mellan \acrshort{ecb} och \acrshort{cbc} samt
+\acrshort{cbc} och \acrshort{ofb} är pågrund av en faktisk tidsskillnad eller om det är ett resultat av felkällor och osäkerheter.
+
+Ett faktum som ganska tydligt framgår när man tittar på hur skillnaden mellan det högsta uppmätta värdena och det lägst uppmätta värdena för varje körläge. Där det går att se hur
+exempelvis det högsta värdet för \acrshort{ecb} är högre än både det högsta värdet för \acrshort{cbc} och det högsta värdet för \acrshort{ofb}, samtidigt som det lägsta värdet för
+\acrshort{ofb} är lägre än både det lägsta värdet för \acrshort{ecb} och det lägsta värdet för \acrshort{cbc}.
+
+Slutligen om man ska besvara frågeställningen “Hur påverkas skiffertexten av det olika körlägen \acrshort{ecb}, \acrshort{cbc} \& \acrshort{ofb} samt vilken betydelse det får ur ett säkerhetsperspektiv?”
+så visar resultatet från krypteringstestet tydligt hur skiffertexten förändras beroende på vilket körläge som används. Den huvudsakliga skillnaden visar sig när man tittar på skiffertexten
+från \acrshort{ecb} där man tydligt kan se spår av den ursprungliga bilden samtidigt som detta inte går att se i skiffertexten från \acrshort{cbc} och \acrshort{ofb}. Utifrån detta kan man då dra slutsatsen
+att körläget \acrshort{ecb} är sämre ur ett säkerhetsperspektiv för större data mängder än \acrshort{cbc} och \acrshort{ofb} eftersom det trots kryptering fortfarande går att se spår av den ursprungliga
+informationen i skiffertexten.
+
+Sammanfattningsvis kan man utifrån denna undersökning då dra slusatsen att det tar längre tid att kryptera information ifall man använder en längre så som 256-bit nyckel jämfört med en kortare så som 128-bit nyckel. Samtidigt
+som det möjligen skulle kunna finnas en liten tidsskillnad mellan \acrshort{ecb}, \acrshort{cbc} och \acrshort{ofb}. Samt att \acrshort{ecb} är sämre ur ett säkerhetsperspektiv för att kryptera större informations mängder än
+\acrshort{cbc} och \acrshort{ofb}.

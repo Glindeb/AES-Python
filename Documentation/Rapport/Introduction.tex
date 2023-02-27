@@ -1,13 +1,13 @@
 \mychapter{Inledning} % Mostly clear but might need some refinement
-Kryptering, en bärande grundsten i dagens digitaliserade samhälle. De är väggen mellan oss och resten
+Kryptering, en bärande grundsten i dagens digitaliserade samhälle. det är väggen mellan oss och resten
 av världen, ett lås runt våra liv. Kryptering bygger på ett simpelt koncept, att dölja informationen
 från all förutom den menade mottagaren. Ett koncept som exempelvis fanns redan för 2000 år sedan när Julius
-Caesar använde de vi idag kallar \gls{caesar} för att skicka hemliga meddelanden.\footfullcite{luciano1987cryptology}
+Caesar använde det vi idag kallar \gls{caesar} för att skicka hemliga meddelanden.\footfullcite{luciano1987cryptology}
 
-Sedan dess har kryptografi självklart utvecklats enormt och vi har gått från de på ett sätt simpla men
-även eleganta \gls{caesar} som användes då till moderna algoritmer så som \acrlong{aes} och \acrlong{des}.
+Sedan dess har kryptografi självklart utvecklats enormt och vi har gått från det på ett sätt simpla men
+även eleganta \gls{caesar} som användes förr i tiden till moderna algoritmer så som \acrlong{aes} och \acrlong{des}.
 Dessa algoritmer har samma syfte som \gls{caesar} men har utvecklats under en tid där datorer står som
-de dominerande informationshanteringsverktyget, vilket även är vad som används i denna rapport för att
+det dominerande informationshanteringsverktyget, vilket även är det verktyg som används i denna rapport för att
 undersöka just en av dessa algoritmer.
 
 \section{Syfte} % Mostly clear but might need some refinement
@@ -19,14 +19,14 @@ krypterings algoritmer och hur detta påverkar deras säkerhet och hastighet.
 \section{Frågeställningar} % Mostly clear but might need some refinement and reformulating
 \begin{itemize}
     \setlength{\itemindent}{-1em}
-    \item Hur påverkas tiden de tar att kryptera något mellan de olika nyckel längderna 128-bit,
+    \item Hur påverkas tiden det tar att kryptera något mellan det olika nyckel längderna 128-bit,
           192-bit och 256-bit nyckel?
 
-    \item Hur påverkas skiffertexten av de olika körlägen och vilken betydelse får de för den resultatet?
-
     \item Hur förändras tiden det tar att kryptera något beroende på ifall algoritmen körs i
-          \acrshort{ecb}, \acrshort{cbc} eller \acrshort{ofb} samt vilken betydelse det får ur ett
-          säkerhetsperspektiv?
+          \acrshort{ecb}, \acrshort{cbc} eller \acrshort{ofb}?
+
+    \item Hur påverkas skiffertexten av det olika körlägen \acrshort{ecb}, \acrshort{cbc} \& \acrshort{ofb}
+          samt vilken betydelse det får ur ett säkerhetsperspektiv?
 \end{itemize}
 
 \section{Avgränsning} % Mostly clear but might need some refinement and reformulating
