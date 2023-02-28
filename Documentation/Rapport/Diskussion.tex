@@ -90,7 +90,7 @@ Om man nu ska besvara frågeställningen “Hur påverkas tiden det tar att kryp
 undersökningen tydligt hur tiden det tar att kryptera något ökar ganska mycket i takt med att nyckeln blir längre. En tids ökning på 18,8\% mellan 128-bit och 192-bit nyckel och en tids ökning på 27,8\%
 mellan 192-bit och 256-bit nyckel. Ett resultat som trots vissa felkällor och osäkerheter ändå är tillräckligt tillförlitligt för att kunna dra slutsatsen att det tar längre tid.
 
-När man sedan ska besvara frågeställningen “Hur förändras tiden det tar att kryptera något beroende på ifall algoritmen körs i \acrshort{ecb}, \acrshort{cbc} eller \acrshort{ofb}?” så är resultatet inte
+När man sedan ska besvara frågeställningen “Hur förändras krypterings tiden mellan de olika körlägena \acrshort{ecb}, \acrshort{cbc} \& \acrshort{ofb}?” så är resultatet inte
 riktigt lika tydligt som när det gäller nyckellängderna. Resultatet visar på en tidsökning på 0,3\% mellan \acrshort{ecb} och \acrshort{cbc} och en tidsökning på 0,1\% mellan \acrshort{cbc} och
 \acrshort{ofb}. Att dra några konkreta slutsatser från detta resultat är dock inte möjligt utifrån denna undersökning då det är svårt att säga om skillnaden mellan \acrshort{ecb} och \acrshort{cbc} samt
 \acrshort{cbc} och \acrshort{ofb} är pågrund av en faktisk tidsskillnad eller om det är ett resultat av felkällor och osäkerheter.
@@ -99,7 +99,7 @@ Ett faktum som ganska tydligt framgår när man tittar på hur skillnaden mellan
 exempelvis det högsta värdet för \acrshort{ecb} är högre än både det högsta värdet för \acrshort{cbc} och det högsta värdet för \acrshort{ofb}, samtidigt som det lägsta värdet för
 \acrshort{ofb} är lägre än både det lägsta värdet för \acrshort{ecb} och det lägsta värdet för \acrshort{cbc}.
 
-Slutligen om man ska besvara frågeställningen “Hur påverkas skiffertexten av det olika körlägen \acrshort{ecb}, \acrshort{cbc} \& \acrshort{ofb} samt vilken betydelse det får ur ett säkerhetsperspektiv?”
+Slutligen om man ska besvara frågeställningen “Hur påverkas skiffertexten av det olika körlägena \acrshort{ecb}, \acrshort{cbc} \& \acrshort{ofb} samt vilken betydelse får det ur ett säkerhetsperspektiv?”
 så visar resultatet från krypteringstestet tydligt hur skiffertexten förändras beroende på vilket körläge som används. Den huvudsakliga skillnaden visar sig när man tittar på skiffertexten
 från \acrshort{ecb} där man tydligt kan se spår av den ursprungliga bilden samtidigt som detta inte går att se i skiffertexten från \acrshort{cbc} och \acrshort{ofb}. Utifrån detta kan man då dra slutsatsen
 att körläget \acrshort{ecb} är sämre ur ett säkerhetsperspektiv för större data mängder än \acrshort{cbc} och \acrshort{ofb} eftersom det trots kryptering fortfarande går att se spår av den ursprungliga

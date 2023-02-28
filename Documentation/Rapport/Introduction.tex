@@ -1,20 +1,20 @@
 \mychapter{Inledning} % Mostly clear but might need some refinement
-Kryptering, en bärande grundsten i dagens digitaliserade samhälle. det är väggen mellan oss och resten
+Kryptering, en bärande grundsten i dagens digitaliserade samhälle. Det är väggen mellan oss och resten
 av världen, ett lås runt våra liv. Kryptering bygger på ett simpelt koncept, att dölja informationen
-från all förutom den menade mottagaren. Ett koncept som exempelvis fanns redan för 2000 år sedan när Julius
-Caesar använde det vi idag kallar \gls{caesar} för att skicka hemliga meddelanden.\footfullcite{luciano1987cryptology}
+från all förutom den menade mottagaren. Ett koncept som har funnits med oss under stora delar av
+människans historia och som än idag är en viktig del av vårt samhälle.\footfullcite{luciano1987cryptology}
 
-Sedan dess har kryptografi självklart utvecklats enormt och vi har gått från det på ett sätt simpla men
-även eleganta \gls{caesar} som användes förr i tiden till moderna algoritmer så som \acrlong{aes} och \acrlong{des}.
-Dessa algoritmer har samma syfte som \gls{caesar} men har utvecklats under en tid där datorer står som
-det dominerande informationshanteringsverktyget, vilket även är det verktyg som används i denna rapport för att
-undersöka just en av dessa algoritmer.
+Att dölja information har gått från de enkla metoder som användes redan för 2000 år sedan för att förmedla hemlig information med hjälp av
+exempelvis \gls{caesar} till det komplexa och invecklade algoritmer som idag används för att skydda nästan all information som lagras och skickas
+över internet.\footcite{luciano1987cryptology} Dessa komplexa algoritmer har utvecklats under en tid där datorer står som det dominerande informationshanteringsverktyget och
+därför är det även en dator som används som huvudverktyg i denna rapport för att undersöka en av det vanligaste krypteringsalgoritmerna i dagens samhälle,
+The \acrlong{aes}.
 
 \section{Syfte} % Mostly clear but might need some refinement
-Syftet med denna undersökning är att undersöka krypterings algoritmen \acrshort{aes},
-för att utveckla en förståelse för mer avancerade krypterings algoritmer.
-Samt att bygga en uppfattning om hur man på olika sätt kan implementera och använda
-krypterings algoritmer och hur detta påverkar deras säkerhet och hastighet.
+Syftet med undersökning är att undersöka krypterings algoritmen \acrshort{aes},
+för att utveckla en fördjupad förståelse för mer avancerade krypterings algoritmer.
+Samt bygga en uppfattning om hur det på olika sätt går att implementera krypterings algoritmer
+och vilken påverkan detta då får på deras prestanda och säkerhet.
 
 \section{Frågeställningar} % Mostly clear but might need some refinement and reformulating
 \begin{itemize}
@@ -22,20 +22,20 @@ krypterings algoritmer och hur detta påverkar deras säkerhet och hastighet.
     \item Hur påverkas tiden det tar att kryptera något mellan det olika nyckel längderna 128-bit,
           192-bit och 256-bit nyckel?
 
-    \item Hur förändras tiden det tar att kryptera något beroende på ifall algoritmen körs i
-          \acrshort{ecb}, \acrshort{cbc} eller \acrshort{ofb}?
+    \item Hur förändras krypterings tiden mellan de olika körlägena \acrshort{ecb}, \acrshort{cbc} \& \acrshort{ofb}?
 
-    \item Hur påverkas skiffertexten av det olika körlägen \acrshort{ecb}, \acrshort{cbc} \& \acrshort{ofb}
-          samt vilken betydelse det får ur ett säkerhetsperspektiv?
+    \item Hur påverkas skiffertexten av det olika körlägena \acrshort{ecb}, \acrshort{cbc} \& \acrshort{ofb}
+          samt vilken betydelse får det ur ett säkerhetsperspektiv?
 \end{itemize}
 
 \section{Avgränsning} % Mostly clear but might need some refinement and reformulating
 
-Denna rapport är en avgränsad undersökning av \acrshort{aes} och dess användning som fokuserar
- på hur nyckellängd och körläge påverkar krypteringstiden. Detta samt hur den resulterande
-skiffer texten påverkas av \acrshort{ecb}, \acrshort{cbc} \& \acrshort{ofb} körlägena och hur detta i sin tur kan påverka säkerheten. \par
+Denna undersökning är avgränsad till att endast undersöka \acrshort{aes} och dess
+användning med fokus på hur nyckellängd och körläge påverkar krypteringstiden. Detta samt hur
+den resulterande skiffer texten påverkas av det olika körlägena \acrshort{ecb}, \acrshort{cbc} \& \acrshort{ofb}
+ur ett säkerhetsperspektiv.
 
-Denna analys av algoritmens säkerhet utelämnar faktorer så som möjliga attacker där ibland exempelvis Brute-Force\footfullcite{kumar2011investigations}
+Denna analys av algoritmens säkerhet tar inte hänsyn till faktorer så som möjliga attacker där
+ibland exempelvis Brute-Force\footfullcite{kumar2011investigations}
 \& Side-Channel\footfullcite{10.1007/978-3-642-04138-9_8} attacker. Undersökningen är även
-begränsad till en mjukvaruimplementering och tar inte hänsyn till möjliga skillnader som kan uppstå
-när algoritmen implementeras på en hårdvarunivå.
+begränsad till att endast utföras på en mjukvaruimplementering av \acrshort{aes}.
