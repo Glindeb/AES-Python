@@ -129,8 +129,8 @@ keepaspectratio]{background-1.png}
 {
     name={RSA},
     description={Rivest-Shamir-Adleman (RSA) är en av det mest välkända krypteringsalgoritmerna
-    och var en av det första algorithmerna som byggde på en asymetrisk kryptering.
-    RSA bygger på multiplikation av stora primatal där primtalen är
+    och var en av det första algoritmerna som byggde på en asymmetrisk kryptering.
+    RSA bygger på multiplikation av stora primtal där primtalen är
     nycklarna.\cite{rsa-ref}}
  }
 
@@ -139,8 +139,8 @@ keepaspectratio]{background-1.png}
     name={Caesarchiffer},
     description={Caesarchiffer är ett \gls{substitutionsskiffer},
     vilket helt enkelt bygger på att man byter ut varje bokstav i
-    medelandet med en annan. Ersättnings bokstaven bestäms genom
-    att man hoppar ett visst antal hopp i alphabetet som exempelvis
+    meddelandet med en annan. Ersättnings bokstaven bestäms genom
+    att man hoppar ett visst antal hopp i alfabetet som exempelvis
     3 hopp, vilket då innebär att ifall man har bokstaven a då skulle
     den bli ett d istället.\cite{caesar}}
  }
@@ -150,23 +150,23 @@ keepaspectratio]{background-1.png}
     name={XOR},
     symbol={\(\oplus\)},
     description={XOR är en logisk operation inom datorvetenskap som fungerar ungefär som + uttrycket,
-    med den enda skillnaden att {\(1 \oplus 1 = 0\)}. Detta samt att xor är en \gls{binär} operation, vilket
+    med den enda skillnaden att {\(1 \oplus 1 = 0\)}. Detta samt att XOR är en \gls{binär} operation, vilket
     innebär att termerna bara kan vara 0 eller 1 och resultatet det samma. Utöver XOR finns även
-    \gls{or}, \gls{not} och \gls{and} bland annat.\cite{xor}} % Maybe needs to be refined
+    \gls{or}, \gls{not} och \gls{and} bland annat.\cite{xor}}
  }
 
 \newglossaryentry{python}
 {
     name={Python},
-    description={Python är ett högnivå programmerings språk som är skrivet i programmerings språket C.
-    Det är skapat av Guido van Rossum och släpptes i Februari 1991.\cite{python}}
+    description={Python är ett högnivå programmeringsspråk som är skrivet i programmerings språket C.
+    Det är skapat av Guido van Rossum och släpptes i februari 1991.\cite{python}}
  }
 
  \newglossaryentry{keystream}
  {
      name={Nyckelström},
      description={En nyckelström är i kryptografin en ström av \gls{pseudoslump}
-     karaktärer som kan kombineras med exempelvis ett medelande för att producera
+     karaktärer som kan kombineras med exempelvis ett meddelande för att producera
      en skiffertext.\cite{keystream}}
   }
 
@@ -180,7 +180,7 @@ keepaspectratio]{background-1.png}
   \newglossaryentry{vscode}
   {
       name={VSCode},
-      description={Visual Studio Code är en programutveklingsmiljö som är skapad av Microsoft.
+      description={Visual Studio Code är en programutvecklingsmiljö som är skapad av Microsoft.
       Det är ett öppet källkods projekt som är tillgängligt för det flesta operativsystem
       och kan användas för att skriva kod i flera olika språk.\cite{vscode-ref}}
    }
@@ -188,8 +188,8 @@ keepaspectratio]{background-1.png}
   \newglossaryentry{streamcipher}
   {
       name={Strömskiffer},
-      description={Strömskiffer, ett symetriskt nyckel skiffer där man använder en
-      \gls{pseudoslump}mässig skiffer ström (\gls{keystream}) som sedan en \gls{bit} i taget
+      description={Strömskiffer, ett symmetriskt nyckelskiffer där man använder en
+      \gls{pseudoslump}mässig skifferström (\gls{keystream}) som sedan en \gls{bit} i taget
       kombineras med det som ska krypteras. Den kombinerande operationen som används i
       strömskiffer är ofta en \gls{xor}-operation.\cite{streamcipher-ref}}
    }
@@ -215,13 +215,13 @@ keepaspectratio]{background-1.png}
   \newglossaryentry{hashfunktion}
   {
       name={Hashfunktion},
-      description={Hashfunktion är en funktion som man kan säga delar upp en viss datamängd
-      och genom för en serie operationer som resulterar i hashtext av godkännd längd.
-      Längden är samma för alla hastexter som använder samma funktion medans innehållet
-      förändras så fort något över huvud taget ändras i datan som funktionen appliceras på.
+      description={Hashfunktion är en funktion som delar upp en viss datamängd
+      och genom för sedan en serie operationer som resulterar i en hashtext av godkänd längd.
+      Längden är samma för alla hashtexter som använder samma funktion medans innehållet
+      förändras så fort en enda \gls{bit} ändras i datamängden som funktionen appliceras på.
       Användningsområdet för dessa funktioner är bland annat när man vill kunna verifiera
-      medelanden eller information och försäkra sig om att ingen ändrat på medellandet efter att det skickats.
-      Detta kan man då göra för att man vet att om man skör informationen genom samma hashfunktion
+      meddelanden eller information och försäkra sig om att ingen ändrat på meddelandet efter att det skickats.
+      Detta kan man då göra för att man vet att om man kör informationen genom samma hashfunktion
       borde resultatet vara identisk ifall informationen är oförändrad.\cite{hashfunktion-ref}}
    }
 
@@ -240,16 +240,16 @@ keepaspectratio]{background-1.png}
     name={Frekvensanalys},
     description={Frekvensanalys inom kryptografi är en metod för att knäcka ett \gls{substitutionsskiffer} genom att
     analysera frekvensen av bokstäver och utnyttja det faktum att en del bokstäver framkommer mer frekvent än andra
-    i språket. På detta viset kan man då sedan lista ut vilka bokstäver som är vilka i det krypterade medellandet.\cite{frekvensanalys-ref}}
+    i språket. På detta viset kan man då sedan lista ut vilka bokstäver som är vilka i det krypterade meddelandet.\cite{frekvensanalys-ref}}
     }
 
   \newglossaryentry{substitutionsskiffer}
   {
-      name={Substitutionsskiffer}, % fix this
-      description={Ett Substitutionsskiffer är en typ av krypterings metod som bygger på att man
+      name={Substitutionsskiffer},
+      description={Ett Substitutionsskiffer är en typ av krypteringsteknik som bygger på att man
       byter ut delar av informationen man ska kryptera med exempelvis andra symboler med hjälp av en nyckel.
       Detta kan exempelvis vara bokstäver som byts ut mot andra bokstäver precis som i \gls{caesar} eller
-      siffror som byts ut mot andra siffror.\cite{substitutionsskiffer-ref}}
+      siffror som byts ut mot andra siffror eller bokstäver.\cite{substitutionsskiffer-ref}}
     }
 
   \newglossaryentry{and}
@@ -289,57 +289,65 @@ keepaspectratio]{background-1.png}
   {
       name={Enigma},
       description={Enigma var ett krypterings verktyg som användes under andra världskriget av tyska
-      militären för att kryptera medelanden. Maskinen bestod av en elektromekanisk rotordisk som under tiden
-      medellandet skrivs in för kryptering även ändrar det elektriska kopplingarna mellan vilka bokstäver som blir vad.
-      Detta är en av sakerna som gjorde enigma väldigt svår att knäcka samt en av anledningarna till att
+      militären för att kryptera meddelanden. Maskinen bestod av en elektromekanisk rotordisk som under tiden
+      meddelandet skrivs in för kryptering även ändrar det elektriska kopplingarna mellan vilka bokstäver som blir vad.
+      Detta är en av sakerna som gjorde Enigma väldigt svår att knäcka samt en av anledningarna till att
       liknande maskiner användes under stora delar av det tidiga 1900-talet.\cite{enigma-ref}}
     }
+
   \newglossaryentry{SP-network}
   {
       name={SP-network},
       description={SP-network eller även kallat Substitution-permutation network är inom kryptografin
-      en serie av matematiska operationer som genomförs i rundor för att på så sätt kryptera ett medelande. Det består
+      en serie av matematiska operationer som genomförs i rundor för att på så sätt kryptera ett meddelande. Det består
       ut av två delar, en substitutions del och en permutation del. Substitutionen delen fungerar
       precis som \nameref{sec:aes-subbytes} medans permutationen exempelvis skulle kunna representeras
       med \nameref{sec:aes-shiftrows}.\cite{sp-network-ref}}
     }
+
   \newglossaryentry{ssh}
   {
       name={SSH},
       description={SSH eller som det även är kallat Secure Shell är ett protokoll som används för säker kommunikation
-      över ett nätverk. SSH är ett exempel på ett nätverksprotokoll och används bland annat för att kryptera medelanden
+      över ett nätverk. SSH är ett exempel på ett nätverksprotokoll och används bland annat för att kryptera meddelanden
       som skickas mellan två enheter.\cite{ssh}}
     }
+
   \newglossaryentry{http}
   {
         name={HTTP},
         description={HTTP (Hypertext Transfer Protocol) är det protokoll som används när man besöker en webbsida.
-        Detta protokoll har används sedan 1990-talet och används fortfarande till stora delar.\cite{http}}
+        Detta protokoll har använts sedan 1990-talet och används fortfarande till stora delar.\cite{http}}
     }
+
   \newglossaryentry{hexadecimal}
   {
         name={Hexadecimal},
-        description={Hexadecimal tal är tal med talbasen 16. Detta innebär att det finns 16 olika symboler som kan användas
+        description={Hexadecimaltal är tal med talbasen 16. Detta innebär att det finns 16 olika symboler som kan användas
         istället för 10 symboler som används i decimaltal som har talbasen 10. Detta görs genom att man representerar tal
         större än 9 med bokstäverna A-F.\cite{NE-2}}
     }
+
   \newglossaryentry{ppm}
   {
         name={PPM},
-        description={PPM eller även kallad Portable Pixel Map är ett fil format som förvara bilder i råa bytes som då representerar
+        description={PPM eller även kallad Portable Pixel Map är ett filformat som förvara bilder i råa bytes som då representerar
         färgerna i bilden. PPM använder sig av 3 \gls{byte}s för att representera en färg.\cite{ppm}}
     }
+
   \newglossaryentry{gimp}
   {
         name={GIMP},
         description={GIMP är ett open source bild redigerings program som är tillgängligt för det flesta operativsystem.\cite{gimp}}
     }
+
   \newglossaryentry{win11}
   {
         name={Windows 11},
         description={Windows 11 är den senaste versionen av ett \gls{operativsystem} för datorer framtaget av företaget Microsoft. Windows 11
         tillhör \gls{operativsystem} familjen Windows NT som först lanserades 1993.\cite{win11}}
     }
+
   \newglossaryentry{operativsystem}
   {
         name={Operativsystem},
@@ -347,6 +355,7 @@ keepaspectratio]{background-1.png}
         innebär att operativsystemet hanterar saker som inmatning från användaren till att tillhandahålla ett gränssnitt för olika program
         så att dom kan genomföra sina uppgifter.\cite{opsystem}}
     }
+
   \newglossaryentry{cpuh}
   {
       name={CPU klockhastighet},
@@ -354,6 +363,7 @@ keepaspectratio]{background-1.png}
       klockgeneratorn i en dators CPU använder sig av för att bland annat styra hur snabbt instruktioner ska utföras samt synka
       olika komponenter i datorn.\cite{cpuh}}
     }
+
   \newglossaryentry{matrismultiplikation}
   {
       name={Matrismultiplikation},
