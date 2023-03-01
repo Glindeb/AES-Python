@@ -28,13 +28,13 @@ trots att den inte egentligen är det.\footcite{blockskiffer-ref}
 \subsection{Körlägen}
 Körlägen inom kryptografin kan man se som algoritmer som appliceras i användningen av
 blockskiffer eftersom dessa endast är användbara för säker kryptering av ett litet block med bestämd längd.
-Körlägena gör det då möjligt att istället kunna använda blockskiffer på större data mängder.
+Körlägena gör det då möjligt att istället kunna använda blockskiffer på större datamängder.
 Detta löser körlägen på olika sätt beroende på hur man vill använda blockskiffer algoritmen samt hur
 mycket man ör villig att kompromissa med säkerheten i förhållande till hastighet.\footfullcite{dworkin2001sp}
 
 Ett ut av sätten som körlägen löser problemet med att applicera blockskiffer algoritmer på
-större data mängder är att dom använder sig av en så kallad \acrfull{iv}. Det är en unik sekvens
-av bytes som används för att säkerställa att samma data mängd aldrig kommer att generera samma
+större datamängder är att dom använder sig av en så kallad \acrfull{iv}. Det är en unik sekvens
+av bytes som används för att säkerställa att samma datamängd aldrig kommer att generera samma
 krypterade skiffertext.\footcite{dworkin2001sp}
 
 \acrshort{iv} kan användas på många sätt, exempelvis kan den introduceras genom en
@@ -43,7 +43,7 @@ den första operationen, vilket precis är vad som görs i \acrshort{cbc}. Detta
 vilket förhindrar att upprepad information som krypteras ger samma resultat även fast man använder samma
 nyckel.\footcite{dworkin2001sp}
 
-Exempel på hur \acrshort{ecb}, \acrshort{ofb} och \acrshort{cbc} kan ses i appendix \ref{app:python}.
+Exempel på hur \acrshort{ecb}, \acrshort{ofb} och \acrshort{cbc} ser ut implementerade i \gls{python} går att se i appendix \ref{app:python}.
 
 \subsubsection{ECB}
 \label{sec:ecb}
@@ -74,7 +74,7 @@ att blockchiffret körs i dekrypterings läge istället för krypterings läge.
     \label{fig:ecb-mode-dec}
 \end{figure}
 
-På grund av \acrshort{ecb} körlägets simplicitet så finns det dock även ett ganska
+På grund av \acrshort{ecb} körlägets enkelhet så finns det dock även ett ganska
 stort problem med detta körläge. Det handlar om att \acrshort{ecb} inte på något
 sätt förhindrar att två block med samma innehåll som krypteras inte resulterar i
 ett identiskt krypterat block.\footcite{dworkin2001sp}
@@ -109,7 +109,7 @@ Matematisk sett kan detta formuleras såhär:
     \end{aligned}
 \end{equation}
 
-Där $S_i$ är det krypterade blocket(skiffertexten), $B_i$ är det blocket som ska krypteras,
+Där $S_i$ är det krypterade blocket(skiffertexten), $B_i$ är det blocket som ska krypteras, % ######### Allt innan detta stycke är kontrollerat genom word ##########
 $K_n$ är blockchiffer algoritmen där $n$ står för nyckeln och $S_{i-1}$ är
 det krypterade blocket före det blocket som ska krypteras. \acrshort{iv} är en
 \acrfull{iv} som används vid krypteringen av det första blocket då det inte finns
