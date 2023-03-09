@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.3)  9 MAR 2023 09:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.3)  9 MAR 2023 13:13
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1933,6 +1933,11 @@ Package pdftex.def Info: Images//summarie-tp-background.png  used on input line 
 
  (./Diskussion.tex
 Kapitel 6.
+
+Overfull \hbox (7.86351pt too wide) in paragraph at lines 21--26
+\OT1/cmr/m/n/12 ket []ar h[]ogre []an maxv[]ardet f[]or [][][]CBC[][] som []ar 20,9346826999972 s och [][][]OFB[][] som []ar 20,8816630000001
+ []
+
 [35
 
 
@@ -2302,7 +2307,7 @@ Here is how much of TeX's memory you used:
 pdfTeX warning (dest): name{glo:bin\\protect\040\\unhbox\040\\voidb@x\040\\bgroup\040\\U@D\0401ex{\\setbox\040\\z@\040\\hbox\040{\\char\040127}\\dimen@\040-.45ex\\advance\040\\dimen@\040\\ht\040\\z@\040}\\accent\040127\\fontdimen\0405\\font\040\\U@D\040a\\egroup\040r} has been referenced but does not exist, replaced by a fixed one
 
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsltt10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on Main.pdf (66 pages, 23030961 bytes).
+Output written on Main.pdf (66 pages, 23030856 bytes).
 PDF statistics:
  3145 PDF objects out of 3580 (max. 8388607)
  2923 compressed objects within 30 object streams
