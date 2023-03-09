@@ -1,43 +1,43 @@
 \mychapter{Metod \& Genomförande} % (To be reviwed)
 Metoden för denna undersökning bygger på en implementering av \acrshort{aes} i programmeringsspråket
-\gls{python}. Detta tillsammans med ett antal konstruerade tester även dom implementerade i
-\gls{python} är vad som använts för själva undersökningen av \acrshort{aes}. Koden
-är skriven med hjälp av programmet \gls{vscode} och är byggd huvudsakligen för \gls{python} 3.10 men
+\gls{python}. Detta tillsammans med ett antal konstruerade tester, även dom implementerade i
+\gls{python}, är vad som använts för själva undersökningen av \acrshort{aes}. Koden
+är skriven med hjälp av programmet \gls{vscode} och är byggd huvudsakligen för \gls{python} 3.10, men
 på grund av att \gls{python} 3.11 släpptes innan undersökningen genomfördes så är de istället \gls{python} 3.11.0
-som användes under undersöknings genomförandet.\footfullcite{python311}
+som användes under undersökningsgenomförandet.\footfullcite{python311}
 
 \section{Implementering} % (To be reviwed)
-Implementeringen av \acrshort{aes} är uppdelad i ett antal funktioner till stor del är baserat på
+Implementeringen av \acrshort{aes} är uppdelad i ett antal funktioner som till stor del är baserat på
 hur strukturen och uppdelningen av \acrshort{aes} beskrivs i \citetitle{daemen1999aes}\footcite{daemen1999aes}.
-Några av det Huvudsakliga funktionerna av algoritmen är \nameref{sec:aes-subbytes}, \nameref{sec:aes-shiftrows} och
+Några av de huvudsakliga funktionerna av algoritmen är \nameref{sec:aes-subbytes}, \nameref{sec:aes-shiftrows} och
 \nameref{sec:aes-mixcolumns}.
 
 Dessa funktioner används i varje runda och utgör grunden av algoritmen. Utöver detta finns
-även \nameref{sec:aes-addroundkey}-operationen som används för att lägga till nyckeln i varje runda. Sedan finns även
+även \nameref{sec:aes-addroundkey} som används för att lägga till nyckeln i varje runda. Sedan finns även
 en funktion som används för att expandera nyckeln som beskrivs i \nameref{sec:aes-key-expansion} samt
 individuella funktioner för kryptering och dekryptering till de olika körlägen \nameref{sec:ecb}, \nameref{sec:cbc} och
 \nameref{sec:ofb}.
 
-Implementeringen använder sig av \gls{python} biblioteket NumPy för att hantera matriserna av \gls{byte}s och genomföra
-matematiska operationer på dessa. Hela implementeringen går att hitta i appendix \ref{app:python} "\nameref{app:python}" samt
+Implementeringen använder sig av \gls{python}-biblioteket NumPy för att hantera matriserna av \gls{byte}s och genomföra
+matematiska operationer på dessa. Hela implementeringen går att hitta i bilaga \ref{app:python} "\nameref{app:python}" samt
 förklaras även i avsnittet \nameref{sec:aes}.
 
 \section{Testuppsättning} % (To be reviwed)
-Test uppsättningen är uppdelad i det tre delarna \nameref{sec:nyckellangd-test}, \nameref{sec:körlages-test} och \nameref{sec:krypterings-test}. Två av delarna, \nameref{sec:nyckellangd-test} och
-\nameref{sec:körlages-test} är skrivna som ett \gls{python} script vilket visas i appendix \ref{app:analyze}. När det gäller Krypteringstest så skiljer sig det från de två andra analyserna eftersom det
+Testuppsättningen är uppdelad i de tre delarna \nameref{sec:nyckellangd-test}, \nameref{sec:körlages-test} och \nameref{sec:krypterings-test}. Två av delarna, \nameref{sec:nyckellangd-test} och
+\nameref{sec:körlages-test} är skrivna som ett \gls{python}-script vilket visas i bilaga \ref{app:analyze}. När det gäller Krypteringstest så skiljer sig det från de två andra analyserna eftersom det
 inte är en automatiserad process utan ett antal praktiska steg som genomfördes för att generera resultatet.
 
 \subsection{Testmiljö} % Describe the test enviroment (might reqiuer extra glossary entrys for some of the terms)
 Genomförandet av undersökningen skedde på en \gls{win11} dator med \gls{python} 3.11.0 installerat. I syfte att minimera variabiliteten
-mellan de olika omgångarna av tester då allt repeteras ett vist antal gånger så begränsades vissa delar av datorn och anpassningar gjordes i genomförandet.
-De begränsningar som placerades på datorn bestod ut av att datorn \gls{cpuh} begränsades till sin grundhastighet för att ge
-varje test ett likvärdigt utgångsläge som möjligt. Utöver detta så genomfördes även varje test separat utan parallellisering för att
+mellan de olika omgångarna av tester då allt repeteras ett visst antal gånger så begränsades vissa delar av datorn och anpassningar gjordes i genomförandet.
+De begränsningar som placerades på datorn bestod av att datorn \gls{cpuh} begränsades till sin grundhastighet för att ge
+varje test ett så likvärdigt utgångsläge som möjligt. Utöver detta så genomfördes även varje test separat utan parallellisering för att
 eliminera risken av att testerna skulle kunna påverka varandra.
 
 \subsection{Nyckellängdstest} % Explain the key length test
 \label{sec:nyckellangd-test}
-Nyckellängds testet bygger på att varje nyckellängd används för att kryptera en textfil på 1 MB. Detta genomförs 25 gånger för
-varje nyckellängd och resultatet av varje test sparas sedan i en text fil. Själva testet består av att det för varje runda
+Nyckellängdstestet bygger på att varje nyckellängd används för att kryptera en textfil på 1 MB. Detta genomförs 25 gånger för
+varje nyckellängd och resultatet av varje test sparas sedan i en textfil. Själva testet består av att det för varje runda
 genereras en textfil på 1 MB fylld med slumpmässiga \gls{byte}s. Denna textfil krypteras sedan med hjälp av \acrshort{aes} i körläget \acrshort{ecb} samtidigt
 som tiden som det tar att kryptera filen mätas. Detta upprepas sedan som tidigare nämnts sedan 25 gånger för följande tre nycklarna som går att se nedan.
 
@@ -52,7 +52,7 @@ som tiden som det tar att kryptera filen mätas. Detta upprepas sedan som tidiga
 
 \subsection{Körlägestest} % Explain the mode of operation test (to be reviwed)
 \label{sec:körlages-test}
-Körläges testet har en struktur som väldigt mycket liknar det som används i \nameref{sec:nyckellangd-test}. Det
+Körlägestestet har en struktur som väldigt mycket liknar det som används i \nameref{sec:nyckellangd-test}. Det
 består av att kryptera en textfil på 1 MB fylld med slumpmässiga bytes med hjälp av \acrshort{aes} med den stora skillnaden att istället för att använda olika nycklar så används
 istället samma nyckel samtidigt som körläget ändras. Krypteringen utförs 25 gånger för varje körläge och resultatet av varje test sparas sedan i en text fil.
 För att kryptera filen används nyckeln som visas nedan samt för körlägena \acrshort{cbc} och \acrshort{ofb} så används även \acrshort{iv} som visas nedan.
@@ -92,9 +92,8 @@ första raderna i filen tas bort och sätts sedan tillbaka efter krypteringen. D
 efter krypteringen.
 
 \section{Genomförande} % Describe how the test was preformed (To be reviwed)
-Först kördes Nyckellängdstestet och Körlägestestet genom att köra \gls{python} filen analyze.py. Där efter
-genomfördes Krypterings testet. För krypteringstestet valdes först en lämplig bild ut för krypteringen. Sedan
-konverterades bilden till filformatet \gls{ppm} med hjälp av programmet \gls{gimp}. Där efter utförs följande kommandon i en terminal:
+Först genomfördes \nameref{sec:krypterings-test}et. För \nameref{sec:krypterings-test}et valdes först en lämplig bild ut för krypteringen. Sedan
+konverterades bilden till filformatet \gls{ppm} med hjälp av programmet \gls{gimp}. Därefter utförs följande kommandon i en komandotolk:
 
 \begin{minted}{bash}
     $ head -n 4 pi.ppm > header.txt
@@ -106,17 +105,17 @@ konverterades bilden till filformatet \gls{ppm} med hjälp av programmet \gls{gi
     $ cat header.txt body.bin.enc > pi-ecb.ppm
 \end{minted}
 
-Här används filen header.txt som en temporär förvaringsplats för de första fyra raderna i \gls{ppm} filen. Detta
-efter som de första fyra raderna innehåller informationen som berättar hur filen senare ska tolkas. Där efter används
-tail kommandot för att ta bort de första fyra raderna i filen och skriva resten till en ny fil med namnet body.bin.
-Filen body.bin krypteras sedan med hjälp av \gls{python} filen encrypt.py med nyckeln 2b7e151628aed2a6abf7158809cf4f3c.
+Här används filen header.txt som en temporär förvaringsplats för de första fyra raderna i \gls{ppm}-filen. Detta
+eftersom de första fyra raderna innehåller informationen som berättar hur filen senare ska tolkas. Därefter används
+tail-kommandot för att ta bort de första fyra raderna i filen och skriva resten till en ny fil med namnet body.bin.
+Filen body.bin krypteras sedan med hjälp av \gls{python}-filen encrypt.py med nyckeln 2b7e151628aed2a6abf7158809cf4f3c.
 
 Innehållet från den nya filen body.bin.enc sätt sedan ihop med innehållet av header.txt som infogas som de fyra första raderna samt filen döps om till pi-ecb.ppm.
 Slutligen så konverteras även filen tillbaka till ett mer lätthanterligt format med hjälp av \gls{gimp}.
 Processen beskriven ovan upprepades sedan för de två andra körlägen \nameref{sec:cbc} och \nameref{sec:ofb} med
 den enda skillnaden att de istället för ECB används CBC och OFB som argument till encrypt.py filen (Det tredje terminal kommandot).
 
-Därefter påbörjades \nameref{sec:nyckellangd-test} och \nameref{sec:körlages-test}, vilket utfördes genom att köra
-\gls{python} filen analyze.py. Filen analyze.py genomförde då krypteringen av en textfil på 1MB fylld med slumpmässigt genererade \gls{byte}s med hjälp av \acrshort{aes}
-implementeringen som går att se i appendix \ref{app:python}. Detta genomfördes i de tre olika körlägena \acrshort{ecb}, \acrshort{cbc} och \acrshort{ofb} samt de tre olika nyckel längderna 128bit, 192bit och 256bit.
+Därefter påbörjades \nameref{sec:nyckellangd-test}et och \nameref{sec:körlages-test}et, vilket utfördes genom att köra
+\gls{python} filen analyze.py. Filen analyze.py genomförde då krypteringen av en textfil på 1MB fylld med slumpmässigt genererade \gls{byte}s med hjälp av \acrshort{aes}-implementeringen
+som går att se i bilaga \ref{app:python}. Detta genomfördes i de tre olika körlägena \acrshort{ecb}, \acrshort{cbc} och \acrshort{ofb} samt de tre olika nyckel längderna 128bit, 192bit och 256bit.
 För varje nyckellängd och körläge så genomfördes krypteringen 25 gånger. Resultatet exporterades därefter till 6 olika text filer, vilkas innehåll sedan sammanställdes i \nameref{chap:resultat}.

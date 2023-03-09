@@ -5,10 +5,13 @@
 \catcode `"\active 
 \providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
 \HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
 \global\let\oldnewlabel\newlabel
 \gdef\newlabel#1#2{\newlabelxx{#1}#2}
 \gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
 \AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
 \let\newlabel\oldnewlabel
 \fi}
 \fi}
@@ -381,7 +384,7 @@
 \newlabel{LastPage}{{}{65}{}{page.65}{}}
 \xdef\lastpage@lastpage{65}
 \xdef\lastpage@lastpageHy{65}
-\abx@aux@read@bbl@mdfivesum{E33E3F599B0E6817BC752326D70734A5}
+\abx@aux@read@bbl@mdfivesum{C3D59365C597B14776CA22C39F1518A8}
 \abx@aux@defaultrefcontext{0}{matrismultiplikation}{anyt/global//global/global}
 \abx@aux@defaultrefcontext{0}{http}{anyt/global//global/global}
 \abx@aux@defaultrefcontext{0}{ssh}{anyt/global//global/global}

@@ -229,7 +229,7 @@ keepaspectratio]{background-1.png}
   {
       name={Polyalphabetic substitutionsskiffer},
       description={polyalphabetic substitutionsskiffer bygger på att man använder flera olika \gls{substitutionsskiffer} för att
-      på så sätt undvika en ut av det största svagheterna med \gls{substitutionsskiffer}. Detta då att dom lätt går att
+      på så sätt undvika en utav det största svagheterna med \gls{substitutionsskiffer}. Detta då att dom lätt går att
       knäcka genom en \gls{frekvensanalys} då vissa bokstäver dyker upp mer frekvent i språket än andra. För att lösa
       detta så använder polyalphabetiska skiffer flera olika substitutionsskiffer som man byter mellan med en viss
       frekvens för att eliminera \gls{frekvensanalys}ens effektivitet.\cite{polyalphabetic-ref}}
@@ -280,7 +280,7 @@ keepaspectratio]{background-1.png}
   {
       name={Binär},
       description={Binär är ett begrepp som används inom datorvetenskap och matematik för att beskriva
-      ett värde som endast kan vara två olika saker som exempelvis 0 eller 1, sant eller falskt. Detta innebär abstract
+      ett värde som endast kan vara två olika saker som exempelvis 0 eller 1, sant eller falskt. Detta innebär att
       binära tal bygger på talbasen 2, vilket skiljer sig från vad som ofta vanligen används i vardagen
       som är talbasen 10.\cite{binär-ref}}
     }
@@ -358,8 +358,8 @@ keepaspectratio]{background-1.png}
 
   \newglossaryentry{cpuh}
   {
-      name={CPU klockhastighet},
-      description={CPU klockhastighet är den hastighet som en CPU kan utföra instruktioner på. Den mäts i hertz och är frekvensen som
+      name={CPU-klockhastighet},
+      description={CPU-klockhastighet är den hastighet som en CPU kan utföra instruktioner på. Den mäts i hertz och är frekvensen som
       klockgeneratorn i en dators CPU använder sig av för att bland annat styra hur snabbt instruktioner ska utföras samt synka
       olika komponenter i datorn.\cite{cpuh}}
     }
@@ -396,7 +396,7 @@ keepaspectratio]{background-1.png}
 
 \newgeometry{top=0cm, bottom=2cm, left = 1.5cm, right = 1.5cm}
 
-% Beginning title page
+% Beginning title page (Reviwe Done)
 \begin{titlepage}
     % Inserting background images
     \AddToShipoutPicture*{\BackgroundIm}
@@ -419,7 +419,7 @@ keepaspectratio]{background-1.png}
     % Title and sub title
     \vspace{3.5cm}
 	{\huge\bfseries The AES encryption algorithm\par}
-   ~{\large En undersökning av The \acrfull{aes}}
+   ~{\large A analysis of The \acrfull{aes}}
 
 % Bottom of the page
     \vfill
@@ -446,11 +446,11 @@ keepaspectratio]{background-1.png}
 % Geometry of page borders for abstract
 \newgeometry{top=5cm, bottom=2cm, left = 2cm, right = 2cm}
 
-% Abstract
+% Abstract (Reviw Done)
 \chapter*{Abstract}
 This paper is a study of the \acrlong{aes} with the purpose of investigating how the key length and running mode affects the encryption speed of the algorithm
 as well as how the different running modes affect the security. The study was conducted by implementing \acrshort{aes} and the running modes \acrshort{ecb}, \acrshort{cbc} and \acrshort{ofb} in the programming language \gls{python} and
-then preforming a series of tests on it. These tests consisted of measuring the encryption speed of the algorithm with different key lengths and running modes as well as the encryption
+then performing a series of tests on it. These tests consisted of measuring the encryption speed of the algorithm with different key lengths and running modes as well as the encryption
 of a image file using each of the running modes. The result of the study showed that the encryption speed of the algorithm increased as the key length increased, while a noticeable speed difference
 between the different running modes not could be assessed from the result of the study. The result of the study also showed that the running mode \acrshort{ecb} was the least secure of the three
 running modes tested.
@@ -467,7 +467,11 @@ running modes tested.
 
 \printglossary
 
+\newgeometry{top=2.5cm, bottom=2cm, left = 2cm, right = 1cm}
+
 \printglossary[type=\acronymtype, style=super]
+
+\newgeometry{top=2.5cm, bottom=2cm, left = 2cm, right = 2cm}
 
 \include{Introduction}
 
