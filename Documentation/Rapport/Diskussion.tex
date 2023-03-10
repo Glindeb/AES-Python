@@ -73,7 +73,7 @@ felkälla som nämnts tidigare när det gäller \nameref{sec:aes-key-expansion}e
 den faktiska skillnaden bättre och därmed ge ett mer tillförlitligt resultat. % (To be rewived)
 
 Det är dock värt att notera att denna skillnad som kan uppstå mellan olika nyckel längder för \nameref{sec:aes-key-expansion}en inte är särskilt stor i förhållande till resten av krypteringsprocessen
-i takt med att data mängden ökar. Detta innebär då att felet som uppstår från att genomföra \nameref{sec:aes-key-expansion}en medan tidtagningen pågår även skulle kunna minimeras genom att
+i takt med att datamängden ökar. Detta innebär då att felet som uppstår från att genomföra \nameref{sec:aes-key-expansion}en medan tidtagningen pågår även skulle kunna minimeras genom att
 öka datamängden. Något som då skulle göra att skillnaden blir försumbar i förhållande till resten av krypteringsprocessen.% (To be rewived)
 
 Ytterligare en förbättring kan vara att på något sätt begränsa \gls{cpuh} till en viss fast klockhastighet, vilket då skulle ge varje omgång av undersökningen samma förutsättningar
@@ -103,6 +103,8 @@ besvaras med hjälp av resultatet från krypteringstestet där det tydligt gå a
 från \acrshort{ecb} krypteringen där det tydligt går att se spår av den ursprungliga bilden samtidigt som detta inte går att se i skiffertexten från \acrshort{cbc} och \acrshort{ofb}. Utifrån detta går det då att dra slutsatsen
 att körläget \acrshort{ecb} är sämre ur ett säkerhetsperspektiv för större datamängder än \acrshort{cbc} och \acrshort{ofb} eftersom det trots kryptering fortfarande går att se spår av den ursprungliga
 informationen i skiffertexten.
+
+\pagebreak
 
 Sammanfattningsvis går det utifrån denna undersökning då att dra slutsatsen att det tar längre tid att kryptera information vid användande av en längre så som en 256-bit nyckel jämfört med en kortare så som 128-bit nyckel. Samtidigt
 som det möjligen skulle kunna finnas en liten tidsskillnad mellan \acrshort{ecb}, \acrshort{cbc} och \acrshort{ofb}. Samt att \acrshort{ecb} är sämre ur ett säkerhetsperspektiv för att kryptera större informationsmängder än
