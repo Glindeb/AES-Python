@@ -54,7 +54,7 @@
 \contentsline {section}{\numberline {A.1}Före testet}{42}{section.A.1}%
 \contentsline {section}{\numberline {A.2}Efter ECB kryptering}{43}{section.A.2}%
 \contentsline {section}{\numberline {A.3}Efter CBC kryptering}{43}{section.A.3}%
-\contentsline {section}{\numberline {A.4}Efter CFB kryptering}{44}{section.A.4}%
+\contentsline {section}{\numberline {A.4}Efter OFB kryptering}{44}{section.A.4}%
 \contentsline {chapter}{\numberline {B}Fullständig data från testerna}{45}{appendix.B}%
 \contentsline {section}{\numberline {B.1}Data från nyckellängdstest}{45}{section.B.1}%
 \contentsline {section}{\numberline {B.2}Data från körlägestest}{46}{section.B.2}%
