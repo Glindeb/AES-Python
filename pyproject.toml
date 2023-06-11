@@ -40,7 +40,6 @@ PyAES = "PyAES.__main__:main"
 where = ["src"]
 
 [tool.pytest.ini_options]
-addopts = "--cov=src/PyAES"
 testpaths = [
     "tests",
 ]
